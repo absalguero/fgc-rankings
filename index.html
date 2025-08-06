@@ -6,18 +6,17 @@
   <title>Fighting Game Rankings</title>
   <style>
     html {
-      background-color: #000000; /* Ensure full black background across viewport */
+      background-color: #000000;
     }
 
     body {
       font-family: Arial, sans-serif;
       margin: 0;
-      background-color: #000000; /* Full black background */
+      background-color: #000000;
       color: #f0f0f0;
-      text-align: center; /* Center all text by default */
+      text-align: center;
     }
 
-    /* Banner styling */
     .banner {
       display: block;
       width: 100%;
@@ -112,7 +111,6 @@
 </head>
 <body>
   <img class="banner" src="/images/banner.png" alt="Site Banner">
-  <!-- If you want the gradient banner text as well, uncomment below -->
   <!-- <div class="banner-text">FGC Rankings</div> -->
 
   <h1>Street Fighter 6 Current Rankings</h1>
@@ -132,5 +130,33 @@
       <!-- Player data will be dynamically inserted here from Google Sheets -->
     </tbody>
   </table>
+
+  <!-- PapaParse and Sheet Integration -->
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+  <script>
+    const sheetURL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vS-5EA7Uvl16qJolXsMR4SRAzXb6XwclnVtT92byBa34nk3WMk6qL2XG79-xF-uRg/pubhtml?gid=1862929315&single=true';
+
+    Papa.parse(sheetURL, {
+      download: true,
+      header: true,
+      complete: function(results) {
+        const data = results.data;
+        const tbody = document.getElementById('rankings-table-body');
+
+        data.forEach(row => {
+          if (!row.Rank || !row.Tag) return; // skip empty rows
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td>${row.Rank}</td>
+            <td>${row.Tag}</td>
+            <td>${row.Character}</td>
+            <td>${row.Region}</td>
+            <td>${row.Points}</td>
+          `;
+          tbody.appendChild(tr);
+        });
+      }
+    });
+  </script>
 </body>
 </html>
