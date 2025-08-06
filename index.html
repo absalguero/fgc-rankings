@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Fighting Game Rankings</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background-color: #121212;
+      color: #f0f0f0;
+      text-align: center; /* Center all text by default */
+    }
+    /* Banner styling */
+    .banner {
+      background: linear-gradient(90deg, #ff416c, #ff4b2b);
+      padding: 1rem 2rem;
+      font-size: 2rem;
+      font-weight: bold;
+      letter-spacing: 2px;
+      color: white;
+      user-select: none;
+    }
+    h1 {
+      margin: 2rem 0 1rem 0;
+    }
+    table {
+      margin: 0 auto 2rem auto; /* Center the table horizontally */
+      border-collapse: collapse;
+      width: 90%;
+      max-width: 900px;
+    }
+    thead {
+      background-color: #1f1f1f;
+    }
+    th, td {
+      padding: 0.75rem 1rem;
+      border: 1px solid #333;
+      text-align: center; /* Center text in table cells */
+    }
+    tbody tr:nth-child(even) {
+      background-color: #1a1a1a;
+    }
+    tbody tr:hover {
+      background-color: #333;
+    }
+    @media (max-width: 600px) {
+      table, thead, tbody, th, td, tr {
+        display: block;
+      }
+      thead tr {
+        display: none;
+      }
+      tbody tr {
+        margin-bottom: 1rem;
+        border: 1px solid #333;
+        padding: 0.5rem;
+        margin-left: 2rem;
+        margin-right: 2rem;
+        text-align: center; /* Center on mobile as well */
+      }
+      tbody td {
+        padding-left: 50%;
+        position: relative;
+      }
+      tbody td::before {
+        content: attr(data-label);
+        position: absolute;
+        left: 1rem;
+        top: 0.5rem;
+        font-weight: bold;
+        white-space: nowrap;
+        text-align: left;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="banner">FIGHTING GAME RANKINGS</div>
+  <h1>Current Standings</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>Rank</th>
+        <th>Tag</th>
+        <th>Character</th>
+        <th>Region</th>
+        <th>Points</th>
+      </tr>
+    </thead>
+    <tbody id="rankings-table-body">
+      <!-- Player data will be dynamically inserted here from Google Sheets -->
+    </tbody>
+  </table>
+</body>
+</html>
