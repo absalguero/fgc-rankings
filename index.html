@@ -14,6 +14,14 @@
     }
     /* Banner styling */
     .banner {
+      max-width: 100%;
+      height: auto;
+      max-height: 150px;       /* Adjust height as needed */
+      display: block;
+      margin: 0 auto 1rem auto; /* Center horizontally and add bottom margin */
+      object-fit: contain;
+    }
+    .banner-text {
       background: linear-gradient(90deg, #ff416c, #ff4b2b);
       padding: 1rem 2rem;
       font-size: 2rem;
@@ -21,6 +29,7 @@
       letter-spacing: 2px;
       color: white;
       user-select: none;
+      margin-bottom: 2rem;
     }
     h1 {
       margin: 2rem 0 1rem 0;
@@ -79,7 +88,9 @@
      crossorigin="anonymous"></script>
 </head>
 <body>
-  <img src="\images\banner.png" alt="Site Banner" style="width:100%; height:auto;">
+  <img class="banner" src="/images/banner.png" alt="Site Banner">
+  <!-- If you want the gradient banner text as well, uncomment below -->
+  <!-- <div class="banner-text">FGC Rankings</div> -->
   <h1>Current Standings</h1>
   <table>
     <thead>
