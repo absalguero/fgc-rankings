@@ -137,26 +137,32 @@
     const sheetURL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vS-5EA7Uvl16qJolXsMR4SRAzXb6XwclnVtT92byBa34nk3WMk6qL2XG79-xF-uRg/pub?gid=1862929315&single=true&output=csv';
 
     Papa.parse(sheetURL, {
-      download: true,
-      header: true,
-      complete: function(results) {
-        const data = results.data;
-        const tbody = document.getElementById('rankings-table-body');
+  download: true,
+  header: true,
+  complete: function(results) {
+    const data = results.data;
+    const tbody = document.getElementById('rankings-table-body');
 
-        data.forEach(row => {
-          if (!row.Rank || !row.Player) return; // Skip rows missing key data
-          const tr = document.createElement('tr');
-          tr.innerHTML = `
-            <td>${row.Rank}</td>
-            <td>${row.Player}</td>
-            <td>${row.Character}</td>
-            <td>${row.Region}</td>
-            <td>${row.Points}</td>
-          `;
-          tbody.appendChild(tr);
-        });
-      }
-    });
+    const maxRows = 25;
+    let count = 0;
+
+    for (let i = 0; i < data.length && count < maxRows; i++) {
+      const row = data[i];
+      if (!row.Rank || !row.Player) continue; // skip incomplete rows
+      
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td>${row.Rank}</td>
+        <td>${row.Player}</td>
+        <td>${row.Character}</td>
+        <td>${row.Region}</td>
+        <td>${row.Points}</td>
+      `;
+      tbody.appendChild(tr);
+      count++;
+    }
+  }
+});
   </script>
 </body>
 </html>
