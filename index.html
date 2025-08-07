@@ -120,7 +120,7 @@
     <thead>
       <tr>
         <th>Rank</th>
-        <th>Tag</th>
+        <th>Player</th>
         <th>Character</th>
         <th>Region</th>
         <th>Points</th>
@@ -134,7 +134,7 @@
   <!-- PapaParse and Google Sheets Integration -->
   <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
   <script>
-    const sheetURL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vS-5EA7Uvl16qJolXsMR4SRAzXb6XwclnVtT92byBa34nk3WMk6qL2XG79-xF-uRg/pub?gid=1862929315&single=true&output=csv&gid=1862929315';
+    const sheetURL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vS-5EA7Uvl16qJolXsMR4SRAzXb6XwclnVtT92byBa34nk3WMk6qL2XG79-xF-uRg/pub?gid=1862929315&single=true&output=csv';
 
     Papa.parse(sheetURL, {
       download: true,
@@ -144,11 +144,11 @@
         const tbody = document.getElementById('rankings-table-body');
 
         data.forEach(row => {
-          if (!row.Rank || !row.Tag) return; // Skip rows missing key data
+          if (!row.Rank || !row.Player) return; // Skip rows missing key data
           const tr = document.createElement('tr');
           tr.innerHTML = `
             <td>${row.Rank}</td>
-            <td>${row.Tag}</td>
+            <td>${row.Player}</td>
             <td>${row.Character}</td>
             <td>${row.Region}</td>
             <td>${row.Points}</td>
