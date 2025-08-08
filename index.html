@@ -9,6 +9,7 @@
     gtag('js', new Date());
     gtag('config', 'G-47ZV9G37SY');
   </script>
+
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Fighting Game Rankings</title>
@@ -90,37 +91,40 @@
       }
 
       tbody tr {
-        margin-bottom: 1rem;
-        border: 1px solid #333;
-        padding: 0.75rem 1rem;
-        border-radius: 10px;
         background-color: #111;
-        box-shadow: 0 0 5px rgba(255, 255, 255, 0.1);
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(255,255,255,0.1);
+        margin: 1rem;
+        padding: 1rem;
       }
 
       tbody td {
-        padding-left: 50%;
-        position: relative;
-        padding: 0.5rem 1rem 0.5rem 1rem;
+        display: block;
         text-align: left;
+        position: relative;
+        padding: 1rem 1rem 1rem 6rem;
         border: none;
-        border-bottom: 1px solid #333;
       }
 
       tbody td::before {
         content: attr(data-label);
         position: absolute;
         left: 1rem;
-        top: 0.5rem;
+        top: 50%;
+        transform: translateY(-50%);
         font-weight: bold;
-        color: #ccc;
+        color: #999;
+        font-size: 0.85rem;
         text-transform: uppercase;
+        white-space: nowrap;
       }
     }
   </style>
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4748186290410675"
-     crossorigin="anonymous"></script>
+
+  <!-- Google AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4748186290410675" crossorigin="anonymous"></script>
 </head>
+
 <body>
   <img class="banner" src="/images/banner.png" alt="Site Banner">
   <!-- <div class="banner-text">FGC Rankings</div> -->
@@ -160,8 +164,8 @@
 
         for (let i = 0; i < data.length && count < maxRows; i++) {
           const row = data[i];
-          if (!row.Rank || !row.Player) continue; // skip incomplete rows
-          
+          if (!row.Rank || !row.Player) continue;
+
           const tr = document.createElement('tr');
           tr.innerHTML = `
             <td data-label="Rank">${row.Rank}</td>
