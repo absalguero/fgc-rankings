@@ -91,44 +91,38 @@
       }
 
       tbody tr {
-        background-color: #111;
-        border-radius: 8px;
-        box-shadow: 0 2px 8px rgba(255,255,255,0.1);
-        margin: 1rem;
-        padding: 1rem;
+        margin-bottom: 1rem;
+        border: 1px solid #333;
+        padding: 0.5rem;
+        margin-left: 2rem;
+        margin-right: 2rem;
+        text-align: center;
       }
 
       tbody td {
-        display: block;
-        text-align: left;
+        padding-left: 50%;
         position: relative;
-        padding: 1rem 1rem 1rem 6rem;
-        border: none;
+        text-align: left;
       }
 
       tbody td::before {
         content: attr(data-label);
         position: absolute;
         left: 1rem;
-        top: 50%;
-        transform: translateY(-50%);
+        top: 0.5rem;
         font-weight: bold;
-        color: #999;
-        font-size: 0.85rem;
-        text-transform: uppercase;
         white-space: nowrap;
+        text-align: left;
+        text-indent: 0.25rem; /* <-- added spacing here */
       }
     }
   </style>
 
-  <!-- Google AdSense -->
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4748186290410675" crossorigin="anonymous"></script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4748186290410675"
+     crossorigin="anonymous"></script>
 </head>
-
 <body>
   <img class="banner" src="/images/banner.png" alt="Site Banner">
-  <!-- <div class="banner-text">FGC Rankings</div> -->
-
   <h1>Street Fighter 6 Current Rankings</h1>
   <h2>Last Updated: August 3, 2025</h2>
 
@@ -164,8 +158,8 @@
 
         for (let i = 0; i < data.length && count < maxRows; i++) {
           const row = data[i];
-          if (!row.Rank || !row.Player) continue;
-
+          if (!row.Rank || !row.Player) continue; // skip incomplete rows
+          
           const tr = document.createElement('tr');
           tr.innerHTML = `
             <td data-label="Rank">${row.Rank}</td>
