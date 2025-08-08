@@ -2,14 +2,13 @@
 <html lang="en">
 <head>
   <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-47ZV9G37SY"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-47ZV9G37SY');
-</script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-47ZV9G37SY"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-47ZV9G37SY');
+  </script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Fighting Game Rankings</title>
@@ -93,15 +92,19 @@
       tbody tr {
         margin-bottom: 1rem;
         border: 1px solid #333;
-        padding: 0.5rem;
-        margin-left: 2rem;
-        margin-right: 2rem;
-        text-align: center;
+        padding: 0.75rem 1rem;
+        border-radius: 10px;
+        background-color: #111;
+        box-shadow: 0 0 5px rgba(255, 255, 255, 0.1);
       }
 
       tbody td {
         padding-left: 50%;
         position: relative;
+        padding: 0.5rem 1rem 0.5rem 1rem;
+        text-align: left;
+        border: none;
+        border-bottom: 1px solid #333;
       }
 
       tbody td::before {
@@ -110,8 +113,8 @@
         left: 1rem;
         top: 0.5rem;
         font-weight: bold;
-        white-space: nowrap;
-        text-align: left;
+        color: #ccc;
+        text-transform: uppercase;
       }
     }
   </style>
@@ -146,32 +149,32 @@
     const sheetURL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vS-5EA7Uvl16qJolXsMR4SRAzXb6XwclnVtT92byBa34nk3WMk6qL2XG79-xF-uRg/pub?gid=1862929315&single=true&output=csv';
 
     Papa.parse(sheetURL, {
-  download: true,
-  header: true,
-  complete: function(results) {
-    const data = results.data;
-    const tbody = document.getElementById('rankings-table-body');
+      download: true,
+      header: true,
+      complete: function(results) {
+        const data = results.data;
+        const tbody = document.getElementById('rankings-table-body');
 
-    const maxRows = 25;
-    let count = 0;
+        const maxRows = 25;
+        let count = 0;
 
-    for (let i = 0; i < data.length && count < maxRows; i++) {
-      const row = data[i];
-      if (!row.Rank || !row.Player) continue; // skip incomplete rows
-      
-      const tr = document.createElement('tr');
-      tr.innerHTML = `
-        <td>${row.Rank}</td>
-        <td>${row.Player}</td>
-        <td>${row.Character}</td>
-        <td>${row.Region}</td>
-        <td>${row.Points}</td>
-      `;
-      tbody.appendChild(tr);
-      count++;
-    }
-  }
-});
+        for (let i = 0; i < data.length && count < maxRows; i++) {
+          const row = data[i];
+          if (!row.Rank || !row.Player) continue; // skip incomplete rows
+          
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td data-label="Rank">${row.Rank}</td>
+            <td data-label="Player">${row.Player}</td>
+            <td data-label="Character">${row.Character}</td>
+            <td data-label="Region">${row.Region}</td>
+            <td data-label="Points">${row.Points}</td>
+          `;
+          tbody.appendChild(tr);
+          count++;
+        }
+      }
+    });
   </script>
 </body>
 </html>
