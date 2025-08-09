@@ -12,7 +12,7 @@
 
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Fighting Game Rankings</title>
+  <title>FGC Rankings</title>
   
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="/images/favicon.png" />
@@ -80,13 +80,19 @@
       align-items: center; /* center all content horizontally */
     }
 
-    .sidebar-title {
-      font-family: 'TrashHand', cursive;
+    .sidebar-label {
+      font-family: 'TrashHand';
       font-weight: 700;
       font-size: 1.3rem;
-      margin: 0 0 20px 0;
-      color: #f0f0f0;
+      margin-bottom: 20px;
+      color: #999999;         /* lighter grey to look like a label */
       text-align: center;
+      user-select: none;      /* prevents text selection on click */
+      cursor: default;        /* shows default arrow cursor, not pointer */
+      /* Removed text-transform: uppercase; */
+      letter-spacing: 1px;    /* slightly reduced spacing */
+      border-bottom: 1px solid #444;  /* subtle underline as a separator */
+      padding-bottom: 5px;
       width: 100%;
     }
 
@@ -110,7 +116,7 @@
       font-size: 1.1rem;
       display: block;
       transition: color 0.3s ease;
-      font-family: 'TrashHand', cursive;
+      font-family: 'TrashHand';
       width: 100%;
     }
 
@@ -271,15 +277,16 @@
 
     /* Mobile styles */
     @media (max-width: 768px) {
-      body {
-        height: auto;          /* allow body height to grow */
-        overflow-y: auto;      /* enable vertical scrolling */
+      /* FORCE scrollable body and page-wrapper on mobile */
+      html, body {
+        height: auto !important;
+        overflow-y: auto !important;
       }
 
       .page-wrapper {
-        display: block;
-        height: auto;          /* allow natural height */
-        overflow: visible;     /* allow scrolling */
+        display: block !important;
+        height: auto !important;
+        overflow: visible !important;
       }
 
       .nav-toggle {
@@ -337,7 +344,7 @@
 
     <!-- Left Sidebar Navigation -->
     <nav class="sidebar">
-      <h3 class="sidebar-title">Menu</h3>
+      <div class="sidebar-label">Menu</div>
       <ul class="nav-menu">
         <li><a href="/sf6-rankings.html">SF6 Rankings</a></li>
       </ul>
