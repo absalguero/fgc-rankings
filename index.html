@@ -1,91 +1,113 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>FGC Rankings</title>
-  <link rel="icon" type="image/png" href="images/favicon.png">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Street Fighter 6 Rankings</title>
   <style>
     body {
       font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
       margin: 0;
       padding: 0;
-      background: 
-        linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.75)),
-        url('images/modern-pattern.jpg');
-      background-size: cover;
-      background-position: center;
-      color: white;
+      color: #333;
     }
+
     header {
+      background-color: #111;
+      padding: 20px 0;
       text-align: center;
-      padding: 20px;
     }
+
     header img {
-      max-width: 300px;
+      max-width: 100%;
       height: auto;
     }
-    table {
-      border-collapse: collapse;
-      width: 90%;
+
+    main {
+      max-width: 1000px;
       margin: 20px auto;
-      background: rgba(0, 0, 0, 0.85);
+      background: #fff;
+      padding: 20px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
       border-radius: 8px;
-      overflow: hidden;
     }
-    th, td {
-      padding: 12px 15px;
-      border-bottom: 1px solid #444;
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    table, th, td {
+      border: 1px solid #ccc;
+    }
+
+    th {
+      background-color: #333;
+      color: #fff;
+      padding: 10px;
+    }
+
+    td {
+      padding: 10px;
       text-align: left;
     }
-    th {
-      background: #222;
-      font-size: 1.1rem;
+
+    tr:nth-child(even) {
+      background-color: #f9f9f9;
     }
-    tr:hover {
-      background: rgba(255,255,255,0.05);
-    }
-    /* Mobile spacing adjustment */
-    @media (max-width: 768px) {
-      header {
-        padding-bottom: 0.25rem; /* 0.25rem space between header and data */
-      }
-      table {
-        width: 100%;
-      }
+
+    footer {
+      background-color: #111;
+      color: #fff;
+      text-align: center;
+      padding: 10px 0;
+      margin-top: 40px;
     }
   </style>
 </head>
 <body>
   <header>
-    <img src="images/sf6-rankings.png" alt="Street Fighter 6 Rankings">
+    <img src="images/sf6-rankings.png" alt="Street Fighter 6 Current Rankings">
   </header>
 
-  <table>
-    <thead>
-      <tr>
-        <th>Rank</th>
-        <th>Player</th>
-        <th>Points</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>1</td>
-        <td>MenaRD</td>
-        <td>1020</td>
-      </tr>
-      <tr>
-        <td>2</td>
-        <td>Leshar</td>
-        <td>980</td>
-      </tr>
-      <tr>
-        <td>3</td>
-        <td>Kakeru</td>
-        <td>950</td>
-      </tr>
-    </tbody>
-  </table>
+  <main>
+    <table>
+      <thead>
+        <tr>
+          <th>Rank</th>
+          <th>Player</th>
+          <th>Points</th>
+          <th>Country</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>MenaRD</td>
+          <td>500</td>
+          <td>Dominican Republic</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>Leshar</td>
+          <td>480</td>
+          <td>Japan</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>Kakeru</td>
+          <td>470</td>
+          <td>Japan</td>
+        </tr>
+        <!-- Add more rows as needed -->
+      </tbody>
+    </table>
+  </main>
+
+  <footer>
+    &copy; 2025 Street Fighter 6 Rankings
+  </footer>
 </body>
 </html>
