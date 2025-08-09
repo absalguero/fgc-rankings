@@ -1,182 +1,91 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-47ZV9G37SY"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-47ZV9G37SY');
-  </script>
-
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Fighting Game Rankings</title>
-  
-  <!-- Favicon -->
-  <link rel="icon" type="image/png" href="/images/favicon.png" />
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FGC Rankings</title>
+  <link rel="icon" type="image/png" href="images/favicon.png">
   <style>
-    html {
-      background-color: #000000;
-    }
-
     body {
       font-family: Arial, sans-serif;
       margin: 0;
-      background-color: #000000;
-      color: #f0f0f0;
-      text-align: center;
-    }
-
-    .banner {
-      display: block;
-      width: 100%;
-      height: auto;
-      max-height: 300px;
-      object-fit: contain;
-      margin: 0 auto;
-    }
-
-    .banner-text {
-      background: linear-gradient(90deg, #ff416c, #ff4b2b);
-      padding: 1rem 2rem;
-      font-size: 2rem;
-      font-weight: bold;
-      letter-spacing: 2px;
+      padding: 0;
+      background: 
+        linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.75)),
+        url('images/modern-pattern.jpg');
+      background-size: cover;
+      background-position: center;
       color: white;
-      user-select: none;
-      margin-bottom: 2rem;
     }
-
-    h1 {
-      margin: 2rem 0 1rem 0;
+    header {
+      text-align: center;
+      padding: 20px;
     }
-
-    h2 {
-      margin: 0 0 2rem 0;
-      font-weight: normal;
-      color: #ccc;
+    header img {
+      max-width: 300px;
+      height: auto;
     }
-
     table {
-      margin: 0 auto 2rem auto;
       border-collapse: collapse;
       width: 90%;
-      max-width: 900px;
+      margin: 20px auto;
+      background: rgba(0, 0, 0, 0.85);
+      border-radius: 8px;
+      overflow: hidden;
     }
-
-    thead {
-      background-color: #1f1f1f;
-    }
-
     th, td {
-      padding: 0.75rem 1rem;
-      border: 1px solid #333;
-      text-align: center;
+      padding: 12px 15px;
+      border-bottom: 1px solid #444;
+      text-align: left;
     }
-
-    tbody tr:nth-child(even) {
-      background-color: #1a1a1a;
+    th {
+      background: #222;
+      font-size: 1.1rem;
     }
-
-    tbody tr:hover {
-      background-color: #333;
+    tr:hover {
+      background: rgba(255,255,255,0.05);
     }
-
-    @media (max-width: 600px) {
-      table, thead, tbody, th, td, tr {
-        display: block;
+    /* Mobile spacing adjustment */
+    @media (max-width: 768px) {
+      header {
+        padding-bottom: 0.25rem; /* 0.25rem space between header and data */
       }
-
-      thead tr {
-        display: none;
-      }
-
-      tbody tr {
-        margin-bottom: 1rem;
-        border: 1px solid #333;
-        padding: 0.5rem;
-        margin-left: 2rem;
-        margin-right: 2rem;
-        text-align: center;
-      }
-
-      tbody td {
-        padding-left: 50%;
-        position: relative;
-        text-align: left;
-      }
-
-      tbody td::before {
-        content: attr(data-label);
-        position: absolute;
-        left: 1rem;
-        top: 0.5rem;
-        font-weight: bold;
-        white-space: nowrap;
-        text-align: left;
-        text-indent: 0.25rem; /* spacing between header label and data */
+      table {
+        width: 100%;
       }
     }
   </style>
-
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4748186290410675"
-     crossorigin="anonymous"></script>
 </head>
 <body>
-  <img class="banner" src="/images/banner.png" alt="Site Banner">
-  <h1>Street Fighter 6 Current Rankings</h1>
-  <h2>Last Updated: August 3, 2025</h2>
+  <header>
+    <img src="images/sf6-rankings.png" alt="Street Fighter 6 Rankings">
+  </header>
 
   <table>
     <thead>
       <tr>
         <th>Rank</th>
         <th>Player</th>
-        <th>Character</th>
-        <th>Region</th>
         <th>Points</th>
       </tr>
     </thead>
-    <tbody id="rankings-table-body">
-      <!-- Player data will be dynamically inserted here from Google Sheets -->
+    <tbody>
+      <tr>
+        <td>1</td>
+        <td>MenaRD</td>
+        <td>1020</td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>Leshar</td>
+        <td>980</td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td>Kakeru</td>
+        <td>950</td>
+      </tr>
     </tbody>
   </table>
-
-  <!-- PapaParse and Google Sheets Integration -->
-  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
-  <script>
-    const sheetURL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vS-5EA7Uvl16qJolXsMR4SRAzXb6XwclnVtT92byBa34nk3WMk6qL2XG79-xF-uRg/pub?gid=1862929315&single=true&output=csv';
-
-    Papa.parse(sheetURL, {
-      download: true,
-      header: true,
-      complete: function(results) {
-        const data = results.data;
-        const tbody = document.getElementById('rankings-table-body');
-
-        const maxRows = 25;
-        let count = 0;
-
-        for (let i = 0; i < data.length && count < maxRows; i++) {
-          const row = data[i];
-          if (!row.Rank || !row.Player) continue; // skip incomplete rows
-          
-          const tr = document.createElement('tr');
-          tr.innerHTML = `
-            <td data-label="Rank">${row.Rank}</td>
-            <td data-label="Player">${row.Player}</td>
-            <td data-label="Character">${row.Character}</td>
-            <td data-label="Region">${row.Region}</td>
-            <td data-label="Points">${row.Points}</td>
-          `;
-          tbody.appendChild(tr);
-          count++;
-        }
-      }
-    });
-  </script>
 </body>
 </html>
