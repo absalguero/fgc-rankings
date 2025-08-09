@@ -34,7 +34,7 @@
       color: #f0f0f0;
       display: flex;
       height: 100vh;
-      /* Removed overflow: hidden to enable scrolling on mobile */
+      overflow: hidden;
     }
 
     /* Hamburger toggle button */
@@ -51,7 +51,7 @@
       z-index: 1100; /* on top */
     }
 
-    /* Wrapper for sidebar + main content */
+    /* Wrapper for sidebar + main content + events */
     .page-wrapper {
       display: flex;
       flex: 1;
@@ -60,9 +60,9 @@
     }
 
     /* Sidebar styles */
-    .sidebar {
+    nav.sidebar {
       background-color: #111;
-      width: 130px; /* reduced width */
+      width: 160px;
       padding: 10px 15px;
       box-sizing: border-box;
       box-shadow: 2px 0 5px rgba(0,0,0,0.7);
@@ -73,16 +73,33 @@
       transition: transform 0.3s ease;
       z-index: 1000;
       flex-shrink: 0;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center; /* center all content horizontally */
+    }
+
+    .sidebar-title {
+      font-family: 'TrashHand', cursive;
+      font-weight: 700;
+      font-size: 1.3rem;
+      margin: 0 0 20px 0;
+      color: #f0f0f0;
+      text-align: center;
+      width: 100%;
     }
 
     .nav-menu {
       list-style: none;
-      padding: 40px 0 0 0;
+      padding: 0;
       margin: 0;
+      width: 100%; /* so links take full sidebar width */
     }
 
     .nav-menu li {
       margin-bottom: 1.2rem;
+      text-align: center;
     }
 
     /* Apply TrashHand font to sidebar links */
@@ -90,10 +107,11 @@
       color: #f0f0f0;
       text-decoration: none;
       font-weight: 600;
-      font-size: 1.2rem;
+      font-size: 1.1rem;
       display: block;
       transition: color 0.3s ease;
       font-family: 'TrashHand', cursive;
+      width: 100%;
     }
 
     .nav-menu li a:hover {
@@ -101,12 +119,13 @@
     }
 
     /* Main content area */
-    .content {
+    main.content {
       flex: 1;
       padding: 20px 30px;
       overflow-y: auto;
       box-sizing: border-box;
       text-align: center;
+      min-width: 0;
     }
 
     /* Banner styles */
@@ -156,6 +175,63 @@
       background-color: #333;
     }
 
+    /* Right sidebar for upcoming events */
+    aside.events {
+      background-color: #111;
+      width: 220px;
+      padding: 15px;
+      box-sizing: border-box;
+      box-shadow: -2px 0 5px rgba(0,0,0,0.7);
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+      flex-shrink: 0;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      color: #f0f0f0;
+      font-family: Arial, sans-serif;
+      align-items: center;
+    }
+
+    aside.events h3 {
+      margin-top: 0;
+      margin-bottom: 15px;
+      font-weight: bold;
+      font-size: 1.2rem;
+      text-align: center;
+    }
+
+    .event-link {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      color: #f0f0f0;
+      margin-bottom: 20px;
+      transition: color 0.3s ease;
+    }
+
+    .event-link:hover {
+      color: #ff4b2b;
+    }
+
+    .event-image {
+      width: 80px;
+      height: 80px;
+      object-fit: contain;
+      margin-right: 15px;
+      border-radius: 8px;
+      background: #222;
+      flex-shrink: 0;
+    }
+
+    .event-info {
+      font-size: 0.95rem;
+      line-height: 1.2;
+    }
+
     /* Responsive table for small screens */
     @media (max-width: 600px) {
       table, thead, tbody, th, td, tr {
@@ -193,50 +269,51 @@
       }
     }
 
-    /* Mobile: sidebar off-canvas and hamburger toggle visible */
+    /* Mobile styles */
     @media (max-width: 768px) {
-      body {
-        overflow: auto;
-        height: auto;
-        display: block;
-      }
-      .page-wrapper {
-        display: block;
-        height: auto;
-      }
       .nav-toggle {
         display: block;
-        z-index: 1100; /* keep it on top */
+        z-index: 1100;
       }
-      
-      .sidebar {
+
+      .page-wrapper {
+        display: block;
+      }
+
+      nav.sidebar {
         position: fixed;
         top: 0;
         left: 0;
-        height: 100%;
-        width: 130px; /* reduced width */
-        box-shadow: 2px 0 5px rgba(0,0,0,0.9);
-        background-color: #111;
+        height: 100vh;
+        width: 160px;
+        padding-top: 60px;
         transform: translateX(-100%);
         transition: transform 0.3s ease;
-        padding-top: 60px;
-        box-sizing: border-box;
-        z-index: 1000;
+        box-shadow: 2px 0 5px rgba(0,0,0,0.9);
+        background-color: #111;
         overflow-y: auto;
+        z-index: 1000;
+        align-items: flex-start; /* revert to left align on mobile */
       }
-
-      .sidebar.active {
+      nav.sidebar.active {
         transform: translateX(0);
       }
 
-      .content {
+      main.content {
         padding: 80px 20px 20px 20px;
-        overflow-y: auto;
+        overflow-y: visible;
+        min-height: auto;
       }
 
-      /* Larger font size on mobile */
-      .nav-menu li a {
-        font-size: 1.5rem;
+      aside.events {
+        display: block;
+        width: auto;
+        height: auto;
+        padding: 20px;
+        box-shadow: none;
+        margin-top: 20px;
+        position: relative;
+        align-items: flex-start;
       }
     }
   </style>
@@ -251,12 +328,15 @@
 
   <div class="page-wrapper">
 
+    <!-- Left Sidebar Navigation -->
     <nav class="sidebar">
+      <h3 class="sidebar-title">Menu</h3>
       <ul class="nav-menu">
-        <li><a href="/" style="font-family: 'TrashHand', cursive;">▶ SF6 Rankings</a></li>
+        <li><a href="/sf6-rankings.html">SF6 Rankings</a></li>
       </ul>
     </nav>
 
+    <!-- Main Content -->
     <main class="content">
       <img class="banner" src="/images/banner.png" alt="Site Banner" />
       <h1>Street Fighter 6 Current Rankings</h1>
@@ -278,6 +358,18 @@
       </table>
     </main>
 
+    <!-- Right Sidebar Upcoming Events -->
+    <aside class="events">
+      <h3>Upcoming Ranked Events</h3>
+      <a href="https://www.start.gg/tournament/vsfighting-xiii/details" target="_blank" rel="noopener noreferrer" class="event-link">
+        <img src="/images/vsfighting.png" alt="VSFighting XIII" class="event-image" />
+        <div class="event-info">
+          <strong>VSFighting XIII</strong><br />
+          August 15–17, 2025
+        </div>
+      </a>
+    </aside>
+
   </div>
 
   <!-- PapaParse and Google Sheets Integration -->
@@ -297,7 +389,7 @@
 
         for (let i = 0; i < data.length && count < maxRows; i++) {
           const row = data[i];
-          if (!row.Rank || !row.Player) continue;
+          if (!row.Rank || !row.Player) continue; // skip incomplete rows
           
           const tr = document.createElement('tr');
           tr.innerHTML = `
@@ -317,16 +409,40 @@
   <script>
     // Sidebar toggle for mobile
     const toggleButton = document.querySelector('.nav-toggle');
-    const sidebar = document.querySelector('.sidebar');
+    const sidebar = document.querySelector('nav.sidebar');
 
     toggleButton.addEventListener('click', () => {
       sidebar.classList.toggle('active');
     });
 
-    // Close sidebar when clicking outside on mobile
-    document.addEventListener('click', function(event) {
-      if (!sidebar.contains(event.target) && !toggleButton.contains(event.target)) {
-        sidebar.classList.remove('active');
+    // Close sidebar when clicking outside it (on mobile)
+    document.addEventListener('click', (e) => {
+      if (window.innerWidth <= 768) {
+        if (!sidebar.contains(e.target) && !toggleButton.contains(e.target)) {
+          sidebar.classList.remove('active');
+        }
+      }
+    });
+
+    // Pull down to refresh functionality (mobile)
+    let touchStartY = 0;
+    let touchEndY = 0;
+    let refreshing = false;
+
+    window.addEventListener('touchstart', e => {
+      if (window.scrollY === 0) {
+        touchStartY = e.touches[0].clientY;
+      }
+    });
+
+    window.addEventListener('touchmove', e => {
+      touchEndY = e.touches[0].clientY;
+    });
+
+    window.addEventListener('touchend', () => {
+      if (!refreshing && window.scrollY === 0 && touchEndY - touchStartY > 100) {
+        refreshing = true;
+        location.reload();
       }
     });
   </script>
