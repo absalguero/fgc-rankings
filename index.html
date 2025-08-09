@@ -1,178 +1,104 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-47ZV9G37SY"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-47ZV9G37SY');
-  </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FGC Rankings</title>
 
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Fighting Game Rankings</title>
-  <style>
-    html {
-      background-color: #000000;
-    }
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/images/favicon.png">
 
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      background-color: #000000;
-      color: #f0f0f0;
-      text-align: center;
-    }
-
-    .banner {
-      display: block;
-      width: 100%;
-      height: auto;
-      max-height: 300px;
-      object-fit: contain;
-      margin: 0 auto;
-    }
-
-    .banner-text {
-      background: linear-gradient(90deg, #ff416c, #ff4b2b);
-      padding: 1rem 2rem;
-      font-size: 2rem;
-      font-weight: bold;
-      letter-spacing: 2px;
-      color: white;
-      user-select: none;
-      margin-bottom: 2rem;
-    }
-
-    h1 {
-      margin: 2rem 0 1rem 0;
-    }
-
-    h2 {
-      margin: 0 0 2rem 0;
-      font-weight: normal;
-      color: #ccc;
-    }
-
-    table {
-      margin: 0 auto 2rem auto;
-      border-collapse: collapse;
-      width: 90%;
-      max-width: 900px;
-    }
-
-    thead {
-      background-color: #1f1f1f;
-    }
-
-    th, td {
-      padding: 0.75rem 1rem;
-      border: 1px solid #333;
-      text-align: center;
-    }
-
-    tbody tr:nth-child(even) {
-      background-color: #1a1a1a;
-    }
-
-    tbody tr:hover {
-      background-color: #333;
-    }
-
-    @media (max-width: 600px) {
-      table, thead, tbody, th, td, tr {
-        display: block;
-      }
-
-      thead tr {
-        display: none;
-      }
-
-      tbody tr {
-        margin-bottom: 1rem;
-        border: 1px solid #333;
-        padding: 0.5rem;
-        margin-left: 2rem;
-        margin-right: 2rem;
-        text-align: center;
-      }
-
-      tbody td {
-        padding-left: 50%;
-        position: relative;
-        text-align: left;
-      }
-
-      tbody td::before {
-        content: attr(data-label);
-        position: absolute;
-        left: 1rem;
-        top: 0.5rem;
-        font-weight: bold;
-        white-space: nowrap;
-        text-align: left;
-        text-indent: 0.25rem; /* <-- added spacing here */
-      }
-    }
-  </style>
-
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4748186290410675"
-     crossorigin="anonymous"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .table-container {
+            display: block;
+            width: 100%;
+            overflow-x: auto;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+        th, td {
+            text-align: left;
+            padding: 8px;
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+        @media (max-width: 768px) {
+            table {
+                display: none;
+            }
+            .card {
+                border: 1px solid #ddd;
+                border-radius: 5px;
+                margin-bottom: 15px;
+                padding: 10px;
+                background-color: #fff;
+            }
+            .card h3 {
+                margin: 0 0 0.25rem 0; /* Added 0.25rem space between header and data */
+                font-size: 1.2em;
+            }
+            .card p {
+                margin: 5px 0;
+            }
+        }
+    </style>
 </head>
 <body>
-  <img class="banner" src="/images/banner.png" alt="Site Banner">
-  <h1>Street Fighter 6 Current Rankings</h1>
-  <h2>Last Updated: August 3, 2025</h2>
+    <div class="table-container" id="table-container"></div>
 
-  <table>
-    <thead>
-      <tr>
-        <th>Rank</th>
-        <th>Player</th>
-        <th>Character</th>
-        <th>Region</th>
-        <th>Points</th>
-      </tr>
-    </thead>
-    <tbody id="rankings-table-body">
-      <!-- Player data will be dynamically inserted here from Google Sheets -->
-    </tbody>
-  </table>
+    <script>
+        async function fetchData() {
+            const response = await fetch('https://docs.google.com/spreadsheets/d/e/2PACX-1vS-5EA7Uvl16qJolXsMR4SRAzXb6XwclnVtT92byBa34nk3WMk6qL2XG79-xF-uRg/pub?gid=1862929315&single=true&output=csv');
+            const data = await response.text();
+            const rows = data.split("\n").map(row => row.split(","));
 
-  <!-- PapaParse and Google Sheets Integration -->
-  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
-  <script>
-    const sheetURL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vS-5EA7Uvl16qJolXsMR4SRAzXb6XwclnVtT92byBa34nk3WMk6qL2XG79-xF-uRg/pub?gid=1862929315&single=true&output=csv';
+            const tableContainer = document.getElementById("table-container");
 
-    Papa.parse(sheetURL, {
-      download: true,
-      header: true,
-      complete: function(results) {
-        const data = results.data;
-        const tbody = document.getElementById('rankings-table-body');
-
-        const maxRows = 25;
-        let count = 0;
-
-        for (let i = 0; i < data.length && count < maxRows; i++) {
-          const row = data[i];
-          if (!row.Rank || !row.Player) continue; // skip incomplete rows
-          
-          const tr = document.createElement('tr');
-          tr.innerHTML = `
-            <td data-label="Rank">${row.Rank}</td>
-            <td data-label="Player">${row.Player}</td>
-            <td data-label="Character">${row.Character}</td>
-            <td data-label="Region">${row.Region}</td>
-            <td data-label="Points">${row.Points}</td>
-          `;
-          tbody.appendChild(tr);
-          count++;
+            if (window.innerWidth > 768) {
+                // Desktop table
+                let table = "<table><thead><tr>";
+                rows[0].forEach(header => {
+                    table += `<th>${header}</th>`;
+                });
+                table += "</tr></thead><tbody>";
+                for (let i = 1; i < rows.length; i++) {
+                    if (rows[i].length > 1) {
+                        table += "<tr>";
+                        rows[i].forEach(cell => {
+                            table += `<td>${cell}</td>`;
+                        });
+                        table += "</tr>";
+                    }
+                }
+                table += "</tbody></table>";
+                tableContainer.innerHTML = table;
+            } else {
+                // Mobile cards
+                let cards = "";
+                for (let i = 1; i < rows.length; i++) {
+                    if (rows[i].length > 1) {
+                        cards += `<div class="card">`;
+                        cards += `<h3>${rows[i][0]}</h3>`; // Character name
+                        for (let j = 1; j < rows[i].length; j++) {
+                            cards += `<p><strong>${rows[0][j]}:</strong> ${rows[i][j]}</p>`;
+                        }
+                        cards += `</div>`;
+                    }
+                }
+                tableContainer.innerHTML = cards;
+            }
         }
-      }
-    });
-  </script>
+
+        fetchData();
+    </script>
 </body>
 </html>
