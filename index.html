@@ -51,7 +51,7 @@
       z-index: 1100; /* on top */
     }
 
-    /* Wrapper for sidebar + main content + events */
+    /* Wrapper for 3 columns */
     .page-wrapper {
       display: flex;
       flex: 1;
@@ -60,7 +60,7 @@
     }
 
     /* Sidebar styles */
-    nav.sidebar {
+    .sidebar {
       background-color: #111;
       width: 160px;
       padding: 10px 15px;
@@ -73,65 +73,55 @@
       transition: transform 0.3s ease;
       z-index: 1000;
       flex-shrink: 0;
-
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-start;
-      align-items: center; /* center all content horizontally */
-    }
-
-    .sidebar-label {
-      font-family: 'TrashHand';
-      font-weight: 700;
-      font-size: 1.3rem;
-      margin-bottom: 20px;
-      color: #999999;         /* lighter grey to look like a label */
       text-align: center;
-      user-select: none;      /* prevents text selection on click */
-      cursor: default;        /* shows default arrow cursor, not pointer */
-      /* Removed text-transform: uppercase; */
-      letter-spacing: 1px;    /* slightly reduced spacing */
-      border-bottom: 1px solid #444;  /* subtle underline as a separator */
-      padding-bottom: 5px;
-      width: 100%;
     }
 
+    /* Left sidebar nav menu */
     .nav-menu {
       list-style: none;
       padding: 0;
-      margin: 0;
-      width: 100%; /* so links take full sidebar width */
+      margin: 2rem 0 0 0; /* pushed down */
     }
 
     .nav-menu li {
-      margin-bottom: 1.2rem;
-      text-align: center;
+      margin-bottom: 1.5rem;
     }
 
-    /* Apply TrashHand font to sidebar links */
     .nav-menu li a {
       color: #f0f0f0;
       text-decoration: none;
       font-weight: 600;
-      font-size: 1.1rem;
+      font-size: 1.25rem;
       display: block;
       transition: color 0.3s ease;
-      font-family: 'TrashHand';
-      width: 100%;
+      font-family: 'TrashHand', sans-serif;
     }
 
     .nav-menu li a:hover {
       color: #ff4b2b;
     }
 
+    /* Label "Menu" and "Upcoming Ranked Events" */
+    .sidebar-label,
+    .right-sidebar-label {
+      color: #bbbbbb; /* slightly grey */
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      font-family: Arial, sans-serif;
+      text-transform: none;
+      padding-bottom: 5px;
+      border-bottom: 2px solid #bbbbbb;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.7);
+    }
+
     /* Main content area */
-    main.content {
+    .content {
       flex: 1;
       padding: 20px 30px;
       overflow-y: auto;
       box-sizing: border-box;
       text-align: center;
-      min-width: 0;
     }
 
     /* Banner styles */
@@ -181,8 +171,8 @@
       background-color: #333;
     }
 
-    /* Right sidebar for upcoming events */
-    aside.events {
+    /* Right sidebar - upcoming events */
+    .right-sidebar {
       background-color: #111;
       width: 220px;
       padding: 15px;
@@ -193,141 +183,106 @@
       height: 100vh;
       overflow-y: auto;
       flex-shrink: 0;
-
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-start;
-      color: #f0f0f0;
-      font-family: Arial, sans-serif;
-      align-items: center;
-    }
-
-    aside.events h3 {
-      margin-top: 0;
-      margin-bottom: 15px;
-      font-weight: bold;
-      font-size: 1.2rem;
       text-align: center;
     }
 
-    .event-link {
+    .events-carousel {
       display: flex;
-      align-items: center;
-      text-decoration: none;
-      color: #f0f0f0;
-      margin-bottom: 20px;
-      transition: color 0.3s ease;
+      flex-direction: column; /* desktop vertical */
+      gap: 20px;
     }
 
-    .event-link:hover {
-      color: #ff4b2b;
-    }
-
-    .event-image {
-      width: 80px;
-      height: 80px;
-      object-fit: contain;
-      margin-right: 15px;
+    .event-card {
+      background-color: #222;
       border-radius: 8px;
-      background: #222;
-      flex-shrink: 0;
+      padding: 10px;
+      text-align: center;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    .event-card:hover {
+      background-color: #333;
     }
 
-    .event-info {
-      font-size: 0.95rem;
-      line-height: 1.2;
+    .event-card img {
+      width: 100%;
+      height: auto;
+      max-height: 120px;
+      object-fit: contain;
+      border-radius: 5px;
+      margin-bottom: 10px;
     }
 
-    /* Responsive table for small screens */
-    @media (max-width: 600px) {
-      table, thead, tbody, th, td, tr {
+    .event-title {
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: #f0f0f0;
+      margin-bottom: 5px;
+    }
+
+    .event-date {
+      font-size: 0.9rem;
+      color: #ccc;
+      margin-bottom: 5px;
+    }
+
+    .event-link {
+      color: #bbbbbb; /* slightly grey */
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    /* Responsive styles for mobile */
+    @media (max-width: 768px) {
+      body {
+        flex-direction: column;
+        height: auto;
+      }
+      .page-wrapper {
         display: block;
+        height: auto;
       }
 
-      thead tr {
-        display: none;
-      }
-
-      tbody tr {
-        margin-bottom: 1rem;
-        border: 1px solid #333;
-        padding: 0.5rem;
-        margin-left: 2rem;
-        margin-right: 2rem;
+      .sidebar, .right-sidebar {
+        position: relative;
+        width: 100%;
+        height: auto;
+        box-shadow: none;
+        padding: 15px 10px;
         text-align: center;
       }
 
-      tbody td {
-        padding-left: 50%;
-        position: relative;
-        text-align: left;
+      /* Left sidebar label */
+      .sidebar-label {
+        margin-bottom: 10px;
       }
 
-      tbody td::before {
-        content: attr(data-label);
-        position: absolute;
-        left: 1rem;
-        top: 0.5rem;
-        font-weight: bold;
-        white-space: nowrap;
-        text-align: left;
-        text-indent: 0.25rem;
-      }
-    }
-
-    /* Mobile styles */
-    @media (max-width: 768px) {
-      /* FORCE scrollable body and page-wrapper on mobile */
-      html, body {
-        height: auto !important;
-        overflow-y: auto !important;
+      /* Events carousel horizontal scroll */
+      .events-carousel {
+        flex-direction: row;
+        overflow-x: auto;
+        gap: 15px;
+        -webkit-overflow-scrolling: touch;
+        scroll-behavior: smooth;
+        padding-bottom: 5px;
       }
 
-      .page-wrapper {
-        display: block !important;
-        height: auto !important;
-        overflow: visible !important;
+      .event-card {
+        min-width: 200px;
+        max-width: 200px;
+        flex-shrink: 0;
+        margin-bottom: 0;
       }
 
+      /* Main content padding adjusted */
+      .content {
+        padding: 20px 10px;
+      }
+
+      /* Hamburger toggle button visible on mobile */
       .nav-toggle {
         display: block;
-        z-index: 1100;
-      }
-
-      nav.sidebar {
-        position: fixed;
-        top: 0;
-        left: 0;
-        height: 100vh;
-        width: 160px;
-        padding-top: 60px;
-        transform: translateX(-100%);
-        transition: transform 0.3s ease;
-        box-shadow: 2px 0 5px rgba(0,0,0,0.9);
-        background-color: #111;
-        overflow-y: auto;
-        z-index: 1000;
-        align-items: flex-start;
-      }
-      nav.sidebar.active {
-        transform: translateX(0);
-      }
-
-      main.content {
-        padding: 80px 20px 20px 20px;
-        overflow-y: visible;
-        min-height: auto;
-      }
-
-      aside.events {
-        display: block;
-        width: auto;
-        height: auto;
-        padding: 20px;
-        box-shadow: none;
-        margin-top: 20px;
-        position: relative;
-        align-items: flex-start;
       }
     }
   </style>
@@ -342,7 +297,6 @@
 
   <div class="page-wrapper">
 
-    <!-- Left Sidebar Navigation -->
     <nav class="sidebar">
       <div class="sidebar-label">Menu</div>
       <ul class="nav-menu">
@@ -350,7 +304,6 @@
       </ul>
     </nav>
 
-    <!-- Main Content -->
     <main class="content">
       <img class="banner" src="/images/banner.png" alt="Site Banner" />
       <h1>Street Fighter 6 Current Rankings</h1>
@@ -372,16 +325,17 @@
       </table>
     </main>
 
-    <!-- Right Sidebar Upcoming Events -->
-    <aside class="events">
-      <h3>Upcoming Ranked Events</h3>
-      <a href="https://www.start.gg/tournament/vsfighting-xiii/details" target="_blank" rel="noopener noreferrer" class="event-link">
-        <img src="/images/vsfighting.png" alt="VSFighting XIII" class="event-image" />
-        <div class="event-info">
-          <strong>VSFighting XIII</strong><br />
-          August 15–17, 2025
-        </div>
-      </a>
+    <aside class="right-sidebar">
+      <div class="right-sidebar-label">Upcoming Ranked Events</div>
+      <div class="events-carousel">
+        <a href="https://www.start.gg/tournament/vsfighting-xiii/details" target="_blank" rel="noopener" class="event-card">
+          <img src="/images/vsfighting.png" alt="VSFighting XIII" />
+          <div class="event-title">VSFighting XIII</div>
+          <div class="event-date">August 15-17, 2025</div>
+          <div class="event-link">More Info</div>
+        </a>
+        <!-- Add up to 5 event cards here -->
+      </div>
     </aside>
 
   </div>
@@ -423,40 +377,16 @@
   <script>
     // Sidebar toggle for mobile
     const toggleButton = document.querySelector('.nav-toggle');
-    const sidebar = document.querySelector('nav.sidebar');
+    const sidebar = document.querySelector('.sidebar');
 
     toggleButton.addEventListener('click', () => {
       sidebar.classList.toggle('active');
     });
 
-    // Close sidebar when clicking outside it (on mobile)
+    // Close sidebar if click outside
     document.addEventListener('click', (e) => {
-      if (window.innerWidth <= 768) {
-        if (!sidebar.contains(e.target) && !toggleButton.contains(e.target)) {
-          sidebar.classList.remove('active');
-        }
-      }
-    });
-
-    // Pull down to refresh functionality (mobile)
-    let touchStartY = 0;
-    let touchEndY = 0;
-    let refreshing = false;
-
-    window.addEventListener('touchstart', e => {
-      if (window.scrollY === 0) {
-        touchStartY = e.touches[0].clientY;
-      }
-    });
-
-    window.addEventListener('touchmove', e => {
-      touchEndY = e.touches[0].clientY;
-    });
-
-    window.addEventListener('touchend', () => {
-      if (!refreshing && window.scrollY === 0 && touchEndY - touchStartY > 100) {
-        refreshing = true;
-        location.reload();
+      if (!sidebar.contains(e.target) && !toggleButton.contains(e.target)) {
+        sidebar.classList.remove('active');
       }
     });
   </script>
