@@ -34,7 +34,7 @@
       color: #f0f0f0;
       display: flex;
       height: 100vh;
-      overflow: hidden;
+      /* Removed overflow: hidden to enable scrolling on mobile */
     }
 
     /* Hamburger toggle button */
@@ -62,8 +62,8 @@
     /* Sidebar styles */
     .sidebar {
       background-color: #111;
-      width: 160px;           /* narrowed */
-      padding: 10px 15px;     /* reduced horizontal padding */
+      width: 130px; /* reduced width */
+      padding: 10px 15px;
       box-sizing: border-box;
       box-shadow: 2px 0 5px rgba(0,0,0,0.7);
       position: sticky;
@@ -77,7 +77,7 @@
 
     .nav-menu {
       list-style: none;
-      padding: 40px 0 0 0; /* <-- pushed down */
+      padding: 40px 0 0 0;
       margin: 0;
     }
 
@@ -90,7 +90,7 @@
       color: #f0f0f0;
       text-decoration: none;
       font-weight: 600;
-      font-size: 1rem;
+      font-size: 1.2rem;
       display: block;
       transition: color 0.3s ease;
       font-family: 'TrashHand', cursive;
@@ -195,6 +195,15 @@
 
     /* Mobile: sidebar off-canvas and hamburger toggle visible */
     @media (max-width: 768px) {
+      body {
+        overflow: auto;
+        height: auto;
+        display: block;
+      }
+      .page-wrapper {
+        display: block;
+        height: auto;
+      }
       .nav-toggle {
         display: block;
         z-index: 1100; /* keep it on top */
@@ -205,14 +214,15 @@
         top: 0;
         left: 0;
         height: 100%;
-        width: 160px; /* match desktop width */
+        width: 130px; /* reduced width */
         box-shadow: 2px 0 5px rgba(0,0,0,0.9);
         background-color: #111;
         transform: translateX(-100%);
         transition: transform 0.3s ease;
         padding-top: 60px; /* push menu down below hamburger */
         box-sizing: border-box;
-        z-index: 1000; /* below toggle */
+        z-index: 1000;
+        overflow-y: auto;
       }
 
       .sidebar.active {
@@ -220,7 +230,8 @@
       }
 
       .content {
-        padding: 80px 20px 20px 20px; /* leave space for toggle button */
+        padding: 80px 20px 20px 20px;
+        overflow-y: auto;
       }
     }
   </style>
@@ -281,7 +292,7 @@
 
         for (let i = 0; i < data.length && count < maxRows; i++) {
           const row = data[i];
-          if (!row.Rank || !row.Player) continue; // skip incomplete rows
+          if (!row.Rank || !row.Player) continue;
           
           const tr = document.createElement('tr');
           tr.innerHTML = `
@@ -305,6 +316,13 @@
 
     toggleButton.addEventListener('click', () => {
       sidebar.classList.toggle('active');
+    });
+
+    // Close sidebar when clicking outside on mobile
+    document.addEventListener('click', function(event) {
+      if (!sidebar.contains(event.target) && !toggleButton.contains(event.target)) {
+        sidebar.classList.remove('active');
+      }
     });
   </script>
 
