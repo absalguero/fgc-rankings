@@ -271,13 +271,20 @@
 
     /* Mobile styles */
     @media (max-width: 768px) {
-      .nav-toggle {
-        display: block;
-        z-index: 1100;
+      body {
+        height: auto;          /* allow body height to grow */
+        overflow-y: auto;      /* enable vertical scrolling */
       }
 
       .page-wrapper {
         display: block;
+        height: auto;          /* allow natural height */
+        overflow: visible;     /* allow scrolling */
+      }
+
+      .nav-toggle {
+        display: block;
+        z-index: 1100;
       }
 
       nav.sidebar {
@@ -293,7 +300,7 @@
         background-color: #111;
         overflow-y: auto;
         z-index: 1000;
-        align-items: flex-start; /* revert to left align on mobile */
+        align-items: flex-start;
       }
       nav.sidebar.active {
         transform: translateX(0);
