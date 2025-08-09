@@ -45,7 +45,7 @@
       border: none;
       color: #f0f0f0;
       cursor: pointer;
-      z-index: 1100;
+      z-index: 1100; /* on top */
     }
 
     /* Wrapper for sidebar + main content */
@@ -192,6 +192,7 @@
     @media (max-width: 768px) {
       .nav-toggle {
         display: block;
+        z-index: 1100; /* keep it on top */
       }
       
       .sidebar {
@@ -199,10 +200,14 @@
         top: 0;
         left: 0;
         height: 100%;
-        transform: translateX(-100%);
         width: 160px; /* match desktop width */
         box-shadow: 2px 0 5px rgba(0,0,0,0.9);
         background-color: #111;
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+        padding-top: 60px; /* push menu down below hamburger */
+        box-sizing: border-box;
+        z-index: 1000; /* below toggle */
       }
 
       .sidebar.active {
