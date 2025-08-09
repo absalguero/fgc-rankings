@@ -20,6 +20,8 @@
   <style>
     html {
       background-color: #000000;
+      height: 100%;
+      margin: 0;
     }
 
     body {
@@ -27,42 +29,65 @@
       margin: 0;
       background-color: #000000;
       color: #f0f0f0;
-      text-align: center;
+      display: flex;
+      height: 100vh;
+      overflow: hidden;
     }
 
-    /* --- Navigation Styles --- */
-    .navbar {
+    /* Hamburger toggle button */
+    .nav-toggle {
+      display: none;
+      position: fixed;
+      top: 15px;
+      left: 15px;
+      font-size: 2rem;
+      background: none;
+      border: none;
+      color: #f0f0f0;
+      cursor: pointer;
+      z-index: 1100;
+    }
+
+    /* Wrapper for sidebar + main content */
+    .page-wrapper {
       display: flex;
-      justify-content: space-between;
-      align-items: center;
+      flex: 1;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    /* Sidebar styles */
+    .sidebar {
       background-color: #111;
-      padding: 10px 20px;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.8);
+      width: 160px;           /* narrowed */
+      padding: 10px 15px;     /* reduced horizontal padding */
+      box-sizing: border-box;
+      box-shadow: 2px 0 5px rgba(0,0,0,0.7);
       position: sticky;
       top: 0;
+      height: 100vh;
+      overflow-y: auto;
+      transition: transform 0.3s ease;
       z-index: 1000;
-    }
-
-    .logo {
-      font-weight: bold;
-      font-size: 1.5rem;
-      color: #ff416c; /* matching your banner gradient colors */
-      user-select: none;
+      flex-shrink: 0;
     }
 
     .nav-menu {
       list-style: none;
-      display: flex;
-      gap: 20px;
-      margin: 0;
       padding: 0;
+      margin: 0;
+    }
+
+    .nav-menu li {
+      margin-bottom: 1.2rem;
     }
 
     .nav-menu li a {
-      text-decoration: none;
       color: #f0f0f0;
+      text-decoration: none;
       font-weight: 600;
       font-size: 1rem;
+      display: block;
       transition: color 0.3s ease;
     }
 
@@ -70,67 +95,28 @@
       color: #ff4b2b;
     }
 
-    .nav-toggle {
-      display: none;
-      font-size: 1.8rem;
-      background: none;
-      border: none;
-      color: #f0f0f0;
-      cursor: pointer;
+    /* Main content area */
+    .content {
+      flex: 1;
+      padding: 20px 30px;
+      overflow-y: auto;
+      box-sizing: border-box;
+      text-align: center;
     }
 
-    /* Responsive Mobile Menu */
-    @media (max-width: 768px) {
-      .nav-toggle {
-        display: block;
-      }
-      
-      .nav-menu {
-        position: absolute;
-        top: 60px;
-        right: 0;
-        background-color: #111;
-        flex-direction: column;
-        width: 180px;
-        border: 1px solid #333;
-        display: none;
-        padding: 10px;
-        text-align: left;
-      }
-
-      .nav-menu.active {
-        display: flex;
-      }
-
-      .nav-menu li {
-        margin-bottom: 10px;
-      }
-    }
-
-    /* Existing styles below */
-
+    /* Banner styles */
     .banner {
       display: block;
       width: 100%;
       height: auto;
       max-height: 300px;
       object-fit: contain;
-      margin: 0 auto;
+      margin: 0 auto 1rem auto;
     }
 
-    .banner-text {
-      background: linear-gradient(90deg, #ff416c, #ff4b2b);
-      padding: 1rem 2rem;
-      font-size: 2rem;
-      font-weight: bold;
-      letter-spacing: 2px;
-      color: white;
-      user-select: none;
-      margin-bottom: 2rem;
-    }
-
+    /* Headings */
     h1 {
-      margin: 2rem 0 1rem 0;
+      margin: 1rem 0 0.5rem 0;
     }
 
     h2 {
@@ -139,6 +125,7 @@
       color: #ccc;
     }
 
+    /* Table styles */
     table {
       margin: 0 auto 2rem auto;
       border-collapse: collapse;
@@ -164,6 +151,7 @@
       background-color: #333;
     }
 
+    /* Responsive table for small screens */
     @media (max-width: 600px) {
       table, thead, tbody, th, td, tr {
         display: block;
@@ -199,6 +187,32 @@
         text-indent: 0.25rem;
       }
     }
+
+    /* Mobile: sidebar off-canvas and hamburger toggle visible */
+    @media (max-width: 768px) {
+      .nav-toggle {
+        display: block;
+      }
+      
+      .sidebar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100%;
+        transform: translateX(-100%);
+        width: 160px; /* match desktop width */
+        box-shadow: 2px 0 5px rgba(0,0,0,0.9);
+        background-color: #111;
+      }
+
+      .sidebar.active {
+        transform: translateX(0);
+      }
+
+      .content {
+        padding: 80px 20px 20px 20px; /* leave space for toggle button */
+      }
+    }
   </style>
 
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4748186290410675"
@@ -206,33 +220,39 @@
 </head>
 <body>
 
-  <!-- Navigation Menu -->
-  <nav class="navbar">
-    <div class="logo">Fighting Game Rankings</div>
-    <button class="nav-toggle" aria-label="toggle navigation">&#9776;</button>
-    <ul class="nav-menu">
-      <li><a href="/sf6-rankings.html">SF6 Rankings</a></li>
-    </ul>
-  </nav>
+  <!-- Hamburger toggle button -->
+  <button class="nav-toggle" aria-label="toggle navigation">&#9776;</button>
 
-  <img class="banner" src="/images/banner.png" alt="Site Banner">
-  <h1>Street Fighter 6 Current Rankings</h1>
-  <h2>Last Updated: August 3, 2025</h2>
+  <div class="page-wrapper">
 
-  <table>
-    <thead>
-      <tr>
-        <th>Rank</th>
-        <th>Player</th>
-        <th>Character</th>
-        <th>Region</th>
-        <th>Points</th>
-      </tr>
-    </thead>
-    <tbody id="rankings-table-body">
-      <!-- Player data will be dynamically inserted here from Google Sheets -->
-    </tbody>
-  </table>
+    <nav class="sidebar">
+      <ul class="nav-menu">
+        <li><a href="/sf6-rankings.html">SF6 Rankings</a></li>
+      </ul>
+    </nav>
+
+    <main class="content">
+      <img class="banner" src="/images/banner.png" alt="Site Banner" />
+      <h1>Street Fighter 6 Current Rankings</h1>
+      <h2>Last Updated: August 3, 2025</h2>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Rank</th>
+            <th>Player</th>
+            <th>Character</th>
+            <th>Region</th>
+            <th>Points</th>
+          </tr>
+        </thead>
+        <tbody id="rankings-table-body">
+          <!-- Player data will be dynamically inserted here from Google Sheets -->
+        </tbody>
+      </table>
+    </main>
+
+  </div>
 
   <!-- PapaParse and Google Sheets Integration -->
   <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
@@ -269,13 +289,14 @@
   </script>
 
   <script>
-    // Mobile menu toggle script
+    // Sidebar toggle for mobile
     const toggleButton = document.querySelector('.nav-toggle');
-    const navMenu = document.querySelector('.nav-menu');
+    const sidebar = document.querySelector('.sidebar');
 
     toggleButton.addEventListener('click', () => {
-      navMenu.classList.toggle('active');
+      sidebar.classList.toggle('active');
     });
   </script>
+
 </body>
 </html>
