@@ -25,58 +25,331 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
-  <!-- Load TrashHand font from Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=TrashHand&display=swap" rel="stylesheet" />
+  <!-- Load Permanent Marker font from Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet" />
 
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="/images/favicon.png" />
 
   <!-- Inline CSS (minified & cleaned) -->
   <style>
-    html,body{margin:0;padding:0;height:100%;background:#000001;color:#f0f0f0;font-family:Arial,sans-serif;overflow-x:hidden;background-image:url('https://fgc-player-rankings.netlify.app/images/background.png');background-size:cover;background-repeat:no-repeat;background-position:center}
-    body{min-height:100vh;overflow-y:auto;position:relative}
-    .nav-toggle{display:none;position:fixed;top:15px;left:15px;font-size:2rem;background:none;border:none;color:#f0f0f0;cursor:pointer;z-index:1201}
-    .page-wrapper{display:flex;flex-direction:row;height:100vh;overflow:hidden}
-    .sidebar{background:#111;width:180px;padding:15px;box-sizing:border-box;box-shadow:2px 0 5px rgba(0,0,0,.7);position:sticky;top:0;height:100vh;overflow-y:auto;flex-shrink:0;display:flex;flex-direction:column;align-items:center;transition:transform .3s ease}
-    .sidebar h2.sidebar-label{font-family:Arial,sans-serif;font-weight:normal;font-size:1.1rem;color:#999;text-decoration:underline;text-shadow:0 1px 2px rgba(0,0,0,.5);margin-bottom:1rem;width:100%;text-align:center}
-    .nav-menu{list-style:none;padding:0;margin:0;width:100%}
-    .nav-menu li{margin-bottom:1.2rem;text-align:center}
-    .nav-menu li a{color:#ddd;text-decoration:none;font-weight:600;font-size:1.2rem;display:block;transition:color .3s ease;font-family:'TrashHand',Arial,sans-serif}
-    .nav-menu li a:hover{color:#bbb}
-    main.content{flex:1;padding:20px 30px;overflow-y:auto;box-sizing:border-box;text-align:center;min-width:0;max-height:100vh}
-    .banner{display:block;width:100%;height:auto;max-height:300px;object-fit:contain;margin:0 auto 1rem auto}
-    h1{margin:1rem 0 .5rem 0;color:#eee}
-    h2{margin:0 0 2rem 0;font-weight:normal;color:#ccc}
-    .table-wrapper{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:0 auto 2rem auto;width:100%}
-    table{border-collapse:collapse;width:auto;table-layout:auto;min-width:600px;white-space:nowrap;margin:0 auto}
-    thead{background:#1f1f1f;position:sticky;top:0;z-index:10;box-shadow:inset 0 -3px 8px -3px rgba(255,255,255,.3)}
-    th,td{padding:.75rem 1rem;border:1px solid #333;text-align:center;word-break:normal;white-space:nowrap}
-    th{color:#ddd;font-weight:700;text-shadow:0 1px 1px rgba(0,0,0,.7);border-bottom:3px solid #444}
-    tbody tr:nth-child(even){background:#1a1a1a}
-    tbody tr:hover{background:#333}
-    .right-sidebar{background:#111;width:200px;max-width:100%;padding:15px;box-sizing:border-box;box-shadow:-2px 0 5px rgba(0,0,0,.7);position:relative;height:100vh;overflow-y:auto;overflow-x:hidden;flex-shrink:0;display:flex;flex-direction:column;align-items:center;color:#bbb;font-family:Arial,sans-serif}
-    .right-sidebar h2.sidebar-label{font-weight:normal;font-size:1.1rem;color:#999;text-decoration:underline;text-shadow:0 1px 2px rgba(0,0,0,.5);margin-bottom:1rem;width:100%;text-align:center}
-    .event{width:100%;margin-bottom:.8rem;text-align:center;flex-shrink:0;display:flex;flex-direction:column;align-items:center;background:#111;padding:10px;border-radius:8px;box-sizing:border-box}
-    .event img{max-width:100%;height:auto;border-radius:6px;margin-bottom:.5rem;object-fit:contain;max-height:120px;display:block}
-    .event a.tournament-name{color:#ddd;font-weight:bold;text-decoration:none;display:block;margin-bottom:.3rem;text-align:center;font-size:1.1rem}
-    .event a.tournament-name:hover{text-decoration:underline;color:#eee}
-    .event-date{font-size:.9rem;color:#999;user-select:none;margin-bottom:.3rem}
-    .more-info{color:#999;font-size:.85rem}
-    @media (max-width:1024px){.right-sidebar{width:180px}}
-    @media (max-width:768px){
-      .nav-toggle{display:block}
-      .sidebar{position:fixed;width:240px;padding-top:60px;height:100vh;top:0;left:0;transform:translateX(-100%);transition:transform .3s ease;z-index:1200}
-      .sidebar.active{transform:translateX(0)}
-      .page-wrapper{flex-direction:column;height:auto;overflow:visible}
-      main.content{padding:80px 15px 15px 15px;max-height:none;width:100%}
-      .table-wrapper{overflow-x:auto;-webkit-overflow-scrolling:touch;width:100%;margin-bottom:1rem}
-      table{border-collapse:collapse;width:auto;table-layout:auto;min-width:600px;white-space:nowrap;margin:0 auto}
-      .right-sidebar{position:relative;height:auto;width:100%;padding:15px 20px;box-shadow:none;display:block;margin-top:1rem;overflow:visible}
-      .right-sidebar h2.sidebar-label{display:block;margin-bottom:1rem;color:#999}
-      .event{width:100%;margin-bottom:1.5rem;background:#111;padding:10px;border-radius:8px;text-align:center;flex-direction:column;align-items:center}
-      .event img{max-height:120px;margin-bottom:.5rem}
-      .nav-menu li a{font-size:1.4rem}
-      .sidebar h2.sidebar-label{font-size:1.3rem}
+    html,body {
+      margin:0;
+      padding:0;
+      height:100%;
+      background:#000001;
+      color:#f0f0f0;
+      font-family: Arial, sans-serif;
+      overflow-x:hidden;
+      background-image: url('https://fgc-player-rankings.netlify.app/images/background.png');
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+    body {
+      min-height: 100vh;
+      overflow-y: auto;
+      position: relative;
+    }
+    .nav-toggle {
+      display:none;
+      position:fixed;
+      top:15px;
+      left:15px;
+      font-size:2rem;
+      background:none;
+      border:none;
+      color:#f0f0f0;
+      cursor:pointer;
+      z-index:1201;
+    }
+    .page-wrapper {
+      display:flex;
+      flex-direction:row;
+      height:100vh;
+      overflow:hidden;
+    }
+    .sidebar {
+      background:#111;
+      width:180px;
+      padding:15px;
+      box-sizing:border-box;
+      box-shadow:2px 0 5px rgba(0,0,0,.7);
+      position:sticky;
+      top:0;
+      height:100vh;
+      overflow-y:auto;
+      flex-shrink:0;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      transition:transform .3s ease;
+      font-family: Arial, sans-serif; /* Reverted to Arial */
+    }
+    .sidebar h2.sidebar-label {
+      font-family: Arial, sans-serif; /* Reverted */
+      font-weight: normal;
+      font-size: 1.1rem;
+      color: #999;
+      text-decoration: underline;
+      text-shadow: 0 1px 2px rgba(0,0,0,.5);
+      margin-bottom: 1rem;
+      width: 100%;
+      text-align: center;
+    }
+    .nav-menu {
+      list-style:none;
+      padding:0;
+      margin:0;
+      width:100%;
+    }
+    .nav-menu li {
+      margin-bottom:1.2rem;
+      text-align:center;
+    }
+    .nav-menu li a {
+      color:#ddd;
+      text-decoration:none;
+      font-weight:600;
+      font-size:1.2rem;
+      display:block;
+      transition:color .3s ease;
+      font-family: Arial, sans-serif; /* Reverted */
+    }
+    .nav-menu li a:hover {
+      color:#bbb;
+    }
+    main.content {
+      flex:1;
+      padding:20px 30px;
+      overflow-y:auto;
+      box-sizing:border-box;
+      text-align:center;
+      min-width:0;
+      max-height:100vh;
+    }
+    .banner {
+      display:block;
+      width:100%;
+      height:auto;
+      max-height:300px;
+      object-fit:contain;
+      margin:0 auto 1rem auto;
+    }
+    h1 {
+      margin: 1rem 0 0.5rem 0;
+      color: #FF5E13; /* Fire-orange color */
+      font-family: 'Permanent Marker', cursive;
+      font-size: 3rem;
+      text-shadow: none; /* Removed glow */
+    }
+    h2 {
+      margin:0 0 2rem 0;
+      font-weight:normal;
+      color:#ccc;
+    }
+    .table-wrapper {
+      overflow-x:auto;
+      -webkit-overflow-scrolling:touch;
+      margin:0 auto 2rem auto;
+      width:100%;
+    }
+    table {
+      border-collapse:collapse;
+      width:auto;
+      table-layout:auto;
+      min-width:600px;
+      white-space:nowrap;
+      margin:0 auto;
+    }
+    thead {
+      background:#1f1f1f;
+      position:sticky;
+      top:0;
+      z-index:10;
+      box-shadow: inset 0 -3px 8px -3px rgba(255,255,255,.3);
+    }
+    th, td {
+      padding:.75rem 1rem;
+      border:1px solid #333;
+      text-align:center;
+      word-break:normal;
+      white-space:nowrap;
+    }
+    th {
+      color:#ddd;
+      font-weight:700;
+      text-shadow:0 1px 1px rgba(0,0,0,.7);
+      border-bottom:3px solid #444;
+    }
+    tbody tr:nth-child(even) {
+      background:#1a1a1a;
+    }
+    tbody tr:hover {
+      background:#333;
+    }
+    .right-sidebar {
+      background:#111;
+      width:200px;
+      max-width:100%;
+      padding:15px;
+      box-sizing:border-box;
+      box-shadow:-2px 0 5px rgba(0,0,0,.7);
+      position:relative;
+      height:100vh;
+      overflow-y:auto;
+      overflow-x:hidden;
+      flex-shrink:0;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      color:#bbb;
+      font-family: Arial, sans-serif; /* Reverted */
+    }
+    .right-sidebar h2.sidebar-label {
+      font-weight: normal;
+      font-size: 1.1rem;
+      color: #999;
+      text-decoration: underline;
+      text-shadow: 0 1px 2px rgba(0,0,0,.5);
+      margin-bottom: 1rem;
+      width: 100%;
+      text-align: center;
+      font-family: Arial, sans-serif; /* Reverted */
+    }
+    .event {
+      width: 100%;
+      margin-bottom: .8rem;
+      text-align: center;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: #111;
+      padding: 10px;
+      border-radius: 8px;
+      box-sizing: border-box;
+    }
+    .event img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 6px;
+      margin-bottom: .5rem;
+      object-fit: contain;
+      max-height: 120px;
+      display: block;
+    }
+    .event a.tournament-name {
+      color: #ddd;
+      font-weight: bold;
+      text-decoration: none;
+      display: block;
+      margin-bottom: .3rem;
+      text-align: center;
+      font-size: 1.1rem;
+      font-family: Arial, sans-serif; /* Reverted */
+    }
+    .event a.tournament-name:hover {
+      text-decoration: underline;
+      color: #eee;
+    }
+    .event-date {
+      font-size: .9rem;
+      color: #999;
+      user-select: none;
+      margin-bottom: .3rem;
+    }
+    .more-info {
+      color: #999;
+      font-size: .85rem;
+    }
+    @media (max-width:1024px) {
+      .right-sidebar {
+        width:180px;
+      }
+    }
+    @media (max-width:768px) {
+      .nav-toggle {
+        display:block;
+      }
+      .sidebar {
+        position: fixed;
+        width: 240px;
+        padding-top: 60px;
+        height: 100vh;
+        top: 0;
+        left: 0;
+        transform: translateX(-100%);
+        transition: transform .3s ease;
+        z-index: 1200;
+        font-family: Arial, sans-serif; /* Reverted */
+      }
+      .sidebar.active {
+        transform: translateX(0);
+      }
+      .page-wrapper {
+        flex-direction: column;
+        height: auto;
+        overflow: visible;
+      }
+      main.content {
+        padding: 80px 15px 15px 15px;
+        max-height: none;
+        width: 100%;
+      }
+      .table-wrapper {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        width: 100%;
+        margin-bottom: 1rem;
+      }
+      table {
+        border-collapse: collapse;
+        width: auto;
+        table-layout: auto;
+        min-width: 600px;
+        white-space: nowrap;
+        margin: 0 auto;
+      }
+      .right-sidebar {
+        position: relative;
+        height: auto;
+        width: 100%;
+        padding: 15px 20px;
+        box-shadow: none;
+        display: block;
+        margin-top: 1rem;
+        overflow: visible;
+        font-family: Arial, sans-serif; /* Reverted */
+      }
+      .right-sidebar h2.sidebar-label {
+        display: block;
+        margin-bottom: 1rem;
+        color: #999;
+        font-family: Arial, sans-serif; /* Reverted */
+      }
+      .event {
+        width: 100%;
+        margin-bottom: 1.5rem;
+        background: #111;
+        padding: 10px;
+        border-radius: 8px;
+        text-align: center;
+        flex-direction: column;
+        align-items: center;
+      }
+      .event img {
+        max-height: 120px;
+        margin-bottom: .5rem;
+      }
+      .nav-menu li a {
+        font-size: 1.4rem;
+        font-family: Arial, sans-serif; /* Reverted */
+      }
+      .sidebar h2.sidebar-label {
+        font-size: 1.3rem;
+        font-family: Arial, sans-serif; /* Reverted */
+      }
     }
   </style>
 
