@@ -164,7 +164,6 @@
       position: sticky;
       top: 0;
       z-index: 10;
-      /* Added suggestions: */
       box-shadow: inset 0 -3px 8px -3px rgba(255, 255, 255, 0.3);
     }
 
@@ -179,7 +178,7 @@
       color: #ddd;
       font-weight: 700;
       text-shadow: 0 1px 1px rgba(0,0,0,0.7);
-      border-bottom: 3px solid #444; /* Added thick border */
+      border-bottom: 3px solid #444;
     }
 
     tbody tr:nth-child(even) {
@@ -292,48 +291,50 @@
         transform: translateX(0);
       }
 
-      /* Main content with padding for hamburger */
+      /* Make the main page wrapper stack vertically on mobile */
+      .page-wrapper {
+        flex-direction: column;
+        height: auto;
+        overflow: visible;
+      }
+
+      /* Main content adjustments */
       main.content {
         padding: 80px 15px 15px 15px;
         max-height: none;
+        width: 100%;
       }
 
-      /* Right sidebar becomes horizontal carousel */
+      /* Right sidebar below main content, full width */
       .right-sidebar {
         position: relative;
         height: auto;
         width: 100%;
-        padding: 10px 0;
+        padding: 15px 20px;
         box-shadow: none;
-        display: flex;
-        overflow-x: auto;
-        scroll-snap-type: x mandatory;
-        -webkit-overflow-scrolling: touch;
-      }
-
-      .right-sidebar::-webkit-scrollbar {
-        height: 6px;
-      }
-      .right-sidebar::-webkit-scrollbar-thumb {
-        background: #444;
-        border-radius: 3px;
+        display: block;
+        margin-top: 1rem;
+        overflow: visible;
       }
 
       .right-sidebar h2.sidebar-label {
-        display: none; /* Hide header on mobile */
+        display: block;
+        margin-bottom: 1rem;
+        color: #999999;
       }
 
       .event {
-        flex: 0 0 70%;
-        margin: 0 10px;
-        scroll-snap-align: center;
-        background-color: #222;
-        border-radius: 8px;
+        width: 100%;
+        margin-bottom: 1.5rem;
+        background-color: #111;
         padding: 10px;
+        border-radius: 8px;
+        text-align: center;
       }
 
       .event img {
-        max-height: 100px;
+        max-height: 120px;
+        margin-bottom: 0.5rem;
       }
 
       /* Sidebar links bigger font on mobile */
