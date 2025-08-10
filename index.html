@@ -1,4 +1,4 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <!-- Google tag (gtag.js) -->
@@ -13,7 +13,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>FGC Rankings</title>
-  
+  <meta name="description" content="Current Street Fighter 6 player rankings from the competitive Fighting Game Community." />
+  <link rel="canonical" href="https://fgc-rankings.netlify.app/" />
+
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="/images/favicon.png" />
 
@@ -29,17 +31,16 @@
       color: #f0f0f0;
       font-family: Arial, sans-serif;
       overflow-x: hidden;
+      background-image: url('https://fgc-rankings.netlify.app/images/background.png');
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
     }
 
     body {
       min-height: 100vh;
       overflow-y: auto;
       position: relative;
-
-      background-image: url('images/background.png');
-      background-size: cover;
-      background-repeat: no-repeat;
-      background-position: center;
     }
 
     /* Hamburger toggle button (left sidebar) - only mobile */
@@ -404,14 +405,19 @@
 
   <div class="page-wrapper">
     <nav class="sidebar" aria-label="Main menu">
-      <h2 class="sidebar-label">Menu</h2>
+      <h2 class="sidebar-label">FGC Rankings Menu</h2>
       <ul class="nav-menu">
         <li><a href="/sf6-rankings.html">SF6 Rankings</a></li>
       </ul>
     </nav>
 
     <main class="content" role="main" tabindex="-1">
-      <img class="banner" src="/images/banner.png" alt="Site Banner" />
+      <img
+        class="banner"
+        src="https://fgc-rankings.netlify.app/images/banner.png"
+        alt="Site Banner"
+        loading="lazy"
+      />
       <h1>Street Fighter 6 Current Rankings</h1>
       <h2>Last Updated: August 3, 2025</h2>
 
@@ -441,7 +447,7 @@
           VSFighting XIII
         </a>
         <a href="https://www.start.gg/tournament/vsfighting-xiii/details" target="_blank" rel="noopener noreferrer">
-          <img src="/images/vsfighting.png" alt="VSFighting XIII Tournament" />
+          <img src="/images/vsfighting.png" alt="VSFighting XIII Tournament" loading="lazy" />
         </a>
         <div class="event-date">August 15-17, 2025</div>
         <a class="more-info" href="https://www.start.gg/tournament/vsfighting-xiii/details" target="_blank" rel="noopener noreferrer">More Info</a>
@@ -452,7 +458,7 @@
           Esports World Cup 2025
         </a>
         <a href="https://esportsworldcup.com/en/competitions/street-fighter6" target="_blank" rel="noopener noreferrer">
-          <img src="/images/ewc.png" alt="Esports World Cup 2025 Tournament" />
+          <img src="/images/ewc.png" alt="Esports World Cup 2025 Tournament" loading="lazy" />
         </a>
         <div class="event-date">August 20-23, 2025</div>
         <a class="more-info" href="https://esportsworldcup.com/en/competitions/street-fighter6" target="_blank" rel="noopener noreferrer">More Info</a>
@@ -463,7 +469,7 @@
           Beast in the East 8
         </a>
         <a href="https://www.start.gg/tournament/beast-in-the-east-8/details" target="_blank" rel="noopener noreferrer">
-          <img src="/images/beast-in-the-east.png" alt="Beast in the East 8 Tournament" />
+          <img src="/images/beast-in-the-east.png" alt="Beast in the East 8 Tournament" loading="lazy" />
         </a>
         <div class="event-date">August 22-24, 2025</div>
         <a class="more-info" href="https://www.start.gg/tournament/beast-in-the-east-8/details" target="_blank" rel="noopener noreferrer">More Info</a>
@@ -474,7 +480,7 @@
           COMITÊ ARENA 2025
         </a>
         <a href="https://www.start.gg/tournament/comit-arena-2025/details" target="_blank" rel="noopener noreferrer">
-          <img src="/images/comite.png" alt="COMITÊ ARENA 2025 Tournament" />
+          <img src="/images/comite.png" alt="COMITÊ ARENA 2025 Tournament" loading="lazy" />
         </a>
         <div class="event-date">August 30-31, 2025</div>
         <a class="more-info" href="https://www.start.gg/tournament/comit-arena-2025/details" target="_blank" rel="noopener noreferrer">More Info</a>
@@ -485,7 +491,7 @@
           OzHadou National 19
         </a>
         <a href="https://www.start.gg/tournament/ozhadou-nationals-19/details" target="_blank" rel="noopener noreferrer">
-          <img src="/images/ozhadou-19.png" alt="OzHadou National 19 Tournament" />
+          <img src="/images/ozhadou-19.png" alt="OzHadou National 19 Tournament" loading="lazy" />
         </a>
         <div class="event-date">September 5-7, 2025</div>
         <a class="more-info" href="https://www.start.gg/tournament/ozhadou-nationals-19/details" target="_blank" rel="noopener noreferrer">More Info</a>
@@ -512,7 +518,7 @@
         for (let i = 0; i < data.length && count < maxRows; i++) {
           const row = data[i];
           if (!row.Rank || !row.Player) continue; // skip incomplete rows
-          
+
           const tr = document.createElement('tr');
           tr.innerHTML = `
             <td data-label="Rank">${row.Rank}</td>
