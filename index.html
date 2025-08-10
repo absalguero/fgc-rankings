@@ -151,20 +151,22 @@
     }
 
     /* Table styles */
-    /* Wrap table in a scroll container on mobile */
     .table-wrapper {
+      display: flex;
+      justify-content: center;  /* centers table inside scroll container */
       overflow-x: auto;
       -webkit-overflow-scrolling: touch;
       margin: 0 auto 2rem auto;
-      width: 90%;
-      max-width: 900px;
+      width: 100%;
+      max-width: none;
     }
 
     table {
       border-collapse: collapse;
-      width: 100%;
-      table-layout: fixed;
-      min-width: 600px; /* prevent squeezing on mobile */
+      width: auto;           /* natural width based on content */
+      table-layout: auto;    /* natural column widths */
+      min-width: 600px;      /* prevent squeezing */
+      white-space: nowrap;   /* no wrapping on cells */
     }
 
     thead {
@@ -179,8 +181,8 @@
       padding: 0.75rem 1rem;
       border: 1px solid #333;
       text-align: center;
-      word-break: break-word;
-      white-space: normal;
+      word-break: normal;
+      white-space: nowrap;  /* prevent text wrap */
     }
 
     th {
@@ -201,13 +203,15 @@
     /* Right Sidebar */
     .right-sidebar {
       background-color: #111;
-      width: 220px;
-      padding: 15px 20px;
+      width: 200px;          /* reduced width from 220px */
+      max-width: 100%;       /* prevent overflow */
+      padding: 15px 15px;    /* reduce horizontal padding */
       box-sizing: border-box;
       box-shadow: -2px 0 5px rgba(0,0,0,0.7);
       position: relative; /* scroll with page */
       height: 100vh;
       overflow-y: auto;
+      overflow-x: hidden;   /* hide horizontal scroll */
       flex-shrink: 0;
       display: flex;
       flex-direction: column;
@@ -230,6 +234,7 @@
 
     .event {
       width: 100%;
+      max-width: 100%;
       margin-bottom: 1.5rem;
       text-align: center;
       flex-shrink: 0;
@@ -239,6 +244,7 @@
       background-color: #111;
       padding: 10px;
       border-radius: 8px;
+      box-sizing: border-box;
     }
 
     .event img {
@@ -248,6 +254,8 @@
       margin-bottom: 0.5rem;
       object-fit: contain;
       max-height: 120px;
+      display: block;
+      box-sizing: border-box;
     }
 
     .event a.tournament-name {
@@ -325,8 +333,20 @@
 
       /* Wrap the table in a scroll container on mobile */
       .table-wrapper {
+        display: flex;
+        justify-content: center;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
         width: 100%;
         margin-bottom: 1rem;
+      }
+
+      table {
+        border-collapse: collapse;
+        width: auto;
+        table-layout: auto;
+        min-width: 600px;
+        white-space: nowrap;
       }
 
       /* Right sidebar below main content, full width */
