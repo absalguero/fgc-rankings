@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="en">
 <head>
   <!-- Google tag (gtag.js) -->
@@ -165,7 +165,7 @@
       border-collapse: collapse;
       width: auto;           /* natural width based on content */
       table-layout: auto;    /* natural column widths */
-      min-width: 600px;      /* prevent squeezing */
+      min-width: 0;          /* remove previous 600px min-width */
       white-space: nowrap;   /* no wrapping on cells */
     }
 
@@ -345,8 +345,18 @@
         border-collapse: collapse;
         width: auto;
         table-layout: auto;
-        min-width: 600px;
+        min-width: 0 !important; /* unset previous min-width */
         white-space: nowrap;
+      }
+
+      /* Make first column sticky on mobile so Rank stays visible */
+      th:first-child, td:first-child {
+        position: sticky;
+        left: 0;
+        background-color: #1f1f1f;
+        color: #ddd;
+        z-index: 11;
+        box-shadow: 2px 0 5px rgba(0,0,0,0.5);
       }
 
       /* Right sidebar below main content, full width */
