@@ -7,7 +7,7 @@
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-    gtag('config', 'G-47ZV9G37SY');
+    gtag('config', 'G-47Z9G37SY');
   </script>
 
   <meta charset="UTF-8" />
@@ -21,20 +21,20 @@
   <link href="https://fonts.googleapis.com/css2?family=TrashHand&display=swap" rel="stylesheet" />
 
   <style>
-    html {
-      background-color: #000000;
-      height: 100%;
+    html, body {
       margin: 0;
+      padding: 0;
+      height: 100%;
+      background-color: #000000;
+      color: #f0f0f0;
+      font-family: Arial, sans-serif;
+      overflow-x: hidden;
     }
 
     body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      background-color: #000000;
-      color: #f0f0f0;
       display: flex;
-      height: 100vh;
-      overflow: hidden;
+      min-height: 100vh;
+      overflow-y: auto;
     }
 
     /* Hamburger toggle button */
@@ -48,18 +48,19 @@
       border: none;
       color: #f0f0f0;
       cursor: pointer;
-      z-index: 1100; /* on top */
+      z-index: 1101; /* above sidebar */
     }
 
-    /* Wrapper for 3 columns */
+    /* Wrapper for sidebar + main content + right sidebar */
     .page-wrapper {
       display: flex;
       flex: 1;
-      height: 100%;
+      height: 100vh;
       overflow: hidden;
+      width: 100%;
     }
 
-    /* Sidebar styles */
+    /* Left Sidebar */
     .sidebar {
       background-color: #111;
       width: 160px;
@@ -73,58 +74,60 @@
       transition: transform 0.3s ease;
       z-index: 1000;
       flex-shrink: 0;
-      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
 
-    /* Left sidebar nav menu */
+    .sidebar h2.sidebar-label {
+      font-family: Arial, sans-serif;
+      font-weight: normal;
+      font-size: 1.1rem;
+      color: #888888;
+      text-decoration: underline;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+      margin-bottom: 1rem;
+      user-select: none;
+    }
+
     .nav-menu {
       list-style: none;
       padding: 0;
-      margin: 2rem 0 0 0; /* pushed down */
+      margin: 0;
+      width: 100%;
     }
 
     .nav-menu li {
-      margin-bottom: 1.5rem;
+      margin-bottom: 1.2rem;
+      text-align: center;
     }
 
+    /* Sidebar links use TrashHand font but non-cursive fallback */
     .nav-menu li a {
       color: #f0f0f0;
       text-decoration: none;
       font-weight: 600;
-      font-size: 1.25rem;
+      font-size: 1.2rem;
       display: block;
       transition: color 0.3s ease;
-      font-family: 'TrashHand', sans-serif;
+      font-family: 'TrashHand', Arial, sans-serif;
     }
 
     .nav-menu li a:hover {
       color: #ff4b2b;
     }
 
-    /* Label "Menu" and "Upcoming Ranked Events" */
-    .sidebar-label,
-    .right-sidebar-label {
-      color: #bbbbbb; /* slightly grey */
-      font-size: 1.5rem;
-      font-weight: 600;
-      margin-bottom: 1rem;
-      font-family: Arial, sans-serif;
-      text-transform: none;
-      padding-bottom: 5px;
-      border-bottom: 2px solid #bbbbbb;
-      text-shadow: 0 1px 2px rgba(0,0,0,0.7);
-    }
-
-    /* Main content area */
-    .content {
+    /* Main content */
+    main.content {
       flex: 1;
       padding: 20px 30px;
       overflow-y: auto;
       box-sizing: border-box;
       text-align: center;
+      min-width: 0; /* prevents flex overflow */
     }
 
-    /* Banner styles */
+    /* Banner */
     .banner {
       display: block;
       width: 100%;
@@ -171,11 +174,11 @@
       background-color: #333;
     }
 
-    /* Right sidebar - upcoming events */
+    /* Right Sidebar */
     .right-sidebar {
       background-color: #111;
       width: 220px;
-      padding: 15px;
+      padding: 15px 20px;
       box-sizing: border-box;
       box-shadow: -2px 0 5px rgba(0,0,0,0.7);
       position: sticky;
@@ -183,106 +186,125 @@
       height: 100vh;
       overflow-y: auto;
       flex-shrink: 0;
-      text-align: center;
-    }
-
-    .events-carousel {
       display: flex;
-      flex-direction: column; /* desktop vertical */
-      gap: 20px;
+      flex-direction: column;
+      align-items: center;
+      color: #bbb;
+      font-family: Arial, sans-serif;
     }
 
-    .event-card {
-      background-color: #222;
-      border-radius: 8px;
-      padding: 10px;
-      text-align: center;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-    }
-    .event-card:hover {
-      background-color: #333;
-    }
-
-    .event-card img {
-      width: 100%;
-      height: auto;
-      max-height: 120px;
-      object-fit: contain;
-      border-radius: 5px;
-      margin-bottom: 10px;
-    }
-
-    .event-title {
-      font-weight: 700;
+    .right-sidebar h2.sidebar-label {
+      font-weight: normal;
       font-size: 1.1rem;
-      color: #f0f0f0;
-      margin-bottom: 5px;
+      color: #888888;
+      text-decoration: underline;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+      margin-bottom: 1rem;
+      user-select: none;
+      width: 100%;
+      text-align: center;
+    }
+
+    .event {
+      width: 100%;
+      margin-bottom: 1.5rem;
+      text-align: center;
+    }
+
+    .event img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 6px;
+      margin-bottom: 0.5rem;
+      object-fit: contain;
+      max-height: 120px;
+    }
+
+    .event a {
+      color: #ff4b2b;
+      font-weight: bold;
+      text-decoration: none;
+      display: block;
+      margin-bottom: 0.3rem;
+    }
+
+    .event a:hover {
+      text-decoration: underline;
     }
 
     .event-date {
       font-size: 0.9rem;
-      color: #ccc;
-      margin-bottom: 5px;
+      color: #999999;
+      user-select: none;
     }
 
-    .event-link {
-      color: #bbbbbb; /* slightly grey */
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 0.9rem;
+    /* Responsive styling */
+    @media (max-width: 1024px) {
+      /* Narrow down right sidebar and left sidebar for tablets */
+      .right-sidebar {
+        width: 180px;
+      }
+      .sidebar {
+        width: 140px;
+      }
     }
 
-    /* Responsive styles for mobile */
     @media (max-width: 768px) {
-      body {
-        flex-direction: column;
-        height: auto;
-      }
-      .page-wrapper {
-        display: block;
-        height: auto;
-      }
-
-      .sidebar, .right-sidebar {
-        position: relative;
-        width: 100%;
-        height: auto;
-        box-shadow: none;
-        padding: 15px 10px;
-        text-align: center;
-      }
-
-      /* Left sidebar label */
-      .sidebar-label {
-        margin-bottom: 10px;
-      }
-
-      /* Events carousel horizontal scroll */
-      .events-carousel {
-        flex-direction: row;
-        overflow-x: auto;
-        gap: 15px;
-        -webkit-overflow-scrolling: touch;
-        scroll-behavior: smooth;
-        padding-bottom: 5px;
-      }
-
-      .event-card {
-        min-width: 200px;
-        max-width: 200px;
-        flex-shrink: 0;
-        margin-bottom: 0;
-      }
-
-      /* Main content padding adjusted */
-      .content {
-        padding: 20px 10px;
-      }
-
-      /* Hamburger toggle button visible on mobile */
+      /* Show hamburger */
       .nav-toggle {
         display: block;
+      }
+
+      /* Left sidebar fixed and off-canvas */
+      .sidebar {
+        position: fixed !important;
+        top: 0;
+        left: 0;
+        height: 100vh !important;
+        width: 160px;
+        padding-top: 60px;
+        box-shadow: 2px 0 5px rgba(0,0,0,0.9);
+        background-color: #111;
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+        z-index: 1100;
+        flex-shrink: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .sidebar.active {
+        transform: translateX(0);
+      }
+
+      /* Right sidebar hidden on mobile */
+      .right-sidebar {
+        display: none;
+      }
+
+      /* Main content with padding for toggle button */
+      main.content {
+        padding: 80px 20px 20px 20px;
+        overflow-y: auto;
+      }
+
+      /* Increase sidebar font on mobile */
+      .nav-menu li a {
+        font-size: 1.4rem;
+      }
+
+      .sidebar h2.sidebar-label {
+        font-size: 1.3rem;
+      }
+
+      /* Hamburger styling to be clearly visible */
+      .nav-toggle {
+        z-index: 1200;
+        background: none;
+        border: none;
+        color: #f0f0f0;
+        cursor: pointer;
       }
     }
   </style>
@@ -297,14 +319,14 @@
 
   <div class="page-wrapper">
 
-    <nav class="sidebar">
-      <div class="sidebar-label">Menu</div>
+    <nav class="sidebar" aria-label="Main menu">
+      <h2 class="sidebar-label">Menu</h2>
       <ul class="nav-menu">
         <li><a href="/sf6-rankings.html">SF6 Rankings</a></li>
       </ul>
     </nav>
 
-    <main class="content">
+    <main class="content" role="main" tabindex="-1">
       <img class="banner" src="/images/banner.png" alt="Site Banner" />
       <h1>Street Fighter 6 Current Rankings</h1>
       <h2>Last Updated: August 3, 2025</h2>
@@ -325,17 +347,18 @@
       </table>
     </main>
 
-    <aside class="right-sidebar">
-      <div class="right-sidebar-label">Upcoming Ranked Events</div>
-      <div class="events-carousel">
-        <a href="https://www.start.gg/tournament/vsfighting-xiii/details" target="_blank" rel="noopener" class="event-card">
-          <img src="/images/vsfighting.png" alt="VSFighting XIII" />
-          <div class="event-title">VSFighting XIII</div>
-          <div class="event-date">August 15-17, 2025</div>
-          <div class="event-link">More Info</div>
+    <aside class="right-sidebar" aria-label="Upcoming Ranked Events">
+      <h2 class="sidebar-label">Upcoming Ranked Events</h2>
+
+      <div class="event">
+        <a href="https://www.start.gg/tournament/vsfighting-xiii/details" target="_blank" rel="noopener noreferrer">
+          <img src="/images/vsfighting.png" alt="VSFighting XIII Tournament" />
+          VSFighting XIII
         </a>
-        <!-- Add up to 5 event cards here -->
+        <div class="event-date">August 15-17, 2025</div>
+        <a class="more-info" href="https://www.start.gg/tournament/vsfighting-xiii/details" target="_blank" rel="noopener noreferrer" style="color:#999; font-size:0.85rem;">More Info</a>
       </div>
+
     </aside>
 
   </div>
@@ -383,7 +406,7 @@
       sidebar.classList.toggle('active');
     });
 
-    // Close sidebar if click outside
+    // Close sidebar when clicking outside
     document.addEventListener('click', (e) => {
       if (!sidebar.contains(e.target) && !toggleButton.contains(e.target)) {
         sidebar.classList.remove('active');
