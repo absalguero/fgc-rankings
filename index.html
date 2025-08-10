@@ -150,28 +150,28 @@
       color: #ccc;
     }
 
-    /* Table styles */
+    /* Table wrapper with horizontal scroll */
     .table-wrapper {
-      display: flex;
-      justify-content: center;  /* centers table inside scroll container */
       overflow-x: auto;
       -webkit-overflow-scrolling: touch;
       margin: 0 auto 2rem auto;
       width: 100%;
-      max-width: none;
     }
 
+    /* Table styles */
     table {
       border-collapse: collapse;
       width: auto;           /* natural width based on content */
       table-layout: auto;    /* natural column widths */
       min-width: 600px;      /* prevent squeezing */
       white-space: nowrap;   /* no wrapping on cells */
+      margin: 0 auto;
     }
 
     thead {
       background-color: #1f1f1f;
-      /* Removed sticky positioning */
+      position: sticky;
+      top: 0;
       z-index: 10;
       box-shadow: inset 0 -3px 8px -3px rgba(255, 255, 255, 0.3);
     }
@@ -202,15 +202,15 @@
     /* Right Sidebar */
     .right-sidebar {
       background-color: #111;
-      width: 200px;          /* reduced width from 220px */
-      max-width: 100%;       /* prevent overflow */
-      padding: 15px 15px;    /* reduce horizontal padding */
+      width: 200px;
+      max-width: 100%;
+      padding: 15px 15px;
       box-sizing: border-box;
       box-shadow: -2px 0 5px rgba(0,0,0,0.7);
       position: relative; /* scroll with page */
       height: 100vh;
       overflow-y: auto;
-      overflow-x: hidden;   /* hide horizontal scroll */
+      overflow-x: hidden;
       flex-shrink: 0;
       display: flex;
       flex-direction: column;
@@ -330,10 +330,8 @@
         width: 100%;
       }
 
-      /* Wrap the table in a scroll container on mobile */
+      /* Table wrapper horizontal scroll on mobile */
       .table-wrapper {
-        display: flex;
-        justify-content: center;
         overflow-x: auto;
         -webkit-overflow-scrolling: touch;
         width: 100%;
@@ -346,6 +344,7 @@
         table-layout: auto;
         min-width: 600px;
         white-space: nowrap;
+        margin: 0 auto;
       }
 
       /* Right sidebar below main content, full width */
