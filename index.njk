@@ -1,0 +1,66 @@
+---
+title: FGC Player Rankings
+---
+
+{% extends "layout.njk" %}
+
+{% block content %}
+  <img
+    class="banner"
+    src="/images/banner.png"
+    alt="Site Banner"
+    loading="lazy"
+  />
+  <h1>Street Fighter 6 Rankings</h1>
+  <h2>Last Updated: August 10, 2025</h2>
+
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr>
+          <th>Rank</th>
+          <th>Player</th>
+          <th>Character</th>
+          <th>Region</th>
+          <th>Points</th>
+        </tr>
+      </thead>
+      <tbody id="rankings-table-body">
+        <!-- Player data will be dynamically inserted here from Google Sheets -->
+      </tbody>
+    </table>
+  </div>
+
+  <!-- PapaParse and Google Sheets Integration -->
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+  <script>
+    const sheetURL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vS-5EA7Uvl16qJolXsMR4SRAzXb6XwclnVtT92byBa34nk3WMk6qL2XG79-xF-uRg/pub?gid=1862929315&single=true&output=csv';
+
+    Papa.parse(sheetURL, {
+      download: true,
+      header: true,
+      complete: function(results) {
+        const data = results.data;
+        const tbody = document.getElementById('rankings-table-body');
+        const maxRows = 25;
+        let count = 0;
+
+        for (let i = 0; i < data.length && count < maxRows; i++) {
+          const row = data[i];
+          if (!row.Rank || !row.Player) continue;
+
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td data-label="Rank">${row.Rank}</td>
+            <td data-label="Player">${row.Player}</td>
+            <td data-label="Character">${row.Character}</td>
+            <td data-label="Region">${row.Region}</td>
+            <td data-label="Points">${row.Points}</td>
+          `;
+          tbody.appendChild(tr);
+          count++;
+        }
+      }
+    });
+  </script>
+{% endblock %}

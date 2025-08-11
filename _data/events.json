@@ -1,0 +1,37 @@
+[
+  {
+    "name": "VSFighting XIII",
+    "url": "https://www.start.gg/tournament/vsfighting-xiii/details",
+    "img": "/images/vsfighting.png",
+    "alt": "VSFighting XIII Tournament",
+    "date": "August 15-17, 2025"
+  },
+  {
+    "name": "Esports World Cup 2025",
+    "url": "https://esportsworldcup.com/en/competitions/street-fighter6",
+    "img": "/images/ewc.png",
+    "alt": "Esports World Cup 2025 Tournament",
+    "date": "August 20-23, 2025"
+  },
+  {
+    "name": "Beast in the East 8",
+    "url": "https://www.start.gg/tournament/beast-in-the-east-8/details",
+    "img": "/images/beast-in-the-east.png",
+    "alt": "Beast in the East 8 Tournament",
+    "date": "August 22-24, 2025"
+  },
+  {
+    "name": "COMITÊ ARENA 2025",
+    "url": "https://www.start.gg/tournament/comit-arena-2025/details",
+    "img": "/images/comite.png",
+    "alt": "COMITÊ ARENA 2025 Tournament",
+    "date": "August 30-31, 2025"
+  },
+  {
+    "name": "OzHadou National 19",
+    "url": "https://www.start.gg/tournament/ozhadou-nationals-19/details",
+    "img": "/images/ozhadou-19.png",
+    "alt": "OzHadou National 19 Tournament",
+    "date": "September 5-7, 2025"
+  }
+]
