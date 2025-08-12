@@ -9,18 +9,15 @@
   <meta name="theme-color" content="#000001" />
   <meta http-equiv="Cache-Control" content="max-age=3600, must-revalidate" />
 
-  <!-- Reference to sitemap.xml -->
   <link rel="sitemap" type="application/xml" title="Sitemap" href="https://fgc-player-rankings.netlify.app/sitemap.xml" />
 
-  <!-- Preconnect to Google Fonts for faster font loading -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
-  <!-- Load Permanent Marker font from Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet" />
 
-  <!-- Favicon -->
   <link rel="icon" type="image/png" href="/images/favicon.png" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
   <style>
     /* Reset and base styles */
@@ -85,11 +82,11 @@
     }
 
     nav.sidebar h2.sidebar-label {
-      font-family: Arial, sans-serif;
+      font-family: 'Permanent Marker', cursive;
       font-weight: normal;
-      font-size: 1.1rem;
-      color: #999;
-      text-decoration: underline;
+      font-size: 1.5rem;
+      color: #FF5E13; /* Updated to match h1 color */
+      text-decoration: none;
       text-shadow: 0 1px 2px rgba(0,0,0,.5);
       margin-bottom: 1rem;
       width: 100%;
@@ -106,20 +103,25 @@
     nav.sidebar ul.nav-menu li {
       margin-bottom: 1.2rem;
       text-align: center;
+      font-family: 'Permanent Marker', cursive;
     }
 
     nav.sidebar ul.nav-menu li a {
       color: #ddd;
       text-decoration: none;
       font-weight: 600;
-      font-size: 1.2rem;
-      display: block;
+      font-size: 1.5rem;
+      display: inline-block;
       transition: color 0.3s ease;
-      font-family: Arial, sans-serif;
     }
 
     nav.sidebar ul.nav-menu li a:hover {
       color: #bbb;
+    }
+
+    nav.sidebar ul.nav-menu li a i {
+        margin-right: 8px;
+        vertical-align: middle;
     }
 
     /* Main content */
@@ -128,34 +130,56 @@
       padding: 20px 30px;
       overflow-y: auto;
       box-sizing: border-box;
-      text-align: center;
+      /* Force left text alignment */
+      text-align: left;
       min-width: 0;
       max-height: 100vh;
       color: #f0f0f0;
     }
 
+    /* Content container to align content left */
+    .content-container {
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: left;
+    }
+
+    /* Override for Ranking System page to allow full width */
+    {% if title == "Ranking System Overview" %}
+    .content-container {
+      max-width: none;
+      margin: 0;
+      width: 100%;
+      padding: 0 15px;
+    }
+    {% endif %}
+
     /* Banner image */
     .banner {
       display: block;
-      width: 100%;
+      width: auto;
       height: auto;
-      max-height: 300px;
+      max-width: 300px;
+      max-height: 262px;
       object-fit: contain;
       margin: 0 auto 1rem auto;
     }
 
+    /* Headings styling - consistent globally */
     h1 {
       margin: 1rem 0 0.5rem 0;
       color: #FF5E13; /* Fire-orange color */
       font-family: 'Permanent Marker', cursive;
       font-size: 3rem;
       text-shadow: none;
+      text-align: center;
     }
 
     h2 {
       margin: 0 0 2rem 0;
       font-weight: normal;
       color: #ccc;
+      text-align: center;
     }
 
     /* Table wrapper */
@@ -164,6 +188,8 @@
       -webkit-overflow-scrolling: touch;
       margin: 0 auto 2rem auto;
       width: 100%;
+      /* Force left alignment */
+      text-align: left;
     }
 
     table {
@@ -207,6 +233,25 @@
       background: #333;
     }
 
+    /* Google Sheets embed styling */
+    iframe.google-sheet {
+      width: 100% !important;
+      max-width: 100%;
+      height: 600px; /* Adjust height as needed */
+      border: 1px solid #f39c12;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(243, 156, 18, 0.7);
+      margin: 1rem 0;
+      display: block;
+    }
+
+    /* Responsive iframe for sheets */
+    @media (max-width: 700px) {
+      iframe.google-sheet {
+        height: 400px;
+      }
+    }
+
     /* Right sidebar */
     aside.right-sidebar {
       background: #111;
@@ -228,15 +273,15 @@
     }
 
     aside.right-sidebar h2.sidebar-label {
+      font-family: 'Permanent Marker', cursive; /* Applied the font here */
       font-weight: normal;
-      font-size: 1.1rem;
-      color: #999;
-      text-decoration: underline;
+      font-size: 1.5rem;
+      color: #FF5E13; /* Updated to match h1 color */
+      text-decoration: none;
       text-shadow: 0 1px 2px rgba(0,0,0,.5);
       margin-bottom: 1rem;
       width: 100%;
       text-align: center;
-      font-family: Arial, sans-serif;
     }
 
     aside.right-sidebar .event {
@@ -368,6 +413,7 @@
         -webkit-overflow-scrolling: touch;
         width: 100%;
         margin-bottom: 1rem;
+        text-align: left; /* also force left on mobile */
       }
       table {
         border-collapse: collapse;
@@ -389,6 +435,7 @@
         font-family: Arial, sans-serif;
       }
       aside.right-sidebar h2.sidebar-label {
+        font-size: 1.3rem;
         display: block;
         margin-bottom: 1rem;
         color: #999;
@@ -409,7 +456,7 @@
         margin-bottom: 0.5rem;
       }
       nav.sidebar ul.nav-menu li a {
-        font-size: 1.4rem;
+        font-size: 1.6rem;
         font-family: Arial, sans-serif;
       }
       nav.sidebar h2.sidebar-label {
@@ -419,7 +466,6 @@
     }
   </style>
 
-  <!-- JSON-LD Structured Data -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -450,24 +496,32 @@
     ]
   }
   </script>
+  {% block head %}{% endblock %}
 </head>
 <body>
-  <!-- Skip link for keyboard users -->
   <a href="#maincontent" class="skip-link">Skip to main content</a>
 
-  <!-- Hamburger toggle button only visible on mobile -->
   <button class="nav-toggle" aria-label="toggle navigation" aria-expanded="false">&#9776;</button>
 
   <div class="page-wrapper">
     <nav class="sidebar" aria-label="Main menu" role="navigation">
-      <h2 class="sidebar-label">FGC Player Rankings Menu</h2>
+      <h2 class="sidebar-label">Navigation</h2>
       <ul class="nav-menu">
-        <li><a href="/">SF6 Rankings</a></li>
+        <li><a href="/"><i class="fas fa-trophy"></i> SF6 Rankings</a></li>
+        <li><a href="/ranking-system/"><i class="fas fa-info-circle"></i> Ranking System Overview</a></li>
       </ul>
     </nav>
 
     <main class="content" role="main" id="maincontent" tabindex="-1">
-      {% block content %}{% endblock %}
+      <div class="content-container">
+        <img
+          class="banner"
+          src="/images/banner.png"
+          alt="FGC Player Rankings official logo"
+          loading="lazy"
+        />
+        {% block content %}{% endblock %}
+      </div>
     </main>
 
     <aside class="right-sidebar" aria-label="Upcoming Rated Events">
@@ -497,7 +551,6 @@
     </p>
   </noscript>
 
-  <!-- Sidebar toggle script -->
   <script>
     const toggleButton = document.querySelector('.nav-toggle');
     const sidebar = document.querySelector('.sidebar');

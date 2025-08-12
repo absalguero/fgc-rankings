@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ranking System Overview</title>
+  <meta name="description" content="Current Street Fighter 6 player rankings from the competitive Fighting Game Community." />
+  <link rel="canonical" href="https://fgc-player-rankings.netlify.app/" />
+  <meta name="theme-color" content="#000001" />
+  <meta http-equiv="Cache-Control" content="max-age=3600, must-revalidate" />
+
+  <link rel="sitemap" type="application/xml" title="Sitemap" href="https://fgc-player-rankings.netlify.app/sitemap.xml" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+  <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet" />
+
+  <link rel="icon" type="image/png" href="/images/favicon.png" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+  <style>
+    /* Reset and base styles */
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      background: #000001;
+      color: #f0f0f0;
+      font-family: Arial, sans-serif;
+      overflow-x: hidden;
+      background-image: url('/images/background.png');
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+
+    body {
+      min-height: 100vh;
+      overflow-y: auto;
+      position: relative;
+    }
+
+    a {
+      color: #f39c12;
+      text-decoration: none;
+    }
+    a:hover,
+    a:focus {
+      text-decoration: underline;
+    }
+
+    /* Layout */
+    .page-wrapper {
+      display: flex;
+      flex-direction: row;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    /* Sidebar */
+    nav.sidebar {
+      width: 180px;
+      background: #111;
+      padding: 15px;
+      box-sizing: border-box;
+      box-shadow: 2px 0 5px rgba(0,0,0,.7);
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: transform 0.3s ease;
+      color: #ddd;
+    }
+
+    nav.sidebar h2.sidebar-label {
+      font-family: 'Permanent Marker', cursive;
+      font-weight: normal;
+      font-size: 1.5rem;
+      color: #FF5E13; /* Updated to match h1 color */
+      text-decoration: none;
+      text-shadow: 0 1px 2px rgba(0,0,0,.5);
+      margin-bottom: 1rem;
+      width: 100%;
+      text-align: center;
+    }
+
+    nav.sidebar ul.nav-menu {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      width: 100%;
+    }
+
+    nav.sidebar ul.nav-menu li {
+      margin-bottom: 1.2rem;
+      text-align: center;
+      font-family: 'Permanent Marker', cursive;
+    }
+
+    nav.sidebar ul.nav-menu li a {
+      color: #ddd;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1.5rem;
+      display: inline-block;
+      transition: color 0.3s ease;
+    }
+
+    nav.sidebar ul.nav-menu li a:hover {
+      color: #bbb;
+    }
+
+    nav.sidebar ul.nav-menu li a i {
+        margin-right: 8px;
+        vertical-align: middle;
+    }
+
+    /* Main content */
+    main.content {
+      flex: 1;
+      padding: 20px 30px;
+      overflow-y: auto;
+      box-sizing: border-box;
+      /* Force left text alignment */
+      text-align: left;
+      min-width: 0;
+      max-height: 100vh;
+      color: #f0f0f0;
+    }
+
+    /* Content container to align content left */
+    .content-container {
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: left;
+    }
+
+    /* Override for Ranking System page to allow full width */
+    
+    .content-container {
+      max-width: none;
+      margin: 0;
+      width: 100%;
+      padding: 0 15px;
+    }
+    
+
+    /* Banner image */
+    .banner {
+      display: block;
+      width: auto;
+      height: auto;
+      max-width: 300px;
+      max-height: 262px;
+      object-fit: contain;
+      margin: 0 auto 1rem auto;
+    }
+
+    /* Headings styling - consistent globally */
+    h1 {
+      margin: 1rem 0 0.5rem 0;
+      color: #FF5E13; /* Fire-orange color */
+      font-family: 'Permanent Marker', cursive;
+      font-size: 3rem;
+      text-shadow: none;
+      text-align: center;
+    }
+
+    h2 {
+      margin: 0 0 2rem 0;
+      font-weight: normal;
+      color: #ccc;
+      text-align: center;
+    }
+
+    /* Table wrapper */
+    .table-wrapper {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      margin: 0 auto 2rem auto;
+      width: 100%;
+      /* Force left alignment */
+      text-align: left;
+    }
+
+    table {
+      border-collapse: collapse;
+      width: auto;
+      table-layout: auto;
+      min-width: 600px;
+      white-space: nowrap;
+      margin: 0 auto;
+      color: #f0f0f0;
+    }
+
+    thead {
+      background: #1f1f1f;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      box-shadow: inset 0 -3px 8px -3px rgba(255,255,255,.3);
+    }
+
+    th, td {
+      padding: 0.75rem 1rem;
+      border: 1px solid #333;
+      text-align: center;
+      word-break: normal;
+      white-space: nowrap;
+    }
+
+    th {
+      color: #ddd;
+      font-weight: 700;
+      text-shadow: 0 1px 1px rgba(0,0,0,.7);
+      border-bottom: 3px solid #444;
+    }
+
+    tbody tr:nth-child(even) {
+      background: #1a1a1a;
+    }
+
+    tbody tr:hover {
+      background: #333;
+    }
+
+    /* Google Sheets embed styling */
+    iframe.google-sheet {
+      width: 100% !important;
+      max-width: 100%;
+      height: 600px; /* Adjust height as needed */
+      border: 1px solid #f39c12;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(243, 156, 18, 0.7);
+      margin: 1rem 0;
+      display: block;
+    }
+
+    /* Responsive iframe for sheets */
+    @media (max-width: 700px) {
+      iframe.google-sheet {
+        height: 400px;
+      }
+    }
+
+    /* Right sidebar */
+    aside.right-sidebar {
+      background: #111;
+      width: 200px;
+      max-width: 100%;
+      padding: 15px;
+      box-sizing: border-box;
+      box-shadow: -2px 0 5px rgba(0,0,0,.7);
+      position: relative;
+      height: 100vh;
+      overflow-y: auto;
+      overflow-x: hidden;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      color: #bbb;
+      font-family: Arial, sans-serif;
+    }
+
+    aside.right-sidebar h2.sidebar-label {
+      font-family: 'Permanent Marker', cursive; /* Applied the font here */
+      font-weight: normal;
+      font-size: 1.5rem;
+      color: #FF5E13; /* Updated to match h1 color */
+      text-decoration: none;
+      text-shadow: 0 1px 2px rgba(0,0,0,.5);
+      margin-bottom: 1rem;
+      width: 100%;
+      text-align: center;
+    }
+
+    aside.right-sidebar .event {
+      width: 100%;
+      margin-bottom: 0.8rem;
+      text-align: center;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: #111;
+      padding: 10px;
+      border-radius: 8px;
+      box-sizing: border-box;
+    }
+
+    aside.right-sidebar .event img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 6px;
+      margin-bottom: 0.5rem;
+      object-fit: contain;
+      max-height: 120px;
+      display: block;
+    }
+
+    aside.right-sidebar .event a.tournament-name {
+      color: #ddd;
+      font-weight: bold;
+      text-decoration: none;
+      display: block;
+      margin-bottom: 0.3rem;
+      text-align: center;
+      font-size: 1.1rem;
+      font-family: Arial, sans-serif;
+    }
+
+    aside.right-sidebar .event a.tournament-name:hover {
+      text-decoration: underline;
+      color: #eee;
+    }
+
+    aside.right-sidebar .event-date {
+      font-size: 0.9rem;
+      color: #999;
+      user-select: none;
+      margin-bottom: 0.3rem;
+    }
+
+    aside.right-sidebar a.more-info {
+      color: #999;
+      font-size: 0.85rem;
+    }
+
+    /* Skip link */
+    .skip-link {
+      position: absolute;
+      left: -9999px;
+      top: auto;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+    }
+    .skip-link:focus {
+      position: static;
+      width: auto;
+      height: auto;
+      left: auto;
+      top: auto;
+      background: #f39c12;
+      color: #000;
+      padding: 0.5rem 1rem;
+      z-index: 1000;
+      text-decoration: none;
+    }
+
+    /* Hamburger toggle button */
+    .nav-toggle {
+      display: none;
+      position: fixed;
+      top: 15px;
+      left: 15px;
+      font-size: 2rem;
+      background: none;
+      border: none;
+      color: #f0f0f0;
+      cursor: pointer;
+      z-index: 1201;
+    }
+
+    /* Responsive styles */
+    @media (max-width: 1024px) {
+      aside.right-sidebar {
+        width: 180px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .nav-toggle {
+        display: block;
+      }
+      nav.sidebar {
+        position: fixed;
+        width: 240px;
+        padding-top: 60px;
+        height: 100vh;
+        top: 0;
+        left: 0;
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+        z-index: 1200;
+        font-family: Arial, sans-serif;
+      }
+      nav.sidebar.active {
+        transform: translateX(0);
+      }
+      .page-wrapper {
+        flex-direction: column;
+        height: auto;
+        overflow: visible;
+      }
+      main.content {
+        padding: 80px 15px 15px 15px;
+        max-height: none;
+        width: 100%;
+      }
+      .table-wrapper {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        width: 100%;
+        margin-bottom: 1rem;
+        text-align: left; /* also force left on mobile */
+      }
+      table {
+        border-collapse: collapse;
+        width: auto;
+        table-layout: auto;
+        min-width: 600px;
+        white-space: nowrap;
+        margin: 0 auto;
+      }
+      aside.right-sidebar {
+        position: relative;
+        height: auto;
+        width: 100%;
+        padding: 15px 20px;
+        box-shadow: none;
+        display: block;
+        margin-top: 1rem;
+        overflow: visible;
+        font-family: Arial, sans-serif;
+      }
+      aside.right-sidebar h2.sidebar-label {
+        font-size: 1.3rem;
+        display: block;
+        margin-bottom: 1rem;
+        color: #999;
+        font-family: Arial, sans-serif;
+      }
+      aside.right-sidebar .event {
+        width: 100%;
+        margin-bottom: 1.5rem;
+        background: #111;
+        padding: 10px;
+        border-radius: 8px;
+        text-align: center;
+        flex-direction: column;
+        align-items: center;
+      }
+      aside.right-sidebar .event img {
+        max-height: 120px;
+        margin-bottom: 0.5rem;
+      }
+      nav.sidebar ul.nav-menu li a {
+        font-size: 1.6rem;
+        font-family: Arial, sans-serif;
+      }
+      nav.sidebar h2.sidebar-label {
+        font-size: 1.3rem;
+        font-family: Arial, sans-serif;
+      }
+    }
+  </style>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "name": "FGC Player Rankings",
+        "url": "https://fgc-player-rankings.netlify.app",
+        "logo": "https://fgc-player-rankings.netlify.app/images/banner.png"
+      },
+      {
+        "@type": "WebPage",
+        "name": "FGC Player Rankings - Street Fighter 6 Player Rankings",
+        "url": "https://fgc-player-rankings.netlify.app",
+        "description": "Current Street Fighter 6 player rankings from the competitive Fighting Game Community.",
+        "breadcrumb": {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Home",
+              "item": "https://fgc-player-rankings.netlify.app"
+            }
+          ]
+        }
+      }
+    ]
+  }
+  </script>
+  
+  
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How are player rankings calculated?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Rankings are calculated based on a player’s top five performances at sanctioned offline tournaments, factoring in placement, event value, and recency to reflect current competitive form."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can a player’s ranking change if they attend fewer events?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Because the system emphasizes recent and top performances, players who compete less frequently can still maintain or improve their ranking by performing well in high-value tournaments."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What games are covered by this ranking system?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Currently, the ranking system covers Street Fighter 6 (SF6) exclusively."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How can I suggest improvements or report errors in the rankings?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "We welcome feedback and encourage you to contact us via fgcprankings@gmail.com with any suggestions or corrections."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Why aren’t online tournaments included?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "To maintain competitive integrity and fairness, only offline tournaments are considered, as online results can be affected by connectivity and other factors."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How often are rankings updated?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Rankings are updated regularly following major offline events to ensure they reflect the latest competitive results."
+        }
+        },
+      {
+        "@type": "Question",
+        "name": "How can I get my tournament included?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Tournament organizers can contact us at fgcprankings@gmail.com to request evaluation and inclusion of their events in the ranking system."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How can players submit their tournament results?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Players should work with tournament organizers who submit official results to us. If you notice a tournament result missing or incorrect, please reach out via email."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How are disputes or errors handled?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "We review all reported discrepancies carefully and update rankings accordingly to ensure accuracy."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What regions or countries are most represented?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Our rankings reflect a global player base, with events and competitors from multiple regions around the world."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <style>
+    /* Specific styles for this page layout */
+    .content-container {
+      max-width: 1100px !important;
+      margin: 0 auto !important;
+      padding: 0 15px !important;
+      text-align: left;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+
+    .toc-and-image {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 2rem;
+      align-items: start;
+      margin-bottom: 2rem;
+    }
+
+    .toc-and-image nav {
+      font-size: 1.26rem; /* Increased by 5% */
+      line-height: 1.2;
+      overflow-wrap: break-word;
+      padding: 0.5rem;
+    }
+
+    .toc-and-image nav strong {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 700;
+      color: #ccc;
+    }
+
+    .toc-and-image nav ul {
+      list-style: disc inside;
+      padding-left: 1rem;
+      margin-top: 0;
+    }
+
+    .toc-and-image nav ul li {
+      margin-bottom: 0;
+    }
+
+    .toc-and-image nav ul li a {
+      color: #f39c12;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .toc-and-image nav ul li a:hover,
+    .toc-and-image nav ul li a:focus {
+      text-decoration: underline;
+      color: #ff7f24;
+      outline: none;
+    }
+
+    #faq-image {
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 0 8px rgba(0,0,0,0.5);
+      object-fit: contain;
+      -webkit-mask-image: radial-gradient(ellipse farthest-side at center, rgba(0,0,0,1) 90%, rgba(0,0,0,0));
+      mask-image: radial-gradient(ellipse farthest-side at center, rgba(0,0,0,1) 90%, rgba(0,0,0,0));
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 900px) {
+      .toc-and-image {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+      #faq-image {
+        order: 1; /* Move the image to the top on smaller screens */
+      }
+      .toc-and-image nav {
+        order: 2; /* Move the nav below the image on smaller screens */
+      }
+    }
+  </style>
+
+</head>
+<body>
+  <a href="#maincontent" class="skip-link">Skip to main content</a>
+
+  <button class="nav-toggle" aria-label="toggle navigation" aria-expanded="false">&#9776;</button>
+
+  <div class="page-wrapper">
+    <nav class="sidebar" aria-label="Main menu" role="navigation">
+      <h2 class="sidebar-label">Navigation</h2>
+      <ul class="nav-menu">
+        <li><a href="/"><i class="fas fa-trophy"></i> SF6 Rankings</a></li>
+        <li><a href="/ranking-system/"><i class="fas fa-info-circle"></i> Ranking System Overview</a></li>
+      </ul>
+    </nav>
+
+    <main class="content" role="main" id="maincontent" tabindex="-1">
+      <div class="content-container">
+        <img
+          class="banner"
+          src="/images/banner.png"
+          alt="FGC Player Rankings official logo"
+          loading="lazy"
+        />
+        
+  <article>
+    <h1>Fighting Game Community (FGC) Ranking System Explained</h1>
+
+    <div class="toc-and-image">
+      <nav aria-label="Table of Contents">
+        <strong>Contents</strong>
+        <ul>
+          <li><a href="#overview">Overview</a></li>
+          <li><a href="#how-ranking-works">How the Ranking System Works</a></li>
+          <li><a href="#placement-based-scoring">Placement-Based Scoring</a></li>
+          <li><a href="#best-performances-count">Best Performances Count</a></li>
+          <li><a href="#dynamic-event-valuation">Dynamic Event Valuation</a></li>
+          <li><a href="#recency-bias">Recency Bias for Current Form</a></li>
+          <li><a href="#offline-events">Offline Events Only</a></li>
+          <li><a href="#data-sources">Data Sources & Verification</a></li>
+          <li><a href="#global-recognition">Global Recognition & Tournament Inclusion</a></li>
+          <li><a href="#updates-transparency">Regular Updates & Transparency</a></li>
+          <li><a href="#faq">Frequently Asked Questions (FAQ)</a></li>
+          <li><a href="#contact-feedback">Contact & Feedback</a></li>
+        </ul>
+      </nav>
+      <img
+        src="/images/faq.png"
+        alt="Crowd cheering at a fighting game event"
+        loading="lazy"
+        id="faq-image"
+      />
+    </div>
+
+    <div style="max-width: 800px; margin-left: auto; margin-right: auto;">
+      <h2 id="overview">Overview: Accurate &amp; Fair Player Rankings for Street Fighter 6</h2>
+      <p>
+        Our FGC ranking system provides an accurate and current reflection of player skill and performance specifically for Street Fighter 6 (SF6). It ranks players based on their top results from sanctioned offline tournaments worldwide, rewarding consistent excellence and recent achievements.
+      </p>
+
+      <h2 id="how-ranking-works">How the Ranking System Works</h2>
+      <p>Our system is designed to fairly evaluate player performance by focusing on meaningful tournament results and ongoing competitive form.</p>
+
+      <h3 id="placement-based-scoring">Placement-Based Scoring</h3>
+      <p>Players earn points according to their final placement at offline tournaments. Higher placements receive significantly more points, ensuring that top finishes have the greatest impact on rankings.</p>
+
+      <h3 id="best-performances-count">Best Performances Count</h3>
+      <p>To balance quantity and quality, only each player’s five highest-rated performances are included in their overall ranking. This approach rewards consistent top-level play without favoring players who simply attend a large number of events.</p>
+
+      <h3 id="dynamic-event-valuation">Dynamic Event Valuation</h3>
+      <p>Each tournament's value is dynamically calculated based on multiple factors, including:</p>
+      <ul>
+        <li>The prestige and history of the tournament within the fighting game community</li>
+        <li>The strength of competition (presence of highly ranked players)</li>
+        <li>The prize money and stakes offered, reflecting the event’s significance and competitiveness</li>
+        <li>The size of the event (number of entrants)</li>
+      </ul>
+      <p>Additional considerations include the diversity of regional participation and a focus on major tournaments that hold significant prominence within the competitive landscape.</p>
+      <p>Larger, more prestigious tournaments with stronger player fields and higher stakes carry greater weight in the ranking system. This ensures that success at the most competitive and meaningful events is appropriately rewarded.</p>
+
+      <h3 id="recency-bias">Recency Bias for Current Form</h3>
+      <p>The system emphasizes recent tournament results to ensure the rankings accurately represent who is performing best right now. Older results gradually have less influence, keeping the leaderboard fresh and relevant.</p>
+
+      <h3 id="offline-events">Offline Events Only</h3>
+      <p>Rankings are based exclusively on sanctioned offline tournaments. Sanctioned tournaments are offline events that meet specific standards for fairness and competitive integrity.</p>
+
+      <h3 id="data-sources">Data Sources &amp; Verification</h3>
+      <p>We prioritize accurate and reliable data collection from trusted tournament organizers and verified results to maintain the integrity of the rankings. Our commitment ensures that player standings reflect genuine competitive performance.</p>
+
+      <h3 id="global-recognition">Global Recognition &amp; Tournament Inclusion</h3>
+      <p>Our ranking system recognizes offline fighting game tournaments from around the world, promoting a diverse and comprehensive competitive landscape.</p>
+      <p>Tournament organizers interested in having their events evaluated for inclusion in the official list of rated tournaments are encouraged to contact us for consideration.</p>
+
+      <h3 id="updates-transparency">Regular Updates, Community Transparency &amp; Engagement</h3>
+      <p>Rankings are updated regularly to incorporate the latest tournament results, ensuring the leaderboard remains accurate and timely.</p>
+      <p>Developed by and for the fighting game community, our ranking algorithms and weighting factors are designed to fairly recognize performance, consistency, and current competitive form.</p>
+
+      <h2 id="faq">Frequently Asked Questions (FAQ)</h2>
+      <ul class="faq-list">
+        <li>
+          <strong>How are player rankings calculated?</strong>
+          <p>Rankings are calculated based on a player’s top five performances at sanctioned offline tournaments, factoring in placement, event value, and recency to reflect current competitive form.</p>
+        </li>
+        <li>
+          <strong>Can a player’s ranking change if they attend fewer events?</strong>
+          <p>Yes. Because the system emphasizes recent and top performances, players who compete less frequently can still maintain or improve their ranking by performing well in high-value tournaments.</p>
+        </li>
+        <li>
+          <strong>What games are covered by this ranking system?</strong>
+          <p>Currently, the ranking system covers Street Fighter 6 (SF6) exclusively.</p>
+        </li>
+        <li>
+          <strong>How can I suggest improvements or report errors in the rankings?</strong>
+          <p>We welcome feedback and encourage you to contact us via <a href="mailto:fgcprankings@gmail.com">fgcprankings@gmail.com</a> with any suggestions or corrections.</p>
+        </li>
+        <li>
+          <strong>Why aren’t online tournaments included?</strong>
+          <p>To maintain competitive integrity and fairness, only offline tournaments are considered, as online results can be affected by connectivity and other factors.</p>
+        </li>
+        <li>
+          <strong>How often are rankings updated?</strong>
+          <p>Rankings are updated regularly following major offline events to ensure they reflect the latest competitive results.</p>
+        </li>
+        <li>
+          <strong>How can I get my tournament included?</strong>
+          <p>Tournament organizers can contact us at <a href="mailto:fgcprankings@gmail.com">fgcprankings@gmail.com</a> to request evaluation and inclusion of their events in the ranking system.</p>
+        </li>
+        <li>
+          <strong>How can players submit their tournament results?</strong>
+          <p>Players should work with tournament organizers who submit official results to us. If you notice a tournament result missing or incorrect, please reach out via email.</p>
+        </li>
+        <li>
+          <strong>How are disputes or errors handled?</strong>
+          <p>We review all reported discrepancies carefully and update rankings accordingly to ensure accuracy.</p>
+        </li>
+        <li>
+          <strong>What regions or countries are most represented?</strong>
+          <p>Our rankings reflect a global player base, with events and competitors from multiple regions around the world.</p>
+        </li>
+      </ul>
+
+      <h2 id="contact-feedback">Contact &amp; Feedback</h2>
+      <p>We welcome questions, feedback, and inquiries from the entire fighting game community — whether you’re a tournament organizer interested in having your event considered, a player seeking more information, or a fan wanting to get involved.</p>
+      <p>Please feel free to reach out to us at <a href="mailto:fgcprankings@gmail.com">fgcprankings@gmail.com</a>. We’re committed to fostering an open and engaged community and look forward to hearing from you.</p>
+    </div>
+  </article>
+
+      </div>
+    </main>
+
+    <aside class="right-sidebar" aria-label="Upcoming Rated Events">
+      <h2 class="sidebar-label">Upcoming Rated Events</h2>
+
+      
+        <div class="event">
+          <a href="https://www.start.gg/tournament/vsfighting-xiii/details" target="_blank" rel="noopener noreferrer" class="tournament-name">
+            VSFighting XIII
+          </a>
+          <a href="https://www.start.gg/tournament/vsfighting-xiii/details" target="_blank" rel="noopener noreferrer">
+            <img src="/images/vsfighting.png" alt="VSFighting XIII Tournament" loading="lazy" />
+          </a>
+          <div class="event-date">August 15-17, 2025</div>
+          <a class="more-info" href="https://www.start.gg/tournament/vsfighting-xiii/details" target="_blank" rel="noopener noreferrer">More Info</a>
+        </div>
+      
+        <div class="event">
+          <a href="https://esportsworldcup.com/en/competitions/street-fighter6" target="_blank" rel="noopener noreferrer" class="tournament-name">
+            Esports World Cup 2025
+          </a>
+          <a href="https://esportsworldcup.com/en/competitions/street-fighter6" target="_blank" rel="noopener noreferrer">
+            <img src="/images/ewc.png" alt="Esports World Cup 2025 Tournament" loading="lazy" />
+          </a>
+          <div class="event-date">August 20-23, 2025</div>
+          <a class="more-info" href="https://esportsworldcup.com/en/competitions/street-fighter6" target="_blank" rel="noopener noreferrer">More Info</a>
+        </div>
+      
+        <div class="event">
+          <a href="https://www.start.gg/tournament/beast-in-the-east-8/details" target="_blank" rel="noopener noreferrer" class="tournament-name">
+            Beast in the East 8
+          </a>
+          <a href="https://www.start.gg/tournament/beast-in-the-east-8/details" target="_blank" rel="noopener noreferrer">
+            <img src="/images/beast-in-the-east.png" alt="Beast in the East 8 Tournament" loading="lazy" />
+          </a>
+          <div class="event-date">August 22-24, 2025</div>
+          <a class="more-info" href="https://www.start.gg/tournament/beast-in-the-east-8/details" target="_blank" rel="noopener noreferrer">More Info</a>
+        </div>
+      
+        <div class="event">
+          <a href="https://www.start.gg/tournament/comit-arena-2025/details" target="_blank" rel="noopener noreferrer" class="tournament-name">
+            COMITÊ ARENA 2025
+          </a>
+          <a href="https://www.start.gg/tournament/comit-arena-2025/details" target="_blank" rel="noopener noreferrer">
+            <img src="/images/comite.png" alt="COMITÊ ARENA 2025 Tournament" loading="lazy" />
+          </a>
+          <div class="event-date">August 30-31, 2025</div>
+          <a class="more-info" href="https://www.start.gg/tournament/comit-arena-2025/details" target="_blank" rel="noopener noreferrer">More Info</a>
+        </div>
+      
+        <div class="event">
+          <a href="https://www.start.gg/tournament/ozhadou-nationals-19/details" target="_blank" rel="noopener noreferrer" class="tournament-name">
+            OzHadou National 19
+          </a>
+          <a href="https://www.start.gg/tournament/ozhadou-nationals-19/details" target="_blank" rel="noopener noreferrer">
+            <img src="/images/ozhadou-19.png" alt="OzHadou National 19 Tournament" loading="lazy" />
+          </a>
+          <div class="event-date">September 5-7, 2025</div>
+          <a class="more-info" href="https://www.start.gg/tournament/ozhadou-nationals-19/details" target="_blank" rel="noopener noreferrer">More Info</a>
+        </div>
+      
+
+    </aside>
+  </div>
+
+  <noscript>
+    <p style="color:#f00;text-align:center;padding:1rem;background:#111;">
+      JavaScript is disabled in your browser. The rankings table may not load correctly.
+    </p>
+  </noscript>
+
+  <script>
+    const toggleButton = document.querySelector('.nav-toggle');
+    const sidebar = document.querySelector('.sidebar');
+
+    toggleButton.addEventListener('click', () => {
+      const isActive = sidebar.classList.toggle('active');
+      toggleButton.setAttribute('aria-expanded', isActive);
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!sidebar.contains(e.target) && !toggleButton.contains(e.target)) {
+        sidebar.classList.remove('active');
+        toggleButton.setAttribute('aria-expanded', false);
+      }
+    });
+  </script>
+
+</body>
+</html>
