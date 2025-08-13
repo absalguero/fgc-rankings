@@ -2,8 +2,9 @@ const fs = require("fs");
 const path = require("path");
 
 module.exports = function(eleventyConfig) {
-  // Pass through the images folder to the output
+  // Pass through the images folder and CSS folder to the output
   eleventyConfig.addPassthroughCopy("images");
+  eleventyConfig.addPassthroughCopy("css");
 
   // Load events.json manually and add it as global data
   eleventyConfig.addGlobalData("events", () => {
@@ -19,9 +20,10 @@ module.exports = function(eleventyConfig) {
 
   return {
     dir: {
-      input: ".",           // Your source files root (where your index.njk is)
+      input: ".",           // Your source files root (where your index.njk is)
       includes: "_includes", // Where your layouts like layout.njk live
-      output: "_site"        // Default output folder
+      data: "_data",         // Tell Eleventy to look for data files in the _data folder
+      output: "_site"        // Default output folder
     }
   };
 };

@@ -19,6 +19,8 @@
   },
   "homepage": "https://github.com/absalguero/fgc-rankings#readme",
   "devDependencies": {
-    "@11ty/eleventy": "^3.1.2"
+    "@11ty/eleventy": "^3.1.2",
+    "@11ty/eleventy-fetch": "^5.1.0",
+    "papaparse": "^5.5.3"
   }
 }

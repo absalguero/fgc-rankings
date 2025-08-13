@@ -514,58 +514,227 @@
           loading="lazy"
         />
         
-  <div class="content-container">
-    <h1 style="margin-top: 0;">Street Fighter 6 Rankings</h1>
-    <h2>Last Updated: August 10, 2025</h2>
+  <div class="content-container">
+    <h1 style="margin-top: 0;">Street Fighter 6 Rankings</h1>
+    <h2>Last Updated: August 10, 2025</h2>
 
-    <div class="table-wrapper">
-      <table>
-        <thead>
-          <tr>
-            <th>Rank</th>
-            <th>Player</th>
-            <th>Character</th>
-            <th>Region</th>
-            <th>Points</th>
-          </tr>
-        </thead>
-        <tbody id="rankings-table-body"></tbody>
-      </table>
-    </div>
-  </div>
-
-  
-  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
-  <script>
-    const sheetURL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vS-5EA7Uvl16qJolXsMR4SRAzXb6XwclnVtT92byBa34nk3WMk6qL2XG79-xF-uRg/pub?gid=1862929315&single=true&output=csv';
-
-    Papa.parse(sheetURL, {
-      download: true,
-      header: true,
-      complete: function(results) {
-        const data = results.data;
-        const tbody = document.getElementById('rankings-table-body');
-        const maxRows = 25;
-        let count = 0;
-
-        for (let i = 0; i < data.length && count < maxRows; i++) {
-          const row = data[i];
-          if (!row.Rank || !row.Player) continue;
-
-          const tr = document.createElement('tr');
-          tr.innerHTML =
-            '<td data-label="Rank">' + row.Rank + '</td>' +
-            '<td data-label="Player">' + row.Player + '</td>' +
-            '<td data-label="Character">' + row.Character + '</td>' +
-            '<td data-label="Region">' + row.Region + '</td>' +
-            '<td data-label="Points">' + row.Points + '</td>';
-          tbody.appendChild(tr);
-          count++;
-        }
-      }
-    });
-  </script>
-  
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>Rank</th>
+            <th>Player</th>
+            <th>Character</th>
+            <th>Region</th>
+            <th>Points</th>
+          </tr>
+        </thead>
+        <tbody>
+          
+            <tr>
+              <td data-label="Rank">1</td>
+              <td data-label="Player">MenaRD</td>
+              <td data-label="Character">Blanka</td>
+              <td data-label="Region">Latin America</td>
+              <td data-label="Points">1701</td>
+            </tr>
+          
+            <tr>
+              <td data-label="Rank">2</td>
+              <td data-label="Player">Fuudo</td>
+              <td data-label="Character">Ed</td>
+              <td data-label="Region">Asia</td>
+              <td data-label="Points">1677</td>
+            </tr>
+          
+            <tr>
+              <td data-label="Rank">3</td>
+              <td data-label="Player">Leshar</td>
+              <td data-label="Character">Terry</td>
+              <td data-label="Region">Asia</td>
+              <td data-label="Points">1438</td>
+            </tr>
+          
+            <tr>
+              <td data-label="Rank">4</td>
+              <td data-label="Player">Kakeru</td>
+              <td data-label="Character">JP</td>
+              <td data-label="Region">Asia</td>
+              <td data-label="Points">1408</td>
+            </tr>
+          
+            <tr>
+              <td data-label="Rank">5</td>
+              <td data-label="Player">Nephew</td>
+              <td data-label="Character">Juri</td>
+              <td data-label="Region">North America</td>
+              <td data-label="Points">1044</td>
+            </tr>
+          
+            <tr>
+              <td data-label="Rank">6</td>
+              <td data-label="Player">Momochi</td>
+              <td data-label="Character">Ed</td>
+              <td data-label="Region">Asia</td>
+              <td data-label="Points">950</td>
+            </tr>
+          
+            <tr>
+              <td data-label="Rank">7</td>
+              <td data-label="Player">iDom</td>
+              <td data-label="Character">Manon</td>
+              <td data-label="Region">North America</td>
+              <td data-label="Points">916</td>
+            </tr>
+          
+            <tr>
+              <td data-label="Rank">8</td>
+              <td data-label="Player">Bonchan</td>
+              <td data-label="Character">Akuma</td>
+              <td data-label="Region">Asia</td>
+              <td data-label="Points">894</td>
+            </tr>
+          
+            <tr>
+              <td data-label="Rank">9</td>
+              <td data-label="Player">Tokido</td>
+              <td data-label="Character">Ken</td>
+              <td data-label="Region">Asia</td>
+              <td data-label="Points">864</td>
+            </tr>
+          
+            <tr>
+              <td data-label="Rank">10</td>
+              <td data-label="Player">Punk</td>
+              <td data-label="Character">Cammy</td>
+              <td data-label="Region">North America</td>
+              <td data-label="Points">851</td>
+            </tr>
+          
+            <tr>
+              <td data-label="Rank">11</td>
+              <td data-label="Player">moke</td>
+              <td data-label="Character">Chun-Li</td>
+              <td data-label="Region">Asia</td>
+              <td data-label="Points">848</td>
+            </tr>
+          
+            <tr>
+              <td data-label="Rank">12</td>
+              <td data-label="Player">EndingWalker</td>
+              <td data-label="Character">Ryu</td>
+              <td data-label="Region">Europe</td>
+              <td data-label="Points">779</td>
+            </tr>
+          
+            <tr>
+              <td data-label="Rank">13</td>
+              <td data-label="Player">Dual Kevin</td>
+              <td data-label="Character">Rashid</td>
+              <td data-label="Region">North America</td>
+              <td data-label="Points">746</td>
+            </tr>
+          
+            <tr>
+              <td data-label="Rank">15</td>
+              <td data-label="Player">NoahTheProdigy</td>
+              <td data-label="Character">Luke</td>
+              <td data-label="Region">North America</td>
+              <td data-label="Points">730</td>
+            </tr>
+          
+            <tr>
+              <td data-label="Rank">14</td>
+              <td data-label="Player">Torimeshi</td>
+              <td data-label="Character">Dhalsim</td>
+              <td data-label="Region">Asia</td>
+              <td data-label="Points">734</td>
+            </tr>
+          
+            <tr>
+              <td data-label="Rank">16</td>
+              <td data-label="Player">Ryukichi</td>
+              <td data-label="Character">Ken</td>
+              <td data-label="Region">Asia</td>
+              <td data-label="Points">723</td>
+            </tr>
+          
+            <tr>
+              <td data-label="Rank">17</td>
+              <td data-label="Player">Itabashi Zangief</td>
+              <td data-label="Character">Marissa</td>
+              <td data-label="Region">Asia</td>
+              <td data-label="Points">717</td>
+            </tr>
+          
+            <tr>
+              <td data-label="Rank">18</td>
+              <td data-label="Player">Higuchi</td>
+              <td data-label="Character">Guile</td>
+              <td data-label="Region">Asia</td>
+              <td data-label="Points">646</td>
+            </tr>
+          
+            <tr>
+              <td data-label="Rank">19</td>
+              <td data-label="Player">Xiaohai</td>
+              <td data-label="Character">Mai</td>
+              <td data-label="Region">Asia</td>
+              <td data-label="Points">638</td>
+            </tr>
+          
+            <tr>
+              <td data-label="Rank">20</td>
+              <td data-label="Player">Hikaru</td>
+              <td data-label="Character">A.K.I.</td>
+              <td data-label="Region">Asia</td>
+              <td data-label="Points">622</td>
+            </tr>
+          
+            <tr>
+              <td data-label="Rank">21</td>
+              <td data-label="Player">Blaz</td>
+              <td data-label="Character">Ryu</td>
+              <td data-label="Region">Latin America</td>
+              <td data-label="Points">564</td>
+            </tr>
+          
+            <tr>
+              <td data-label="Rank">22</td>
+              <td data-label="Player">Zhen</td>
+              <td data-label="Character">M. Bison</td>
+              <td data-label="Region">Asia</td>
+              <td data-label="Points">550</td>
+            </tr>
+          
+            <tr>
+              <td data-label="Rank">23</td>
+              <td data-label="Player">Gachikun</td>
+              <td data-label="Character">Rashid</td>
+              <td data-label="Region">Asia</td>
+              <td data-label="Points">547</td>
+            </tr>
+          
+            <tr>
+              <td data-label="Rank">24</td>
+              <td data-label="Player">NL</td>
+              <td data-label="Character">Akuma</td>
+              <td data-label="Region">Asia</td>
+              <td data-label="Points">542</td>
+            </tr>
+          
+            <tr>
+              <td data-label="Rank">25</td>
+              <td data-label="Player">Shuto</td>
+              <td data-label="Character">Akuma</td>
+              <td data-label="Region">Asia</td>
+              <td data-label="Points">538</td>
+            </tr>
+          
+        </tbody>
+      </table>
+    </div>
+  </div>
 
       </div>
     </main>
