@@ -6,20 +6,70 @@
     <h2>Last Updated: August 11, 2025</h2>
 
     <div class="table-wrapper">
-      <table>
+      <table id="rankings-table">
         <thead>
           <tr>
-            <th>Rank</th>
-            <th>Change</th>
-            <th>Player</th>
-            <th>Main<br>Character</th>
-            <th>Region</th>
-            <th>Points</th>
+            <th data-column-index="0" data-type="number" data-sort-direction="desc">
+              <span>Rank
+                <svg class="sort-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 5V19"/>
+                  <path d="M19 12L12 19L5 12"/>
+                </svg>
+              </span>
+            </th>
+            <th data-column-index="1" data-type="string">
+              <span>Change
+                <svg class="sort-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 5V19"/>
+                  <path d="M19 12L12 19L5 12"/>
+                </svg>
+              </span>
+            </th>
+            <th data-column-index="2" data-type="string">
+              <span>Player
+                <svg class="sort-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 5V19"/>
+                  <path d="M19 12L12 19L5 12"/>
+                </svg>
+              </span>
+            </th>
+            <th data-column-index="3" data-type="string">
+              <span>Main<br>Character
+                <svg class="sort-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 5V19"/>
+                  <path d="M19 12L12 19L5 12"/>
+                </svg>
+              </span>
+            </th>
+            <th data-column-index="4" data-type="string">
+              <span>Region
+                <svg class="sort-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 5V19"/>
+                  <path d="M19 12L12 19L5 12"/>
+                </svg>
+              </span>
+            </th>
+            <th data-column-index="5" data-type="number">
+              <span>Points
+                <svg class="sort-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 5V19"/>
+                  <path d="M19 12L12 19L5 12"/>
+                </svg>
+              </span>
+            </th>
           </tr>
         </thead>
         <tbody>
           {% for player in rankings.players %}
-            <tr>
+            <tr
+              {% if player.Rank == 1 %}
+                data-rank="1"
+              {% elif player.Rank == 2 %}
+                data-rank="2"
+              {% elif player.Rank == 3 %}
+                data-rank="3"
+              {% endif %}
+            >
               <td data-label="Rank">{{ player.Rank }}</td>
               <td data-label="Change">
                 {% if player.Rank_Change == 'New' %}
@@ -33,7 +83,12 @@
                 {% endif %}
               </td>
               <td data-label="Player">{{ player.Player }}</td>
-              <td data-label="Character">{{ player.Character }}</td>
+              <td data-label="Character">
+                <div class="character-cell">
+                  <img src="/images/characters/{{ player.Character | lower }}.png" alt="{{ player.Character }}" class="character-icon" onerror="this.src='https://placehold.co/40x40/aaa/fff?text=N/A';">
+                  <span>{{ player.Character }}</span>
+                </div>
+              </td>
               <td data-label="Region">{{ player.Region }}</td>
               <td data-label="Points">{{ player.Points }}</td>
             </tr>
@@ -42,4 +97,158 @@
       </table>
     </div>
   </div>
+
+  <style>
+    th {
+      cursor: pointer;
+      position: relative;
+    }
+    th span {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    th:hover {
+      background-color: rgba(0, 0, 0, 0.1);
+    }
+    .sort-icon {
+      margin-left: 5px;
+      opacity: 0.3;
+      transform: rotate(0deg);
+      transition: transform 0.2s ease-in-out, opacity 0.2s ease-in-out;
+    }
+    th:hover .sort-icon {
+      opacity: 0.6;
+    }
+    th.sorted-asc .sort-icon {
+      transform: rotate(180deg);
+      opacity: 1;
+    }
+    th.sorted-desc .sort-icon {
+      transform: rotate(0deg);
+      opacity: 1;
+    }
+    tr[data-rank="1"] td {
+      background-color: #ffd70030;
+      color: gold;
+    }
+    tr[data-rank="2"] td {
+      background-color: #c0c0c030;
+      color: silver;
+    }
+    tr[data-rank="3"] td {
+      background-color: #cd7f3230;
+      color: #cd7f32;
+    }
+
+    .character-cell {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 10px;
+    }
+
+    .character-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 1px solid #ddd;
+    }
+
+    @media screen and (max-width: 768px) {
+      table {
+        border: 0;
+      }
+      table thead {
+        display: none;
+      }
+      table tr {
+        display: block;
+        margin-bottom: 1rem;
+        border: 1px solid #dee2e6;
+        border-radius: 5px;
+      }
+      table td {
+        display: block;
+        text-align: right;
+        font-size: 0.8em;
+        border-bottom: 1px solid #dee2e6;
+        padding: 0.5rem 1rem;
+        position: relative;
+      }
+      table td::before {
+        content: attr(data-label);
+        position: absolute;
+        left: 0.5rem;
+        width: 50%;
+        padding-left: 0.5rem;
+        font-weight: bold;
+        text-align: left;
+        color: #6c757d;
+      }
+      .character-cell {
+        justify-content: flex-end;
+      }
+    }
+  </style>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      try {
+        const table = document.getElementById('rankings-table');
+        const headers = table.querySelectorAll('th');
+        const tbody = table.querySelector('tbody');
+
+        headers.forEach(header => {
+          header.addEventListener('click', () => {
+            const columnIndex = parseInt(header.getAttribute('data-column-index'));
+            const dataType = header.getAttribute('data-type');
+            let sortDirection = header.getAttribute('data-sort-direction') || 'asc';
+            
+            // Toggle sort direction
+            const newSortDirection = sortDirection === 'asc' ? 'desc' : 'asc';
+            header.setAttribute('data-sort-direction', newSortDirection);
+
+            // Remove existing sort classes and add to the current header
+            headers.forEach(h => {
+              h.classList.remove('sorted-asc', 'sorted-desc');
+            });
+            header.classList.add(`sorted-${newSortDirection}`);
+
+            const rows = Array.from(tbody.querySelectorAll('tr'));
+
+            // Sort the rows
+            rows.sort((a, b) => {
+              const aValue = a.children[columnIndex].textContent.trim();
+              const bValue = b.children[columnIndex].textContent.trim();
+              
+              let compareA = aValue;
+              let compareB = bValue;
+
+              if (dataType === 'number') {
+                compareA = parseFloat(aValue) || 0;
+                compareB = parseFloat(bValue) || 0;
+              }
+
+              if (newSortDirection === 'asc') {
+                if (compareA < compareB) return -1;
+                if (compareA > compareB) return 1;
+              } else {
+                if (compareA > compareB) return -1;
+                if (compareA < compareB) return 1;
+              }
+
+              return 0;
+            });
+
+            // Re-append the sorted rows to the table
+            rows.forEach(row => tbody.appendChild(row));
+          });
+        });
+      } catch (error) {
+        console.error("Error setting up sorting functionality:", error);
+      }
+    });
+  </script>
 {% endblock %}
