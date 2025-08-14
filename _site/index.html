@@ -1095,6 +1095,16 @@
   </div>
 
   <style>
+    /* Global styles for robust responsiveness */
+    html, body {
+      box-sizing: border-box;
+      max-width: 100%;
+      overflow-x: hidden;
+    }
+    *, *:before, *:after {
+      box-sizing: inherit;
+    }
+    
     th {
       cursor: pointer;
       position: relative;
@@ -1157,10 +1167,18 @@
       font-size: 1rem;
     }
 
+    /* Mobile Styles (Card Layout) */
     @media screen and (max-width: 768px) {
+      .content-container, .table-wrapper {
+        width: 100%;
+        max-width: 100%;
+        overflow-x: hidden;
+      }
       table {
         border: 0;
         width: 100%;
+        /* New: Override the min-width to allow the table to shrink */
+        min-width: unset;
         border-collapse: separate;
         border-spacing: 0 1rem;
       }
@@ -1193,6 +1211,10 @@
       }
       .character-cell {
         justify-content: flex-end;
+      }
+      /* Remove horizontal scrolling from table wrapper for this layout */
+      .table-wrapper {
+        overflow-x: hidden;
       }
     }
   </style>
