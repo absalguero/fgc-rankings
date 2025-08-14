@@ -1,33 +1,45 @@
 {% extends "layout.njk" %}
 
 {% block content %}
-  <div class="content-container">
-    <h1 style="margin-top: 0;">Street Fighter 6 Rankings</h1>
-    <h2>Last Updated: August 10, 2025</h2>
+  <div class="content-container">
+    <h1 style="margin-top: 0;">Street Fighter 6 Rankings</h1>
+    <h2>Last Updated: August 11, 2025</h2>
 
-    <div class="table-wrapper">
-      <table>
-        <thead>
-          <tr>
-            <th>Rank</th>
-            <th>Player</th>
-            <th>Character</th>
-            <th>Region</th>
-            <th>Points</th>
-          </tr>
-        </thead>
-        <tbody>
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>Rank</th>
+            <th>Change</th>
+            <th>Player</th>
+            <th>Main<br>Character</th>
+            <th>Region</th>
+            <th>Points</th>
+          </tr>
+        </thead>
+        <tbody>
           {% for player in rankings.players %}
             <tr>
               <td data-label="Rank">{{ player.Rank }}</td>
+              <td data-label="Change">
+                {% if player.Rank_Change == 'New' %}
+                  <span style="color: #007bff;">New</span>
+                {% elif player.Rank_Change | first == '+' %}
+                  <span style="color: green;">{{ player.Rank_Change }}</span>
+                {% elif player.Rank_Change | first == '-' %}
+                  <span style="color: red;">{{ player.Rank_Change }}</span>
+                {% else %}
+                  <span style="color: #6c757d;">{{ player.Rank_Change }}</span>
+                {% endif %}
+              </td>
               <td data-label="Player">{{ player.Player }}</td>
               <td data-label="Character">{{ player.Character }}</td>
               <td data-label="Region">{{ player.Region }}</td>
               <td data-label="Points">{{ player.Points }}</td>
             </tr>
           {% endfor %}
-        </tbody>
-      </table>
-    </div>
-  </div>
+        </tbody>
+      </table>
+    </div>
+  </div>
 {% endblock %}
