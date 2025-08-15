@@ -8,8 +8,8 @@ Rank,Rank Change,Player,Main Character,Region,Points
 7,—,iDom,Manon,North America,905
 8,—,Bonchan,Akuma,Asia,887
 9,—,Tokido,Ken,Asia,854
-11,-1,Punk,Cammy,North America,841
 10,+1,moke,Chun-Li,Asia,844
+11,-1,Punk,Cammy,North America,841
 12,—,EndingWalker,Ryu,Europe,774
 13,—,Dual Kevin,Rashid,North America,740
 14,—,Torimeshi,Dhalsim,Asia,730
@@ -40,8 +40,8 @@ Rank,Rank Change,Player,Main Character,Region,Points
 39,—,HotDog29,#N/A,#N/A,378
 40,—,Oil King,#N/A,#N/A,315
 41,—,cosa,#N/A,#N/A,301
-43,-1,Chris Wong,#N/A,#N/A,295
 42,—,CABA,#N/A,#N/A,297
+43,-1,Chris Wong,#N/A,#N/A,295
 44,—,Zangief Bolado,#N/A,#N/A,291
 45,—,Armperor,#N/A,#N/A,272
 46,—,Hurricane,#N/A,#N/A,270
@@ -85,8 +85,8 @@ Rank,Rank Change,Player,Main Character,Region,Points
 84,-1,FREESER,#N/A,#N/A,85
 85,-1,broski,#N/A,#N/A,83
 85,-1,Plaster King,#N/A,#N/A,83
-88,-2,Space Boy,#N/A,#N/A,82
 85,New,vWsym,#N/A,#N/A,83
+88,-2,Space Boy,#N/A,#N/A,82
 89,-2,ScrawtVermillion,#N/A,#N/A,81
 90,-2,Hope. (16),#N/A,#N/A,76
 91,-2,Liquid_o,#N/A,#N/A,75
@@ -102,11 +102,11 @@ Rank,Rank Change,Player,Main Character,Region,Points
 101,-2,takera,#N/A,#N/A,58
 102,New,JUNINHO-RAS,#N/A,#N/A,57
 103,New,Magnegro,#N/A,#N/A,56
-105,New,Shakz,#N/A,#N/A,55
 103,New,Qiuqiu,#N/A,#N/A,56
+105,New,Shakz,#N/A,#N/A,55
+105,New,CHOCO,#N/A,#N/A,55
 107,New,z_xiri,#N/A,#N/A,54
 107,New,Sunhui,#N/A,#N/A,54
-105,New,CHOCO,#N/A,#N/A,55
 109,New,Broly,#N/A,#N/A,53
 110,New,cola321,#N/A,#N/A,49
 110,New,Yoro,#N/A,#N/A,49
@@ -141,17 +141,17 @@ Rank,Rank Change,Player,Main Character,Region,Points
 137,New,2BASSA,#N/A,#N/A,29
 141,New,Boltstrike,#N/A,#N/A,28
 142,New,Kharsonist,#N/A,#N/A,27
-145,New,HKDASH,#N/A,#N/A,26
 142,New,Prince,#N/A,#N/A,27
 142,New,Mike Ross,#N/A,#N/A,27
+145,New,HKDASH,#N/A,#N/A,26
 145,New,Uriel Velorio,#N/A,#N/A,26
 147,New,Closdra,#N/A,#N/A,25
 147,New,KAMI,#N/A,#N/A,25
 149,New,ShadePrince,#N/A,#N/A,24
 149,New,Fenritti,#N/A,#N/A,24
 151,New,ChuChu,#N/A,#N/A,23
-153,New,Valmaster,#N/A,#N/A,22
 151,New,Xavi,#N/A,#N/A,23
+153,New,Valmaster,#N/A,#N/A,22
 153,New,Kairiyup,#N/A,#N/A,22
 153,New,Acqua,#N/A,#N/A,22
 153,New,YHC-Mochi,#N/A,#N/A,22
@@ -166,16 +166,16 @@ Rank,Rank Change,Player,Main Character,Region,Points
 162,New,ZydaniFGC,#N/A,#N/A,20
 166,New,Keoma,#N/A,#N/A,19
 166,New,Solo,#N/A,#N/A,19
-169,New,Sole,#N/A,#N/A,18
 166,New,Rompecuello,#N/A,#N/A,19
+169,New,Sole,#N/A,#N/A,18
 169,New,NamikazeExTM,#N/A,#N/A,18
 169,New,Yashi846,#N/A,#N/A,18
-177,New,Dragon_Legend,#N/A,#N/A,16
 172,New,Cold-Blooded,#N/A,#N/A,17
 172,New,Xinigami,#N/A,#N/A,17
 172,New,qlp,#N/A,#N/A,17
 172,New,Ace1183,#N/A,#N/A,17
 172,New,Wincho,#N/A,#N/A,17
+177,New,Dragon_Legend,#N/A,#N/A,16
 177,New,Jah_lexe,#N/A,#N/A,16
 177,New,Zenith,#N/A,#N/A,16
 177,New,NeuralArch,#N/A,#N/A,16
@@ -198,7 +198,6 @@ Rank,Rank Change,Player,Main Character,Region,Points
 191,New,Hearth,#N/A,#N/A,14
 198,New,Koopa,#N/A,#N/A,13
 198,New,Gil The 3rd,#N/A,#N/A,13
-210,New,Brayan_Job,#N/A,#N/A,11
 200,New,なるお,#N/A,#N/A,12
 200,New,HSN,#N/A,#N/A,12
 200,New,Gater,#N/A,#N/A,12
@@ -209,10 +208,11 @@ Rank,Rank Change,Player,Main Character,Region,Points
 200,New,Skeezer,#N/A,#N/A,12
 200,New,Naji,#N/A,#N/A,12
 200,New,Davy,#N/A,#N/A,12
-214,New,Brickterium,#N/A,#N/A,10
+210,New,Brayan_Job,#N/A,#N/A,11
 210,New,ricniclas,#N/A,#N/A,11
 210,New,Breno_Spies,#N/A,#N/A,11
 210,New,ddmaruu,#N/A,#N/A,11
+214,New,Brickterium,#N/A,#N/A,10
 214,New,Jayce the Ace,#N/A,#N/A,10
 214,New,Music4friends,#N/A,#N/A,10
 217,New,Beslem,#N/A,#N/A,9
@@ -243,9 +243,9 @@ Rank,Rank Change,Player,Main Character,Region,Points
 231,New,HaizeK,#N/A,#N/A,6
 231,New,Boxxheadx,#N/A,#N/A,6
 231,New,Afterdeath,#N/A,#N/A,6
-247,New,Velicoso,#N/A,#N/A,5
 231,New,AwildLLAMA,#N/A,#N/A,6
 231,New,Schenkhan,#N/A,#N/A,6
+247,New,Velicoso,#N/A,#N/A,5
 247,New,Kyuki,#N/A,#N/A,5
 247,New,HiFightTH,#N/A,#N/A,5
 247,New,Roxas,#N/A,#N/A,5

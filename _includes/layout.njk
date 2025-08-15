@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-47ZV9G37SY"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-47ZV9G37SY"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
@@ -367,18 +366,14 @@
       text-decoration: none;
     }
 
+    /* NEW: Dedicated mobile header */
+    .mobile-header {
+      display: none; /* Hidden by default for desktop */
+    }
+    
     /* Hamburger toggle button */
     .nav-toggle {
       display: none;
-      position: fixed;
-      top: 15px;
-      left: 15px;
-      font-size: 2rem;
-      background: none;
-      border: none;
-      color: #f0f0f0;
-      cursor: pointer;
-      z-index: 1201;
     }
 
     /* Responsive styles */
@@ -389,16 +384,42 @@
     }
 
     @media (max-width: 768px) {
+      body.no-scroll {
+        overflow: hidden;
+      }
+
+      /* NEW: Show the fixed header on mobile */
+      .mobile-header {
+        display: flex;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 60px; /* Adjust height as needed */
+        background: #111;
+        align-items: center;
+        padding: 0 15px;
+        box-sizing: border-box;
+        z-index: 1100;
+        box-shadow: 0 2px 5px rgba(0,0,0,.5);
+      }
+      
       .nav-toggle {
         display: block;
+        font-size: 2rem;
+        background: none;
+        border: none;
+        color: #f0f0f0;
+        cursor: pointer;
+        z-index: 1201;
       }
       nav.sidebar {
         position: fixed;
         width: 240px;
-        padding-top: 60px;
         height: 100vh;
         top: 0;
         left: 0;
+        padding-top: 60px; /* NEW: Added padding to account for the fixed header */
         transform: translateX(-100%);
         transition: transform 0.3s ease;
         z-index: 1200;
@@ -413,7 +434,7 @@
         overflow: visible;
       }
       main.content {
-        padding: 80px 15px 15px 15px;
+        padding-top: 80px; /* NEW: Added top padding to create space for the header */
         max-height: none;
         width: 100%;
       }
@@ -509,8 +530,10 @@
 </head>
 <body>
   <a href="#maincontent" class="skip-link">Skip to main content</a>
-
-  <button class="nav-toggle" aria-label="toggle navigation" aria-expanded="false">&#9776;</button>
+  
+  <header class="mobile-header">
+    <button class="nav-toggle" aria-label="toggle navigation" aria-expanded="false">&#9776;</button>
+  </header>
 
   <div class="page-wrapper">
     <nav class="sidebar" aria-label="Main menu" role="navigation">
@@ -563,16 +586,27 @@
   <script>
     const toggleButton = document.querySelector('.nav-toggle');
     const sidebar = document.querySelector('.sidebar');
+    const body = document.body;
 
     toggleButton.addEventListener('click', () => {
       const isActive = sidebar.classList.toggle('active');
       toggleButton.setAttribute('aria-expanded', isActive);
+      
+      // Add/remove the no-scroll class to the body to prevent background scrolling
+      if (isActive) {
+          body.classList.add('no-scroll');
+      } else {
+          body.classList.remove('no-scroll');
+      }
     });
 
     document.addEventListener('click', (e) => {
       if (!sidebar.contains(e.target) && !toggleButton.contains(e.target)) {
         sidebar.classList.remove('active');
         toggleButton.setAttribute('aria-expanded', false);
+        
+        // Remove the no-scroll class when the menu closes
+        body.classList.remove('no-scroll');
       }
     });
   </script>
