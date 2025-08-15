@@ -554,7 +554,7 @@
       <table id="rankings-table">
         <thead>
           <tr>
-            <th data-column-index="0" data-type="number" data-sort-direction="desc">
+            <th data-column-index="0" data-type="number">
               <span>Rank
                 <svg class="sort-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                   <path d="M12 5V19"/>
@@ -783,46 +783,9 @@
       const playersPerLoad = 10;
       const maxPlayers = 40;
 
-      function setupSorting() {
-        headers.forEach(header => {
-          header.addEventListener('click', () => {
-            const columnIndex = parseInt(header.getAttribute('data-column-index'));
-            const dataType = header.getAttribute('data-type');
-            let sortDirection = header.getAttribute('data-sort-direction') || 'asc';
-            const newSortDirection = sortDirection === 'asc' ? 'desc' : 'asc';
-            header.setAttribute('data-sort-direction', newSortDirection);
-      
-            headers.forEach(h => {
-              h.classList.remove('sorted-asc', 'sorted-desc');
-            });
-            header.classList.add(`sorted-${newSortDirection}`);
-      
-            const rows = Array.from(tbody.querySelectorAll('tr'));
-            rows.sort((a, b) => {
-              const aValue = a.children[columnIndex].textContent.trim();
-              const bValue = b.children[columnIndex].textContent.trim();
-              
-              let compareA = aValue;
-              let compareB = bValue;
-      
-              if (dataType === 'number') {
-                compareA = parseFloat(aValue) || 0;
-                compareB = parseFloat(bValue) || 0;
-              }
-      
-              if (newSortDirection === 'asc') {
-                if (compareA < compareB) return -1;
-                if (compareA > compareB) return 1;
-              } else {
-                if (compareA > compareB) return -1;
-                if (compareA < compareB) return 1;
-              }
-              return 0;
-            });
-            rows.forEach(row => tbody.appendChild(row));
-          });
-        });
-      }
+      let currentSortColumn = 0;
+      let currentSortDirection = 'asc';
+      let currentSortDataType = 'number';
 
       function createRowHtml(player) {
         const changeSpan = (() => {
@@ -862,38 +825,109 @@
         });
       }
 
-      function appendMorePlayers(playersToAppend) {
-        playersToAppend.forEach(player => {
-          if (player['Rank']) {
-            const row = document.createElement('tr');
-            if (player['Rank'] === '1' || player['Rank'] === '2' || player['Rank'] === '3') {
-              row.setAttribute('data-rank', player['Rank']);
-            }
-            row.innerHTML = createRowHtml(player);
-            tbody.appendChild(row);
+      function sortPlayers(playersArray, columnIndex, dataType, sortDirection) {
+        const headersMap = {
+          0: 'Rank',
+          1: 'Rank Change',
+          2: 'Player',
+          3: 'Main Character',
+          4: 'Region',
+          5: 'Points'
+        };
+        const headerKey = headersMap[columnIndex];
+
+        playersArray.sort((a, b) => {
+          let aValue = a[headerKey];
+          let bValue = b[headerKey];
+
+          if (dataType === 'number') {
+            aValue = parseFloat(aValue) || 0;
+            bValue = parseFloat(bValue) || 0;
           }
+          
+          if (dataType === 'string') {
+            aValue = aValue.toLowerCase();
+            bValue = bValue.toLowerCase();
+          }
+
+          if (sortDirection === 'asc') {
+            if (aValue < bValue) return -1;
+            if (aValue > bValue) return 1;
+          } else {
+            if (aValue > bValue) return -1;
+            if (aValue < bValue) return 1;
+          }
+          return 0;
+        });
+        return playersArray;
+      }
+      
+      // New unified function to sort and render the table
+      function refreshTable() {
+        // Create a shallow copy of the CURRENTLY VISIBLE rows to sort
+        let visiblePlayers = allPlayers.slice(0, playersToShow);
+
+        // Apply the current sort state to ONLY the visible players
+        visiblePlayers = sortPlayers(visiblePlayers, currentSortColumn, currentSortDataType, currentSortDirection);
+
+        // Render only the visible rows
+        renderTable(visiblePlayers);
+
+        // Update the header visuals
+        headers.forEach(h => {
+          h.classList.remove('sorted-asc', 'sorted-desc');
+          h.removeAttribute('data-sort-direction');
+        });
+
+        const activeHeader = table.querySelector(`th[data-column-index="${currentSortColumn}"]`);
+        if (activeHeader) {
+          activeHeader.setAttribute('data-sort-direction', currentSortDirection);
+          activeHeader.classList.add(`sorted-${currentSortDirection}`);
+        }
+
+        // Show/hide the Load More button
+        if (playersToShow < allPlayers.length) {
+          loadMoreBtn.style.display = 'inline-block';
+        } else {
+          loadMoreBtn.style.display = 'none';
+        }
+      }
+
+      function setupSorting() {
+        headers.forEach(header => {
+          header.addEventListener('click', () => {
+            const columnIndex = parseInt(header.getAttribute('data-column-index'));
+            
+            // Determine new sort direction
+            let newSortDirection;
+            if (columnIndex === currentSortColumn) {
+              // Toggling the same column
+              newSortDirection = currentSortDirection === 'asc' ? 'desc' : 'asc';
+            } else {
+              // Sorting a new column, default to ascending
+              newSortDirection = 'asc';
+            }
+            
+            // Update global state
+            currentSortColumn = columnIndex;
+            currentSortDirection = newSortDirection;
+            currentSortDataType = header.getAttribute('data-type');
+            
+            refreshTable();
+          });
         });
       }
 
       function loadMorePlayers() {
-        const nextPlayersToShow = playersToShow + playersPerLoad;
-        const newPlayers = allPlayers.slice(playersToShow, nextPlayersToShow);
-        
-        appendMorePlayers(newPlayers);
-        
-        playersToShow += newPlayers.length;
-
-        if (playersToShow >= maxPlayers || playersToShow >= allPlayers.length) {
-          loadMoreBtn.style.display = 'none';
-        }
+        playersToShow += playersPerLoad;
+        refreshTable();
       }
 
       async function fetchDataAndRenderTable() {
         try {
           tbody.innerHTML = '<tr><td colspan="6" style="text-align: center;">Loading data...</td></tr>';
           
-          // Append a cache-busting parameter to force a fresh fetch every 10 minutes
-          const cacheBuster = Math.floor(Date.now() / (1000 * 60 * 10)); // Current 10-minute interval
+          const cacheBuster = Math.floor(Date.now() / (1000 * 60 * 10));
           const urlWithCacheBuster = `${sheetURL}&cachebuster=${cacheBuster}`;
 
           const response = await fetch(urlWithCacheBuster);
@@ -903,22 +937,16 @@
           const csvText = await response.text();
 
           const rows = csvText.trim().split('\n').map(row => row.split(','));
-          const headers = rows[0].map(h => h.trim().replace(/"/g, ''));
-          const rawPlayers = rows.slice(1).map(row => {
+          const csvHeaders = rows[0].map(h => h.trim().replace(/"/g, ''));
+          allPlayers = rows.slice(1).map(row => {
             const player = {};
             row.forEach((value, i) => {
-              player[headers[i]] = value.trim().replace(/"/g, '');
+              player[csvHeaders[i]] = value.trim().replace(/"/g, '');
             });
             return player;
-          });
+          }).slice(0, maxPlayers);
           
-          allPlayers = rawPlayers.slice(0, maxPlayers);
-          
-          renderTable(allPlayers.slice(0, playersToShow));
-
-          if (allPlayers.length > playersToShow) {
-            loadMoreBtn.style.display = 'inline-block';
-          }
+          refreshTable();
           
         } catch (error) {
           console.error("Failed to fetch or parse rankings data:", error);
@@ -930,10 +958,6 @@
 
       fetchDataAndRenderTable().then(() => {
         setupSorting();
-        const rankHeader = table.querySelector('th[data-column-index="0"]');
-        if (rankHeader) {
-          rankHeader.click();
-        }
       });
     });
   </script>
