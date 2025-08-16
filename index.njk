@@ -3,7 +3,7 @@
 {% block content %}
   <div class="content-container">
     <h1 style="margin-top: 0;">Street Fighter 6 Rankings</h1>
-    <h2>Last Updated: August 11, 2025</h2>
+    <h2>Last Updated: August 16, 2025</h2>
 
     <div id="mobile-sort-container">
       <button class="mobile-sort-btn" data-column-index="0" data-type="number">
@@ -35,7 +35,7 @@
         </svg>
       </button>
       <button class="mobile-sort-btn" data-column-index="4" data-type="string">
-        Region
+        Country
         <svg class="sort-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M12 5V19"/>
           <path d="M19 12L12 19L5 12"/>
@@ -87,7 +87,7 @@
               </span>
             </th>
             <th data-column-index="4" data-type="string">
-              <span>Region
+              <span>Country
                 <svg class="sort-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                   <path d="M12 5V19"/>
                   <path d="M19 12L12 19L5 12"/>
@@ -124,7 +124,7 @@
     *, *:before, *:after {
       box-sizing: inherit;
     }
-    
+
     th {
       cursor: pointer;
       position: relative;
@@ -155,17 +155,19 @@
       transform: rotate(0deg);
       opacity: 1;
     }
-    tr[data-rank="1"] td {
-      background-color: #ffd70030;
-      color: gold;
-    }
-    tr[data-rank="2"] td {
-      background-color: #c0c0c030;
-      color: silver;
-    }
-    tr[data-rank="3"] td {
-      background-color: #cd7f3230;
-      color: #cd7f32;
+    tr {
+      &.rank-1 td {
+        background-color: #ffd70030;
+        color: gold;
+      }
+      &.rank-2 td {
+        background-color: #c0c0c030;
+        color: silver;
+      }
+      &.rank-3 td {
+        background-color: #cd7f3230;
+        color: #cd7f32;
+      }
     }
 
     /* Restored Character Image Styles */
@@ -176,16 +178,42 @@
       gap: 10px;
     }
 
-    .character-icon {
+    .character-icon,
+    .flag-icon {
       width: 40px;
       height: 40px;
       border-radius: 50%;
       object-fit: cover;
       border: 1px solid #ddd;
     }
-    
+
+    .flag-cell {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 10px;
+    }
+
     td {
       font-size: 1rem;
+    }
+
+    /* **FINAL CSS FOR COLUMN SIZING** */
+    /* Target the Change column (the 2nd child) */
+    th:nth-child(2) span,
+    td:nth-child(2) {
+      width: 80px;
+      max-width: 80px;
+      text-align: center;
+    }
+    /* Target the Country column (the 5th child) */
+    th:nth-child(5),
+    td:nth-child(5) {
+      width: 150px;
+      max-width: 150px;
+      overflow-wrap: break-word;
+      white-space: normal;
+      text-align: left;
     }
 
     /* NEW: Styling for the Load More button to match the site's theme */
@@ -300,6 +328,9 @@
       .character-cell {
         justify-content: flex-end;
       }
+      .flag-cell {
+        justify-content: flex-end;
+      }
       .table-wrapper {
         overflow-x: hidden;
       }
@@ -345,7 +376,11 @@
           if (change.startsWith('-')) return `<span style="color: red;">${change}</span>`;
           return `<span style="color: #6c757d;">${change}</span>`;
         })();
-      
+
+        // Use the 'Country' column for both the flag and the text
+        const countryName = player['Country'];
+        const countryNameLower = String(countryName).toLowerCase();
+
         return `
           <td data-label="Rank">${player['Rank']}</td>
           <td data-label="Change">${changeSpan}</td>
@@ -356,7 +391,12 @@
               <span>${player['Main Character']}</span>
             </div>
           </td>
-          <td data-label="Region">${player['Region']}</td>
+          <td data-label="Country">
+            <div class="flag-cell">
+              <img src="/images/flags/${countryNameLower}.png" alt="${countryName}" class="flag-icon" onerror="this.src='https://placehold.co/40x40/aaa/fff?text=?';">
+              <span>${countryName}</span>
+            </div>
+          </td>
           <td data-label="Points">${player['Points']}</td>
         `;
       }
@@ -367,7 +407,7 @@
           if (player['Rank']) {
             const row = document.createElement('tr');
             if (player['Rank'] === '1' || player['Rank'] === '2' || player['Rank'] === '3') {
-              row.setAttribute('data-rank', player['Rank']);
+              row.classList.add(`rank-${player['Rank']}`);
             }
             row.innerHTML = createRowHtml(player);
             tbody.appendChild(row);
@@ -381,10 +421,13 @@
           1: 'Rank Change',
           2: 'Player',
           3: 'Main Character',
-          4: 'Region',
+          4: 'Country',
           5: 'Points'
         };
-        const headerKey = headersMap[columnIndex];
+        const headerKey = headersMap.hasOwnProperty(columnIndex) ? headersMap[columnIndex] : null;
+        if (!headerKey) {
+            return playersArray;
+        }
 
         playersArray.sort((a, b) => {
           let aValue = a[headerKey];
@@ -394,10 +437,10 @@
             aValue = parseFloat(aValue) || 0;
             bValue = parseFloat(bValue) || 0;
           }
-          
+
           if (dataType === 'string') {
-            aValue = aValue.toLowerCase();
-            bValue = bValue.toLowerCase();
+            aValue = String(aValue).toLowerCase();
+            bValue = String(bValue).toLowerCase();
           }
 
           if (sortDirection === 'asc') {
@@ -411,7 +454,7 @@
         });
         return playersArray;
       }
-      
+
       function refreshTable() {
         let visiblePlayers = allPlayers.slice(0, playersToShow);
         visiblePlayers = sortPlayers(visiblePlayers, currentSortColumn, currentSortDataType, currentSortDirection);
@@ -448,11 +491,11 @@
           header.addEventListener('click', () => {
             const columnIndex = parseInt(header.getAttribute('data-column-index'));
             let newSortDirection = columnIndex === currentSortColumn ? (currentSortDirection === 'asc' ? 'desc' : 'asc') : 'asc';
-            
+
             currentSortColumn = columnIndex;
             currentSortDirection = newSortDirection;
             currentSortDataType = header.getAttribute('data-type');
-            
+
             refreshTable();
           });
         });
@@ -460,11 +503,11 @@
           header.addEventListener('click', () => {
             const columnIndex = parseInt(header.getAttribute('data-column-index'));
             let newSortDirection = columnIndex === currentSortColumn ? (currentSortDirection === 'asc' ? 'desc' : 'asc') : 'asc';
-            
+
             currentSortColumn = columnIndex;
             currentSortDirection = newSortDirection;
             currentSortDataType = header.getAttribute('data-type');
-            
+
             refreshTable();
           });
         });
@@ -478,7 +521,7 @@
       async function fetchDataAndRenderTable() {
         try {
           tbody.innerHTML = '<tr><td colspan="6" style="text-align: center;">Loading data...</td></tr>';
-          
+
           const cacheBuster = Math.floor(Date.now() / (1000 * 60 * 10));
           const urlWithCacheBuster = `${sheetURL}&cachebuster=${cacheBuster}`;
 
@@ -497,9 +540,9 @@
             });
             return player;
           }).slice(0, maxPlayers);
-          
+
           refreshTable();
-          
+
         } catch (error) {
           console.error("Failed to fetch or parse rankings data:", error);
           tbody.innerHTML = '<tr><td colspan="6" style="text-align: center; color: red;">Failed to load data. Please try again later.</td></tr>';
