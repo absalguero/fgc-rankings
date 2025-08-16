@@ -550,6 +550,51 @@
     <h1 style="margin-top: 0;">Street Fighter 6 Rankings</h1>
     <h2>Last Updated: August 11, 2025</h2>
 
+    <div id="mobile-sort-container">
+      <button class="mobile-sort-btn" data-column-index="0" data-type="number">
+        Rank
+        <svg class="sort-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 5V19"/>
+          <path d="M19 12L12 19L5 12"/>
+        </svg>
+      </button>
+      <button class="mobile-sort-btn" data-column-index="1" data-type="string">
+        Change
+        <svg class="sort-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 5V19"/>
+          <path d="M19 12L12 19L5 12"/>
+        </svg>
+      </button>
+      <button class="mobile-sort-btn" data-column-index="2" data-type="string">
+        Player
+        <svg class="sort-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 5V19"/>
+          <path d="M19 12L12 19L5 12"/>
+        </svg>
+      </button>
+      <button class="mobile-sort-btn" data-column-index="3" data-type="string">
+        Char
+        <svg class="sort-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 5V19"/>
+          <path d="M19 12L12 19L5 12"/>
+        </svg>
+      </button>
+      <button class="mobile-sort-btn" data-column-index="4" data-type="string">
+        Region
+        <svg class="sort-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 5V19"/>
+          <path d="M19 12L12 19L5 12"/>
+        </svg>
+      </button>
+      <button class="mobile-sort-btn" data-column-index="5" data-type="number">
+        Points
+        <svg class="sort-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 5V19"/>
+          <path d="M19 12L12 19L5 12"/>
+        </svg>
+      </button>
+    </div>
+
     <div class="table-wrapper">
       <table id="rankings-table">
         <thead>
@@ -731,9 +776,49 @@
         border-collapse: separate;
         border-spacing: 0 1rem;
       }
+      /* HIDE the main desktop header row on mobile */
       table thead {
         display: none;
       }
+      /* New style for the mobile sort buttons */
+      #mobile-sort-container {
+        display: flex;
+        justify-content: space-between;
+        gap: 5px;
+        padding: 0 10px;
+        margin-bottom: 20px;
+        flex-wrap: wrap;
+      }
+      .mobile-sort-btn {
+        flex: 1 1 auto;
+        padding: 8px 5px;
+        font-size: 0.75rem;
+        text-align: center;
+        background-color: #444;
+        color: #fff;
+        border: 1px solid #555;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.2s;
+      }
+      .mobile-sort-btn:hover {
+        background-color: #555;
+      }
+      .mobile-sort-btn .sort-icon {
+        width: 12px;
+        height: 12px;
+        margin-left: 2px;
+        opacity: 0.6;
+      }
+      .mobile-sort-btn.sorted-asc .sort-icon {
+        transform: rotate(180deg);
+        opacity: 1;
+      }
+      .mobile-sort-btn.sorted-desc .sort-icon {
+        transform: rotate(0deg);
+        opacity: 1;
+      }
+
       table tr {
         display: block;
         border: 1px solid #dee2e6;
@@ -748,6 +833,11 @@
         font-size: 1.2em;
         border-bottom: 1px solid #dee2e6;
         padding: 0.75rem 1rem;
+      }
+      table td::before {
+        content: attr(data-label);
+        font-weight: bold;
+        text-align: left;
       }
       table td:last-child {
         border-bottom: 0;
@@ -767,6 +857,10 @@
       table {
         min-width: 600px;
       }
+      /* Hide the mobile sort UI on desktop */
+      #mobile-sort-container {
+        display: none;
+      }
     }
   </style>
 
@@ -775,7 +869,8 @@
       const sheetURL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQBIqTU9Vjqm4lAYt4gGj4QMaxG4eXSsgbDzi2GVHVvrZX0Dba6b1_SlyrVI9ARnlG-xc_b0NVq5lmU/pub?gid=1862929315&single=true&output=csv';
       const table = document.getElementById('rankings-table');
       const tbody = table.querySelector('tbody');
-      const headers = table.querySelectorAll('th');
+      const desktopHeaders = table.querySelectorAll('th');
+      const mobileHeaders = document.querySelectorAll('#mobile-sort-container .mobile-sort-btn');
       const loadMoreBtn = document.getElementById('load-more-btn');
 
       let allPlayers = [];
@@ -862,30 +957,30 @@
         return playersArray;
       }
       
-      // New unified function to sort and render the table
       function refreshTable() {
-        // Create a shallow copy of the CURRENTLY VISIBLE rows to sort
         let visiblePlayers = allPlayers.slice(0, playersToShow);
-
-        // Apply the current sort state to ONLY the visible players
         visiblePlayers = sortPlayers(visiblePlayers, currentSortColumn, currentSortDataType, currentSortDirection);
-
-        // Render only the visible rows
         renderTable(visiblePlayers);
 
-        // Update the header visuals
-        headers.forEach(h => {
+        // Update sorting indicators for both desktop and mobile headers
+        desktopHeaders.forEach(h => {
           h.classList.remove('sorted-asc', 'sorted-desc');
           h.removeAttribute('data-sort-direction');
         });
+        mobileHeaders.forEach(h => {
+          h.classList.remove('sorted-asc', 'sorted-desc');
+        });
 
-        const activeHeader = table.querySelector(`th[data-column-index="${currentSortColumn}"]`);
-        if (activeHeader) {
-          activeHeader.setAttribute('data-sort-direction', currentSortDirection);
-          activeHeader.classList.add(`sorted-${currentSortDirection}`);
+        const activeDesktopHeader = table.querySelector(`th[data-column-index="${currentSortColumn}"]`);
+        if (activeDesktopHeader) {
+          activeDesktopHeader.setAttribute('data-sort-direction', currentSortDirection);
+          activeDesktopHeader.classList.add(`sorted-${currentSortDirection}`);
+        }
+        const activeMobileHeader = document.querySelector(`#mobile-sort-container .mobile-sort-btn[data-column-index="${currentSortColumn}"]`);
+        if (activeMobileHeader) {
+          activeMobileHeader.classList.add(`sorted-${currentSortDirection}`);
         }
 
-        // Show/hide the Load More button
         if (playersToShow < allPlayers.length) {
           loadMoreBtn.style.display = 'inline-block';
         } else {
@@ -894,21 +989,23 @@
       }
 
       function setupSorting() {
-        headers.forEach(header => {
+        desktopHeaders.forEach(header => {
           header.addEventListener('click', () => {
             const columnIndex = parseInt(header.getAttribute('data-column-index'));
+            let newSortDirection = columnIndex === currentSortColumn ? (currentSortDirection === 'asc' ? 'desc' : 'asc') : 'asc';
             
-            // Determine new sort direction
-            let newSortDirection;
-            if (columnIndex === currentSortColumn) {
-              // Toggling the same column
-              newSortDirection = currentSortDirection === 'asc' ? 'desc' : 'asc';
-            } else {
-              // Sorting a new column, default to ascending
-              newSortDirection = 'asc';
-            }
+            currentSortColumn = columnIndex;
+            currentSortDirection = newSortDirection;
+            currentSortDataType = header.getAttribute('data-type');
             
-            // Update global state
+            refreshTable();
+          });
+        });
+        mobileHeaders.forEach(header => {
+          header.addEventListener('click', () => {
+            const columnIndex = parseInt(header.getAttribute('data-column-index'));
+            let newSortDirection = columnIndex === currentSortColumn ? (currentSortDirection === 'asc' ? 'desc' : 'asc') : 'asc';
+            
             currentSortColumn = columnIndex;
             currentSortDirection = newSortDirection;
             currentSortDataType = header.getAttribute('data-type');
@@ -919,7 +1016,7 @@
       }
 
       function loadMorePlayers() {
-        playersToShow += playersPerLoad;
+        playersToShow = Math.min(playersToShow + playersPerLoad, maxPlayers);
         refreshTable();
       }
 
