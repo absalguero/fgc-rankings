@@ -176,15 +176,8 @@
     .change-cell {
       display: flex;
       align-items: center;
-      gap: 10px;
-    }
-    .flex-content {
-      display: flex;
-      align-items: center;
       justify-content: flex-end;
-      text-align: right;
       gap: 10px;
-      max-width: fit-content;
     }
 
     .character-icon,
@@ -200,8 +193,6 @@
       font-size: 1rem;
     }
 
-    /* This is the fix: We will now move the fixed width CSS rules into a media query. */
-    /* This ensures these rules only apply on desktop and will not break the mobile card layout. */
     @media screen and (min-width: 769px) {
       table {
         min-width: 600px;
@@ -211,20 +202,45 @@
         display: none;
       }
 
-      /* Explicitly apply fixed widths for desktop view only */
-      th:nth-child(2) span,
-      td:nth-child(2) {
+      /* Fixes for Desktop Alignment */
+      th:nth-child(2) span {
         width: 80px;
         max-width: 80px;
         text-align: center;
       }
-      th:nth-child(5),
+      /* More specific rule to center the Change column content */
+      tbody tr > td:nth-child(2) {
+        text-align: center;
+        width: 80px;
+        max-width: 80px;
+      }
+      /* Fix for flexbox overriding text-align on desktop */
+      .change-cell {
+          justify-content: center;
+      }
+      
+      th:nth-child(4) span {
+        text-align: left;
+      }
+      td:nth-child(4) {
+        text-align: left;
+      }
+      th:nth-child(5) {
+        width: 150px;
+        max-width: 150px;
+      }
       td:nth-child(5) {
         width: 150px;
         max-width: 150px;
         overflow-wrap: break-word;
         white-space: normal;
         text-align: left;
+      }
+
+      /* Ensure inner content is left-aligned in character and country cells */
+      .character-cell,
+      .flag-cell {
+        justify-content: flex-start;
       }
     }
 
@@ -308,7 +324,20 @@
       table td:last-child {
         border-bottom: 0;
       }
-      
+
+      .mobile-value {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        text-align: right;
+        gap: 10px;
+      }
+
+      /* FIX for the country name not wrapping properly */
+      .flag-cell span {
+        white-space: normal !important;
+      }
+
       .table-wrapper {
         overflow-x: hidden;
       }
@@ -366,21 +395,25 @@
       let currentSortDataType = 'number';
 
       function createRowHtml(player) {
-        const changeSpan = (() => {
-          const change = player['Rank Change'];
-          if (change === 'New') return `<span style="color: #007bff;">New</span>`;
-          if (change.startsWith('+')) return `<span style="color: green;">${change}</span>`;
-          if (change.startsWith('-')) return `<span style="color: red;">${change}</span>`;
-          return `<span style="color: #6c757d;">${change}</span>`;
-        })();
-
+        const change = player['Rank Change'];
         const countryName = player['Country'];
         const countryNameLower = String(countryName).toLowerCase();
 
+        const changeContent = (() => {
+          if (change === 'New') {
+            return `<div class="change-cell"><span style="color: #007bff;">New</span></div>`;
+          } else if (change.startsWith('+')) {
+            return `<div class="change-cell"><span style="color: green;">${change}</span></div>`;
+          } else if (change.startsWith('-')) {
+            return `<div class="change-cell"><span style="color: red;">${change}</span></div>`;
+          }
+          return `<div class="change-cell"><span style="color: #6c757d;">${change}</span></div>`;
+        })();
+
         return `
-          <td data-label="Rank"><div class="flex-content">${player['Rank']}</div></td>
-          <td data-label="Change"><div class="change-cell">${changeSpan}</div></td>
-          <td data-label="Player"><div class="flex-content">${player['Player']}</div></td>
+          <td data-label="Rank"><div class="mobile-value">${player['Rank']}</div></td>
+          <td data-label="Change">${changeContent}</td>
+          <td data-label="Player"><div class="mobile-value">${player['Player']}</div></td>
           <td data-label="Character">
             <div class="character-cell">
               <img src="/images/characters/${player['Main Character'].toLowerCase()}.png" alt="${player['Main Character']}" class="character-icon" onerror="this.src='https://placehold.co/40x40/aaa/fff?text=N/A';">
@@ -393,7 +426,7 @@
               <span>${countryName}</span>
             </div>
           </td>
-          <td data-label="Points"><div class="flex-content">${player['Points']}</div></td>
+          <td data-label="Points"><div class="mobile-value">${player['Points']}</div></td>
         `;
       }
 
