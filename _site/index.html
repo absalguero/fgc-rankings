@@ -718,6 +718,14 @@
         background-color: #cd7f3230;
         color: #cd7f32;
       }
+      &.rank-4 td {
+        background-color: #4b371c30;
+        color: #8c7359;
+      }
+      &.rank-5 td {
+        background-color: #36454F30;
+        color: #b0c4de;
+      }
     }
 
     /* Restored Character Image Styles */
@@ -741,6 +749,10 @@
 
     td {
       font-size: 1rem;
+    }
+    
+    .points-value {
+        font-weight: bold;
     }
 
     @media screen and (min-width: 769px) {
@@ -778,19 +790,22 @@
       th:nth-child(5) {
         width: 150px;
         max-width: 150px;
+        /* Center the header text and flag icon */
+        text-align: center;
       }
       td:nth-child(5) {
         width: 150px;
         max-width: 150px;
         overflow-wrap: break-word;
         white-space: normal;
-        text-align: left;
+        /* Center the cell content */
+        text-align: center;
       }
 
       /* Ensure inner content is left-aligned in character and country cells */
       .character-cell,
       .flag-cell {
-        justify-content: flex-start;
+        justify-content: center; /* This is the key change to center the content */
       }
     }
 
@@ -976,7 +991,7 @@
               <span>${countryName}</span>
             </div>
           </td>
-          <td data-label="Points"><div class="mobile-value">${player['Points']}</div></td>
+          <td data-label="Points"><div class="mobile-value"><span class="points-value">${player['Points']}</span></div></td>
         `;
       }
 
@@ -985,7 +1000,7 @@
         playersToRender.forEach(player => {
           if (player['Rank']) {
             const row = document.createElement('tr');
-            if (player['Rank'] === '1' || player['Rank'] === '2' || player['Rank'] === '3') {
+            if (player['Rank'] === '1' || player['Rank'] === '2' || player['Rank'] === '3' || player['Rank'] === '4' || player['Rank'] === '5') {
               row.classList.add(`rank-${player['Rank']}`);
             }
             row.innerHTML = createRowHtml(player);
