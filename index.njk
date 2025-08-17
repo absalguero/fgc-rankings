@@ -6,7 +6,7 @@
     <h2>Last Updated: August 16, 2025</h2>
 
     <div id="mobile-sort-container">
-      <button class="mobile-sort-btn" data-column-index="0" data-type="string">
+      <button class="mobile-sort-btn" data-column-index="0" data-type="number">
         Rank
         <svg class="sort-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M12 5V19"/>
@@ -366,24 +366,20 @@
       let currentSortDataType = 'number';
 
       function createRowHtml(player) {
-        const change = player['Rank Change'];
+        const changeSpan = (() => {
+          const change = player['Rank Change'];
+          if (change === 'New') return `<span style="color: #007bff;">New</span>`;
+          if (change.startsWith('+')) return `<span style="color: green;">${change}</span>`;
+          if (change.startsWith('-')) return `<span style="color: red;">${change}</span>`;
+          return `<span style="color: #6c757d;">${change}</span>`;
+        })();
+
         const countryName = player['Country'];
         const countryNameLower = String(countryName).toLowerCase();
 
-        const changeContent = (() => {
-          if (change === 'New') {
-            return `<div class="change-cell"><span style="color: #007bff;">New</span></div>`;
-          } else if (change.startsWith('+')) {
-            return `<div class="change-cell"><span style="color: green;">${change}</span></div>`;
-          } else if (change.startsWith('-')) {
-            return `<div class="change-cell"><span style="color: red;">${change}</span></div>`;
-          }
-          return `<div class="change-cell"><span style="color: #6c757d;">${change}</span></div>`;
-        })();
-
         return `
           <td data-label="Rank"><div class="flex-content">${player['Rank']}</div></td>
-          <td data-label="Change">${changeContent}</td>
+          <td data-label="Change"><div class="change-cell">${changeSpan}</div></td>
           <td data-label="Player"><div class="flex-content">${player['Player']}</div></td>
           <td data-label="Character">
             <div class="character-cell">
