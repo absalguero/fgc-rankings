@@ -556,7 +556,7 @@
     <h2>Last Updated: August 16, 2025</h2>
 
     <div id="mobile-sort-container">
-      <button class="mobile-sort-btn" data-column-index="0" data-type="number">
+      <button class="mobile-sort-btn" data-column-index="0" data-type="string">
         Rank
         <svg class="sort-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M12 5V19"/>
@@ -726,8 +726,15 @@
     .change-cell {
       display: flex;
       align-items: center;
-      justify-content: flex-end;
       gap: 10px;
+    }
+    .flex-content {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      text-align: right;
+      gap: 10px;
+      max-width: fit-content;
     }
 
     .character-icon,
@@ -852,14 +859,6 @@
         border-bottom: 0;
       }
       
-      .mobile-value {
-        display: flex;
-        align-items: center;
-        justify-content: flex-end;
-        text-align: right;
-        gap: 10px;
-      }
-
       .table-wrapper {
         overflow-x: hidden;
       }
@@ -933,9 +932,9 @@
         })();
 
         return `
-          <td data-label="Rank"><div class="mobile-value">${player['Rank']}</div></td>
+          <td data-label="Rank"><div class="flex-content">${player['Rank']}</div></td>
           <td data-label="Change">${changeContent}</td>
-          <td data-label="Player"><div class="mobile-value">${player['Player']}</div></td>
+          <td data-label="Player"><div class="flex-content">${player['Player']}</div></td>
           <td data-label="Character">
             <div class="character-cell">
               <img src="/images/characters/${player['Main Character'].toLowerCase()}.png" alt="${player['Main Character']}" class="character-icon" onerror="this.src='https://placehold.co/40x40/aaa/fff?text=N/A';">
@@ -948,7 +947,7 @@
               <span>${countryName}</span>
             </div>
           </td>
-          <td data-label="Points"><div class="mobile-value">${player['Points']}</div></td>
+          <td data-label="Points"><div class="flex-content">${player['Points']}</div></td>
         `;
       }
 
