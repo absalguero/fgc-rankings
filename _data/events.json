@@ -1,12 +1,5 @@
 [
-  {
-    "name": "VSFighting XIII",
-    "url": "https://www.start.gg/tournament/vsfighting-xiii/details",
-    "img": "/images/vsfighting.png",
-    "alt": "VSFighting XIII Tournament",
-    "date": "August 15-17, 2025"
-  },
-  {
+    {
     "name": "Esports World Cup 2025",
     "url": "https://esportsworldcup.com/en/competitions/street-fighter6",
     "img": "/images/ewc.png",
@@ -21,10 +14,17 @@
     "date": "August 22-24, 2025"
   },
   {
-    "name": "COMITÊ ARENA 2025",
+    "name": "Cream City Convergence",
+    "url": "https://www.start.gg/tournament/cream-city-convergence-2025/details",
+    "img": "/images/cream-city-convergence.png",
+    "alt": "Cream City Convergence Tournament",
+    "date": "August 30, 2025"
+  },
+  {
+    "name": "Comitê Arena 2025",
     "url": "https://www.start.gg/tournament/comit-arena-2025/details",
     "img": "/images/comite.png",
-    "alt": "COMITÊ ARENA 2025 Tournament",
+    "alt": "Comitê Arena 2025 Tournament",
     "date": "August 30-31, 2025"
   },
   {
@@ -34,4 +34,5 @@
     "alt": "OzHadou National 19 Tournament",
     "date": "September 5-7, 2025"
   }
+  
 ]
