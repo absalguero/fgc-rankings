@@ -655,7 +655,7 @@
           </tr>
         </thead>
         <tbody>
-          </tbody>
+        </tbody>
       </table>
     </div>
 
@@ -721,10 +721,12 @@
     }
 
     /* Restored Character Image Styles */
-    .character-cell {
+    .character-cell,
+    .flag-cell,
+    .change-cell {
       display: flex;
       align-items: center;
-      justify-content: flex-start;
+      justify-content: flex-end;
       gap: 10px;
     }
 
@@ -737,62 +739,36 @@
       border: 1px solid #ddd;
     }
 
-    .flag-cell {
-      display: flex;
-      align-items: center;
-      justify-content: flex-start;
-      gap: 10px;
-    }
-
     td {
       font-size: 1rem;
     }
 
-    /* **FINAL CSS FOR COLUMN SIZING** */
-    /* Target the Change column (the 2nd child) */
-    th:nth-child(2) span,
-    td:nth-child(2) {
-      width: 80px;
-      max-width: 80px;
-      text-align: center;
-    }
-    /* Target the Country column (the 5th child) */
-    th:nth-child(5),
-    td:nth-child(5) {
-      width: 150px;
-      max-width: 150px;
-      overflow-wrap: break-word;
-      white-space: normal;
-      text-align: left;
-    }
+    /* This is the fix: We will now move the fixed width CSS rules into a media query. */
+    /* This ensures these rules only apply on desktop and will not break the mobile card layout. */
+    @media screen and (min-width: 769px) {
+      table {
+        min-width: 600px;
+      }
+      /* Hide the mobile sort UI on desktop */
+      #mobile-sort-container {
+        display: none;
+      }
 
-    /* NEW: Styling for the Load More button to match the site's theme */
-    .load-more-container {
+      /* Explicitly apply fixed widths for desktop view only */
+      th:nth-child(2) span,
+      td:nth-child(2) {
+        width: 80px;
+        max-width: 80px;
         text-align: center;
-        margin: 20px 0;
-    }
-    .load-more-btn {
-        background-color: #FF5E13; /* Your theme's fire-orange color */
-        border: none;
-        color: #222; /* Dark grey to match background */
-        padding: 10px 24px;
-        font-size: 16px;
-        cursor: pointer;
-        border-radius: 5px;
-        transition: background-color 0.3s, transform 0.2s;
-        font-family: 'Permanent Marker', cursive;
-        text-transform: uppercase;
-        box-shadow: 0 4px #c24600; /* Darker orange for a 3D effect */
-        letter-spacing: 1px;
-    }
-    .load-more-btn:hover {
-        background-color: #e6520d;
-        transform: translateY(1px);
-        box-shadow: 0 3px #c24600;
-    }
-    .load-more-btn:active {
-        transform: translateY(3px);
-        box-shadow: 0 1px #c24600;
+      }
+      th:nth-child(5),
+      td:nth-child(5) {
+        width: 150px;
+        max-width: 150px;
+        overflow-wrap: break-word;
+        white-space: normal;
+        text-align: left;
+      }
     }
 
     /* Mobile Styles (Card Layout) */
@@ -875,12 +851,15 @@
       table td:last-child {
         border-bottom: 0;
       }
-      .character-cell {
+      
+      .mobile-value {
+        display: flex;
+        align-items: center;
         justify-content: flex-end;
+        text-align: right;
+        gap: 10px;
       }
-      .flag-cell {
-        justify-content: flex-end;
-      }
+
       .table-wrapper {
         overflow-x: hidden;
       }
@@ -888,15 +867,34 @@
         width: 100%;
       }
     }
-    /* Restored Table Minimum Width for Desktop */
-    @media screen and (min-width: 769px) {
-      table {
-        min-width: 600px;
-      }
-      /* Hide the mobile sort UI on desktop */
-      #mobile-sort-container {
-        display: none;
-      }
+
+    /* NEW: Styling for the Load More button to match the site's theme */
+    .load-more-container {
+        text-align: center;
+        margin: 20px 0;
+    }
+    .load-more-btn {
+        background-color: #FF5E13; /* Your theme's fire-orange color */
+        border: none;
+        color: #222; /* Dark grey to match background */
+        padding: 10px 24px;
+        font-size: 16px;
+        cursor: pointer;
+        border-radius: 5px;
+        transition: background-color 0.3s, transform 0.2s;
+        font-family: 'Permanent Marker', cursive;
+        text-transform: uppercase;
+        box-shadow: 0 4px #c24600; /* Darker orange for a 3D effect */
+        letter-spacing: 1px;
+    }
+    .load-more-btn:hover {
+        background-color: #e6520d;
+        transform: translateY(1px);
+        box-shadow: 0 3px #c24600;
+    }
+    .load-more-btn:active {
+        transform: translateY(3px);
+        box-shadow: 0 1px #c24600;
     }
   </style>
 
@@ -919,22 +917,25 @@
       let currentSortDataType = 'number';
 
       function createRowHtml(player) {
-        const changeSpan = (() => {
-          const change = player['Rank Change'];
-          if (change === 'New') return `<span style="color: #007bff;">New</span>`;
-          if (change.startsWith('+')) return `<span style="color: green;">${change}</span>`;
-          if (change.startsWith('-')) return `<span style="color: red;">${change}</span>`;
-          return `<span style="color: #6c757d;">${change}</span>`;
-        })();
-
-        // Use the 'Country' column for both the flag and the text
+        const change = player['Rank Change'];
         const countryName = player['Country'];
         const countryNameLower = String(countryName).toLowerCase();
 
+        const changeContent = (() => {
+          if (change === 'New') {
+            return `<div class="change-cell"><span style="color: #007bff;">New</span></div>`;
+          } else if (change.startsWith('+')) {
+            return `<div class="change-cell"><span style="color: green;">${change}</span></div>`;
+          } else if (change.startsWith('-')) {
+            return `<div class="change-cell"><span style="color: red;">${change}</span></div>`;
+          }
+          return `<div class="change-cell"><span style="color: #6c757d;">${change}</span></div>`;
+        })();
+
         return `
-          <td data-label="Rank">${player['Rank']}</td>
-          <td data-label="Change">${changeSpan}</td>
-          <td data-label="Player">${player['Player']}</td>
+          <td data-label="Rank"><div class="mobile-value">${player['Rank']}</div></td>
+          <td data-label="Change">${changeContent}</td>
+          <td data-label="Player"><div class="mobile-value">${player['Player']}</div></td>
           <td data-label="Character">
             <div class="character-cell">
               <img src="/images/characters/${player['Main Character'].toLowerCase()}.png" alt="${player['Main Character']}" class="character-icon" onerror="this.src='https://placehold.co/40x40/aaa/fff?text=N/A';">
@@ -947,7 +948,7 @@
               <span>${countryName}</span>
             </div>
           </td>
-          <td data-label="Points">${player['Points']}</td>
+          <td data-label="Points"><div class="mobile-value">${player['Points']}</div></td>
         `;
       }
 
