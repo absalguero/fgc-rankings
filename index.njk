@@ -125,6 +125,10 @@
       box-sizing: inherit;
     }
 
+    h1, h2 {
+      text-align: center;
+    }
+
     th {
       cursor: pointer;
       position: relative;
@@ -179,30 +183,85 @@
     }
 
     /* Restored Character Image Styles */
+    .player-cell,
     .character-cell,
     .flag-cell,
     .change-cell {
       display: flex;
       align-items: center;
-      justify-content: flex-end;
+      justify-content: flex-start;
       gap: 10px;
     }
+    .player-cell span,
+    .character-cell span,
+    .flag-cell span {
+        white-space: nowrap;
+    }
 
+    .player-icon,
     .character-icon,
     .flag-icon {
       width: 40px;
       height: 40px;
       border-radius: 50%;
       object-fit: cover;
-      border: 1px solid #ddd;
+      /* Original: border: 1px solid #ddd; */
+      box-shadow: 0 0 6px 1px rgba(255, 255, 255, 0.6); /* Adjusted for a medium prominence */
     }
 
     td {
       font-size: 1rem;
     }
     
+    /* REMOVED: font-weight: bold; from the .points-value class */
     .points-value {
-        font-weight: bold;
+        /* font-weight: bold; */
+    }
+
+    /* NEW: Stronger subtle glow effect for points and matching box-shadow for images in top 5 ranks */
+    .rank-1 td {
+        text-shadow: 0 0 4px gold; /* Increased glow */
+    }
+    .rank-1 .player-icon,
+    .rank-1 .character-icon,
+    .rank-1 .flag-icon {
+        box-shadow: 0 0 6px 1px gold;
+    }
+
+    .rank-2 td {
+        text-shadow: 0 0 4px silver; /* Increased glow */
+    }
+    .rank-2 .player-icon,
+    .rank-2 .character-icon,
+    .rank-2 .flag-icon {
+        box-shadow: 0 0 6px 1px silver;
+    }
+
+    .rank-3 td {
+        text-shadow: 0 0 4px #cd7f32; /* Increased glow */
+    }
+    .rank-3 .player-icon,
+    .rank-3 .character-icon,
+    .rank-3 .flag-icon {
+        box-shadow: 0 0 6px 1px #cd7f32;
+    }
+
+    .rank-4 td {
+        text-shadow: 0 0 4px #8c7359; /* Increased glow */
+    }
+    .rank-4 .player-icon,
+    .rank-4 .character-icon,
+    .rank-4 .flag-icon {
+        box-shadow: 0 0 6px 1px #8c7359;
+    }
+
+    .rank-5 td {
+        text-shadow: 0 0 4px #b0c4de; /* Increased glow */
+    }
+    .rank-5 .player-icon,
+    .rank-5 .character-icon,
+    .rank-5 .flag-icon {
+        box-shadow: 0 0 6px 1px #b0c4de;
     }
 
     @media screen and (min-width: 769px) {
@@ -231,12 +290,20 @@
           justify-content: center;
       }
       
+      th:nth-child(3),
+      th:nth-child(4) {
+          text-align: left;
+      }
+      
+      /* THIS IS THE FIX for the 'Main Character' header not centering */
       th:nth-child(4) span {
-        text-align: left;
+          text-align: center;
       }
-      td:nth-child(4) {
-        text-align: left;
+      .player-cell,
+      .character-cell {
+          justify-content: flex-start;
       }
+      
       th:nth-child(5) {
         width: 150px;
         max-width: 150px;
@@ -251,9 +318,7 @@
         /* Center the cell content */
         text-align: center;
       }
-
-      /* Ensure inner content is left-aligned in character and country cells */
-      .character-cell,
+      
       .flag-cell {
         justify-content: center; /* This is the key change to center the content */
       }
@@ -347,6 +412,12 @@
         text-align: right;
         gap: 10px;
       }
+      .player-cell,
+      .character-cell,
+      .flag-cell,
+      .change-cell {
+          justify-content: flex-end;
+      }
 
       /* FIX for the country name not wrapping properly */
       .flag-cell span {
@@ -413,7 +484,9 @@
         const change = player['Rank Change'];
         const countryName = player['Country'];
         const countryNameLower = String(countryName).toLowerCase();
-
+        const playerNameLower = String(player['Player']).toLowerCase().replace(/\s/g, ''); // Added .replace(/\s/g, '') to handle names with spaces
+        const characterNameLower = String(player['Main Character']).toLowerCase();
+        
         const changeContent = (() => {
           if (change === 'New') {
             return `<div class="change-cell"><span style="color: #007bff;">New</span></div>`;
@@ -428,10 +501,15 @@
         return `
           <td data-label="Rank"><div class="mobile-value">${player['Rank']}</div></td>
           <td data-label="Change">${changeContent}</td>
-          <td data-label="Player"><div class="mobile-value">${player['Player']}</div></td>
+          <td data-label="Player">
+              <div class="player-cell">
+                <img src="/images/players/${playerNameLower}.png" alt="${player['Player']}" class="player-icon" onerror="this.src='https://placehold.co/40x40/aaa/fff?text=?';">
+                <span>${player['Player']}</span>
+              </div>
+          </td>
           <td data-label="Character">
             <div class="character-cell">
-              <img src="/images/characters/${player['Main Character'].toLowerCase()}.png" alt="${player['Main Character']}" class="character-icon" onerror="this.src='https://placehold.co/40x40/aaa/fff?text=N/A';">
+              <img src="/images/characters/${characterNameLower}.png" alt="${player['Main Character']}" class="character-icon" onerror="this.src='https://placehold.co/40x40/aaa/fff?text=N/A';">
               <span>${player['Main Character']}</span>
             </div>
           </td>
