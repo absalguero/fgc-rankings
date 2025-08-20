@@ -1,62 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-47ZV9G37SY"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-47ZV9G37SY');
-    </script>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>FGC Ranking System Explained: Street Fighter 6 Player Rankings</title>
-    <meta name="description" content="Current Street Fighter 6 player rankings from the competitive Fighting Game Community." />
-    <link rel="canonical" href="https://fgc-player-rankings.netlify.app/" />
-    <meta name="theme-color" content="#000001" />
-    <meta http-equiv="Cache-Control" content="max-age=3600, must-revalidate" />
-    <link rel="sitemap" type="application/xml" title="Sitemap" href="https://fgc-player-rankings.netlify.app/sitemap.xml" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet" />
-    <link rel="icon" type="image/png" href="/images/favicon.png" />
-    <link rel="icon" type="image/png" sizes="192x192" href="/images/android-chrome-192x192.png">
-    <link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
-    <meta name="theme-color" content="#FF5E13" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="/css/style.css">
-    <script type="application/ld+json">
-        {
-            "@context": "https://schema.org",
-            "@graph": [
-                {
-                    "@type": "Organization",
-                    "name": "FGC Player Rankings",
-                    "url": "https://fgc-player-rankings.netlify.app",
-                    "logo": "https://fgc-player-rankings.netlify.app/images/banner.png"
-                },
-                {
-                    "@type": "WebPage",
-                    "name": "FGC Player Rankings - Street Fighter 6 Player Rankings",
-                    "url": "https://fgc-player-rankings.netlify.app",
-                    "description": "Current Street Fighter 6 player rankings from the competitive Fighting Game Community.",
-                    "breadcrumb": {
-                        "@type": "BreadcrumbList",
-                        "itemListElement": [
-                            {
-                                "@type": "ListItem",
-                                "position": 1,
-                                "name": "Home",
-                                "item": "https://fgc-player-rankings.netlify.app"
-                            }
-                        ]
-                    }
-                }
-            ]
-        }
-    </script>
-    
-  
+---
+title: "FGC Ranking System Explained: Street Fighter 6 Player Rankings"
+---
+{% extends "layout.njk" %}
+
+{% block head %}
+  {{ super() }}
   <meta name="description" content="Learn how the FGC Ranking System for Street Fighter 6 works. Our official rankings are calculated based on top offline tournament placements, event value, and recency.">
   <script type="application/ld+json">
   {
@@ -332,31 +280,9 @@
       }
     }
   </style>
+{% endblock %}
 
-</head>
-<body>
-    <a href="#maincontent" class="skip-link">Skip to main content</a>
-    <header class="mobile-header">
-        <button class="nav-toggle" aria-label="toggle navigation" aria-expanded="false">&#9776;</button>
-    </header>
-    <div class="page-wrapper">
-        <nav class="sidebar" aria-label="Main menu" role="navigation">
-            <h2 class="sidebar-label">Navigation</h2>
-            <ul class="nav-menu">
-                <li><a href="/"><i class="fas fa-trophy"></i> SF6 Rankings</a></li>
-                <li><a href="/ranking-system/"><i class="fas fa-info-circle"></i> Ranking System Overview</a></li>
-                <li><a href="/tournament-results/"><i class="fas fa-stream"></i> Tournament Results</a></li>
-            </ul>
-        </nav>
-        <main class="content" role="main" id="maincontent" tabindex="-1">
-            <div class="content-container">
-                <img
-                    class="banner"
-                    src="/images/banner.png"
-                    alt="FGC Player Rankings official logo"
-                    loading="lazy"
-                />
-                
+{% block content %}
   <article>
     <h1>Fighting Game Community (FGC) Ranking System Explained</h1>
 
@@ -496,74 +422,4 @@
       </div>
     </div>
   </article>
-
-            </div>
-        </main>
-        <aside class="right-sidebar" aria-label="Upcoming Rated Events">
-            <h2 class="sidebar-label">Upcoming Rated Events</h2>
-            
-                <div class="event">
-                    <a href="https://esportsworldcup.com/en/competitions/street-fighter6" target="_blank" rel="noopener noreferrer" class="tournament-name">
-                        Esports World Cup 2025
-                    </a>
-                    <a href="https://esportsworldcup.com/en/competitions/street-fighter6" target="_blank" rel="noopener noreferrer">
-                        <img src="/images/ewc.png" alt="Esports World Cup 2025 Tournament" loading="lazy" />
-                    </a>
-                    <div class="event-date">August 20-23, 2025</div>
-                    <a class="more-info" href="https://esportsworldcup.com/en/competitions/street-fighter6" target="_blank" rel="noopener noreferrer">More Info</a>
-                </div>
-            
-                <div class="event">
-                    <a href="https://www.start.gg/tournament/beast-in-the-east-8/details" target="_blank" rel="noopener noreferrer" class="tournament-name">
-                        Beast in the East 8
-                    </a>
-                    <a href="https://www.start.gg/tournament/beast-in-the-east-8/details" target="_blank" rel="noopener noreferrer">
-                        <img src="/images/beast-in-the-east.png" alt="Beast in the East 8 Tournament" loading="lazy" />
-                    </a>
-                    <div class="event-date">August 22-24, 2025</div>
-                    <a class="more-info" href="https://www.start.gg/tournament/beast-in-the-east-8/details" target="_blank" rel="noopener noreferrer">More Info</a>
-                </div>
-            
-                <div class="event">
-                    <a href="https://www.start.gg/tournament/cream-city-convergence-2025/details" target="_blank" rel="noopener noreferrer" class="tournament-name">
-                        Cream City Convergence
-                    </a>
-                    <a href="https://www.start.gg/tournament/cream-city-convergence-2025/details" target="_blank" rel="noopener noreferrer">
-                        <img src="/images/cream-city-convergence.png" alt="Cream City Convergence Tournament" loading="lazy" />
-                    </a>
-                    <div class="event-date">August 30, 2025</div>
-                    <a class="more-info" href="https://www.start.gg/tournament/cream-city-convergence-2025/details" target="_blank" rel="noopener noreferrer">More Info</a>
-                </div>
-            
-                <div class="event">
-                    <a href="https://www.start.gg/tournament/comit-arena-2025/details" target="_blank" rel="noopener noreferrer" class="tournament-name">
-                        Comitê Arena 2025
-                    </a>
-                    <a href="https://www.start.gg/tournament/comit-arena-2025/details" target="_blank" rel="noopener noreferrer">
-                        <img src="/images/comite.png" alt="Comitê Arena 2025 Tournament" loading="lazy" />
-                    </a>
-                    <div class="event-date">August 30-31, 2025</div>
-                    <a class="more-info" href="https://www.start.gg/tournament/comit-arena-2025/details" target="_blank" rel="noopener noreferrer">More Info</a>
-                </div>
-            
-                <div class="event">
-                    <a href="https://www.start.gg/tournament/ozhadou-nationals-19/details" target="_blank" rel="noopener noreferrer" class="tournament-name">
-                        OzHadou National 19
-                    </a>
-                    <a href="https://www.start.gg/tournament/ozhadou-nationals-19/details" target="_blank" rel="noopener noreferrer">
-                        <img src="/images/ozhadou-19.png" alt="OzHadou National 19 Tournament" loading="lazy" />
-                    </a>
-                    <div class="event-date">September 5-7, 2025</div>
-                    <a class="more-info" href="https://www.start.gg/tournament/ozhadou-nationals-19/details" target="_blank" rel="noopener noreferrer">More Info</a>
-                </div>
-            
-        </aside>
-    </div>
-    <noscript>
-        <p style="color:#f00;text-align:center;padding:1rem;background:#111;">
-            JavaScript is disabled in your browser. The rankings table may not load correctly.
-        </p>
-    </noscript>
-    <script src="/js/main.js"></script>
-</body>
-</html>
+{% endblock %}

@@ -1,556 +1,85 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-47ZV9G37SY"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-47ZV9G37SY');
-</script>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>FGC Player Rankings</title>
-  <meta name="description" content="Current Street Fighter 6 player rankings from the competitive Fighting Game Community." />
-  <link rel="canonical" href="https://fgc-player-rankings.netlify.app/" />
-  <meta name="theme-color" content="#000001" />
-  <meta http-equiv="Cache-Control" content="max-age=3600, must-revalidate" />
-
-  <link rel="sitemap" type="application/xml" title="Sitemap" href="https://fgc-player-rankings.netlify.app/sitemap.xml" />
-
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-
-  <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet" />
-
-  <link rel="icon" type="image/png" href="/images/favicon.png" />
-  <link rel="icon" type="image/png" sizes="192x192" href="/images/android-chrome-192x192.png">
-  <link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
-  
-  <meta name="theme-color" content="#FF5E13" />
-
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-
-  <style>
-    /* Reset and base styles */
-    *, *::before, *::after {
-      box-sizing: border-box;
-    }
-
-    html, body {
-      margin: 0;
-      padding: 0;
-      height: 100%;
-      background: #000001;
-      color: #f0f0f0;
-      font-family: Arial, sans-serif;
-      overflow-x: hidden;
-      background-image: url('/images/background.png');
-      background-size: cover;
-      background-repeat: no-repeat;
-      background-position: center;
-    }
-
-    body {
-      min-height: 100vh;
-      overflow-y: auto;
-      position: relative;
-    }
-
-    a {
-      color: #f39c12;
-      text-decoration: none;
-    }
-    a:hover,
-    a:focus {
-      text-decoration: underline;
-    }
-
-    /* Layout */
-    .page-wrapper {
-      display: flex;
-      flex-direction: row;
-      height: 100vh;
-      overflow: hidden;
-    }
-
-    /* Sidebar */
-    nav.sidebar {
-      width: 180px;
-      background: #111;
-      padding: 15px;
-      box-sizing: border-box;
-      box-shadow: 2px 0 5px rgba(0,0,0,.7);
-      position: sticky;
-      top: 0;
-      height: 100vh;
-      overflow-y: auto;
-      flex-shrink: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      transition: transform 0.3s ease;
-      color: #ddd;
-    }
-
-    nav.sidebar h2.sidebar-label {
-      font-family: 'Permanent Marker', cursive;
-      font-weight: normal;
-      font-size: 1.5rem;
-      color: #FF5E13; /* Updated to match h1 color */
-      text-decoration: none;
-      text-shadow: 0 1px 2px rgba(0,0,0,.5);
-      margin-bottom: 1rem;
-      width: 100%;
-      text-align: center;
-    }
-
-    nav.sidebar ul.nav-menu {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-      width: 100%;
-    }
-
-    nav.sidebar ul.nav-menu li {
-      margin-bottom: 1.2rem;
-      text-align: center;
-      font-family: 'Permanent Marker', cursive;
-    }
-
-    nav.sidebar ul.nav-menu li a {
-      color: #ddd;
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 1.5rem;
-      display: inline-block;
-      transition: color 0.3s ease;
-    }
-
-    nav.sidebar ul.nav-menu li a:hover {
-      color: #bbb;
-    }
-
-    nav.sidebar ul.nav-menu li a i {
-        margin-right: 8px;
-        vertical-align: middle;
-    }
-
-    /* Main content */
-    main.content {
-      flex: 1;
-      padding: 20px 30px;
-      overflow-y: auto;
-      box-sizing: border-box;
-      /* Force left text alignment */
-      text-align: left;
-      min-width: 0;
-      max-height: 100vh;
-      color: #f0f0f0;
-    }
-
-    /* Content container to align content left */
-    .content-container {
-      max-width: 800px;
-      margin: 0 auto;
-      text-align: left;
-    }
-
-    /* Override for Ranking System page to allow full width */
-    
-
-    /* Banner image */
-    .banner {
-      display: block;
-      width: auto;
-      height: auto;
-      max-width: 300px;
-      max-height: 262px;
-      object-fit: contain;
-      margin: 0 auto 1rem auto;
-    }
-
-    /* Headings styling - consistent globally */
-    h1 {
-      margin: 1rem 0 0.5rem 0;
-      color: #FF5E13; /* Fire-orange color */
-      font-family: 'Permanent Marker', cursive;
-      font-size: 3rem;
-      text-shadow: none;
-      text-align: center;
-    }
-
-    h2 {
-      margin: 0 0 2rem 0;
-      font-weight: normal;
-      color: #ccc;
-      text-align: center;
-    }
-
-    /* Table wrapper */
-    .table-wrapper {
-      overflow-x: auto;
-      -webkit-overflow-scrolling: touch;
-      margin: 0 auto 2rem auto;
-      width: 100%;
-      /* Force left alignment */
-      text-align: left;
-    }
-
-    table {
-      border-collapse: collapse;
-      width: auto;
-      table-layout: auto;
-      min-width: 600px;
-      white-space: nowrap;
-      margin: 0 auto;
-      color: #f0f0f0;
-    }
-
-    thead {
-      background: #1f1f1f;
-      position: sticky;
-      top: 0;
-      z-index: 10;
-      box-shadow: inset 0 -3px 8px -3px rgba(255,255,255,.3);
-    }
-
-    th, td {
-      padding: 0.75rem 1rem;
-      border: 1px solid #333;
-      text-align: center;
-      word-break: normal;
-      white-space: nowrap;
-    }
-
-    th {
-      color: #ddd;
-      font-weight: 700;
-      text-shadow: 0 1px 1px rgba(0,0,0,.7);
-      border-bottom: 3px solid #444;
-    }
-
-    tbody tr:nth-child(even) {
-      background: #1a1a1a;
-    }
-
-    tbody tr:hover {
-      background: #333;
-    }
-
-    /* Google Sheets embed styling */
-    iframe.google-sheet {
-      width: 100% !important;
-      max-width: 100%;
-      height: 600px; /* Adjust height as needed */
-      border: 1px solid #f39c12;
-      border-radius: 8px;
-      box-shadow: 0 0 10px rgba(243, 156, 18, 0.7);
-      margin: 1rem 0;
-      display: block;
-    }
-
-    /* Responsive iframe for sheets */
-    @media (max-width: 700px) {
-      iframe.google-sheet {
-        height: 400px;
-      }
-    }
-
-    /* Right sidebar */
-    aside.right-sidebar {
-      background: #111;
-      width: 200px;
-      max-width: 100%;
-      padding: 15px;
-      box-sizing: border-box;
-      box-shadow: -2px 0 5px rgba(0,0,0,.7);
-      position: relative;
-      height: 100vh;
-      overflow-y: auto;
-      overflow-x: hidden;
-      flex-shrink: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      color: #bbb;
-      font-family: Arial, sans-serif;
-    }
-
-    aside.right-sidebar h2.sidebar-label {
-      font-family: 'Permanent Marker', cursive; /* Applied the font here */
-      font-weight: normal;
-      font-size: 1.5rem;
-      color: #FF5E13; /* Updated to match h1 color */
-      text-decoration: none;
-      text-shadow: 0 1px 2px rgba(0,0,0,.5);
-      margin-bottom: 1rem;
-      width: 100%;
-      text-align: center;
-    }
-
-    aside.right-sidebar .event {
-      width: 100%;
-      margin-bottom: 0.8rem;
-      text-align: center;
-      flex-shrink: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      background: #111;
-      padding: 10px;
-      border-radius: 8px;
-      box-sizing: border-box;
-    }
-
-    aside.right-sidebar .event img {
-      max-width: 100%;
-      height: auto;
-      border-radius: 6px;
-      margin-bottom: 0.5rem;
-      object-fit: contain;
-      max-height: 120px;
-      display: block;
-    }
-
-    aside.right-sidebar .event a.tournament-name {
-      color: #ddd;
-      font-weight: bold;
-      text-decoration: none;
-      display: block;
-      margin-bottom: 0.3rem;
-      text-align: center;
-      font-size: 1.1rem;
-      font-family: Arial, sans-serif;
-    }
-
-    aside.right-sidebar .event a.tournament-name:hover {
-      text-decoration: underline;
-      color: #eee;
-    }
-
-    aside.right-sidebar .event-date {
-      font-size: 0.9rem;
-      color: #999;
-      user-select: none;
-      margin-bottom: 0.3rem;
-    }
-
-    aside.right-sidebar a.more-info {
-      color: #999;
-      font-size: 0.85rem;
-    }
-
-    /* Skip link */
-    .skip-link {
-      position: absolute;
-      left: -9999px;
-      top: auto;
-      width: 1px;
-      height: 1px;
-      overflow: hidden;
-    }
-    .skip-link:focus {
-      position: static;
-      width: auto;
-      height: auto;
-      left: auto;
-      top: auto;
-      background: #f39c12;
-      color: #000;
-      padding: 0.5rem 1rem;
-      z-index: 1000;
-      text-decoration: none;
-    }
-
-    /* NEW: Dedicated mobile header */
-    .mobile-header {
-      display: none; /* Hidden by default for desktop */
-    }
-    
-    /* Hamburger toggle button */
-    .nav-toggle {
-      display: none;
-    }
-
-    /* Responsive styles */
-    @media (max-width: 1024px) {
-      aside.right-sidebar {
-        width: 180px;
-      }
-    }
-
-    @media (max-width: 768px) {
-      body.no-scroll {
-        overflow: hidden;
-      }
-
-      /* NEW: Show the fixed header on mobile */
-      .mobile-header {
-        display: flex;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 60px; /* Adjust height as needed */
-        background: #111;
-        align-items: center;
-        padding: 0 15px;
-        box-sizing: border-box;
-        z-index: 1100;
-        box-shadow: 0 2px 5px rgba(0,0,0,.5);
-      }
-      
-      .nav-toggle {
-        display: block;
-        font-size: 2rem;
-        background: none;
-        border: none;
-        color: #f0f0f0;
-        cursor: pointer;
-        z-index: 1201;
-      }
-      nav.sidebar {
-        position: fixed;
-        width: 240px;
-        height: 100vh;
-        top: 0;
-        left: 0;
-        padding-top: 60px; /* NEW: Added padding to account for the fixed header */
-        transform: translateX(-100%);
-        transition: transform 0.3s ease;
-        z-index: 1200;
-        font-family: Arial, sans-serif;
-      }
-      nav.sidebar.active {
-        transform: translateX(0);
-      }
-      .page-wrapper {
-        flex-direction: column;
-        height: auto;
-        overflow: visible;
-      }
-      main.content {
-        padding-top: 80px; /* NEW: Added top padding to create space for the header */
-        max-height: none;
-        width: 100%;
-      }
-      .table-wrapper {
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-        width: 100%;
-        margin-bottom: 1rem;
-        text-align: left; /* also force left on mobile */
-      }
-      table {
-        border-collapse: collapse;
-        width: auto;
-        table-layout: auto;
-        min-width: 600px;
-        white-space: nowrap;
-        margin: 0 auto;
-      }
-      aside.right-sidebar {
-        position: relative;
-        height: auto;
-        width: 100%;
-        padding: 15px 20px;
-        box-shadow: none;
-        display: block;
-        margin-top: 1rem;
-        overflow: visible;
-        font-family: Arial, sans-serif;
-      }
-      aside.right-sidebar h2.sidebar-label {
-        font-size: 1.3rem;
-        display: block;
-        margin-bottom: 1rem;
-        color: #999;
-        font-family: Arial, sans-serif;
-      }
-      aside.right-sidebar .event {
-        width: 100%;
-        margin-bottom: 1.5rem;
-        background: #111;
-        padding: 10px;
-        border-radius: 8px;
-        text-align: center;
-        flex-direction: column;
-        align-items: center;
-      }
-      aside.right-sidebar .event img {
-        max-height: 120px;
-        margin-bottom: 0.5rem;
-      }
-      nav.sidebar ul.nav-menu li a {
-        font-size: 1.6rem;
-        font-family: Arial, sans-serif;
-      }
-      nav.sidebar h2.sidebar-label {
-        font-size: 1.3rem;
-        font-family: Arial, sans-serif;
-      }
-    }
-  </style>
-
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "Organization",
-        "name": "FGC Player Rankings",
-        "url": "https://fgc-player-rankings.netlify.app",
-        "logo": "https://fgc-player-rankings.netlify.app/images/banner.png"
-      },
-      {
-        "@type": "WebPage",
-        "name": "FGC Player Rankings - Street Fighter 6 Player Rankings",
-        "url": "https://fgc-player-rankings.netlify.app",
-        "description": "Current Street Fighter 6 player rankings from the competitive Fighting Game Community.",
-        "breadcrumb": {
-          "@type": "BreadcrumbList",
-          "itemListElement": [
-            {
-              "@type": "ListItem",
-              "position": 1,
-              "name": "Home",
-              "item": "https://fgc-player-rankings.netlify.app"
-            }
-          ]
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-47ZV9G37SY"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-47ZV9G37SY');
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>FGC Player Rankings</title>
+    <meta name="description" content="Current Street Fighter 6 player rankings from the competitive Fighting Game Community." />
+    <link rel="canonical" href="https://fgc-player-rankings.netlify.app/" />
+    <meta name="theme-color" content="#000001" />
+    <meta http-equiv="Cache-Control" content="max-age=3600, must-revalidate" />
+    <link rel="sitemap" type="application/xml" title="Sitemap" href="https://fgc-player-rankings.netlify.app/sitemap.xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet" />
+    <link rel="icon" type="image/png" href="/images/favicon.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/images/android-chrome-192x192.png">
+    <link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+    <meta name="theme-color" content="#FF5E13" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@graph": [
+                {
+                    "@type": "Organization",
+                    "name": "FGC Player Rankings",
+                    "url": "https://fgc-player-rankings.netlify.app",
+                    "logo": "https://fgc-player-rankings.netlify.app/images/banner.png"
+                },
+                {
+                    "@type": "WebPage",
+                    "name": "FGC Player Rankings - Street Fighter 6 Player Rankings",
+                    "url": "https://fgc-player-rankings.netlify.app",
+                    "description": "Current Street Fighter 6 player rankings from the competitive Fighting Game Community.",
+                    "breadcrumb": {
+                        "@type": "BreadcrumbList",
+                        "itemListElement": [
+                            {
+                                "@type": "ListItem",
+                                "position": 1,
+                                "name": "Home",
+                                "item": "https://fgc-player-rankings.netlify.app"
+                            }
+                        ]
+                    }
+                }
+            ]
         }
-      }
-    ]
-  }
-  </script>
-  
+    </script>
+    
 </head>
 <body>
-  <a href="#maincontent" class="skip-link">Skip to main content</a>
-  
-  <header class="mobile-header">
-    <button class="nav-toggle" aria-label="toggle navigation" aria-expanded="false">&#9776;</button>
-  </header>
-
-  <div class="page-wrapper">
-    <nav class="sidebar" aria-label="Main menu" role="navigation">
-      <h2 class="sidebar-label">Navigation</h2>
-      <ul class="nav-menu">
-        <li><a href="/"><i class="fas fa-trophy"></i> SF6 Rankings</a></li>
-        <li><a href="/ranking-system/"><i class="fas fa-info-circle"></i> Ranking System Overview</a></li>
-      </ul>
-    </nav>
-
-    <main class="content" role="main" id="maincontent" tabindex="-1">
-      <div class="content-container">
-        <img
-          class="banner"
-          src="/images/banner.png"
-          alt="FGC Player Rankings official logo"
-          loading="lazy"
-        />
-        
+    <a href="#maincontent" class="skip-link">Skip to main content</a>
+    <header class="mobile-header">
+        <button class="nav-toggle" aria-label="toggle navigation" aria-expanded="false">&#9776;</button>
+    </header>
+    <div class="page-wrapper">
+        <nav class="sidebar" aria-label="Main menu" role="navigation">
+            <h2 class="sidebar-label">Navigation</h2>
+            <ul class="nav-menu">
+                <li><a href="/"><i class="fas fa-trophy"></i> SF6 Rankings</a></li>
+                <li><a href="/ranking-system/"><i class="fas fa-info-circle"></i> Ranking System Overview</a></li>
+                <li><a href="/tournament-results/"><i class="fas fa-stream"></i> Tournament Results</a></li>
+            </ul>
+        </nav>
+        <main class="content" role="main" id="maincontent" tabindex="-1">
+            <div class="content-container">
+                <img
+                    class="banner"
+                    src="/images/banner.png"
+                    alt="FGC Player Rankings official logo"
+                    loading="lazy"
+                />
+                
   <div class="content-container">
     <h1 style="margin-top: 0;">Street Fighter 6 Rankings</h1>
     <h2>Last Updated: August 17, 2025</h2>
@@ -1229,105 +758,73 @@
     });
   </script>
 
-      </div>
-    </main>
-
-    <aside class="right-sidebar" aria-label="Upcoming Rated Events">
-      <h2 class="sidebar-label">Upcoming Rated Events</h2>
-
-      
-        <div class="event">
-          <a href="https://esportsworldcup.com/en/competitions/street-fighter6" target="_blank" rel="noopener noreferrer" class="tournament-name">
-            Esports World Cup 2025
-          </a>
-          <a href="https://esportsworldcup.com/en/competitions/street-fighter6" target="_blank" rel="noopener noreferrer">
-            <img src="/images/ewc.png" alt="Esports World Cup 2025 Tournament" loading="lazy" />
-          </a>
-          <div class="event-date">August 20-23, 2025</div>
-          <a class="more-info" href="https://esportsworldcup.com/en/competitions/street-fighter6" target="_blank" rel="noopener noreferrer">More Info</a>
-        </div>
-      
-        <div class="event">
-          <a href="https://www.start.gg/tournament/beast-in-the-east-8/details" target="_blank" rel="noopener noreferrer" class="tournament-name">
-            Beast in the East 8
-          </a>
-          <a href="https://www.start.gg/tournament/beast-in-the-east-8/details" target="_blank" rel="noopener noreferrer">
-            <img src="/images/beast-in-the-east.png" alt="Beast in the East 8 Tournament" loading="lazy" />
-          </a>
-          <div class="event-date">August 22-24, 2025</div>
-          <a class="more-info" href="https://www.start.gg/tournament/beast-in-the-east-8/details" target="_blank" rel="noopener noreferrer">More Info</a>
-        </div>
-      
-        <div class="event">
-          <a href="https://www.start.gg/tournament/cream-city-convergence-2025/details" target="_blank" rel="noopener noreferrer" class="tournament-name">
-            Cream City Convergence
-          </a>
-          <a href="https://www.start.gg/tournament/cream-city-convergence-2025/details" target="_blank" rel="noopener noreferrer">
-            <img src="/images/cream-city-convergence.png" alt="Cream City Convergence Tournament" loading="lazy" />
-          </a>
-          <div class="event-date">August 30, 2025</div>
-          <a class="more-info" href="https://www.start.gg/tournament/cream-city-convergence-2025/details" target="_blank" rel="noopener noreferrer">More Info</a>
-        </div>
-      
-        <div class="event">
-          <a href="https://www.start.gg/tournament/comit-arena-2025/details" target="_blank" rel="noopener noreferrer" class="tournament-name">
-            Comitê Arena 2025
-          </a>
-          <a href="https://www.start.gg/tournament/comit-arena-2025/details" target="_blank" rel="noopener noreferrer">
-            <img src="/images/comite.png" alt="Comitê Arena 2025 Tournament" loading="lazy" />
-          </a>
-          <div class="event-date">August 30-31, 2025</div>
-          <a class="more-info" href="https://www.start.gg/tournament/comit-arena-2025/details" target="_blank" rel="noopener noreferrer">More Info</a>
-        </div>
-      
-        <div class="event">
-          <a href="https://www.start.gg/tournament/ozhadou-nationals-19/details" target="_blank" rel="noopener noreferrer" class="tournament-name">
-            OzHadou National 19
-          </a>
-          <a href="https://www.start.gg/tournament/ozhadou-nationals-19/details" target="_blank" rel="noopener noreferrer">
-            <img src="/images/ozhadou-19.png" alt="OzHadou National 19 Tournament" loading="lazy" />
-          </a>
-          <div class="event-date">September 5-7, 2025</div>
-          <a class="more-info" href="https://www.start.gg/tournament/ozhadou-nationals-19/details" target="_blank" rel="noopener noreferrer">More Info</a>
-        </div>
-      
-
-    </aside>
-  </div>
-
-  <noscript>
-    <p style="color:#f00;text-align:center;padding:1rem;background:#111;">
-      JavaScript is disabled in your browser. The rankings table may not load correctly.
-    </p>
-  </noscript>
-
-  <script>
-    const toggleButton = document.querySelector('.nav-toggle');
-    const sidebar = document.querySelector('.sidebar');
-    const body = document.body;
-
-    toggleButton.addEventListener('click', () => {
-      const isActive = sidebar.classList.toggle('active');
-      toggleButton.setAttribute('aria-expanded', isActive);
-      
-      // Add/remove the no-scroll class to the body to prevent background scrolling
-      if (isActive) {
-          body.classList.add('no-scroll');
-      } else {
-          body.classList.remove('no-scroll');
-      }
-    });
-
-    document.addEventListener('click', (e) => {
-      if (!sidebar.contains(e.target) && !toggleButton.contains(e.target)) {
-        sidebar.classList.remove('active');
-        toggleButton.setAttribute('aria-expanded', false);
-        
-        // Remove the no-scroll class when the menu closes
-        body.classList.remove('no-scroll');
-      }
-    });
-  </script>
-
+            </div>
+        </main>
+        <aside class="right-sidebar" aria-label="Upcoming Rated Events">
+            <h2 class="sidebar-label">Upcoming Rated Events</h2>
+            
+                <div class="event">
+                    <a href="https://esportsworldcup.com/en/competitions/street-fighter6" target="_blank" rel="noopener noreferrer" class="tournament-name">
+                        Esports World Cup 2025
+                    </a>
+                    <a href="https://esportsworldcup.com/en/competitions/street-fighter6" target="_blank" rel="noopener noreferrer">
+                        <img src="/images/ewc.png" alt="Esports World Cup 2025 Tournament" loading="lazy" />
+                    </a>
+                    <div class="event-date">August 20-23, 2025</div>
+                    <a class="more-info" href="https://esportsworldcup.com/en/competitions/street-fighter6" target="_blank" rel="noopener noreferrer">More Info</a>
+                </div>
+            
+                <div class="event">
+                    <a href="https://www.start.gg/tournament/beast-in-the-east-8/details" target="_blank" rel="noopener noreferrer" class="tournament-name">
+                        Beast in the East 8
+                    </a>
+                    <a href="https://www.start.gg/tournament/beast-in-the-east-8/details" target="_blank" rel="noopener noreferrer">
+                        <img src="/images/beast-in-the-east.png" alt="Beast in the East 8 Tournament" loading="lazy" />
+                    </a>
+                    <div class="event-date">August 22-24, 2025</div>
+                    <a class="more-info" href="https://www.start.gg/tournament/beast-in-the-east-8/details" target="_blank" rel="noopener noreferrer">More Info</a>
+                </div>
+            
+                <div class="event">
+                    <a href="https://www.start.gg/tournament/cream-city-convergence-2025/details" target="_blank" rel="noopener noreferrer" class="tournament-name">
+                        Cream City Convergence
+                    </a>
+                    <a href="https://www.start.gg/tournament/cream-city-convergence-2025/details" target="_blank" rel="noopener noreferrer">
+                        <img src="/images/cream-city-convergence.png" alt="Cream City Convergence Tournament" loading="lazy" />
+                    </a>
+                    <div class="event-date">August 30, 2025</div>
+                    <a class="more-info" href="https://www.start.gg/tournament/cream-city-convergence-2025/details" target="_blank" rel="noopener noreferrer">More Info</a>
+                </div>
+            
+                <div class="event">
+                    <a href="https://www.start.gg/tournament/comit-arena-2025/details" target="_blank" rel="noopener noreferrer" class="tournament-name">
+                        Comitê Arena 2025
+                    </a>
+                    <a href="https://www.start.gg/tournament/comit-arena-2025/details" target="_blank" rel="noopener noreferrer">
+                        <img src="/images/comite.png" alt="Comitê Arena 2025 Tournament" loading="lazy" />
+                    </a>
+                    <div class="event-date">August 30-31, 2025</div>
+                    <a class="more-info" href="https://www.start.gg/tournament/comit-arena-2025/details" target="_blank" rel="noopener noreferrer">More Info</a>
+                </div>
+            
+                <div class="event">
+                    <a href="https://www.start.gg/tournament/ozhadou-nationals-19/details" target="_blank" rel="noopener noreferrer" class="tournament-name">
+                        OzHadou National 19
+                    </a>
+                    <a href="https://www.start.gg/tournament/ozhadou-nationals-19/details" target="_blank" rel="noopener noreferrer">
+                        <img src="/images/ozhadou-19.png" alt="OzHadou National 19 Tournament" loading="lazy" />
+                    </a>
+                    <div class="event-date">September 5-7, 2025</div>
+                    <a class="more-info" href="https://www.start.gg/tournament/ozhadou-nationals-19/details" target="_blank" rel="noopener noreferrer">More Info</a>
+                </div>
+            
+        </aside>
+    </div>
+    <noscript>
+        <p style="color:#f00;text-align:center;padding:1rem;background:#111;">
+            JavaScript is disabled in your browser. The rankings table may not load correctly.
+        </p>
+    </noscript>
+    <script src="/js/main.js"></script>
 </body>
 </html>

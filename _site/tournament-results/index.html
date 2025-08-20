@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-47ZV9G37SY"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-47ZV9G37SY');
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>FGC Player Rankings</title>
+    <meta name="description" content="Current Street Fighter 6 player rankings from the competitive Fighting Game Community." />
+    <link rel="canonical" href="https://fgc-player-rankings.netlify.app/" />
+    <meta name="theme-color" content="#000001" />
+    <meta http-equiv="Cache-Control" content="max-age=3600, must-revalidate" />
+    <link rel="sitemap" type="application/xml" title="Sitemap" href="https://fgc-player-rankings.netlify.app/sitemap.xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet" />
+    <link rel="icon" type="image/png" href="/images/favicon.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/images/android-chrome-192x192.png">
+    <link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+    <meta name="theme-color" content="#FF5E13" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@graph": [
+                {
+                    "@type": "Organization",
+                    "name": "FGC Player Rankings",
+                    "url": "https://fgc-player-rankings.netlify.app",
+                    "logo": "https://fgc-player-rankings.netlify.app/images/banner.png"
+                },
+                {
+                    "@type": "WebPage",
+                    "name": "FGC Player Rankings - Street Fighter 6 Player Rankings",
+                    "url": "https://fgc-player-rankings.netlify.app",
+                    "description": "Current Street Fighter 6 player rankings from the competitive Fighting Game Community.",
+                    "breadcrumb": {
+                        "@type": "BreadcrumbList",
+                        "itemListElement": [
+                            {
+                                "@type": "ListItem",
+                                "position": 1,
+                                "name": "Home",
+                                "item": "https://fgc-player-rankings.netlify.app"
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+    </script>
+    
+    <style>
+        /* All styles for the tournament table go here */
+        .content-container {
+            width: 100%;
+            box-sizing: border-box;
+            color: #f0f0f0;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .content-container h1 {
+            margin-top: 0;
+            color: #FF5E13;
+            font-family: 'Permanent Marker', cursive;
+            font-size: 3rem;
+            text-align: center;
+        }
+
+        .content-container .controls-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .content-container #search-input {
+            width: 100%;
+            max-width: 400px;
+            padding: 0.75rem;
+            font-size: 1rem;
+            border-radius: 8px;
+            border: 1px solid #666;
+            background-color: #333;
+            color: #fff;
+            outline: none;
+            text-align: center;
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+
+        .content-container #search-input:focus {
+            background-color: #444;
+            border-color: #FF5E13;
+        }
+        
+        .content-container #search-input::placeholder {
+            color: #d4d4d4;
+            transition: color 0.3s;
+        }
+        
+        .content-container .table-wrapper {
+            overflow: hidden;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+
+        .content-container #tournament-results-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-family: Arial, sans-serif;
+        }
+
+        .content-container #tournament-results-table thead th {
+            background-color: transparent;
+            color: #ffffff;
+            padding: 1.2rem 1rem;
+            text-align: left;
+            font-weight: bold;
+            cursor: pointer;
+            border-bottom: 2px solid #444;
+            text-align: center;
+            transition: background-color 0.2s;
+            position: relative;
+        }
+        
+        .content-container #tournament-results-table thead th:hover {
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+        
+        .content-container #tournament-results-table thead th .sort-icon {
+            opacity: 0.3;
+            transition: opacity 0.2s;
+            margin-left: 0.5rem;
+            vertical-align: middle;
+        }
+        
+        .content-container #tournament-results-table thead th:hover .sort-icon {
+            opacity: 0.8;
+        }
+        
+        .content-container #tournament-results-table thead th.sorted .sort-icon {
+            opacity: 1;
+        }
+        
+        .content-container #tournament-results-table tbody tr {
+            background-color: #111;
+            transition: background-color 0.2s;
+        }
+
+        .content-container #tournament-results-table tbody tr:nth-child(even) {
+            background-color: #1a1a1a;
+        }
+        
+        .content-container #tournament-results-table tbody tr:hover {
+            background-color: #404040;
+        }
+
+        .content-container #tournament-results-table td {
+            padding: 1rem;
+            color: #e0e0e0;
+            border-bottom: 1px solid #444;
+            text-align: center;
+            word-break: normal;
+        }
+        
+        .content-container #tournament-results-table .player-cell {
+            white-space: nowrap;
+            min-width: 200px;
+        }
+        
+        .rank-1 td {
+            background-color: #ffd70030;
+            color: gold;
+            text-shadow: 0 0 4px gold;
+        }
+        .rank-2 td {
+            background-color: #c0c0c030;
+            color: silver;
+            text-shadow: 0 0 4px silver;
+        }
+        .rank-3 td {
+            background-color: #cd7f3230;
+            color: #cd7f32;
+            text-shadow: 0 0 4px #cd7f32;
+        }
+        .rank-4 td {
+            background-color: #4b371c30;
+            color: #8c7359;
+            text-shadow: 0 0 4px #8c7359;
+        }
+        .rank-5 td {
+            background-color: #36454F30;
+            color: #b0c4de;
+            text-shadow: 0 0 4px #b0c4de;
+        }
+        
+        .rank-1 .player-icon,
+        .rank-1 .character-icon,
+        .rank-1 .flag-icon {
+            box-shadow: 0 0 6px 1px gold;
+        }
+
+        .rank-2 .player-icon,
+        .rank-2 .character-icon,
+        .rank-2 .flag-icon {
+            box-shadow: 0 0 6px 1px silver;
+        }
+
+        .rank-3 .player-icon,
+        .rank-3 .character-icon,
+        .rank-3 .flag-icon {
+            box-shadow: 0 0 6px 1px #cd7f32;
+        }
+
+        .rank-4 .player-icon,
+        .rank-4 .character-icon,
+        .rank-4 .flag-icon {
+            box-shadow: 0 0 6px 1px #8c7359;
+        }
+
+        .rank-5 .player-icon,
+        .rank-5 .character-icon,
+        .rank-5 .flag-icon {
+            box-shadow: 0 0 6px 1px #b0c4de;
+        }
+        
+        .ranked-6-40 {
+            font-weight: bold;
+            color: #d5e8d8 !important;
+            text-shadow: 0 0 4px #b8d9bf;
+            background-color: rgba(0, 61, 41, 0.6) !important;
+        }
+        
+        .pagination-info-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 1rem;
+            gap: 0.5rem;
+        }
+
+        .content-container .pagination-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .content-container .pagination-btn {
+            background-color: #444;
+            color: #fff;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .content-container .pagination-btn:hover:not(:disabled) {
+            background-color: #555;
+        }
+
+        .content-container .pagination-btn:disabled {
+            background-color: #333;
+            color: #666;
+            cursor: not-allowed;
+        }
+        
+        .content-container #page-info {
+            font-size: 1.25rem;
+            font-weight: bold;
+            color: #FF5E13;
+            text-shadow: 0 0 5px rgba(255, 94, 19, 0.75);
+            text-align: center;
+        }
+        
+        .content-container .show-details-btn {
+            background-color: #555;
+            color: #fff;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 0.5rem;
+            display: none;
+        }
+        
+        .content-container .show-details-btn:hover {
+            background-color: #666;
+        }
+
+        #back-to-top-btn {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 99;
+            border: none;
+            outline: none;
+            background-color: #FF5E13;
+            color: white;
+            cursor: pointer;
+            padding: 15px;
+            border-radius: 50%;
+            font-size: 18px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+            transition: background-color 0.3s;
+        }
+
+        #back-to-top-btn:hover {
+            background-color: #FF8A5E;
+        }
+        
+        .loading-message {
+            text-align: center;
+            padding: 2rem;
+            font-size: 1.25rem;
+            color: #FF5E13;
+        }
+
+        /* Mobile styles */
+        @media (max-width: 768px) {
+            .content-container {
+                padding: 1rem;
+            }
+            .content-container h1 {
+                font-size: 1.5rem;
+            }
+            .content-container #search-input {
+                font-size: 0.9rem;
+            }
+            .content-container #tournament-results-table thead {
+                display: none;
+            }
+            .content-container #tournament-results-table, 
+            .content-container #tournament-results-table tbody, 
+            .content-container #tournament-results-table tr, 
+            .content-container #tournament-results-table td {
+                display: block;
+                width: 100%;
+            }
+            .content-container #tournament-results-table tr {
+                margin-bottom: 0.75rem;
+                border-radius: 8px;
+                overflow: hidden;
+                border: 1px solid #444;
+                padding-bottom: 0;
+            }
+            .content-container #tournament-results-table td {
+                text-align: right;
+                padding-left: 50%;
+                position: relative;
+                border-bottom: 1px solid #444;
+            }
+
+            /* Correctly collapsing the mobile view */
+            .content-container #tournament-results-table td::before {
+                content: attr(data-label);
+                position: absolute;
+                left: 1rem;
+                width: calc(50% - 1.5rem);
+                text-align: left;
+                font-weight: bold;
+                color: #aaa;
+            }
+            .content-container #tournament-results-table td[data-label="Date"],
+            .content-container #tournament-results-table td[data-label="Entrants"] {
+                display: none;
+            }
+            
+            .content-container .show-details-btn {
+                display: block;
+            }
+
+            .content-container tr.expanded .hidden-on-mobile {
+                display: block;
+            }
+            
+            .content-container tr.expanded .show-details-btn {
+                background-color: #666;
+            }
+        }
+    </style>
+
+</head>
+<body>
+    <a href="#maincontent" class="skip-link">Skip to main content</a>
+    <header class="mobile-header">
+        <button class="nav-toggle" aria-label="toggle navigation" aria-expanded="false">&#9776;</button>
+    </header>
+    <div class="page-wrapper">
+        <nav class="sidebar" aria-label="Main menu" role="navigation">
+            <h2 class="sidebar-label">Navigation</h2>
+            <ul class="nav-menu">
+                <li><a href="/"><i class="fas fa-trophy"></i> SF6 Rankings</a></li>
+                <li><a href="/ranking-system/"><i class="fas fa-info-circle"></i> Ranking System Overview</a></li>
+                <li><a href="/tournament-results/"><i class="fas fa-stream"></i> Tournament Results</a></li>
+            </ul>
+        </nav>
+        <main class="content" role="main" id="maincontent" tabindex="-1">
+            <div class="content-container">
+                <img
+                    class="banner"
+                    src="/images/banner.png"
+                    alt="FGC Player Rankings official logo"
+                    loading="lazy"
+                />
+                
+    <h1 style="margin-top: 0;">Tournament Results</h1>
+    
+    <div class="controls-container">
+        <input type="text" id="search-input" placeholder="Search by Player or Event..." title="Type to search for a player or event.">
+    </div>
+
+    <div class="table-wrapper">
+        <table id="tournament-results-table">
+            <thead>
+                <tr>
+                    <th data-column-name="Event" data-type="string">Event
+                        <span class="sort-icon asc-icon">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down">
+                                <polyline points="6 9 12 15 18 9"></polyline>
+                            </svg>
+                        </span>
+                    </th>
+                    <th data-column-name="Date" data-type="string" class="hidden-on-mobile">Date
+                        <span class="sort-icon asc-icon">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down">
+                                <polyline points="6 9 12 15 18 9"></polyline>
+                            </svg>
+                        </span>
+                    </th>
+                    <th data-column-name="Entrants" data-type="number" class="hidden-on-mobile">Entrants
+                        <span class="sort-icon asc-icon">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down">
+                                <polyline points="6 9 12 15 18 9"></polyline>
+                            </svg>
+                        </span>
+                    </th>
+                    <th data-column-name="Player" data-type="string" class="player-cell">Player
+                        <span class="sort-icon asc-icon">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down">
+                                <polyline points="6 9 12 15 18 9"></polyline>
+                            </svg>
+                        </span>
+                    </th>
+                    <th data-column-name="Finish" data-type="finish">Finish
+                        <span class="sort-icon asc-icon">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down">
+                                <polyline points="6 9 12 15 18 9"></polyline>
+                            </svg>
+                        </span>
+                    </th>
+                </tr>
+            </thead>
+            <tbody id="table-body">
+                <tr><td colspan="5" class="loading-message">Loading results...</td></tr>
+            </tbody>
+        </table>
+    </div>
+    
+    <div class="pagination-info-container">
+        <span id="page-info"></span>
+        <div class="pagination-container">
+            <button id="prev-page-btn" class="pagination-btn">Previous Event</button>
+            <button id="next-page-btn" class="pagination-btn">Next Event</button>
+        </div>
+    </div>
+    
+    <button id="back-to-top-btn" title="Go to top">▲</button>
+
+            </div>
+        </main>
+        <aside class="right-sidebar" aria-label="Upcoming Rated Events">
+            <h2 class="sidebar-label">Upcoming Rated Events</h2>
+            
+                <div class="event">
+                    <a href="https://esportsworldcup.com/en/competitions/street-fighter6" target="_blank" rel="noopener noreferrer" class="tournament-name">
+                        Esports World Cup 2025
+                    </a>
+                    <a href="https://esportsworldcup.com/en/competitions/street-fighter6" target="_blank" rel="noopener noreferrer">
+                        <img src="/images/ewc.png" alt="Esports World Cup 2025 Tournament" loading="lazy" />
+                    </a>
+                    <div class="event-date">August 20-23, 2025</div>
+                    <a class="more-info" href="https://esportsworldcup.com/en/competitions/street-fighter6" target="_blank" rel="noopener noreferrer">More Info</a>
+                </div>
+            
+                <div class="event">
+                    <a href="https://www.start.gg/tournament/beast-in-the-east-8/details" target="_blank" rel="noopener noreferrer" class="tournament-name">
+                        Beast in the East 8
+                    </a>
+                    <a href="https://www.start.gg/tournament/beast-in-the-east-8/details" target="_blank" rel="noopener noreferrer">
+                        <img src="/images/beast-in-the-east.png" alt="Beast in the East 8 Tournament" loading="lazy" />
+                    </a>
+                    <div class="event-date">August 22-24, 2025</div>
+                    <a class="more-info" href="https://www.start.gg/tournament/beast-in-the-east-8/details" target="_blank" rel="noopener noreferrer">More Info</a>
+                </div>
+            
+                <div class="event">
+                    <a href="https://www.start.gg/tournament/cream-city-convergence-2025/details" target="_blank" rel="noopener noreferrer" class="tournament-name">
+                        Cream City Convergence
+                    </a>
+                    <a href="https://www.start.gg/tournament/cream-city-convergence-2025/details" target="_blank" rel="noopener noreferrer">
+                        <img src="/images/cream-city-convergence.png" alt="Cream City Convergence Tournament" loading="lazy" />
+                    </a>
+                    <div class="event-date">August 30, 2025</div>
+                    <a class="more-info" href="https://www.start.gg/tournament/cream-city-convergence-2025/details" target="_blank" rel="noopener noreferrer">More Info</a>
+                </div>
+            
+                <div class="event">
+                    <a href="https://www.start.gg/tournament/comit-arena-2025/details" target="_blank" rel="noopener noreferrer" class="tournament-name">
+                        Comitê Arena 2025
+                    </a>
+                    <a href="https://www.start.gg/tournament/comit-arena-2025/details" target="_blank" rel="noopener noreferrer">
+                        <img src="/images/comite.png" alt="Comitê Arena 2025 Tournament" loading="lazy" />
+                    </a>
+                    <div class="event-date">August 30-31, 2025</div>
+                    <a class="more-info" href="https://www.start.gg/tournament/comit-arena-2025/details" target="_blank" rel="noopener noreferrer">More Info</a>
+                </div>
+            
+                <div class="event">
+                    <a href="https://www.start.gg/tournament/ozhadou-nationals-19/details" target="_blank" rel="noopener noreferrer" class="tournament-name">
+                        OzHadou National 19
+                    </a>
+                    <a href="https://www.start.gg/tournament/ozhadou-nationals-19/details" target="_blank" rel="noopener noreferrer">
+                        <img src="/images/ozhadou-19.png" alt="OzHadou National 19 Tournament" loading="lazy" />
+                    </a>
+                    <div class="event-date">September 5-7, 2025</div>
+                    <a class="more-info" href="https://www.start.gg/tournament/ozhadou-nationals-19/details" target="_blank" rel="noopener noreferrer">More Info</a>
+                </div>
+            
+        </aside>
+    </div>
+    <noscript>
+        <p style="color:#f00;text-align:center;padding:1rem;background:#111;">
+            JavaScript is disabled in your browser. The rankings table may not load correctly.
+        </p>
+    </noscript>
+    <script src="/js/main.js"></script>
+</body>
+</html>
