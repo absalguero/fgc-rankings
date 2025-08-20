@@ -56,16 +56,54 @@
         }
     </script>
     
+</head>
+<body>
+    <a href="#maincontent" class="skip-link">Skip to main content</a>
+    <header class="mobile-header">
+        <button class="nav-toggle" aria-label="toggle navigation" aria-expanded="false">&#9776;</button>
+    </header>
+    <div class="page-wrapper">
+        <nav class="sidebar" aria-label="Main menu" role="navigation">
+            <h2 class="sidebar-label">Navigation</h2>
+            <ul class="nav-menu">
+                <li><a href="/"><i class="fas fa-trophy"></i> SF6 Rankings</a></li>
+                <li><a href="/ranking-system/"><i class="fas fa-info-circle"></i> Ranking System Overview</a></li>
+                <li><a href="/tournament-results/"><i class="fas fa-stream"></i> Tournament Results</a></li>
+            </ul>
+        </nav>
+        <main class="content" role="main" id="maincontent" tabindex="-1">
+            <div class="content-container">
+                <img
+                    class="banner"
+                    src="/images/banner.png"
+                    alt="FGC Player Rankings official logo"
+                    loading="lazy"
+                />
+                
     <style>
-        /* All styles for the tournament table go here */
+        /*
+        * All styles below are now scoped with a high level of specificity
+        * to prevent any conflicts with your site's external stylesheets.
+        * They are designed to work with your existing layout.njk and
+        * to override any conflicting rules from style.css.
+        */
         .content-container {
             width: 100%;
+            /*
+            * Removed padding to allow the layout.njk template to handle
+            * the page's overall spacing, ensuring proper alignment with the banner.
+            */
             box-sizing: border-box;
             color: #f0f0f0;
             font-family: 'Inter', sans-serif;
         }
 
         .content-container h1 {
+            /*
+            * Setting margin-top to 0 to align with the h1 in index.njk.
+            * The vertical space will now be handled by the parent container,
+            * ensuring a consistent look across both pages.
+            */
             margin-top: 0;
             color: #FF5E13;
             font-family: 'Permanent Marker', cursive;
@@ -79,14 +117,15 @@
             margin-bottom: 1.5rem;
         }
         
+        /* Updated styling for the search input to make it stand out */
         .content-container #search-input {
             width: 100%;
             max-width: 400px;
             padding: 0.75rem;
             font-size: 1rem;
             border-radius: 8px;
-            border: 1px solid #666;
-            background-color: #333;
+            border: 1px solid #666; /* A slightly more visible border */
+            background-color: #333; /* A dark background to contrast with the page */
             color: #fff;
             outline: none;
             text-align: center;
@@ -94,12 +133,13 @@
         }
 
         .content-container #search-input:focus {
-            background-color: #444;
-            border-color: #FF5E13;
+            background-color: #444; /* Darken on focus to show it's active */
+            border-color: #FF5E13; /* Highlight border with brand color */
         }
         
+        /* Updated styling for the placeholder text */
         .content-container #search-input::placeholder {
-            color: #d4d4d4;
+            color: #d4d4d4; /* Lighter color for better contrast */
             transition: color 0.3s;
         }
         
@@ -112,10 +152,11 @@
         .content-container #tournament-results-table {
             width: 100%;
             border-collapse: collapse;
-            font-family: Arial, sans-serif;
+            font-family: Arial, sans-serif; /* Use a readable font for the table content */
         }
 
         .content-container #tournament-results-table thead th {
+            /* Reverting background color to allow inheritance */
             background-color: transparent;
             color: #ffffff;
             padding: 1.2rem 1rem;
@@ -123,13 +164,14 @@
             font-weight: bold;
             cursor: pointer;
             border-bottom: 2px solid #444;
-            text-align: center;
+            text-align: center !important; /* Override style.css */
             transition: background-color 0.2s;
             position: relative;
         }
         
+        /* New styles for header hover and sorting icons */
         .content-container #tournament-results-table thead th:hover {
-            background-color: rgba(255, 255, 255, 0.05);
+            background-color: rgba(255, 255, 255, 0.05); /* Semi-transparent white on hover */
         }
         
         .content-container #tournament-results-table thead th .sort-icon {
@@ -147,6 +189,7 @@
             opacity: 1;
         }
         
+        /* Keep the updated table row styles */
         .content-container #tournament-results-table tbody tr {
             background-color: #111;
             transition: background-color 0.2s;
@@ -164,15 +207,17 @@
             padding: 1rem;
             color: #e0e0e0;
             border-bottom: 1px solid #444;
-            text-align: center;
-            word-break: normal;
+            text-align: center !important; /* Override style.css */
+            word-break: normal; /* Ensures words don't split when wrapping */
         }
         
+        /* New rule for the player column to prevent wrapping */
         .content-container #tournament-results-table .player-cell {
             white-space: nowrap;
             min-width: 200px;
         }
         
+        /* === New Styling for Ranked Players using transparent backgrounds and glow === */
         .rank-1 td {
             background-color: #ffd70030;
             color: gold;
@@ -199,6 +244,7 @@
             text-shadow: 0 0 4px #b0c4de;
         }
         
+        /* NEW: Stronger subtle glow effect for points and matching box-shadow for images in top 5 ranks */
         .rank-1 .player-icon,
         .rank-1 .character-icon,
         .rank-1 .flag-icon {
@@ -229,6 +275,7 @@
             box-shadow: 0 0 6px 1px #b0c4de;
         }
         
+        /* === Styling for Ranks 6-40 === */
         .ranked-6-40 {
             font-weight: bold;
             color: #d5e8d8 !important;
@@ -236,6 +283,7 @@
             background-color: rgba(0, 61, 41, 0.6) !important;
         }
         
+        /* New container for pagination to fix button movement */
         .pagination-info-container {
             display: flex;
             flex-direction: column;
@@ -271,57 +319,13 @@
             cursor: not-allowed;
         }
         
+        /* Updated styling for the page info text to make it stand out */
         .content-container #page-info {
             font-size: 1.25rem;
             font-weight: bold;
-            color: #FF5E13;
-            text-shadow: 0 0 5px rgba(255, 94, 19, 0.75);
+            color: #FF5E13; /* Changed to match the title color */
+            text-shadow: 0 0 5px rgba(255, 94, 19, 0.75); /* Added a subtle glow */
             text-align: center;
-        }
-        
-        .content-container .show-details-btn {
-            background-color: #555;
-            color: #fff;
-            border: none;
-            padding: 0.5rem 1rem;
-            border-radius: 6px;
-            cursor: pointer;
-            width: 100%;
-            margin-top: 0.5rem;
-            display: none;
-        }
-        
-        .content-container .show-details-btn:hover {
-            background-color: #666;
-        }
-
-        #back-to-top-btn {
-            display: none;
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            z-index: 99;
-            border: none;
-            outline: none;
-            background-color: #FF5E13;
-            color: white;
-            cursor: pointer;
-            padding: 15px;
-            border-radius: 50%;
-            font-size: 18px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-            transition: background-color 0.3s;
-        }
-
-        #back-to-top-btn:hover {
-            background-color: #FF8A5E;
-        }
-        
-        .loading-message {
-            text-align: center;
-            padding: 2rem;
-            font-size: 1.25rem;
-            color: #FF5E13;
         }
 
         /* Mobile styles */
@@ -350,7 +354,6 @@
                 border-radius: 8px;
                 overflow: hidden;
                 border: 1px solid #444;
-                padding-bottom: 0;
             }
             .content-container #tournament-results-table td {
                 text-align: right;
@@ -358,8 +361,6 @@
                 position: relative;
                 border-bottom: 1px solid #444;
             }
-
-            /* Correctly collapsing the mobile view */
             .content-container #tournament-results-table td::before {
                 content: attr(data-label);
                 position: absolute;
@@ -369,111 +370,397 @@
                 font-weight: bold;
                 color: #aaa;
             }
-            .content-container #tournament-results-table td[data-label="Date"],
-            .content-container #tournament-results-table td[data-label="Entrants"] {
-                display: none;
-            }
-            
-            .content-container .show-details-btn {
-                display: block;
-            }
-
-            .content-container tr.expanded .hidden-on-mobile {
-                display: block;
-            }
-            
-            .content-container tr.expanded .show-details-btn {
-                background-color: #666;
-            }
         }
     </style>
 
-</head>
-<body>
-    <a href="#maincontent" class="skip-link">Skip to main content</a>
-    <header class="mobile-header">
-        <button class="nav-toggle" aria-label="toggle navigation" aria-expanded="false">&#9776;</button>
-    </header>
-    <div class="page-wrapper">
-        <nav class="sidebar" aria-label="Main menu" role="navigation">
-            <h2 class="sidebar-label">Navigation</h2>
-            <ul class="nav-menu">
-                <li><a href="/"><i class="fas fa-trophy"></i> SF6 Rankings</a></li>
-                <li><a href="/ranking-system/"><i class="fas fa-info-circle"></i> Ranking System Overview</a></li>
-                <li><a href="/tournament-results/"><i class="fas fa-stream"></i> Tournament Results</a></li>
-            </ul>
-        </nav>
-        <main class="content" role="main" id="maincontent" tabindex="-1">
-            <div class="content-container">
-                <img
-                    class="banner"
-                    src="/images/banner.png"
-                    alt="FGC Player Rankings official logo"
-                    loading="lazy"
-                />
-                
-    <h1 style="margin-top: 0;">Tournament Results</h1>
-    
-    <div class="controls-container">
-        <input type="text" id="search-input" placeholder="Search by Player or Event..." title="Type to search for a player or event.">
-    </div>
+    <div class="content-container">
+        <h1 style="margin-top: 0;">Tournament Results</h1>
+        
+        <div class="controls-container">
+            <input type="text" id="search-input" placeholder="Search by Player or Event..." title="Type to search for a player or event.">
+        </div>
 
-    <div class="table-wrapper">
-        <table id="tournament-results-table">
-            <thead>
-                <tr>
-                    <th data-column-name="Event" data-type="string">Event
-                        <span class="sort-icon asc-icon">
-                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down">
-                                <polyline points="6 9 12 15 18 9"></polyline>
-                            </svg>
-                        </span>
-                    </th>
-                    <th data-column-name="Date" data-type="string" class="hidden-on-mobile">Date
-                        <span class="sort-icon asc-icon">
-                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down">
-                                <polyline points="6 9 12 15 18 9"></polyline>
-                            </svg>
-                        </span>
-                    </th>
-                    <th data-column-name="Entrants" data-type="number" class="hidden-on-mobile">Entrants
-                        <span class="sort-icon asc-icon">
-                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down">
-                                <polyline points="6 9 12 15 18 9"></polyline>
-                            </svg>
-                        </span>
-                    </th>
-                    <th data-column-name="Player" data-type="string" class="player-cell">Player
-                        <span class="sort-icon asc-icon">
-                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down">
-                                <polyline points="6 9 12 15 18 9"></polyline>
-                            </svg>
-                        </span>
-                    </th>
-                    <th data-column-name="Finish" data-type="finish">Finish
-                        <span class="sort-icon asc-icon">
-                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down">
-                                <polyline points="6 9 12 15 18 9"></polyline>
-                            </svg>
-                        </span>
-                    </th>
-                </tr>
-            </thead>
-            <tbody id="table-body">
-                <tr><td colspan="5" class="loading-message">Loading results...</td></tr>
-            </tbody>
-        </table>
-    </div>
-    
-    <div class="pagination-info-container">
-        <span id="page-info"></span>
-        <div class="pagination-container">
-            <button id="prev-page-btn" class="pagination-btn">Previous Event</button>
-            <button id="next-page-btn" class="pagination-btn">Next Event</button>
+        <div class="table-wrapper">
+            <table id="tournament-results-table">
+                <thead>
+                    <tr>
+                        <th data-column-name="Event" data-type="string">Event
+                            <span class="sort-icon asc-icon">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down">
+                                    <polyline points="6 9 12 15 18 9"></polyline>
+                                </svg>
+                            </span>
+                        </th>
+                        <th data-column-name="Date" data-type="string">Date
+                            <span class="sort-icon asc-icon">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down">
+                                    <polyline points="6 9 12 15 18 9"></polyline>
+                                </svg>
+                            </span>
+                        </th>
+                        <th data-column-name="Entrants" data-type="number">Entrants
+                            <span class="sort-icon asc-icon">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down">
+                                    <polyline points="6 9 12 15 18 9"></polyline>
+                                </svg>
+                            </span>
+                        </th>
+                        <th data-column-name="Player" data-type="string" class="player-cell">Player
+                            <span class="sort-icon asc-icon">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down">
+                                    <polyline points="6 9 12 15 18 9"></polyline>
+                                </svg>
+                            </span>
+                        </th>
+                        <th data-column-name="Finish" data-type="finish">Finish
+                            <span class="sort-icon asc-icon">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down">
+                                    <polyline points="6 9 12 15 18 9"></polyline>
+                                </svg>
+                            </span>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody id="table-body">
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="pagination-info-container">
+            <span id="page-info"></span>
+            <div class="pagination-container">
+                <button id="prev-page-btn" class="pagination-btn">Previous Event</button>
+                <button id="next-page-btn" class="pagination-btn">Next Event</button>
+            </div>
         </div>
     </div>
-    
-    <button id="back-to-top-btn" title="Go to top">▲</button>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const googleSheetURL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQBIqTU9Vjqm4lAYt4gGj4QMaxG4eXSsgbDzi2GVHVvrZX0Dba6b1_SlyrVI9ARnlG-xc_b0NVq5lmU/pub?gid=332201631&single=true&output=csv";
+            const googleRankingsURL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQBIqTU9Vjqm4lAYt4gGj4QMaxG4eXSsgbDzi2GVHVvrZX0Dba6b1_SlyrVI9ARnlG-xc_b0NVq5lmU/pub?gid=1862929315&single=true&output=csv";
+
+            const tableBody = document.getElementById('table-body');
+            const searchInput = document.getElementById('search-input');
+            const prevBtn = document.getElementById('prev-page-btn');
+            const nextBtn = document.getElementById('next-page-btn');
+            const pageInfo = document.getElementById('page-info');
+
+            let allData = [];
+            let groupedDataByEvent = {};
+            let uniqueEvents = [];
+            let currentEventIndex = 0;
+            let searchTerm = '';
+            let sortedColumn = 'Finish'; // Default sort on page load
+            let sortDirection = 'asc';
+            let rankingsMap = {};
+
+            // Function to sort data based on column name and type
+            function sortData(data, column, type, direction) {
+                if (!data || !column) {
+                    return data;
+                }
+                const order = direction === 'asc' ? 1 : -1;
+                return data.sort((a, b) => {
+                    const valA = a[column];
+                    const valB = b[column];
+                    
+                    if (type === 'finish') {
+                        const numA = parseFloat(valA.replace('st', '').replace('nd', '').replace('rd', '').replace('th', ''));
+                        const numB = parseFloat(valB.replace('st', '').replace('nd', '').replace('rd', '').replace('th', ''));
+                        if (!isNaN(numA) && !isNaN(numB)) {
+                            const finishComparison = (numA - numB) * order;
+                            if (finishComparison !== 0) {
+                                return finishComparison;
+                            }
+                            // Secondary sort by Date in descending order if finishes are identical
+                            const dateA = new Date(a.Date);
+                            const dateB = new Date(b.Date);
+                            return (dateB - dateA);
+                        }
+                    } else if (type === 'number') {
+                             return (valA - valB) * order;
+                    }
+                    
+                    if (valA < valB) return -1 * order;
+                    if (valA > valB) return 1 * order;
+                    return 0;
+                });
+            }
+
+            // Function to fetch and parse the main tournament data
+            async function fetchData() {
+                try {
+                    await fetchRankings();
+                    const response = await fetch(googleSheetURL);
+                    if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+                    const text = await response.text();
+                    allData = parseCSV(text);
+                    groupDataByEvent(allData);
+                    renderAll();
+                } catch (error) {
+                    console.error("Error fetching data:", error);
+                    tableBody.innerHTML = '<tr><td colspan="5" style="text-align: center; color: red;">Failed to load data. Please try again later.</td></tr>';
+                }
+            }
+
+            // Function to fetch and parse the player rankings
+            async function fetchRankings() {
+                try {
+                    const response = await fetch(googleRankingsURL);
+                    if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+                    const text = await response.text();
+                    const lines = text.trim().split('\n');
+                    if (lines.length <= 1) return;
+                    
+                    const headers = lines[0].split(',').map(h => h.trim().replace(/"/g, ''));
+                    const playerHeader = headers.find(h => h.toLowerCase().includes('player') || h.toLowerCase().includes('name'));
+                    const rankingHeader = headers.find(h => h.toLowerCase().includes('ranking') || h.toLowerCase().includes('rank'));
+                    
+                    if (!playerHeader || !rankingHeader) {
+                        console.error("Could not find 'Player' or 'Ranking' headers in the CSV data.");
+                        return;
+                    }
+
+                    const rankingsData = lines.slice(1).map(line => {
+                        const values = line.split(',').map(v => v.trim().replace(/"/g, ''));
+                        const row = {};
+                        headers.forEach((h, i) => row[h] = values[i]);
+                        return row;
+                    }).filter(row => row[playerHeader] && row[rankingHeader] !== '');
+
+                    rankingsMap = rankingsData.reduce((acc, current) => {
+                        const playerName = current[playerHeader];
+                        const playerRank = parseInt(current[rankingHeader], 10);
+                        if (playerName && !isNaN(playerRank)) {
+                            acc[playerName] = playerRank;
+                        }
+                        return acc;
+                    }, {});
+                } catch (error) {
+                    console.error("Error fetching rankings data:", error);
+                }
+            }
+            
+            // Central function to render the entire page state
+            function renderAll() {
+                let dataToRender = [];
+
+                if (searchTerm) {
+                    // Filter based on the search term
+                    dataToRender = allData.filter(item => {
+                        const eventName = (item.Event || '').toLowerCase();
+                        const playerName = (item.Player || '').toLowerCase();
+                        return eventName.includes(searchTerm) || playerName.includes(searchTerm);
+                    });
+                } else {
+                    // Get data for the current event
+                    const currentEventName = uniqueEvents[currentEventIndex];
+                    dataToRender = [...(groupedDataByEvent[currentEventName] || [])];
+                }
+                
+                // Always sort the data before rendering
+                const headerElement = document.querySelector(`[data-column-name="${sortedColumn}"]`);
+                const sortedType = headerElement ? headerElement.getAttribute('data-type') : null;
+                dataToRender = sortData(dataToRender, sortedColumn, sortedType, sortDirection);
+
+                // Render the table, pagination, and header icons
+                renderTable(dataToRender);
+                updatePaginationControls(dataToRender.length);
+                updateHeaderIcons();
+            }
+
+            // Function to render the table rows based on the provided data
+            function renderTable(data) {
+                tableBody.innerHTML = '';
+                if (!data || data.length === 0) {
+                    tableBody.innerHTML = '<tr><td colspan="5" style="text-align: center;">No results found.</td></tr>';
+                } else {
+                    data.forEach(item => {
+                        const row = document.createElement('tr');
+                        let playerText = item.Player || '';
+                        const playerRank = rankingsMap[playerText];
+                        
+                        // Apply specific classes based on rank
+                        if (playerRank === 1) row.classList.add('rank-1');
+                        else if (playerRank === 2) row.classList.add('rank-2');
+                        else if (playerRank === 3) row.classList.add('rank-3');
+                        else if (playerRank === 4) row.classList.add('rank-4');
+                        else if (playerRank === 5) row.classList.add('rank-5');
+                        else if (playerRank >= 6 && playerRank <= 40) row.classList.add('ranked-6-40');
+                        
+                        if (playerRank && playerRank <= 40) {
+                            playerText = `${playerText} (#${playerRank})`;
+                        }
+
+                        row.innerHTML = `
+                            <td data-label="Event">${item.Event || ''}</td>
+                            <td data-label="Date">${formatDate(item.Date)}</td>
+                            <td data-label="Entrants">${item.Entrants || ''}</td>
+                            <td data-label="Player" class="player-cell">${playerText}</td>
+                            <td data-label="Finish">${item.Finish || ''}</td>
+                        `;
+                        tableBody.appendChild(row);
+                    });
+                }
+            }
+
+            // Function to update the sort icons and classes on table headers
+            function updateHeaderIcons() {
+                const headers = document.querySelectorAll('.content-container #tournament-results-table thead th');
+                headers.forEach(header => {
+                    const columnName = header.getAttribute('data-column-name');
+                    const icon = header.querySelector('.sort-icon');
+                    
+                    if (columnName === sortedColumn) {
+                        header.classList.add('sorted');
+                        if (sortDirection === 'asc') {
+                            icon.innerHTML = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9"></polyline></svg>`;
+                        } else {
+                            icon.innerHTML = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-up"><polyline points="18 15 12 9 6 15"></polyline></svg>`;
+                        }
+                    } else {
+                        header.classList.remove('sorted');
+                        icon.innerHTML = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9"></polyline></svg>`;
+                    }
+                });
+            }
+
+            // Function to update the pagination UI
+            function updatePaginationControls(filteredCount) {
+                if (searchTerm) {
+                    pageInfo.textContent = `Showing ${filteredCount} results`;
+                    prevBtn.disabled = true;
+                    nextBtn.disabled = true;
+                } else {
+                    const totalEvents = uniqueEvents.length;
+                    if (totalEvents > 0) {
+                        pageInfo.textContent = `Event: ${uniqueEvents[currentEventIndex]} (${currentEventIndex + 1} of ${totalEvents})`;
+                    } else {
+                        pageInfo.textContent = '';
+                    }
+                    prevBtn.disabled = currentEventIndex === 0;
+                    nextBtn.disabled = currentEventIndex === totalEvents - 1 || totalEvents === 0;
+                }
+            }
+
+            // Helper function to format date
+            function formatDate(dateString) {
+                if (!dateString) return '';
+                const date = new Date(dateString);
+                if (isNaN(date.getTime())) return dateString;
+                const options = { year: 'numeric', month: 'long', day: 'numeric' };
+                return date.toLocaleDateString('en-US', options);
+            }
+
+            // Helper function for data parsing
+            function parseCSV(text) {
+                const lines = text.trim().split('\n');
+                if (lines.length <= 1) return [];
+                const headers = lines[0].split(',').map(header => header.trim().replace(/"/g, ''));
+                const data = lines.slice(1).map(line => {
+                    const values = line.split(',').map(value => value.trim().replace(/"/g, ''));
+                    const row = {};
+                    headers.forEach((header, i) => {
+                        row[header] = values[i];
+                    });
+                    return row;
+                }).filter(row => row.Player && row.Player !== '');
+                return data;
+            }
+
+            // Helper function to group data by event
+            function groupDataByEvent(data) {
+                const groupedData = {};
+                const eventDates = {};
+                data.forEach(row => {
+                    const eventName = row.Event;
+                    if (eventName) {
+                        if (!groupedData[eventName]) {
+                            groupedData[eventName] = [];
+                            eventDates[eventName] = new Date(row.Date);
+                        }
+                        groupedData[eventName].push(row);
+                    }
+                });
+                groupedDataByEvent = groupedData;
+                uniqueEvents = Object.keys(groupedData).sort((a, b) => eventDates[b] - eventDates[a]);
+            }
+
+            // --- Event Listeners and Initial Load ---
+            
+            // Listen for clicks on table headers to trigger sorting
+            const headers = document.querySelectorAll('.content-container #tournament-results-table thead th');
+            headers.forEach(header => {
+                header.addEventListener('click', () => {
+                    const columnName = header.getAttribute('data-column-name');
+                    if (sortedColumn === columnName) {
+                        // If the same column is clicked, toggle the sort direction
+                        sortDirection = sortDirection === 'asc' ? 'desc' : 'asc';
+                    } else {
+                        // If a new column is clicked, set it as the sorted column
+                        sortedColumn = columnName;
+                        // Determine the initial sort direction for the new column
+                        if (columnName === 'Date' || columnName === 'Entrants') { // **UPDATED: Added Entrants here**
+                            sortDirection = 'desc';
+                        } else {
+                            sortDirection = 'asc';
+                        }
+                    }
+                    renderAll();
+                });
+            });
+
+            // Listen for input in the search bar
+            searchInput.addEventListener('input', (e) => {
+                searchTerm = e.target.value.toLowerCase();
+                renderAll();
+            });
+
+            // Listen for previous button clicks
+            prevBtn.addEventListener('click', () => {
+                if (currentEventIndex > 0) {
+                    currentEventIndex--;
+                    renderAll();
+                }
+            });
+
+            // Listen for next button clicks
+            nextBtn.addEventListener('click', () => {
+                if (currentEventIndex < uniqueEvents.length - 1) {
+                    currentEventIndex++;
+                    renderAll();
+                }
+            });
+            
+            // Initial data fetch and page render on load
+            fetchData();
+        });
+    </script>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SportsEvent",
+      "name": "Tournament Results",
+      "startDate": "2024-01-01",
+      "endDate": "2024-12-31",
+      "location": {
+        "@type": "Place",
+        "name": "Various Locations",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "North America"
+        }
+      },
+      "description": "Comprehensive results and rankings for all FGC tournament players from around the world.",
+      "organizer": {
+        "@type": "Organization",
+        "name": "Your Organization Name"
+      },
+      "sport": "esports"
+    }
+    </script>
 
             </div>
         </main>
