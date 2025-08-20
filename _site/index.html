@@ -563,7 +563,7 @@
         const change = player['Rank Change'];
         const countryName = player['Country'];
         const countryNameLower = String(countryName).toLowerCase();
-        const playerNameLower = String(player['Player']).toLowerCase().replace(/\s/g, ''); // Added .replace(/\s/g, '') to handle names with spaces
+        const playerNameLower = String(player['Player']).toLowerCase().replace(/\s/g, '');
         const characterNameLower = String(player['Main Character']).toLowerCase();
         
         const changeContent = (() => {
@@ -598,7 +598,7 @@
               <span>${countryName}</span>
             </div>
           </td>
-          <td data-label="Rating"><div class="mobile-value"><span class="points-value">${player['Points']}</span></div></td>
+          <td data-label="Rating"><div class="mobile-value"><span class="points-value">${player['Rating']}</span></div></td>
         `;
       }
 
@@ -623,7 +623,7 @@
           2: 'Player',
           3: 'Main Character',
           4: 'Country',
-          5: 'Points'
+          5: 'Rating'
         };
         const headerKey = headersMap.hasOwnProperty(columnIndex) ? headersMap[columnIndex] : null;
         if (!headerKey) {
