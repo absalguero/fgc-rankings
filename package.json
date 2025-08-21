@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "eleventy --serve --watch",
+    "dev": "eleventy --serve --watch --port=8080 --input=./ --output=_site",
     "build": "eleventy"
   },
   "repository": {

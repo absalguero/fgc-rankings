@@ -125,13 +125,19 @@ nav.sidebar ul.nav-menu li a {
   transition: color 0.3s ease;
 }
 
+nav.sidebar ul.nav-menu li a i {
+  margin-right: 8px;
+  vertical-align: middle;
+}
+
 nav.sidebar ul.nav-menu li a:hover {
   color: #bbb;
 }
 
-nav.sidebar ul.nav-menu li a i {
-  margin-right: 8px;
-  vertical-align: middle;
+/* CORRECT Active Link Style */
+nav.sidebar ul.nav-menu li a.active {
+    color: #FF5E13;
+    font-weight: 700;
 }
 
 /* Main content */

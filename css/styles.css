@@ -23,6 +23,10 @@ body {
   position: relative;
 }
 
+body.no-scroll {
+  overflow: hidden;
+}
+
 a {
   color: #f39c12;
   text-decoration: none;
@@ -32,31 +36,59 @@ a:focus {
   text-decoration: underline;
 }
 
-/* Layout */
+/* Mobile-first Layout */
 .page-wrapper {
   display: flex;
-  flex-direction: row;
-  height: 100vh;
-  overflow: hidden;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
-/* Sidebar */
-nav.sidebar {
-  width: 180px;
-  background: #111;
-  padding: 15px;
-  box-sizing: border-box;
-  box-shadow: 2px 0 5px rgba(0,0,0,.7);
-  position: sticky;
+/* Mobile Header and Menu - These are now the default styles */
+.mobile-header {
+  display: flex;
+  position: fixed;
   top: 0;
+  left: 0;
+  width: 100%;
+  height: 60px;
+  background: #111;
+  align-items: center;
+  padding: 0 15px;
+  box-sizing: border-box;
+  z-index: 1100;
+  box-shadow: 0 2px 5px rgba(0,0,0,.5);
+}
+
+.nav-toggle {
+  display: block;
+  font-size: 2rem;
+  background: none;
+  border: none;
+  color: #f0f0f0;
+  cursor: pointer;
+  z-index: 1201;
+}
+
+nav.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 240px;
   height: 100vh;
-  overflow-y: auto;
-  flex-shrink: 0;
+  padding-top: 60px;
+  background: #111;
+  box-shadow: 2px 0 5px rgba(0,0,0,.7);
+  transform: translateX(-100%);
+  transition: transform 0.3s ease-in-out;
+  z-index: 1200;
   display: flex;
   flex-direction: column;
   align-items: center;
-  transition: transform 0.3s ease;
   color: #ddd;
+}
+
+nav.sidebar.active {
+  transform: translateX(0);
 }
 
 nav.sidebar h2.sidebar-label {
@@ -93,19 +125,25 @@ nav.sidebar ul.nav-menu li a {
   transition: color 0.3s ease;
 }
 
-nav.sidebar ul.nav-menu li a:hover {
-  color: #bbb;
-}
-
 nav.sidebar ul.nav-menu li a i {
   margin-right: 8px;
   vertical-align: middle;
 }
 
+nav.sidebar ul.nav-menu li a:hover {
+  color: #bbb;
+}
+
+/* CORRECT Active Link Style */
+nav.sidebar ul.nav-menu li a.active {
+    color: #FF5E13;
+    font-weight: 700;
+}
+
 /* Main content */
 main.content {
   flex: 1;
-  padding: 20px 30px;
+  padding: 80px 30px 20px 30px; /* Adjusted padding for fixed mobile header */
   overflow-y: auto;
   box-sizing: border-box;
   text-align: left;
@@ -229,26 +267,22 @@ iframe.google-sheet {
 /* Right sidebar */
 aside.right-sidebar {
   background: #111;
-  width: 200px;
-  max-width: 100%;
+  width: 100%;
   padding: 15px;
   box-sizing: border-box;
-  box-shadow: -2px 0 5px rgba(0,0,0,.7);
+  box-shadow: none;
   position: relative;
-  height: 100vh;
-  overflow-y: auto;
-  overflow-x: hidden;
-  flex-shrink: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  height: auto;
+  display: block;
+  margin-top: 1rem;
+  overflow: visible;
   color: #bbb;
 }
 
 aside.right-sidebar h2.sidebar-label {
   font-family: 'Permanent Marker', cursive;
   font-weight: normal;
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   color: #FF5E13;
   text-decoration: none;
   text-shadow: 0 1px 2px rgba(0,0,0,.5);
@@ -330,124 +364,49 @@ aside.right-sidebar a.more-info {
   text-decoration: none;
 }
 
-/* Dedicated mobile header */
-.mobile-header {
-  display: none;
-}
-
-/* Hamburger toggle button */
-.nav-toggle {
-  display: none;
-}
-
-/* Responsive styles */
-@media (max-width: 1024px) {
-  aside.right-sidebar {
-    width: 180px;
-  }
-}
-
-@media (max-width: 768px) {
-  body.no-scroll {
+/* --- Desktop-specific Layout (min-width: 769px) --- */
+@media (min-width: 769px) {
+  .page-wrapper {
+    flex-direction: row;
+    height: 100vh;
     overflow: hidden;
   }
-  .mobile-header {
-    display: flex;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 60px;
-    background: #111;
-    align-items: center;
-    padding: 0 15px;
-    box-sizing: border-box;
-    z-index: 1100;
-    box-shadow: 0 2px 5px rgba(0,0,0,.5);
+  
+  .mobile-header, .nav-toggle {
+    display: none;
   }
-  .nav-toggle {
-    display: block;
-    font-size: 2rem;
-    background: none;
-    border: none;
-    color: #f0f0f0;
-    cursor: pointer;
-    z-index: 1201;
-  }
-  nav.sidebar {
-    position: fixed;
-    width: 240px;
-    height: 100vh;
-    top: 0;
-    left: 0;
-    padding-top: 60px;
-    transform: translateX(-100%);
-    transition: transform 0.3s ease;
-    z-index: 1200;
-  }
-  nav.sidebar.active {
-    transform: translateX(0);
-  }
-  .page-wrapper {
-    flex-direction: column;
-    height: auto;
-    overflow: visible;
-  }
+
   main.content {
-    padding-top: 80px;
-    max-height: none;
-    width: 100%;
+    padding-top: 20px;
+    max-height: 100vh;
   }
-  .table-wrapper {
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    width: 100%;
-    margin-bottom: 1rem;
-    text-align: left;
+  
+  nav.sidebar {
+    position: relative;
+    top: auto;
+    left: auto;
+    width: 180px;
+    height: 100vh;
+    transform: translateX(0);
+    padding-top: 15px;
+    overflow-y: auto;
+    flex-shrink: 0;
   }
-  table {
-    border-collapse: collapse;
-    width: auto;
-    table-layout: auto;
-    min-width: 600px;
-    white-space: nowrap;
-    margin: 0 auto;
-  }
+  
   aside.right-sidebar {
     position: relative;
-    height: auto;
-    width: 100%;
-    padding: 15px 20px;
-    box-shadow: none;
-    display: block;
-    margin-top: 1rem;
-    overflow: visible;
+    height: 100vh;
+    overflow-y: auto;
+    width: 200px;
+    box-shadow: -2px 0 5px rgba(0,0,0,.7);
+    margin-top: 0;
+    flex-shrink: 0;
   }
+
+  /* Right sidebar desktop styles */
   aside.right-sidebar h2.sidebar-label {
-    font-size: 1.3rem;
+    font-size: 1.5rem;
     display: block;
-    margin-bottom: 1rem;
-    color: #999;
-  }
-  aside.right-sidebar .event {
-    width: 100%;
-    margin-bottom: 1.5rem;
-    background: #111;
-    padding: 10px;
-    border-radius: 8px;
-    text-align: center;
-    flex-direction: column;
-    align-items: center;
-  }
-  aside.right-sidebar .event img {
-    max-height: 120px;
-    margin-bottom: 0.5rem;
-  }
-  nav.sidebar ul.nav-menu li a {
-    font-size: 1.6rem;
-  }
-  nav.sidebar h2.sidebar-label {
-    font-size: 1.3rem;
   }
 }
 
@@ -466,13 +425,13 @@ aside.right-sidebar a.more-info {
     width: 100%;
     max-width: 400px;
     background-color: #1a1a1a;
-    color: #FFFFFF; /* White text */
+    color: #FFFFFF;
     box-shadow: inset 0 1px 3px rgba(0,0,0,0.3);
     transition: border-color 0.3s, box-shadow 0.3s;
     text-align: center;
 }
 #search-input::placeholder {
-    color: #DDDDDD; /* Light grey placeholder text */
+    color: #DDDDDD;
     text-align: center;
 }
 #search-input:focus {

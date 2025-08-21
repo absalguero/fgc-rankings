@@ -66,9 +66,9 @@
         <nav class="sidebar" aria-label="Main menu" role="navigation">
             <h2 class="sidebar-label">Navigation</h2>
             <ul class="nav-menu">
-                <li><a href="/"><i class="fas fa-trophy"></i> SF6 Rankings</a></li>
-                <li><a href="/ranking-system/"><i class="fas fa-info-circle"></i> Ranking System Overview</a></li>
-                <li><a href="/tournament-results/"><i class="fas fa-stream"></i> Tournament Results</a></li>
+                <li><a href="/" class="{% if request.path === '/' %}active{% endif %}"><i class="fas fa-trophy"></i> SF6 Rankings</a></li>
+                <li><a href="/tournament-results/" class="{% if request.path === '/tournament-results/' %}active{% endif %}"><i class="fas fa-sitemap"></i> Tournament Results</a></li>
+                <li><a href="/ranking-system/" class="{% if request.path === '/ranking-system/' %}active{% endif %}"><i class="fas fa-info-circle"></i> Ranking System Overview</a></li>
             </ul>
         </nav>
         <main class="content" role="main" id="maincontent" tabindex="-1">
@@ -105,6 +105,12 @@
             JavaScript is disabled in your browser. The rankings table may not load correctly.
         </p>
     </noscript>
+    <footer class="main-footer">
+    <p>&copy; 2025 FGC Player Rankings. All rights reserved.</p>
+    <p>
+        <a href="/contact/">Contact Us</a> | <a href="/terms-of-use/">Terms of Use</a>
+    </p>
+</footer>
     <script src="/js/main.js"></script>
 </body>
 </html>
