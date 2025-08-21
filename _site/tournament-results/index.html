@@ -215,6 +215,7 @@
         .content-container #tournament-results-table .player-cell {
             white-space: nowrap;
             min-width: 200px;
+            text-align: center;
         }
         
         /* === New Styling for Ranked Players using transparent backgrounds and glow === */
@@ -328,6 +329,35 @@
             text-align: center;
         }
 
+        /* New styles for the player photo */
+        .content-container #tournament-results-table .player-photo-cell {
+            width: 50px;
+            padding: 0.5rem;
+        }
+
+        .content-container #tournament-results-table .player-photo {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid transparent;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .content-container #tournament-results-table .player-photo:hover {
+            border-color: #FF5E13;
+            box-shadow: 0 0 5px #FF5E13;
+        }
+
+        /* Flexbox for player name cell to align photo and name */
+        .content-container #tournament-results-table .player-info {
+            display: flex;
+            align-items: center;
+            justify-content: center; /* **UPDATED** */
+            gap: 10px;
+            text-align: left;
+        }
+        
         /* Mobile styles */
         @media (max-width: 768px) {
             .content-container {
@@ -454,6 +484,7 @@
             let sortedColumn = 'Finish'; // Default sort on page load
             let sortDirection = 'asc';
             let rankingsMap = {};
+            let playerIconMap = {}; // NEW: Map to store player icon URLs
 
             // Function to sort data based on column name and type
             function sortData(data, column, type, direction) {
@@ -516,9 +547,10 @@
                     const headers = lines[0].split(',').map(h => h.trim().replace(/"/g, ''));
                     const playerHeader = headers.find(h => h.toLowerCase().includes('player') || h.toLowerCase().includes('name'));
                     const rankingHeader = headers.find(h => h.toLowerCase().includes('ranking') || h.toLowerCase().includes('rank'));
+                    const iconHeader = headers.find(h => h.toLowerCase().includes('icon') || h.toLowerCase().includes('photo'));
                     
-                    if (!playerHeader || !rankingHeader) {
-                        console.error("Could not find 'Player' or 'Ranking' headers in the CSV data.");
+                    if (!playerHeader || !rankingHeader || !iconHeader) {
+                        console.error("Could not find 'Player', 'Ranking', or 'Player Icon' headers in the CSV data.");
                         return;
                     }
 
@@ -537,6 +569,17 @@
                         }
                         return acc;
                     }, {});
+
+                    // NEW: Populate the playerIconMap
+                    playerIconMap = rankingsData.reduce((acc, current) => {
+                        const playerName = current[playerHeader];
+                        const playerIconUrl = current[iconHeader];
+                        if (playerName && playerIconUrl) {
+                            acc[playerName] = playerIconUrl;
+                        }
+                        return acc;
+                    }, {});
+
                 } catch (error) {
                     console.error("Error fetching rankings data:", error);
                 }
@@ -589,15 +632,23 @@
                         else if (playerRank === 5) row.classList.add('rank-5');
                         else if (playerRank >= 6 && playerRank <= 40) row.classList.add('ranked-6-40');
                         
-                        if (playerRank && playerRank <= 40) {
-                            playerText = `${playerText} (#${playerRank})`;
-                        }
+                        // NEW: Conditionally render photo and rank based on a new boolean
+                        const shouldShowRankAndPhoto = playerRank >= 1 && playerRank <= 40;
+                        const playerPhotoUrl = playerIconMap[playerText];
+                        const playerPhotoHtml = (shouldShowRankAndPhoto && playerPhotoUrl) ?
+                            `<img src="${playerPhotoUrl}" alt="${item.Player}" class="player-photo">` :
+                            '';
 
                         row.innerHTML = `
                             <td data-label="Event">${item.Event || ''}</td>
                             <td data-label="Date">${formatDate(item.Date)}</td>
                             <td data-label="Entrants">${item.Entrants || ''}</td>
-                            <td data-label="Player" class="player-cell">${playerText}</td>
+                            <td data-label="Player" class="player-cell">
+                                <div class="player-info">
+                                    ${playerPhotoHtml}
+                                    <span>${item.Player || ''} ${shouldShowRankAndPhoto ? `(#${playerRank})` : ''}</span>
+                                </div>
+                            </td>
                             <td data-label="Finish">${item.Finish || ''}</td>
                         `;
                         tableBody.appendChild(row);
