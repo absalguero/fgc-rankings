@@ -1,13 +1,50 @@
+---
+permalink: "index.html"
+---
 {% extends "layout.njk" %}
 
 {% block head %}
   <title>Ranking System</title>
   <link rel="stylesheet" href="/css/styles.css">
+  <style>
+    /* Sort arrow styling for desktop headers */
+    #rankings-table thead th .sort-icon {
+      margin-left: 5px;
+      transition: transform 0.2s ease-in-out;
+    }
+
+    #rankings-table thead th.sorted-asc .sort-icon {
+      transform: rotate(0deg);
+    }
+
+    #rankings-table thead th.sorted-desc .sort-icon {
+      transform: rotate(180deg);
+    }
+    
+    /* Sort arrow styling for mobile buttons */
+    #mobile-sort-container .mobile-sort-btn .sort-icon {
+      margin-left: 5px;
+      transition: transform 0.2s ease-in-out;
+    }
+    
+    #mobile-sort-container .mobile-sort-btn.sorted-asc .sort-icon {
+      transform: rotate(0deg);
+    }
+
+    #mobile-sort-container .mobile-sort-btn.sorted-desc .sort-icon {
+      transform: rotate(180deg);
+    }
+    
+    /* Ensure h1 wraps with specific line break and reduced spacing */
+    h1 {
+      line-height: 0.9; /* Reduced line height for closer spacing */
+    }
+  </style>
 {% endblock %}
 
 {% block content %}
 <div class="content-container full-width">
-  <h1>Street Fighter 6 Global Rankings</h1>
+  <h1>Street Fighter 6<br>Global Rankings</h1>
   <h2>Last Updated: August 17, 2025</h2>
 
   <div id="mobile-sort-container">

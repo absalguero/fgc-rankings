@@ -16,11 +16,10 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentSortDataType = 'number';
 
     function createRowHtml(player) {
-        // Corrected to use the 'Player' and 'Player Icon' headers
         const rank = player['Rank'];
         const change = player['Rank Change'];
-        const playerName = player['Player']; // Corrected to 'Player'
-        const playerIcon = player['Player Icon']; // Corrected to 'Player Icon'
+        const playerName = player['Player'];
+        const playerIcon = player['Player Icon'];
         const characterName = player['Main Character'];
         const countryName = player['Country'];
         const rating = player['Rating'];
@@ -82,7 +81,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const headersMap = {
             0: 'Rank',
             1: 'Rank Change',
-            2: 'Player', // Corrected to 'Player'
+            2: 'Player',
             3: 'Main Character',
             4: 'Country',
             5: 'Rating'
@@ -118,11 +117,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return playersArray;
     }
 
-    function refreshTable() {
-        let visiblePlayers = allPlayers.slice(0, playersToShow);
-        visiblePlayers = sortPlayers(visiblePlayers, currentSortColumn, currentSortDataType, currentSortDirection);
-        renderTable(visiblePlayers);
-
+    function updateSortIndicator() {
         desktopHeaders.forEach(h => {
             h.classList.remove('sorted-asc', 'sorted-desc');
             h.removeAttribute('data-sort-direction');
@@ -140,6 +135,18 @@ document.addEventListener('DOMContentLoaded', () => {
         if (activeMobileHeader) {
             activeMobileHeader.classList.add(`sorted-${currentSortDirection}`);
         }
+    }
+
+    function refreshTable() {
+        // First, get the players that are currently visible
+        let visiblePlayers = allPlayers.slice(0, playersToShow);
+        
+        // Then, sort only this visible subset of players
+        sortPlayers(visiblePlayers, currentSortColumn, currentSortDataType, currentSortDirection);
+        
+        // Now, render the sorted visible players
+        renderTable(visiblePlayers);
+        updateSortIndicator();
 
         if (playersToShow < allPlayers.length) {
             loadMoreBtn.style.display = 'inline-block';
@@ -152,24 +159,29 @@ document.addEventListener('DOMContentLoaded', () => {
         desktopHeaders.forEach(header => {
             header.addEventListener('click', () => {
                 const columnIndex = parseInt(header.getAttribute('data-column-index'));
+                const dataType = header.getAttribute('data-type');
+                
                 let newSortDirection = columnIndex === currentSortColumn ? (currentSortDirection === 'asc' ? 'desc' : 'asc') : 'asc';
-
+                
                 currentSortColumn = columnIndex;
                 currentSortDirection = newSortDirection;
-                currentSortDataType = header.getAttribute('data-type');
-
+                currentSortDataType = dataType;
+                
                 refreshTable();
             });
         });
+        
         mobileHeaders.forEach(header => {
             header.addEventListener('click', () => {
                 const columnIndex = parseInt(header.getAttribute('data-column-index'));
+                const dataType = header.getAttribute('data-type');
+                
                 let newSortDirection = columnIndex === currentSortColumn ? (currentSortDirection === 'asc' ? 'desc' : 'asc') : 'asc';
 
                 currentSortColumn = columnIndex;
                 currentSortDirection = newSortDirection;
-                currentSortDataType = header.getAttribute('data-type');
-
+                currentSortDataType = dataType;
+                
                 refreshTable();
             });
         });
@@ -203,6 +215,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 return player;
             }).slice(0, maxPlayers);
 
+            // Call setupSorting after the data has been successfully fetched and processed
+            setupSorting();
             refreshTable();
 
         } catch (error) {
@@ -212,8 +226,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     loadMoreBtn.addEventListener('click', loadMorePlayers);
-
-    fetchDataAndRenderTable().then(() => {
-        setupSorting();
-    });
+    
+    // Initial data fetch and rendering
+    fetchDataAndRenderTable();
 });
