@@ -1,681 +1,94 @@
 {% extends "layout.njk" %}
 
+{% block head %}
+  <title>Ranking System</title>
+  <link rel="stylesheet" href="/css/styles.css">
+{% endblock %}
+
 {% block content %}
-  <div class="content-container">
-    <h1 style="margin-top: 0;">Street Fighter 6 Rankings</h1>
-    <h2>Last Updated: August 17, 2025</h2>
+<div class="content-container full-width">
+  <h1>Street Fighter 6 Global Rankings</h1>
+  <h2>Last Updated: August 17, 2025</h2>
 
-    <div id="mobile-sort-container">
-      <button class="mobile-sort-btn" data-column-index="0" data-type="number">
-        Rank
-        <svg class="sort-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M12 5V19"/>
-          <path d="M19 12L12 19L5 12"/>
-        </svg>
-      </button>
-      <button class="mobile-sort-btn" data-column-index="1" data-type="string">
-        Change
-        <svg class="sort-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M12 5V19"/>
-          <path d="M19 12L12 19L5 12"/>
-        </svg>
-      </button>
-      <button class="mobile-sort-btn" data-column-index="2" data-type="string">
-        Player
-        <svg class="sort-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M12 5V19"/>
-          <path d="M19 12L12 19L5 12"/>
-        </svg>
-      </button>
-      <button class="mobile-sort-btn" data-column-index="3" data-type="string">
-        Char
-        <svg class="sort-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M12 5V19"/>
-          <path d="M19 12L12 19L5 12"/>
-        </svg>
-      </button>
-      <button class="mobile-sort-btn" data-column-index="4" data-type="string">
-        Country
-        <svg class="sort-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M12 5V19"/>
-          <path d="M19 12L12 19L5 12"/>
-        </svg>
-      </button>
-      <button class="mobile-sort-btn" data-column-index="5" data-type="number">
-        Rating
-        <svg class="sort-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M12 5V19"/>
-          <path d="M19 12L12 19L5 12"/>
-        </svg>
-      </button>
-    </div>
-
-    <div class="table-wrapper">
-      <table id="rankings-table">
-        <thead>
-          <tr>
-            <th data-column-index="0" data-type="number">
-              <span>Rank
-                <svg class="sort-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M12 5V19"/>
-                  <path d="M19 12L12 19L5 12"/>
-                </svg>
-              </span>
-            </th>
-            <th data-column-index="1" data-type="string">
-              <span>Change
-                <svg class="sort-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M12 5V19"/>
-                  <path d="M19 12L12 19L5 12"/>
-                </svg>
-              </span>
-            </th>
-            <th data-column-index="2" data-type="string">
-              <span>Player
-                <svg class="sort-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M12 5V19"/>
-                  <path d="M19 12L12 19L5 12"/>
-                </svg>
-              </span>
-            </th>
-            <th data-column-index="3" data-type="string">
-              <span>Main<br>Character
-                <svg class="sort-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M12 5V19"/>
-                  <path d="M19 12L12 19L5 12"/>
-                </svg>
-              </span>
-            </th>
-            <th data-column-index="4" data-type="string">
-              <span>Country
-                <svg class="sort-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M12 5V19"/>
-                  <path d="M19 12L12 19L5 12"/>
-                </svg>
-              </span>
-            </th>
-            <th data-column-index="5" data-type="number">
-              <span>Rating
-                <svg class="sort-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M12 5V19"/>
-                  <path d="M19 12L12 19L5 12"/>
-                </svg>
-              </span>
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-        </tbody>
-      </table>
-    </div>
-
-    <div class="load-more-container">
-        <button id="load-more-btn" class="load-more-btn" style="display:none;">Load More</button>
-    </div>
+  <div id="mobile-sort-container">
+    <button class="mobile-sort-btn" data-column-index="0" data-type="number">
+      Rank
+      <svg class="sort-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 5V19"/>
+        <path d="M19 12L12 19L5 12"/>
+      </svg>
+    </button>
+    <button class="mobile-sort-btn" data-column-index="1" data-type="string">
+      Change
+      <svg class="sort-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 5V19"/>
+        <path d="M19 12L12 19L5 12"/>
+      </svg>
+    </button>
+    <button class="mobile-sort-btn" data-column-index="2" data-type="string">
+      Player
+      <svg class="sort-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 5V19"/>
+        <path d="M19 12L12 19L5 12"/>
+      </svg>
+    </button>
+    <button class="mobile-sort-btn" data-column-index="3" data-type="string">
+      Char
+      <svg class="sort-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 5V19"/>
+        <path d="M19 12L12 19L5 12"/>
+      </svg>
+    </button>
+    <button class="mobile-sort-btn" data-column-index="4" data-type="string">
+      Country
+      <svg class="sort-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 5V19"/>
+        <path d="M19 12L12 19L5 12"/>
+      </svg>
+    </button>
+    <button class="mobile-sort-btn" data-column-index="5" data-type="number">
+      Rating
+      <svg class="sort-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 5V19"/>
+        <path d="M19 12L12 19L5 12"/>
+      </svg>
+    </button>
   </div>
+  
+  <div class="table-wrapper">
+    <table id="rankings-table">
+      <thead>
+        <tr>
+          <th data-column-index="0" data-type="number">
+            <span>Rank <i class="sort-icon fas fa-sort"></i></span>
+          </th>
+          <th data-column-index="1" data-type="string">
+            <span>Change <i class="sort-icon fas fa-sort"></i></span>
+          </th>
+          <th data-column-index="2" data-type="string">
+            <span>Player <i class="sort-icon fas fa-sort"></i></span>
+          </th>
+          <th data-column-index="3" data-type="string">
+            <span>Main<br>Character <i class="sort-icon fas fa-sort"></i></span>
+          </th>
+          <th data-column-index="4" data-type="string">
+            <span>Country <i class="sort-icon fas fa-sort"></i></span>
+          </th>
+          <th data-column-index="5" data-type="number">
+            <span>Rating <i class="sort-icon fas fa-sort"></i></span>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        </tbody>
+    </table>
+  </div>
+  <div class="load-more-container">
+    <button id="load-more-btn" class="load-more-btn" style="display:none;">Load More</button>
+  </div>
+</div>
+{% endblock %}
 
-  <style>
-    /* Global styles for robust responsiveness */
-    html, body {
-      box-sizing: border-box;
-      max-width: 100%;
-      overflow-x: hidden;
-    }
-    *, *:before, *:after {
-      box-sizing: inherit;
-    }
-
-    h1, h2 {
-      text-align: center;
-    }
-
-    th {
-      cursor: pointer;
-      position: relative;
-      font-size: 1.1rem;
-    }
-    th span {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    th:hover {
-      background-color: rgba(0, 0, 0, 0.1);
-    }
-    .sort-icon {
-      margin-left: 5px;
-      opacity: 0.3;
-      transform: rotate(0deg);
-      transition: transform 0.2s ease-in-out, opacity 0.2s ease-in-out;
-    }
-    th:hover .sort-icon {
-      opacity: 0.6;
-    }
-    th.sorted-asc .sort-icon {
-      transform: rotate(180deg);
-      opacity: 1;
-    }
-    th.sorted-desc .sort-icon {
-      transform: rotate(0deg);
-      opacity: 1;
-    }
-    tr {
-      &.rank-1 td {
-        background-color: #ffd70030;
-        color: gold;
-      }
-      &.rank-2 td {
-        background-color: #c0c0c030;
-        color: silver;
-      }
-      &.rank-3 td {
-        background-color: #cd7f3230;
-        color: #cd7f32;
-      }
-      &.rank-4 td {
-        background-color: #4b371c30;
-        color: #8c7359;
-      }
-      &.rank-5 td {
-        background-color: #36454F30;
-        color: #b0c4de;
-      }
-    }
-
-    /* Restored Character Image Styles */
-    .player-cell,
-    .character-cell,
-    .flag-cell,
-    .change-cell {
-      display: flex;
-      align-items: center;
-      justify-content: flex-start;
-      gap: 10px;
-    }
-    .player-cell span,
-    .character-cell span,
-    .flag-cell span {
-        white-space: nowrap;
-    }
-
-    .player-icon,
-    .character-icon,
-    .flag-icon {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      object-fit: cover;
-      /* Original: border: 1px solid #ddd; */
-      box-shadow: 0 0 6px 1px rgba(255, 255, 255, 0.6); /* Adjusted for a medium prominence */
-    }
-
-    td {
-      font-size: 1rem;
-    }
-    
-    /* REMOVED: font-weight: bold; from the .points-value class */
-    .points-value {
-        /* font-weight: bold; */
-    }
-
-    /* NEW: Stronger subtle glow effect for points and matching box-shadow for images in top 5 ranks */
-    .rank-1 td {
-        text-shadow: 0 0 4px gold; /* Increased glow */
-    }
-    .rank-1 .player-icon,
-    .rank-1 .character-icon,
-    .rank-1 .flag-icon {
-        box-shadow: 0 0 6px 1px gold;
-    }
-
-    .rank-2 td {
-        text-shadow: 0 0 4px silver; /* Increased glow */
-    }
-    .rank-2 .player-icon,
-    .rank-2 .character-icon,
-    .rank-2 .flag-icon {
-        box-shadow: 0 0 6px 1px silver;
-    }
-
-    .rank-3 td {
-        text-shadow: 0 0 4px #cd7f32; /* Increased glow */
-    }
-    .rank-3 .player-icon,
-    .rank-3 .character-icon,
-    .rank-3 .flag-icon {
-        box-shadow: 0 0 6px 1px #cd7f32;
-    }
-
-    .rank-4 td {
-        text-shadow: 0 0 4px #8c7359; /* Increased glow */
-    }
-    .rank-4 .player-icon,
-    .rank-4 .character-icon,
-    .rank-4 .flag-icon {
-        box-shadow: 0 0 6px 1px #8c7359;
-    }
-
-    .rank-5 td {
-        text-shadow: 0 0 4px #b0c4de; /* Increased glow */
-    }
-    .rank-5 .player-icon,
-    .rank-5 .character-icon,
-    .rank-5 .flag-icon {
-        box-shadow: 0 0 6px 1px #b0c4de;
-    }
-
-    @media screen and (min-width: 769px) {
-      table {
-        min-width: 600px;
-      }
-      /* Hide the mobile sort UI on desktop */
-      #mobile-sort-container {
-        display: none;
-      }
-
-      /* Fixes for Desktop Alignment */
-      th:nth-child(2) span {
-        width: 80px;
-        max-width: 80px;
-        text-align: center;
-      }
-      /* More specific rule to center the Change column content */
-      tbody tr > td:nth-child(2) {
-        text-align: center;
-        width: 80px;
-        max-width: 80px;
-      }
-      /* Fix for flexbox overriding text-align on desktop */
-      .change-cell {
-          justify-content: center;
-      }
-      
-      th:nth-child(3),
-      th:nth-child(4) {
-          text-align: left;
-      }
-      
-      /* THIS IS THE FIX for the 'Main Character' header not centering */
-      th:nth-child(4) span {
-          text-align: center;
-      }
-      .player-cell,
-      .character-cell {
-          justify-content: flex-start;
-      }
-      
-      th:nth-child(5) {
-        width: 150px;
-        max-width: 150px;
-        /* Center the header text and flag icon */
-        text-align: center;
-      }
-      td:nth-child(5) {
-        width: 150px;
-        max-width: 150px;
-        overflow-wrap: break-word;
-        white-space: normal;
-        /* Center the cell content */
-        text-align: center;
-      }
-      
-      .flag-cell {
-        justify-content: center; /* This is the key change to center the content */
-      }
-    }
-
-    /* Mobile Styles (Card Layout) */
-    @media screen and (max-width: 768px) {
-      .content-container, .table-wrapper {
-        width: 100%;
-        max-width: 100%;
-        overflow-x: hidden;
-      }
-      table {
-        border: 0;
-        width: 100%;
-        min-width: unset;
-        border-collapse: separate;
-        border-spacing: 0 1rem;
-      }
-      /* HIDE the main desktop header row on mobile */
-      table thead {
-        display: none;
-      }
-      /* New style for the mobile sort buttons */
-      #mobile-sort-container {
-        display: flex;
-        justify-content: space-between;
-        gap: 5px;
-        padding: 0 10px;
-        margin-bottom: 20px;
-        flex-wrap: wrap;
-      }
-      .mobile-sort-btn {
-        flex: 1 1 auto;
-        padding: 8px 5px;
-        font-size: 0.75rem;
-        text-align: center;
-        background-color: #444;
-        color: #fff;
-        border: 1px solid #555;
-        border-radius: 5px;
-        cursor: pointer;
-        transition: background-color 0.2s;
-      }
-      .mobile-sort-btn:hover {
-        background-color: #555;
-      }
-      .mobile-sort-btn .sort-icon {
-        width: 12px;
-        height: 12px;
-        margin-left: 2px;
-        opacity: 0.6;
-      }
-      .mobile-sort-btn.sorted-asc .sort-icon {
-        transform: rotate(180deg);
-        opacity: 1;
-      }
-      .mobile-sort-btn.sorted-desc .sort-icon {
-        transform: rotate(0deg);
-        opacity: 1;
-      }
-
-      table tr {
-        display: block;
-        border: 1px solid #dee2e6;
-        border-radius: 5px;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-      }
-      table td {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        text-align: right;
-        font-size: 1.2em;
-        border-bottom: 1px solid #dee2e6;
-        padding: 0.75rem 1rem;
-      }
-      table td::before {
-        content: attr(data-label);
-        font-weight: bold;
-        text-align: left;
-      }
-      table td:last-child {
-        border-bottom: 0;
-      }
-
-      .mobile-value {
-        display: flex;
-        align-items: center;
-        justify-content: flex-end;
-        text-align: right;
-        gap: 10px;
-      }
-      .player-cell,
-      .character-cell,
-      .flag-cell,
-      .change-cell {
-          justify-content: flex-end;
-      }
-
-      /* FIX for the country name not wrapping properly */
-      .flag-cell span {
-        white-space: normal !important;
-      }
-
-      .table-wrapper {
-        overflow-x: hidden;
-      }
-      .load-more-btn {
-        width: 100%;
-      }
-    }
-
-    /* NEW: Styling for the Load More button to match the site's theme */
-    .load-more-container {
-        text-align: center;
-        margin: 20px 0;
-    }
-    .load-more-btn {
-        background-color: #FF5E13; /* Your theme's fire-orange color */
-        border: none;
-        color: #222; /* Dark grey to match background */
-        padding: 10px 24px;
-        font-size: 16px;
-        cursor: pointer;
-        border-radius: 5px;
-        transition: background-color 0.3s, transform 0.2s;
-        font-family: 'Permanent Marker', cursive;
-        text-transform: uppercase;
-        box-shadow: 0 4px #c24600; /* Darker orange for a 3D effect */
-        letter-spacing: 1px;
-    }
-    .load-more-btn:hover {
-        background-color: #e6520d;
-        transform: translateY(1px);
-        box-shadow: 0 3px #c24600;
-    }
-    .load-more-btn:active {
-        transform: translateY(3px);
-        box-shadow: 0 1px #c24600;
-    }
-  </style>
-
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const sheetURL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQBIqTU9Vjqm4lAYt4gGj4QMaxG4eXSsgbDzi2GVHVvrZX0Dba6b1_SlyrVI9ARnlG-xc_b0NVq5lmU/pub?gid=1862929315&single=true&output=csv';
-      const table = document.getElementById('rankings-table');
-      const tbody = table.querySelector('tbody');
-      const desktopHeaders = table.querySelectorAll('th');
-      const mobileHeaders = document.querySelectorAll('#mobile-sort-container .mobile-sort-btn');
-      const loadMoreBtn = document.getElementById('load-more-btn');
-
-      let allPlayers = [];
-      let playersToShow = 10;
-      const playersPerLoad = 10;
-      const maxPlayers = 40;
-
-      let currentSortColumn = 0;
-      let currentSortDirection = 'asc';
-      let currentSortDataType = 'number';
-
-      function createRowHtml(player) {
-        const change = player['Rank Change'];
-        const countryName = player['Country'];
-        const countryNameLower = String(countryName).toLowerCase();
-        const playerNameLower = String(player['Player']).toLowerCase().replace(/\s/g, '');
-        const characterNameLower = String(player['Main Character']).toLowerCase();
-        
-        const changeContent = (() => {
-          if (change === 'New') {
-            return `<div class="change-cell"><span style="color: #007bff;">New</span></div>`;
-          } else if (change.startsWith('+')) {
-            return `<div class="change-cell"><span style="color: green;">${change}</span></div>`;
-          } else if (change.startsWith('-')) {
-            return `<div class="change-cell"><span style="color: red;">${change}</span></div>`;
-          }
-          return `<div class="change-cell"><span style="color: #6c757d;">${change}</span></div>`;
-        })();
-
-        return `
-          <td data-label="Rank"><div class="mobile-value">${player['Rank']}</div></td>
-          <td data-label="Change">${changeContent}</td>
-          <td data-label="Player">
-              <div class="player-cell">
-                <img src="/images/players/${playerNameLower}.png" alt="${player['Player']}" class="player-icon" onerror="this.src='https://placehold.co/40x40/aaa/fff?text=?';">
-                <span>${player['Player']}</span>
-              </div>
-          </td>
-          <td data-label="Character">
-            <div class="character-cell">
-              <img src="/images/characters/${characterNameLower}.png" alt="${player['Main Character']}" class="character-icon" onerror="this.src='https://placehold.co/40x40/aaa/fff?text=N/A';">
-              <span>${player['Main Character']}</span>
-            </div>
-          </td>
-          <td data-label="Country">
-            <div class="flag-cell">
-              <img src="/images/flags/${countryNameLower}.png" alt="${countryName}" class="flag-icon" onerror="this.src='https://placehold.co/40x40/aaa/fff?text=?';">
-              <span>${countryName}</span>
-            </div>
-          </td>
-          <td data-label="Rating"><div class="mobile-value"><span class="points-value">${player['Rating']}</span></div></td>
-        `;
-      }
-
-      function renderTable(playersToRender) {
-        tbody.innerHTML = '';
-        playersToRender.forEach(player => {
-          if (player['Rank']) {
-            const row = document.createElement('tr');
-            if (player['Rank'] === '1' || player['Rank'] === '2' || player['Rank'] === '3' || player['Rank'] === '4' || player['Rank'] === '5') {
-              row.classList.add(`rank-${player['Rank']}`);
-            }
-            row.innerHTML = createRowHtml(player);
-            tbody.appendChild(row);
-          }
-        });
-      }
-
-      function sortPlayers(playersArray, columnIndex, dataType, sortDirection) {
-        const headersMap = {
-          0: 'Rank',
-          1: 'Rank Change',
-          2: 'Player',
-          3: 'Main Character',
-          4: 'Country',
-          5: 'Rating'
-        };
-        const headerKey = headersMap.hasOwnProperty(columnIndex) ? headersMap[columnIndex] : null;
-        if (!headerKey) {
-            return playersArray;
-        }
-
-        playersArray.sort((a, b) => {
-          let aValue = a[headerKey];
-          let bValue = b[headerKey];
-
-          if (dataType === 'number') {
-            aValue = parseFloat(aValue) || 0;
-            bValue = parseFloat(bValue) || 0;
-          }
-
-          if (dataType === 'string') {
-            aValue = String(aValue).toLowerCase();
-            bValue = String(bValue).toLowerCase();
-          }
-
-          if (sortDirection === 'asc') {
-            if (aValue < bValue) return -1;
-            if (aValue > bValue) return 1;
-          } else {
-            if (aValue > bValue) return -1;
-            if (aValue < bValue) return 1;
-          }
-          return 0;
-        });
-        return playersArray;
-      }
-
-      function refreshTable() {
-        let visiblePlayers = allPlayers.slice(0, playersToShow);
-        visiblePlayers = sortPlayers(visiblePlayers, currentSortColumn, currentSortDataType, currentSortDirection);
-        renderTable(visiblePlayers);
-
-        // Update sorting indicators for both desktop and mobile headers
-        desktopHeaders.forEach(h => {
-          h.classList.remove('sorted-asc', 'sorted-desc');
-          h.removeAttribute('data-sort-direction');
-        });
-        mobileHeaders.forEach(h => {
-          h.classList.remove('sorted-asc', 'sorted-desc');
-        });
-
-        const activeDesktopHeader = table.querySelector(`th[data-column-index="${currentSortColumn}"]`);
-        if (activeDesktopHeader) {
-          activeDesktopHeader.setAttribute('data-sort-direction', currentSortDirection);
-          activeDesktopHeader.classList.add(`sorted-${currentSortDirection}`);
-        }
-        const activeMobileHeader = document.querySelector(`#mobile-sort-container .mobile-sort-btn[data-column-index="${currentSortColumn}"]`);
-        if (activeMobileHeader) {
-          activeMobileHeader.classList.add(`sorted-${currentSortDirection}`);
-        }
-
-        if (playersToShow < allPlayers.length) {
-          loadMoreBtn.style.display = 'inline-block';
-        } else {
-          loadMoreBtn.style.display = 'none';
-        }
-      }
-
-      function setupSorting() {
-        desktopHeaders.forEach(header => {
-          header.addEventListener('click', () => {
-            const columnIndex = parseInt(header.getAttribute('data-column-index'));
-            let newSortDirection = columnIndex === currentSortColumn ? (currentSortDirection === 'asc' ? 'desc' : 'asc') : 'asc';
-
-            currentSortColumn = columnIndex;
-            currentSortDirection = newSortDirection;
-            currentSortDataType = header.getAttribute('data-type');
-
-            refreshTable();
-          });
-        });
-        mobileHeaders.forEach(header => {
-          header.addEventListener('click', () => {
-            const columnIndex = parseInt(header.getAttribute('data-column-index'));
-            let newSortDirection = columnIndex === currentSortColumn ? (currentSortDirection === 'asc' ? 'desc' : 'asc') : 'asc';
-
-            currentSortColumn = columnIndex;
-            currentSortDirection = newSortDirection;
-            currentSortDataType = header.getAttribute('data-type');
-
-            refreshTable();
-          });
-        });
-      }
-
-      function loadMorePlayers() {
-        playersToShow = Math.min(playersToShow + playersPerLoad, maxPlayers);
-        refreshTable();
-      }
-
-      async function fetchDataAndRenderTable() {
-        try {
-          tbody.innerHTML = '<tr><td colspan="6" style="text-align: center;">Loading data...</td></tr>';
-
-          const cacheBuster = Math.floor(Date.now() / (1000 * 60 * 10));
-          const urlWithCacheBuster = `${sheetURL}&cachebuster=${cacheBuster}`;
-
-          const response = await fetch(urlWithCacheBuster);
-          if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-          }
-          const csvText = await response.text();
-
-          const rows = csvText.trim().split('\n').map(row => row.split(','));
-          const csvHeaders = rows[0].map(h => h.trim().replace(/"/g, ''));
-          allPlayers = rows.slice(1).map(row => {
-            const player = {};
-            row.forEach((value, i) => {
-              player[csvHeaders[i]] = value.trim().replace(/"/g, '');
-            });
-            return player;
-          }).slice(0, maxPlayers);
-
-          refreshTable();
-
-        } catch (error) {
-          console.error("Failed to fetch or parse rankings data:", error);
-          tbody.innerHTML = '<tr><td colspan="6" style="text-align: center; color: red;">Failed to load data. Please try again later.</td></tr>';
-        }
-      }
-
-      loadMoreBtn.addEventListener('click', loadMorePlayers);
-
-      fetchDataAndRenderTable().then(() => {
-        setupSorting();
-      });
-    });
-  </script>
+{% block scripts %}
+  <script src="/js/main.js"></script>
 {% endblock %}
