@@ -58,7 +58,13 @@
     
   <title>Ranking System</title>
   <link rel="stylesheet" href="/css/styles.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
+    /* Add this rule to center all table headers */
+    #rankings-table th {
+      text-align: center;
+    }
+    
     /* Sort arrow styling for desktop headers */
     #rankings-table thead th .sort-icon {
       margin-left: 5px;
@@ -90,6 +96,67 @@
     /* Ensure h1 wraps with specific line break and reduced spacing */
     h1 {
       line-height: 0.9; /* Reduced line height for closer spacing */
+    }
+
+    /* Media query for responsive design on smaller screens */
+    @media (max-width: 768px) {
+      /* Ensure the main content container respects the viewport width */
+      .content-container {
+        box-sizing: border-box;
+        width: 100%;
+        padding: 0 10px; /* Add some padding to prevent content from touching the edges */
+      }
+      
+      /* Make the mobile sort buttons scrollable if they overflow */
+      #mobile-sort-container {
+        display: flex;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch; /* For smoother scrolling on iOS */
+      }
+      
+      #mobile-sort-container::-webkit-scrollbar {
+        display: none; /* Hide scrollbar for a cleaner look */
+      }
+
+      /* Hide the desktop header */
+      #rankings-table thead th[data-column-index="3"],
+      /* Hide the mobile sorting button */
+      #mobile-sort-container .mobile-sort-btn[data-column-index="3"],
+      /* Hide the table cells in the column */
+      #rankings-table tbody td:nth-child(4) {
+        display: none;
+      }
+      
+      /* Make the table responsive within its container if it overflows */
+      .table-wrapper {
+        overflow-x: auto;
+      }
+    }
+    
+    /* Desktop-specific rules for optimal column width and layout */
+    @media (min-width: 769px) {
+      .content-container.full-width {
+        max-width: 1000px;
+        margin: 0 auto;
+      }
+
+      #rankings-table {
+        width: 100%;
+        table-layout: auto;
+      }
+
+      /* Add padding to all table cells */
+      #rankings-table th, #rankings-table td {
+        padding: 8px 12px;
+      }
+
+      /* Set min-widths for headers and cells to prevent content spillage */
+      #rankings-table th[data-column-index="0"], #rankings-table td:nth-child(1) { min-width: 50px; } /* Rank */
+      #rankings-table th[data-column-index="1"], #rankings-table td:nth-child(2) { min-width: 70px; } /* Change */
+      #rankings-table th[data-column-index="3"], #rankings-table td:nth-child(4) { min-width: 100px; } /* Main Character */
+      #rankings-table th[data-column-index="4"], #rankings-table td:nth-child(5) { min-width: 80px; } /* Country */
+      #rankings-table th[data-column-index="5"], #rankings-table td:nth-child(6) { min-width: 70px; } /* Rating */
     }
   </style>
 
