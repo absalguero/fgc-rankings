@@ -718,15 +718,11 @@ td {
 
   /* Fixes for Desktop Alignment */
   th:nth-child(2) span {
-    width: 80px;
-    max-width: 80px;
     text-align: center;
   }
   /* More specific rule to center the Change column content */
   tbody tr > td:nth-child(2) {
     text-align: center;
-    width: 80px;
-    max-width: 80px;
   }
   /* Fix for flexbox overriding text-align on desktop */
   .change-cell {

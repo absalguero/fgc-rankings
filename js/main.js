@@ -117,7 +117,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return playersArray;
     }
 
-    function updateSortIndicator() {
+    function clearAllSortIndicators() {
         desktopHeaders.forEach(h => {
             h.classList.remove('sorted-asc', 'sorted-desc');
             h.removeAttribute('data-sort-direction');
@@ -125,15 +125,32 @@ document.addEventListener('DOMContentLoaded', () => {
         mobileHeaders.forEach(h => {
             h.classList.remove('sorted-asc', 'sorted-desc');
         });
+    }
 
-        const activeDesktopHeader = table.querySelector(`th[data-column-index="${currentSortColumn}"]`);
-        if (activeDesktopHeader) {
-            activeDesktopHeader.setAttribute('data-sort-direction', currentSortDirection);
-            activeDesktopHeader.classList.add(`sorted-${currentSortDirection}`);
+    // NEW FUNCTION to update the indicator on a specific element and its desktop/mobile counterpart
+    function updateActiveSortIndicator(clickedElement) {
+        clearAllSortIndicators();
+        
+        const columnIndex = clickedElement.getAttribute('data-column-index');
+
+        // Update the clicked element
+        clickedElement.classList.add(`sorted-${currentSortDirection}`);
+        if (clickedElement.tagName === 'TH') {
+            clickedElement.setAttribute('data-sort-direction', currentSortDirection);
         }
-        const activeMobileHeader = document.querySelector(`#mobile-sort-container .mobile-sort-btn[data-column-index="${currentSortColumn}"]`);
-        if (activeMobileHeader) {
-            activeMobileHeader.classList.add(`sorted-${currentSortDirection}`);
+
+        // Find and update the corresponding element
+        if (clickedElement.tagName === 'TH') {
+            const mobileBtn = document.querySelector(`#mobile-sort-container .mobile-sort-btn[data-column-index="${columnIndex}"]`);
+            if (mobileBtn) {
+                mobileBtn.classList.add(`sorted-${currentSortDirection}`);
+            }
+        } else {
+            const desktopTh = document.querySelector(`th[data-column-index="${columnIndex}"]`);
+            if (desktopTh) {
+                desktopTh.classList.add(`sorted-${currentSortDirection}`);
+                desktopTh.setAttribute('data-sort-direction', currentSortDirection);
+            }
         }
     }
 
@@ -146,8 +163,7 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // Now, render the sorted visible players
         renderTable(visiblePlayers);
-        updateSortIndicator();
-
+        
         if (playersToShow < allPlayers.length) {
             loadMoreBtn.style.display = 'inline-block';
         } else {
@@ -157,9 +173,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function setupSorting() {
         desktopHeaders.forEach(header => {
-            header.addEventListener('click', () => {
-                const columnIndex = parseInt(header.getAttribute('data-column-index'));
-                const dataType = header.getAttribute('data-type');
+            header.addEventListener('click', (event) => {
+                const columnIndex = parseInt(event.currentTarget.getAttribute('data-column-index'));
+                const dataType = event.currentTarget.getAttribute('data-type');
                 
                 let newSortDirection = columnIndex === currentSortColumn ? (currentSortDirection === 'asc' ? 'desc' : 'asc') : 'asc';
                 
@@ -168,13 +184,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 currentSortDataType = dataType;
                 
                 refreshTable();
+                updateActiveSortIndicator(event.currentTarget);
             });
         });
         
         mobileHeaders.forEach(header => {
-            header.addEventListener('click', () => {
-                const columnIndex = parseInt(header.getAttribute('data-column-index'));
-                const dataType = header.getAttribute('data-type');
+            header.addEventListener('click', (event) => {
+                const columnIndex = parseInt(event.currentTarget.getAttribute('data-column-index'));
+                const dataType = event.currentTarget.getAttribute('data-type');
                 
                 let newSortDirection = columnIndex === currentSortColumn ? (currentSortDirection === 'asc' ? 'desc' : 'asc') : 'asc';
 
@@ -183,6 +200,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 currentSortDataType = dataType;
                 
                 refreshTable();
+                updateActiveSortIndicator(event.currentTarget);
             });
         });
     }
@@ -215,7 +233,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 return player;
             }).slice(0, maxPlayers);
 
-            // Call setupSorting after the data has been successfully fetched and processed
             setupSorting();
             refreshTable();
 
@@ -227,6 +244,5 @@ document.addEventListener('DOMContentLoaded', () => {
 
     loadMoreBtn.addEventListener('click', loadMorePlayers);
     
-    // Initial data fetch and rendering
     fetchDataAndRenderTable();
 });

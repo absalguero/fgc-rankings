@@ -70,7 +70,6 @@ permalink: "tournament-results/index.html"
 .content-container #tournament-results-table thead th {
     background-color: transparent;
     color: #ffffff;
-    padding: 1.2rem 1rem;
     text-align: center;
     font-weight: bold;
     cursor: pointer;
@@ -86,38 +85,54 @@ permalink: "tournament-results/index.html"
 
 /* Updated styling for the sort icons to match the user's image and make them larger */
 .content-container #tournament-results-table thead th .sort-icon {
-    display: inline-flex; /* Use flexbox to align up and down arrows */
-    flex-direction: column;
+    display: inline-flex;
     justify-content: center;
     align-items: center;
     margin-left: 0.5rem;
-    width: 24px; /* Increased width to make the icon bigger */
-    height: 24px; /* Increased height to make the icon bigger */
-    transition: opacity 0.2s ease-in-out;
+    width: 16x;
+    height: 16px;
     vertical-align: middle;
-    opacity: 0.3; /* Default state, less visible */
+    transition: transform 0.2s ease-in-out, opacity 0.2s ease-in-out;
 }
 
 .content-container #tournament-results-table thead th .sort-icon svg {
     width: 100%;
-    height: 50%; /* Each arrow takes half the height */
+    height: 100%;
     stroke: #ffffff;
+    opacity: 0.3; /* Default state, less visible */
     transition: opacity 0.2s;
 }
 
-/* State when a column is sorted */
-.content-container #tournament-results-table thead th.sorted .sort-icon {
-    opacity: 1; /* More visible when active */
+/* On hover, increase opacity of the arrow */
+.content-container #tournament-results-table thead th:hover .sort-icon svg {
+    opacity: 0.6;
 }
 
-/* Hide the down arrow when sorted ascending */
-.content-container #tournament-results-table thead th.sorted.asc .sort-icon .down-arrow {
-    opacity: 0;
+/* When sorted, make the arrow fully visible */
+.content-container #tournament-results-table thead th.sorted .sort-icon svg {
+    opacity: 1;
 }
 
-/* Hide the up arrow when sorted descending */
-.content-container #tournament-container #tournament-results-table thead th.sorted.desc .sort-icon .up-arrow {
-    opacity: 0;
+/* When sorted descending, rotate the arrow */
+.content-container #tournament-results-table thead th.sorted.desc .sort-icon {
+    transform: rotate(180deg);
+}
+
+/* Mobile sort icon changes to match the new style */
+.sort-options .sort-option-btn .sort-icon {
+    transition: transform 0.2s ease-in-out, background-color 0.2s ease-in-out;
+}
+
+.sort-options .sort-option-btn .sort-icon svg {
+    opacity: 0.3;
+}
+
+.sort-options .sort-option-btn.active .sort-icon svg {
+    opacity: 1;
+}
+
+.sort-options .sort-option-btn.active.desc .sort-icon {
+    transform: rotate(180deg);
 }
 
 .content-container #tournament-results-table tbody tr {
@@ -455,18 +470,13 @@ permalink: "tournament-results/index.html"
         background-color: #cc4b0f;
     }
     
-    /* Mobile sort icon opacity changes to match the new style */
-    .sort-options .sort-option-btn.active .sort-icon .down-arrow {
-        opacity: 0;
+    /* Mobile sort icon changes to match the new style */
+    .sort-options .sort-option-btn.active.asc .sort-icon {
+        transform: rotate(0deg);
     }
-    .sort-options .sort-option-btn.active .sort-icon .up-arrow {
-        opacity: 0;
-    }
-    .sort-options .sort-option-btn.active.asc .sort-icon .up-arrow {
-        opacity: 1;
-    }
-    .sort-options .sort-option-btn.active.desc .sort-icon .down-arrow {
-        opacity: 1;
+
+    .sort-options .sort-option-btn.active.desc .sort-icon {
+        transform: rotate(180deg);
     }
 }
 </style>
@@ -495,51 +505,40 @@ permalink: "tournament-results/index.html"
                 <tr>
                     <th data-column-name="Event" data-type="string">Event
                         <span class="sort-icon">
-                            <svg class="up-arrow" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <polyline points="18 15 12 9 6 15"/>
-                            </svg>
-                            <svg class="down-arrow" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <polyline points="6 9 12 15 18 9"/>
-                            </svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 5V19"/>
+        <path d="M19 12L12 19L5 12"/>
                         </span>
                     </th>
                     <th data-column-name="Date" data-type="string">Date
                         <span class="sort-icon">
-                            <svg class="up-arrow" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <polyline points="18 15 12 9 6 15"/>
-                            </svg>
-                            <svg class="down-arrow" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <polyline points="6 9 12 15 18 9"/>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 5V19"/>
+        <path d="M19 12L12 19L5 12"/>
                             </svg>
                         </span>
                     </th>
                     <th data-column-name="Entrants" data-type="number">Entrants
                         <span class="sort-icon">
-                            <svg class="up-arrow" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <polyline points="18 15 12 9 6 15"/>
-                            </svg>
-                            <svg class="down-arrow" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <polyline points="6 9 12 15 18 9"/>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 5V19"/>
+        <path d="M19 12L12 19L5 12"/>
                             </svg>
                         </span>
                     </th>
                     <th data-column-name="Player" data-type="string" class="player-cell">Player
                         <span class="sort-icon">
-                            <svg class="up-arrow" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <polyline points="18 15 12 9 6 15"/>
-                            </svg>
-                            <svg class="down-arrow" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <polyline points="6 9 12 15 18 9"/>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 5V19"/>
+        <path d="M19 12L12 19L5 12"/>
                             </svg>
                         </span>
                     </th>
                     <th data-column-name="Finish" data-type="finish">Finish
                         <span class="sort-icon">
-                            <svg class="up-arrow" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <polyline points="18 15 12 9 6 15"/>
-                            </svg>
-                            <svg class="down-arrow" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <polyline points="6 9 12 15 18 9"/>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 5V19"/>
+        <path d="M19 12L12 19L5 12"/>
                             </svg>
                         </span>
                     </th>
@@ -887,34 +886,32 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function generateSortOptions() {
         sortOptionsContainer.innerHTML = '';
-        const columns = document.querySelectorAll('#tournament-results-table thead th');
-
-        columns.forEach(header => {
+        const headers = document.querySelectorAll('#tournament-results-table thead th');
+        headers.forEach(header => {
             const columnName = header.getAttribute('data-column-name');
-            const columnType = header.getAttribute('data-type');
-            const displayName = header.textContent.trim().replace(/\s*$/, '');
-
-            const sortBtn = document.createElement('button');
-            sortBtn.textContent = displayName;
-            sortBtn.classList.add('sort-option-btn');
+            const columnLabel = header.textContent.trim();
+            const optionBtn = document.createElement('button');
+            optionBtn.className = 'sort-option-btn';
+            optionBtn.setAttribute('data-column-name', columnName);
             
-            // Adding the new SVG icons for the mobile modal
-            const sortIcon = document.createElement('span');
-            sortIcon.classList.add('sort-icon');
-            sortIcon.innerHTML = `
-                <svg class="up-arrow" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <polyline points="18 15 12 9 6 15"/>
-                </svg>
-                <svg class="down-arrow" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <polyline points="6 9 12 15 18 9"/>
-                </svg>`;
-            sortBtn.appendChild(sortIcon);
+            let sortIconSvg = `
+                <span class="sort-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="18 15 12 9 6 15"/>
+                    </svg>
+                </span>
+            `;
 
-            if (sortedColumn === columnName) {
-                sortBtn.classList.add('active', sortDirection);
+            optionBtn.innerHTML = `
+                <span>${columnLabel}</span>
+                ${sortIconSvg}
+            `;
+
+            if (columnName === sortedColumn) {
+                optionBtn.classList.add('active', sortDirection);
             }
-            
-            sortBtn.addEventListener('click', () => {
+
+            optionBtn.addEventListener('click', () => {
                 if (sortedColumn === columnName) {
                     sortDirection = sortDirection === 'asc' ? 'desc' : 'asc';
                 } else {
@@ -925,15 +922,11 @@ document.addEventListener('DOMContentLoaded', () => {
                         sortDirection = 'asc';
                     }
                 }
-                
-                // Close modal and render after sorting
                 sortModal.classList.remove('show');
-                setTimeout(() => {
-                    sortModal.style.display = 'none';
-                    renderAll();
-                }, 400);
+                setTimeout(() => sortModal.style.display = 'none', 400);
+                renderAll();
             });
-            sortOptionsContainer.appendChild(sortBtn);
+            sortOptionsContainer.appendChild(optionBtn);
         });
     }
 
