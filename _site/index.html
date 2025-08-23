@@ -21,11 +21,10 @@
     <link rel="icon" type="image/png" sizes="192x192" href="/images/android-chrome-192x192.png">
     <link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
     <meta name="theme-color" content="#FF5E13" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="/css/styles.css">
     
   <title>Street Fighter 6 Global Player Rankings</title>
-  <link rel="stylesheet" href="/css/styles.css">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     /* New rule for transparent header and white text */
@@ -73,6 +72,14 @@
     h1 {
       line-height: 0.9; /* Reduced line height for closer spacing */
     }
+
+    .content-container.full-width h1 {
+      margin-top: 1.8rem; /* Adjust this value to get the desired space */
+    }
+
+    .content-container.full-width h2 {
+  margin-bottom: 1rem;
+}
 
     /* Media query for responsive design on smaller screens */
     @media (max-width: 768px) {
@@ -136,129 +143,44 @@
     }
   </style>
 
-    <style>
-        html, body {
-            margin: 0;
-            padding: 0;
-            font-family: 'Roboto', sans-serif;
-            background: url('/images/background.png') no-repeat center top;
-            background-size: cover;
-            color: #fff;
-            overflow-y: auto;
-        }
-
-        .page-wrapper {
-            display: flex;
-            width: 100%;
-            align-items: flex-start;
-        }
-
-        .sidebar, .right-sidebar {
-            width: 220px; /* Increased width to accommodate the text */
-            background: rgba(0,0,0,0.7);
-            display: flex;
-            flex-direction: column;
-            position: sticky;
-            top: 0;
-            align-self: flex-start;
-            padding: 1rem;
-        }
-
-        /* Page title (h1) - 40% larger */
-        h1 {
-            font-family: 'Permanent Marker', cursive;
-            font-size: 2.8rem;
-            margin-bottom: 1rem;
-        }
-
-        /* Sidebar headers (20% larger + extra spacing) */
-        .sidebar .sidebar-label, .right-sidebar .sidebar-label {
-            font-family: 'Permanent Marker', cursive;
-            font-size: 1.5rem;
-            color: #FF5E13;
-            margin-bottom: 1rem;
-        }
-
-        /* Left sidebar links (fit "Tournament Results") */
-        .sidebar .nav-menu a {
-            font-family: 'Permanent Marker', cursive;
-            font-size: 0.85rem;
-            line-height: 1.4em;
-            margin-bottom: 0.3rem;
-            display: flex;
-            align-items: center;
-            white-space: normal;
-            overflow-wrap: break-word;
-        }
-
-        .sidebar .nav-menu a i {
-            margin-right: 0.1rem;
-            vertical-align: middle;
-            font-size: 0.9rem;
-        }
-
-        .content {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .content-container {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .banner {
-            max-width: 100%;
-            height: auto;
-            margin-bottom: 1rem;
-        }
-
-        /* Footer */
-        .content-footer {
-            margin-top: 2rem;
-            padding: 1rem;
-            text-align: center;
-            font-family: 'Roboto', sans-serif;
-            color: #fff;
-            background: transparent;
-        }
-
-        .content-footer a {
-            color: #FF5E13;
-            text-decoration: none;
-            margin: 0 0.5rem;
-        }
-
-        .content-footer a:hover {
-            text-decoration: underline;
-        }
-
-        .right-sidebar {
-            overflow-y: auto;
-        }
-    </style>
 </head>
 <body>
     <a href="#maincontent" class="skip-link">Skip to main content</a>
     <header class="mobile-header">
         <button class="nav-toggle" aria-label="toggle navigation" aria-expanded="false">&#9776;</button>
+        <div class="mobile-search">
+            <form role="search" class="search-form">
+                <input type="search" id="mobile-search-input" class="search-input" placeholder="Search site..." aria-label="Search site">
+                <button type="submit" class="search-button" aria-label="Search">
+                    <i class="fas fa-search"></i>
+                </button>
+            </form>
+        </div>
     </header>
 
     <div class="page-wrapper">
-        <nav class="sidebar" aria-label="Main menu" role="navigation">
-            <h2 class="sidebar-label">Navigation</h2>
-            <ul class="nav-menu">
-                <li><a href="/" class=""><i class="fas fa-trophy"></i>SF6 Rankings</a></li>
-                <li><a href="/tournament-results/" class=""><i class="fas fa-sitemap"></i>Tournament Results</a></li>
-                <li><a href="/ranking-system/" class=""><i class="fas fa-info-circle"></i>Ranking System</a></li>
-            </ul>
-        </nav>
-
-        <main class="content">
-            <div class="content-container" role="main" id="maincontent" tabindex="-1">
-                <img class="banner" src="/images/banner.png" alt="FGC Player Rankings official logo" loading="lazy"/>
-                
+  <div class="left-panel">
+    <nav class="sidebar" aria-label="Main menu" role="navigation">
+    <h2 class="sidebar-label">Navigation</h2>
+    <div class="sidebar-search">
+        <form role="search" class="search-form">
+            <input type="search" id="sidebar-search-input" class="search-input" placeholder="Search site..." aria-label="Search site">
+            <button type="submit" class="search-button" aria-label="Search">
+                <i class="fas fa-search"></i>
+            </button>
+        </form>
+    </div>
+    <ul class="nav-menu">
+        <li><a href="/" class=""><i class="fas fa-trophy"></i>SF6 Rankings</a></li>
+        <li><a href="/tournament-results/" class=""><i class="fas fa-sitemap"></i>Tournament Results</a></li>
+        <li><a href="/ranking-system/" class=""><i class="fas fa-scale-balanced"></i>Ranking System</a></li>
+    </ul>
+</nav>
+  </div>
+  <main class="content">
+    <div class="content-container" role="main" id="maincontent" tabindex="-1">
+      <img class="banner" src="/images/banner.png" alt="FGC Player Rankings official logo" loading="lazy"/>
+      
 <div class="content-container full-width">
   <h1>Street Fighter 6 Global Rankings</h1>
   <h2>Last Updated: August 17, 2025</h2>
@@ -359,13 +281,58 @@
   </div>
 </div>
 
-
-                <footer class="content-footer">
-                    <p>&copy; 2025 FGC Player Rankings. All rights reserved.</p>
-                    <p><a href="/contact/">Contact Us</a> | <a href="/terms-of-use/">Terms of Use</a></p>
-                </footer>
-            </div>
-        </main>
+    </div>
+  </main>
+  <aside class="right-sidebar" aria-label="Upcoming Rated Events">
+    <h2 class="sidebar-label">Upcoming Rated Events</h2>
+    
+    <div class="event">
+      <a href="https://esportsworldcup.com/en/competitions/street-fighter6" target="_blank" rel="noopener noreferrer" class="tournament-name">Esports World Cup 2025</a>
+      <a href="https://esportsworldcup.com/en/competitions/street-fighter6" target="_blank" rel="noopener noreferrer">
+        <img src="/images/ewc.png" alt="Esports World Cup 2025 Tournament" loading="lazy" />
+      </a>
+      <div class="event-date">August 20-23, 2025</div>
+      <a class="more-info" href="https://esportsworldcup.com/en/competitions/street-fighter6" target="_blank" rel="noopener noreferrer">More Info</a>
+    </div>
+    
+    <div class="event">
+      <a href="https://www.start.gg/tournament/beast-in-the-east-8/details" target="_blank" rel="noopener noreferrer" class="tournament-name">Beast in the East 8</a>
+      <a href="https://www.start.gg/tournament/beast-in-the-east-8/details" target="_blank" rel="noopener noreferrer">
+        <img src="/images/beast-in-the-east.png" alt="Beast in the East 8 Tournament" loading="lazy" />
+      </a>
+      <div class="event-date">August 22-24, 2025</div>
+      <a class="more-info" href="https://www.start.gg/tournament/beast-in-the-east-8/details" target="_blank" rel="noopener noreferrer">More Info</a>
+    </div>
+    
+    <div class="event">
+      <a href="https://www.start.gg/tournament/cream-city-convergence-2025/details" target="_blank" rel="noopener noreferrer" class="tournament-name">Cream City Convergence</a>
+      <a href="https://www.start.gg/tournament/cream-city-convergence-2025/details" target="_blank" rel="noopener noreferrer">
+        <img src="/images/cream-city-convergence.png" alt="Cream City Convergence Tournament" loading="lazy" />
+      </a>
+      <div class="event-date">August 30, 2025</div>
+      <a class="more-info" href="https://www.start.gg/tournament/cream-city-convergence-2025/details" target="_blank" rel="noopener noreferrer">More Info</a>
+    </div>
+    
+    <div class="event">
+      <a href="https://www.start.gg/tournament/comit-arena-2025/details" target="_blank" rel="noopener noreferrer" class="tournament-name">Comitê Arena 2025</a>
+      <a href="https://www.start.gg/tournament/comit-arena-2025/details" target="_blank" rel="noopener noreferrer">
+        <img src="/images/comite.png" alt="Comitê Arena 2025 Tournament" loading="lazy" />
+      </a>
+      <div class="event-date">August 30-31, 2025</div>
+      <a class="more-info" href="https://www.start.gg/tournament/comit-arena-2025/details" target="_blank" rel="noopener noreferrer">More Info</a>
+    </div>
+    
+    <div class="event">
+      <a href="https://www.start.gg/tournament/ozhadou-nationals-19/details" target="_blank" rel="noopener noreferrer" class="tournament-name">OzHadou National 19</a>
+      <a href="https://www.start.gg/tournament/ozhadou-nationals-19/details" target="_blank" rel="noopener noreferrer">
+        <img src="/images/ozhadou-19.png" alt="OzHadou National 19 Tournament" loading="lazy" />
+      </a>
+      <div class="event-date">September 5-7, 2025</div>
+      <a class="more-info" href="https://www.start.gg/tournament/ozhadou-nationals-19/details" target="_blank" rel="noopener noreferrer">More Info</a>
+    </div>
+    
+  </aside>
+</div>
 
         <aside class="right-sidebar" aria-label="Upcoming Rated Events">
             <h2 class="sidebar-label">Upcoming Rated Events</h2>

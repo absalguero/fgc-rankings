@@ -29,7 +29,7 @@ body.no-scroll {
 }
 
 a {
-  color: #f39c12;
+  color: #FFEE58;
   text-decoration: none;
 }
 a:hover,
@@ -72,21 +72,20 @@ a:focus {
 }
 
 nav.sidebar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 240px;
-  height: 100vh;
-  padding-top: 60px;
-  background: #111;
-  box-shadow: 2px 0 5px rgba(0,0,0,.7);
-  transform: translateX(-100%);
-  transition: transform 0.3s ease-in-out;
-  z-index: 1200;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  color: #ddd;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 240px;
+  height: 100vh;
+  padding-top: 60px;
+  background: #111;
+  box-shadow: 2px 0 5px rgba(0,0,0,.7);
+  transform: translateX(-100%);
+  transition: transform 0.3s ease-in-out;
+  z-index: 1200;
+  display: flex;
+  flex-direction: column;
+  color: #ddd;
 }
 
 nav.sidebar.active {
@@ -96,11 +95,11 @@ nav.sidebar.active {
 nav.sidebar h2.sidebar-label {
   font-family: 'Permanent Marker', cursive;
   font-weight: normal;
-  font-size: 1.5rem;
+  font-size: 1.8rem;
   color: #FF5E13;
   text-decoration: none;
   text-shadow: 0 1px 2px rgba(0,0,0,.5);
-  margin-bottom: 1rem;
+  margin-bottom: 0rem;
   width: 100%;
   text-align: center;
 }
@@ -113,8 +112,9 @@ nav.sidebar ul.nav-menu {
 }
 
 nav.sidebar ul.nav-menu li {
-  margin-bottom: 1.2rem;
-  text-align: center;
+  margin-bottom: 0.4rem;
+  text-align: left;
+  padding-left: 4px;
   font-family: 'Permanent Marker', cursive;
 }
 
@@ -123,13 +123,16 @@ nav.sidebar ul.nav-menu li a {
   text-decoration: none;
   font-weight: 600;
   font-size: 1.5rem;
-  display: inline-block;
+  display: flex;
+  align-items: center;
   transition: color 0.3s ease;
 }
 
 nav.sidebar ul.nav-menu li a i {
-  margin-right: 8px;
-  vertical-align: middle;
+  margin-right: 20px;
+  width: 25px;
+  flex-shrink: 0;
+  text-align: center;
 }
 
 nav.sidebar ul.nav-menu li a:hover {
@@ -151,6 +154,15 @@ main.content {
   min-width: 0;
   color: #f0f0f0;
 }
+
+/* All of your existing styles before the footer */
+
+/* New CSS rule for the footer */
+.content-footer {
+    text-align: left;
+}
+
+/* All of your existing styles after the footer */
 
 /* Content container to align content left */
 .content-container {
@@ -364,12 +376,11 @@ aside.right-sidebar a.more-info {
   text-decoration: none;
 }
 
-/* --- Desktop-specific Layout (min-width: 769px) --- */
 @media (min-width: 769px) {
   .page-wrapper {
     flex-direction: row;
     height: 100vh;
-    overflow-y: hidden; /* This is the key change for desktop */
+    overflow-y: hidden;
   }
   
   .mobile-header, .nav-toggle {
@@ -379,13 +390,14 @@ aside.right-sidebar a.more-info {
   main.content {
     padding-top: 20px;
     max-height: 100vh;
+    overflow-y: auto;
   }
   
   nav.sidebar {
     position: relative;
     top: auto;
     left: auto;
-    width: 180px;
+    width: 200px;
     height: 100vh;
     transform: translateX(0);
     padding-top: 15px;
@@ -898,4 +910,251 @@ td {
 .load-more-btn:active {
     transform: translateY(3px);
     box-shadow: 0 1px #c24600;
+}
+
+/* FIX: Consistent spacing below the banner */
+.banner + * {
+  margin-top: 0;
+}
+
+.content-footer {
+  padding: 0 1rem; /* REMOVED bottom padding */
+  border-top: 1px solid #333;
+}
+
+.footer-columns {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 2rem 2.5rem;
+  padding-bottom: 0;
+  margin-bottom: 0;
+  border-bottom: none;
+}
+
+.footer-column {
+  flex-basis: 200px;
+  flex-grow: 1;
+  text-align: center;
+  padding: 1rem 0;
+}
+
+.footer-column h3 {
+  font-family: 'Permanent Marker', cursive;
+  color: #f0f0f0;
+  font-size: 1.5rem;
+  margin-top: 0;
+  margin-bottom: 1rem;
+  letter-spacing: 1px;
+}
+
+.footer-column ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-column li {
+  margin-bottom: 0rem;
+}
+
+.footer-column a {
+  color: #FFEE58;
+  text-decoration: none;
+}
+
+.footer-column a:hover {
+  text-decoration: underline;
+}
+
+.footer-social a {
+  font-size: 1.8rem;
+  color: #aaa;
+}
+
+.footer-social a:hover {
+  color: #000000;
+}
+
+.footer-legal {
+  text-align: center;
+  font-size: 0.85rem;
+  color: #aaa;
+  line-height: 1.6;
+  padding-top: 0rem;
+  border-top: 1px solid #333;
+}
+
+/* ADDED THIS RULE for paragraph spacing */
+.footer-legal p {
+  margin: 0 0 1rem 0;
+  color: #f0f0f0;
+}
+
+/* ADDED THIS RULE to remove space after the last line */
+.footer-legal p:last-child {
+  margin-bottom: 0;
+}
+
+.footer-legal a {
+  color: #FFEE58;
+}
+
+/* --- FINAL SIDEBAR SEARCH STYLES --- */
+
+/* These are the base styles for the search bar, shared between mobile and desktop */
+/* --- FINAL SIDEBAR SEARCH STYLES --- */
+
+/* These are the base styles for the search bar, shared between mobile and desktop */
+.search-form {
+    position: relative;
+    display: flex;
+}
+
+.sidebar-search .search-input, .mobile-search .search-input {
+    width: 100%;
+    padding: 0.75rem 40px 0.75rem 15px;
+    font-size: 1rem;
+    border-radius: 8px;
+    border: 1px solid #666;
+    background-color: #333;
+    color: #fff;
+    outline: none;
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+.sidebar-search .search-input::placeholder, .mobile-search .search-input::placeholder {
+    color: #d4d4d4;
+}
+
+.sidebar-search .search-input:focus, .mobile-search .search-input:focus {
+    background-color: #444;
+    border-color: #FF5E13;
+}
+
+.sidebar-search .search-button, .mobile-search .search-button {
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 100%;
+    width: 40px;
+    background: none;
+    border: none;
+    color: #aaa;
+    cursor: pointer;
+    padding: 0;
+    font-size: 1.1rem;
+    transition: color 0.2s;
+}
+
+.sidebar-search .search-button:hover, .mobile-search .search-button:hover {
+    color: #FF5E13;
+}
+
+/* Base visibility rules: desktop search is hidden on mobile, and vice-versa */
+.sidebar-search {
+    width: 100%;
+    padding: 1rem 15px;
+    box-sizing: border-box;
+    display: none;
+}
+
+.mobile-search {
+    display: none;
+}
+
+@media screen and (max-width: 768px) {
+    /* ... existing mobile rules ... */
+
+    .sidebar-search {
+        display: none; /* Hide the desktop search bar */
+    }
+    
+    .mobile-search {
+        display: block; /* Show the mobile search bar */
+    }
+}
+
+/* Base visibility rules: desktop search is hidden on mobile, and vice-versa */
+.sidebar-search {
+    width: 100%;
+    padding: 1rem 15px;
+    box-sizing: border-box;
+    display: none; /* Hidden on mobile by default */
+}
+
+.mobile-search {
+    display: none; /* Hidden on desktop by default */
+}
+
+/* --- MEDIA QUERIES --- */
+
+/* Your existing media queries should now only control the 'display' property */
+@media screen and (min-width: 769px) {
+    /* ... existing desktop rules ... */
+    
+    .sidebar-search {
+        display: block; /* Show the desktop search bar */
+    }
+
+    .mobile-search {
+        display: none; /* Hide the mobile search bar */
+    }
+}
+
+@media screen and (max-width: 768px) {
+    /* ... existing mobile rules ... */
+
+    .sidebar-search {
+        display: none; /* Hide the desktop search bar */
+    }
+    
+    .mobile-search {
+        display: block; /* Show the mobile search bar */
+    }
+}
+
+.search-form {
+  position: relative;
+  display: flex;
+}
+
+.sidebar-search .search-input {
+  width: 100%;
+  padding: 0.75rem 40px 0.75rem 15px;
+  font-size: 1rem;
+  border-radius: 8px; /* Matches reference */
+  border: 1px solid #666; /* Matches reference */
+  background-color: #333; /* Matches reference */
+  color: #fff;
+  outline: none;
+  transition: background-color 0.3s, border-color 0.3s;
+}
+
+.sidebar-search .search-input::placeholder {
+  color: #d4d4d4;
+}
+
+.sidebar-search .search-input:focus {
+  background-color: #444;
+  border-color: #FF5E13;
+}
+
+.sidebar-search .search-button {
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 100%;
+  width: 40px;
+  background: none;
+  border: none;
+  color: #aaa;
+  cursor: pointer;
+  padding: 0;
+  font-size: 1.1rem;
+  transition: color 0.2s;
+}
+
+.sidebar-search .search-button:hover {
+  color: #FF5E13;
 }

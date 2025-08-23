@@ -5,7 +5,6 @@ permalink: "index.html"
 
 {% block head %}
   <title>Street Fighter 6 Global Player Rankings</title>
-  <link rel="stylesheet" href="/css/styles.css">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     /* New rule for transparent header and white text */
@@ -53,6 +52,14 @@ permalink: "index.html"
     h1 {
       line-height: 0.9; /* Reduced line height for closer spacing */
     }
+
+    .content-container.full-width h1 {
+      margin-top: 1.8rem; /* Adjust this value to get the desired space */
+    }
+
+    .content-container.full-width h2 {
+  margin-bottom: 1rem;
+}
 
     /* Media query for responsive design on smaller screens */
     @media (max-width: 768px) {

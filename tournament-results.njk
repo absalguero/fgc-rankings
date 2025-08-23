@@ -3,7 +3,9 @@ permalink: "tournament-results/index.html"
 ---
 {% extends "layout.njk" %}
 
+{% block head %}
 <meta name="description" content="Official tournament results for Fighting Game Community (FGC) Street Fighter tournaments. Browse player finishes, view event dates, and filter by player name or event.">
+{% endblock %}
 
 {% block content %}
 <style>
@@ -11,7 +13,7 @@ permalink: "tournament-results/index.html"
 .content-container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0.3rem 1rem 2rem 1rem;
+    padding: 0rem 1rem 2rem 1rem;
     color: #f0f0f0;
     font-family: 'Inter', sans-serif;
 }
