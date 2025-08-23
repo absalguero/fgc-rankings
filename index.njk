@@ -4,10 +4,18 @@ permalink: "index.html"
 {% extends "layout.njk" %}
 
 {% block head %}
-  <title>Ranking System</title>
+  <title>Street Fighter 6 Global Player Rankings</title>
   <link rel="stylesheet" href="/css/styles.css">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
+    /* New rule for transparent header and white text */
+    #rankings-table thead th {
+      background-color: transparent;
+      color: #ffffff;
+      font-family: Arial, sans-serif;
+      font-size: 18px; /* Specifies the font size for the header text */
+    }
+    
     /* Add this rule to center all table headers */
     #rankings-table th {
       text-align: center;
@@ -111,7 +119,7 @@ permalink: "index.html"
 
 {% block content %}
 <div class="content-container full-width">
-  <h1>Street Fighter 6<br>Global Rankings</h1>
+  <h1>Street Fighter 6 Global Rankings</h1>
   <h2>Last Updated: August 17, 2025</h2>
 
   <div id="mobile-sort-container">
