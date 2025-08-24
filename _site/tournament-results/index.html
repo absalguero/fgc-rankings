@@ -29,7 +29,7 @@
 </head>
 <body>
     <header class="mobile-header">
-        <button class="nav-toggle" aria-label="toggle navigation" aria-expanded="false">&#9776;</button>
+        <button class="nav-toggle" aria-label="Toggle Navigation"></button>
         <div class="mobile-search">
             <form role="search" class="search-form">
                 <input type="search" id="mobile-search-input" class="search-input" placeholder="Search site..." aria-label="Search site">
@@ -500,6 +500,77 @@
     .sort-options .sort-option-btn.active.desc .sort-icon {
         transform: rotate(180deg);
     }
+}
+/* --- FINAL OVERRIDES FOR TOURNAMENT RESULTS TABLE --- */
+
+/* This rule is specific enough to re-center the Player header */
+#tournament-results-table th[data-column-name="Player"] > span {
+  justify-content: center;
+}
+
+/* --- Complete Sort Arrow Styles --- */
+
+/* This is the DEFAULT state for all arrows */
+#tournament-results-table thead th .sort-icon {
+  transform: rotate(0deg); /* Default direction is down */
+  transition: transform 0.2s ease-in-out;
+}
+#tournament-results-table thead th .sort-icon svg {
+  stroke: #ffffff; /* Default color is WHITE */
+  opacity: 0.3;    /* Default state is DIM */
+  transition: opacity 0.2s, stroke 0.2s;
+}
+
+/* This is the HOVER state */
+#tournament-results-table thead th:hover .sort-icon svg {
+  opacity: 0.6;
+}
+
+/* This is the SORTED state (for both directions) */
+#tournament-results-table thead th.sorted.asc .sort-icon svg,
+#tournament-results-table thead th.sorted.desc .sort-icon svg {
+  opacity: 1;         /* State is BRIGHT */
+  stroke: #ffffff;    /* State is ORANGE */
+}
+
+/* This rule handles the UP direction for ascending sort */
+#tournament-results-table thead th.sorted.asc .sort-icon {
+  transform: rotate(180deg);
+}
+
+/* This rule specifically targets the Player header span to center it, overriding all other styles. */
+#tournament-results-table th[data-column-name="Player"] > span {
+  justify-content: center !important;
+}
+
+#tournament-results-table th.sorted.asc .sort-icon svg,
+#tournament-results-table th.sorted.desc .sort-icon svg {
+  opacity: 1 !important;
+}
+
+/* --- FINAL FIX FOR SORT ARROW BRIGHTNESS --- */
+
+#tournament-results-table th.sorted.asc .sort-icon svg,
+#tournament-results-table th.sorted.desc .sort-icon svg {
+  opacity: 1 !important;
+}
+
+/* --- FINAL OVERRIDES FOR SORT ARROWS AND PLAYER HEADER --- */
+
+/* This rule makes the sort arrow bright when a column is sorted */
+#tournament-results-table th.sorted.asc .sort-icon,
+#tournament-results-table th.sorted.desc .sort-icon {
+  opacity: 1 !important;
+}
+
+/* This rule re-centers the Player header */
+#tournament-results-table th.player-cell > span {
+  justify-content: center !important;
+}
+
+/* This final rule centers the Player header */
+#tournament-results-table th.player-cell {
+  justify-content: center !important;
 }
 </style>
 
@@ -1047,6 +1118,6 @@ document.addEventListener('DOMContentLoaded', () => {
             JavaScript is disabled in your browser. The rankings table may not load correctly.
         </p>
     </noscript>
-    <script src="/js/main.js"></script>
+    <script src="/js/main.js" defer></script>
 </body>
 </html>

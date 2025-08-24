@@ -1,889 +1,236 @@
 /* Reset and base styles */
 *, *::before, *::after {
-  box-sizing: border-box;
+    box-sizing: border-box;
 }
-
 html, body {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  background: #000001;
-  color: #f0f0f0;
-  font-family: Arial, sans-serif;
-  background-image: url('/images/background.png');
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
-  box-sizing: border-box;
-  max-width: 100%;
-  overflow: hidden; /* This is the fix for the double scrollbar */
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    background: #000001;
+    color: #f0f0f0;
+    font-family: Arial, sans-serif;
+    background-image: url('/images/background.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    overflow-x: hidden;
 }
-
 body {
-  min-height: 100vh;
-  position: relative;
+    min-height: 100vh;
 }
-
 body.no-scroll {
-  overflow: hidden;
+    overflow: hidden;
 }
-
 a {
-  color: #FFEE58;
-  text-decoration: none;
+    color: #FFEE58;
+    text-decoration: none;
 }
-a:hover,
-a:focus {
-  text-decoration: underline;
+a:hover, a:focus {
+    text-decoration: underline;
 }
 
-/* Mobile-first Layout */
+/* Page Layout */
 .page-wrapper {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  overflow-y: auto; /* This handles all scrolling now */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+main.content {
+    flex: 1;
+    padding: 80px 15px 20px 15px;
+    min-width: 0;
+}
+.content-container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+.content-container.full-width {
+    max-width: none;
 }
 
-/* Mobile Header and Menu - These are now the default styles */
+/* --- Left Sidebar & Mobile Header --- */
 .mobile-header {
-  display: flex;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 60px;
-  background: #111;
-  align-items: center;
-  padding: 0 15px;
-  box-sizing: border-box;
-  z-index: 1100;
-  box-shadow: 0 2px 5px rgba(0,0,0,.5);
+    display: flex;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    background: #111;
+    padding: 0 15px;
+    z-index: 1100;
+    box-shadow: 0 2px 5px rgba(0,0,0,.5);
+    padding-left: 50px;
 }
-
-.nav-toggle {
-  display: block;
-  font-size: 2rem;
-  background: none;
-  border: none;
-  color: #f0f0f0;
-  cursor: pointer;
-  z-index: 1201;
-}
-
 nav.sidebar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 240px;
-  height: 100vh;
-  padding-top: 60px;
-  background: #111;
-  box-shadow: 2px 0 5px rgba(0,0,0,.7);
-  transform: translateX(-100%);
-  transition: transform 0.3s ease-in-out;
-  z-index: 1200;
-  display: flex;
-  flex-direction: column;
-  color: #ddd;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 240px;
+    height: 100vh;
+    padding-top: 60px;
+    background: #111;
+    box-shadow: 2px 0 5px rgba(0,0,0,.7);
+    transform: translateX(-100%);
+    transition: transform 0.3s ease-in-out;
+    z-index: 1200;
 }
-
 nav.sidebar.active {
-  transform: translateX(0);
+    transform: translateX(0);
 }
 
-nav.sidebar h2.sidebar-label {
-  font-family: 'Permanent Marker', cursive;
-  font-weight: normal;
-  font-size: 1.8rem;
-  color: #FF5E13;
-  text-decoration: none;
-  text-shadow: 0 1px 2px rgba(0,0,0,.5);
-  margin-bottom: 0rem;
-  width: 100%;
-  text-align: center;
+/* FINAL SVG HAMBURGER/X ICON */
+.nav-toggle {
+    /* FIX: Ensure button is visible on mobile */
+    display: block;
+    position: fixed;
+    top: 10px;
+    left: 15px;
+    z-index: 1201;
+    width: 2rem;
+    height: 2rem;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    color: #f0f0f0;
+}
+.nav-toggle svg {
+    width: 100%;
+    height: 100%;
+    stroke: #f0f0f0;
+}
+.nav-toggle .hamburger-icon { display: block; }
+.nav-toggle .close-icon { display: none; }
+.nav-toggle.is-active .hamburger-icon { display: none; }
+.nav-toggle.is-active .close-icon { display: block; }
+
+/* Sidebar Content Styles */
+nav.sidebar h2.sidebar-label,
+aside.right-sidebar h2.sidebar-label {
+    font-family: 'Permanent Marker', cursive;
+    color: #FF5E13;
+    text-shadow: 0 1px 2px rgba(0,0,0,.5);
+    text-align: center;
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    /* FIX: Align headers at the top */
+    margin-top: 0;
+}
+aside.right-sidebar h2.sidebar-label {
+    font-size: 1.3rem;
 }
 
 nav.sidebar ul.nav-menu {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  width: 100%;
+    list-style: none;
+    padding: 0;
+    margin: 0;
 }
-
 nav.sidebar ul.nav-menu li {
-  margin-bottom: 0.4rem;
-  text-align: left;
-  padding-left: 4px;
-  font-family: 'Permanent Marker', cursive;
+    font-family: 'Permanent Marker', cursive;
+    margin-bottom: 0.8rem;
 }
-
 nav.sidebar ul.nav-menu li a {
-  color: #ddd;
-  text-decoration: none;
-  font-weight: 600;
-  font-size: 1.5rem;
-  display: flex;
-  align-items: center;
-  transition: color 0.3s ease;
-}
-
-nav.sidebar ul.nav-menu li a i {
-  margin-right: 20px;
-  width: 25px;
-  flex-shrink: 0;
-  text-align: center;
-}
-
-nav.sidebar ul.nav-menu li a:hover {
-  color: #bbb;
-}
-
-/* CORRECT Active Link Style */
-nav.sidebar ul.nav-menu li a.active {
-    color: #FF5E13;
-    font-weight: 700;
-}
-
-/* Main content */
-main.content {
-  flex: 1;
-  padding: 80px 30px 20px 30px; /* Adjusted padding for fixed mobile header */
-  box-sizing: border-box;
-  text-align: left;
-  min-width: 0;
-  color: #f0f0f0;
-}
-
-/* All of your existing styles before the footer */
-
-/* New CSS rule for the footer */
-.content-footer {
-    text-align: left;
-}
-
-/* All of your existing styles after the footer */
-
-/* Content container to align content left */
-.content-container {
-  max-width: 800px;
-  margin: 0 auto;
-  text-align: left;
-}
-
-/* Override for Ranking System page to allow full width */
-.content-container.full-width {
-  max-width: none;
-  margin: 0;
-  width: 100%;
-  padding: 0 15px;
-}
-
-/* Banner image */
-.banner {
-  display: block;
-  width: auto;
-  height: auto;
-  max-width: 300px;
-  max-height: 262px;
-  object-fit: contain;
-  margin: 0 auto 1rem auto;
-}
-
-/* Headings styling - consistent globally */
-h1 {
-  margin: 1rem 0 0.5rem 0;
-  color: #FF5E13;
-  font-family: 'Permanent Marker', cursive;
-  font-size: 3rem;
-  text-shadow: none;
-  text-align: center;
-}
-
-h2 {
-  margin: 0 0 2rem 0;
-  font-weight: normal;
-  color: #ccc;
-  text-align: center;
-}
-
-/* Table wrapper */
-.table-wrapper {
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-  margin: 0 auto 2rem auto;
-  width: 100%;
-  text-align: left;
-}
-
-table {
-  border-collapse: collapse;
-  width: auto;
-  table-layout: auto;
-  min-width: 600px;
-  white-space: nowrap;
-  margin: 0 auto;
-  color: #f0f0f0;
-}
-
-thead {
-  background: #1f1f1f;
-  position: sticky;
-  top: 0;
-  z-index: 10;
-  box-shadow: inset 0 -3px 8px -3px rgba(255,255,255,.3);
-}
-
-th, td {
-  padding: 0.75rem 1rem;
-  border: 1px solid #333;
-  text-align: center;
-  word-break: normal;
-  white-space: nowrap;
-}
-
-th {
-  color: #ddd;
-  font-weight: 700;
-  text-shadow: 0 1px 1px rgba(0,0,0,.7);
-  border-bottom: 3px solid #444;
-}
-
-tbody tr:nth-child(even) {
-  background: #1a1a1a;
-}
-
-tbody tr:hover {
-  background: #333;
-}
-
-/* Google Sheets embed styling */
-iframe.google-sheet {
-  width: 100% !important;
-  max-width: 100%;
-  height: 600px;
-  border: 1px solid #f39c12;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(243, 156, 18, 0.7);
-  margin: 1rem 0;
-  display: block;
-}
-
-/* Responsive iframe for sheets */
-@media (max-width: 700px) {
-  iframe.google-sheet {
-    height: 400px;
-  }
-}
-
-/* Right sidebar */
-aside.right-sidebar {
-  background: #111;
-  width: 100%;
-  padding: 15px;
-  box-sizing: border-box;
-  box-shadow: none;
-  position: relative;
-  height: auto;
-  display: block;
-  margin-top: 1rem;
-  overflow: visible;
-  color: #bbb;
-}
-
-aside.right-sidebar h2.sidebar-label {
-  font-family: 'Permanent Marker', cursive;
-  font-weight: normal;
-  font-size: 1.3rem;
-  color: #FF5E13;
-  text-decoration: none;
-  text-shadow: 0 1px 2px rgba(0,0,0,.5);
-  margin-bottom: 1rem;
-  width: 100%;
-  text-align: center;
-}
-
-aside.right-sidebar .event {
-  width: 100%;
-  margin-bottom: 0.8rem;
-  text-align: center;
-  flex-shrink: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background: #111;
-  padding: 10px;
-  border-radius: 8px;
-  box-sizing: border-box;
-}
-
-aside.right-sidebar .event img {
-  max-width: 100%;
-  height: auto;
-  border-radius: 6px;
-  margin-bottom: 0.5rem;
-  object-fit: contain;
-  max-height: 120px;
-  display: block;
-}
-
-aside.right-sidebar .event a.tournament-name {
-  color: #ddd;
-  font-weight: bold;
-  text-decoration: none;
-  display: block;
-  margin-bottom: 0.3rem;
-  text-align: center;
-  font-size: 1.1rem;
-}
-
-aside.right-sidebar .event a.tournament-name:hover {
-  text-decoration: underline;
-  color: #eee;
-}
-
-aside.right-sidebar .event-date {
-  font-size: 0.9rem;
-  color: #999;
-  user-select: none;
-  margin-bottom: 0.3rem;
-}
-
-aside.right-sidebar a.more-info {
-  color: #999;
-  font-size: 0.85rem;
-}
-
-/* Skip link */
-.skip-link {
-  position: absolute;
-  left: -9999px;
-  top: auto;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-}
-.skip-link:focus {
-  position: static;
-  width: auto;
-  height: auto;
-  left: auto;
-  top: auto;
-  background: #f39c12;
-  color: #000;
-  padding: 0.5rem 1rem;
-  z-index: 1000;
-  text-decoration: none;
-}
-
-@media (min-width: 769px) {
-  .page-wrapper {
-    flex-direction: row;
-    height: 100vh;
-    overflow-y: hidden;
-  }
-  
-  .mobile-header, .nav-toggle {
-    display: none;
-  }
-
-  main.content {
-    padding-top: 20px;
-    max-height: 100vh;
-    overflow-y: auto;
-  }
-  
-  nav.sidebar {
-    position: relative;
-    top: auto;
-    left: auto;
-    width: 200px;
-    height: 100vh;
-    transform: translateX(0);
-    padding-top: 15px;
-    overflow-y: auto;
-    flex-shrink: 0;
-  }
-  
-  aside.right-sidebar {
-    position: relative;
-    height: 100vh;
-    overflow-y: auto;
-    width: 200px;
-    box-shadow: -2px 0 5px rgba(0,0,0,.7);
-    margin-top: 0;
-    flex-shrink: 0;
-  }
-
-  /* Right sidebar desktop styles */
-  aside.right-sidebar h2.sidebar-label {
-    font-size: 1.5rem;
-    display: block;
-  }
-}
-
-/* Styles for the search and pagination controls */
-.controls-container {
+    color: #ddd;
     display: flex;
-    justify-content: center;
     align-items: center;
-    margin-bottom: 20px;
+    font-size: 1.5rem;
 }
-#search-input {
-    padding: 10px 15px;
-    border: 2px solid #333;
-    border-radius: 25px;
-    font-size: 1em;
+nav.sidebar ul.nav-menu li a.active { color: #FF5E13; font-weight: 700; }
+nav.sidebar ul.nav-menu li a i {
+    margin-right: 20px;
+    width: 25px;
+    text-align: center;
+}
+
+aside.right-sidebar {
+    background: #111;
+    padding: 20px 15px;
+    margin-top: 1rem;
+}
+aside.right-sidebar .event {
+    margin-bottom: 0.8rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+aside.right-sidebar .event img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 6px;
+    margin-bottom: 0.5rem;
+    object-fit: contain;
+    max-height: 120px;
+}
+aside.right-sidebar .event a.tournament-name {
+    color: #ddd;
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+aside.right-sidebar .event-date {
+    font-size: 0.9rem;
+    color: #999;
+}
+
+/* Search Bar Styles */
+.search-form {
+    position: relative;
+    display: flex;
+}
+.sidebar-search .search-input, .mobile-search .search-input {
     width: 100%;
-    max-width: 400px;
-    background-color: #1a1a1a;
-    color: #FFFFFF;
-    box-shadow: inset 0 1px 3px rgba(0,0,0,0.3);
-    transition: border-color 0.3s, box-shadow 0.3s;
-    text-align: center;
-}
-#search-input::placeholder {
-    color: #DDDDDD;
-    text-align: center;
-}
-#search-input:focus {
-    border-color: #FF5E13;
-    box-shadow: 0 0 5px rgba(255, 94, 19, 0.7);
+    padding: 0.75rem 40px 0.75rem 15px;
+    font-size: 1rem;
+    border-radius: 8px;
+    border: 1px solid #666;
+    background-color: #333;
+    color: #fff;
     outline: none;
 }
-.pagination-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 20px;
-    gap: 10px;
+.sidebar-search .search-input:focus, .mobile-search .search-input:focus {
+    border-color: #FF5E13;
 }
-.pagination-btn {
-    padding: 8px 15px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: #f4f4f4;
+.sidebar-search .search-button, .mobile-search .search-button {
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 100%;
+    width: 40px;
+    background: none;
+    border: none;
+    color: #aaa;
     cursor: pointer;
-    transition: background-color 0.2s;
 }
-.pagination-btn:hover:not(:disabled) {
-    background-color: #e2e2e2;
-}
-.pagination-btn:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-}
-#page-info {
-    font-size: 1em;
-    color: #555;
-}
+.sidebar-search { display: none; padding: 1rem 15px; margin-top: 1rem; }
+.mobile-search { display: none; }
 
-/* Tournament Results Table Styles */
-#tournament-results-table th {
-  cursor: pointer;
-  position: relative;
-  font-size: 1.1rem;
-  padding: 12px 15px;
-  text-align: center;
-}
-#tournament-results-table th:hover {
-  background-color: rgba(0, 0, 0, 0.1);
-}
-#tournament-results-table {
-  min-width: 600px;
-  width: 100%;
-  border-collapse: collapse;
-}
+/* General Content Styles */
+.banner { display: block; max-width: 300px; margin: 0 auto 1rem auto; }
+h1 { font-family: 'Permanent Marker', cursive; font-size: 3rem; color: #FF5E13; text-align: center; margin-top: 1rem; }
+h2 { font-weight: normal; color: #ccc; text-align: center; margin-bottom: 2rem; }
 
-#tournament-results-table td {
-  font-size: 1rem;
-  padding: 12px 15px;
-  text-align: center;
-  border-bottom: 1px solid #ddd;
-  white-space: normal;
-  word-break: break-word;
-}
-#tournament-results-table thead th {
-    background-color: #1a1a1a;
-    color: white;
-}
+/* Table Styles */
+.table-wrapper { overflow-x: auto; margin: 1rem auto 2rem auto; }
+table { border-collapse: collapse; min-width: 600px; margin: 0 auto; color: #f0f0f0; }
+thead { background: #1f1f1f; position: sticky; top: 0; z-index: 10; }
+th, td { padding: 0.75rem 1rem; border: 1px solid #333; text-align: center; white-space: nowrap; }
+th { cursor: pointer; }
+tbody tr:nth-child(even) { background: #1a1a1a; }
+tbody tr:hover { background: #333; }
+#rankings-table tr.rank-1 td { background-color: #ffd70030; color: gold; }
+#rankings-table tr.rank-2 td { background-color: #c0c0c030; color: silver; }
+.player-cell, .character-cell, .flag-cell, .change-cell { display: flex; align-items: center; justify-content: flex-start; gap: 10px; }
+.player-icon, .character-icon, .flag-icon { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; }
 
-/* Alternating row colors for Tournament Results table */
-#tournament-results-table tbody tr {
-    background-color: #2c2c2c;
-    color: #f0f0f0;
-}
+/* Universal Sort Arrow Styles */
+.sort-icon { margin-left: 5px; opacity: 0.3; transition: transform 0.2s ease, opacity 0.2s ease; }
+th:hover .sort-icon { opacity: 0.6; }
+[data-column-index].sorted-asc .sort-icon { transform: rotate(180deg); opacity: 1; }
+[data-column-index].sorted-desc .sort-icon { transform: rotate(0deg); opacity: 1; }
 
-#tournament-results-table tbody tr:nth-child(even) {
-    background-color: #383838;
-}
-
-/* Style for the header row */
-#tournament-results-table thead tr {
-    background-color: #1a1a1a;
-    color: white;
-}
-
-/* Style for 1st place in the Tournament Results table */
-.first-place {
-    background-color: #ffd70030 !important;
-    color: gold;
-    text-shadow: 0 0 4px gold;
-}
-
-/* Mobile-specific Card Layout for Tournament Results table */
-@media screen and (max-width: 768px) {
-  .table-wrapper {
-    overflow-x: hidden;
-  }
-  #tournament-results-table {
-    border: 0;
-    width: 100%;
-    min-width: unset;
-    border-collapse: separate;
-    border-spacing: 0 1rem;
-  }
-  #tournament-results-table thead {
-    display: none;
-  }
-  #tournament-results-table tr {
-    display: block;
-    border: 1px solid #dee2e6;
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  }
-  #tournament-results-table td {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    text-align: right;
-    font-size: 1.2em;
-    border-bottom: 1px solid #dee2e6;
-    padding: 0.75rem 1rem;
-  }
-  #tournament-results-table td::before {
-    content: attr(data-label);
-    font-weight: bold;
-    text-align: left;
-  }
-  #tournament-results-table td:last-child {
-    border-bottom: 0;
-  }
-}
-
-/* Added from index.njk */
-/* Global styles for robust responsiveness */
-html, body {
-  box-sizing: border-box;
-  max-width: 100%;
-  overflow-x: hidden;
-}
-*, *:before, *:after {
-  box-sizing: inherit;
-}
-
-h1, h2 {
-  text-align: center;
-}
-
-th {
-  cursor: pointer;
-  position: relative;
-  font-size: 1.1rem;
-}
-th span {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-th:hover {
-  background-color: rgba(0, 0, 0, 0.1);
-}
-.sort-icon {
-  margin-left: 5px;
-  opacity: 0.3;
-  transform: rotate(0deg);
-  transition: transform 0.2s ease-in-out, opacity 0.2s ease-in-out;
-}
-th:hover .sort-icon {
-  opacity: 0.6;
-}
-th.sorted-asc .sort-icon {
-  transform: rotate(180deg);
-  opacity: 1;
-}
-th.sorted-desc .sort-icon {
-  transform: rotate(0deg);
-  opacity: 1;
-}
-tr {
-  &.rank-1 td {
-    background-color: #ffd70030;
-    color: gold;
-  }
-  &.rank-2 td {
-    background-color: #c0c0c030;
-    color: silver;
-  }
-  &.rank-3 td {
-    background-color: #cd7f3230;
-    color: #cd7f32;
-  }
-  &.rank-4 td {
-    background-color: #4b371c30;
-    color: #8c7359;
-  }
-  &.rank-5 td {
-    background-color: #36454F30;
-    color: #b0c4de;
-  }
-}
-
-/* Restored Character Image Styles */
-.player-cell,
-.character-cell,
-.flag-cell,
-.change-cell {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  gap: 10px;
-}
-.player-cell span,
-.character-cell span,
-.flag-cell span {
-    white-space: nowrap;
-}
-
-.player-icon,
-.character-icon,
-.flag-icon {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  object-fit: cover;
-  box-shadow: 0 0 6px 1px rgba(255, 255, 255, 0.6);
-}
-
-td {
-  font-size: 1rem;
-}
- 
-.points-value {
-    /* font-weight: bold; */
-}
-
-/* NEW: Stronger subtle glow effect for points and matching box-shadow for images in top 5 ranks */
-.rank-1 td {
-    text-shadow: 0 0 4px gold;
-}
-.rank-1 .player-icon,
-.rank-1 .character-icon,
-.rank-1 .flag-icon {
-    box-shadow: 0 0 6px 1px gold;
-}
-
-.rank-2 td {
-    text-shadow: 0 0 4px silver;
-}
-.rank-2 .player-icon,
-.rank-2 .character-icon,
-.rank-2 .flag-icon {
-    box-shadow: 0 0 6px 1px silver;
-}
-
-.rank-3 td {
-    text-shadow: 0 0 4px #cd7f32;
-}
-.rank-3 .player-icon,
-.rank-3 .character-icon,
-.rank-3 .flag-icon {
-    box-shadow: 0 0 6px 1px #cd7f32;
-}
-
-.rank-4 td {
-    text-shadow: 0 0 4px #8c7359;
-}
-.rank-4 .player-icon,
-.rank-4 .character-icon,
-.rank-4 .flag-icon {
-    box-shadow: 0 0 6px 1px #8c7359;
-}
-
-.rank-5 td {
-    text-shadow: 0 0 4px #b0c4de;
-}
-.rank-5 .player-icon,
-.rank-5 .character-icon,
-.rank-5 .flag-icon {
-    box-shadow: 0 0 6px 1px #b0c4de;
-}
-
-@media screen and (min-width: 769px) {
-  table {
-    min-width: 600px;
-  }
-  /* Hide the mobile sort UI on desktop */
-  #mobile-sort-container {
-    display: none;
-  }
-
-  /* Fixes for Desktop Alignment */
-  th:nth-child(2) span {
-    text-align: center;
-  }
-  /* More specific rule to center the Change column content */
-  tbody tr > td:nth-child(2) {
-    text-align: center;
-  }
-  /* Fix for flexbox overriding text-align on desktop */
-  .change-cell {
-      justify-content: center;
-  }
-  
-  th:nth-child(3),
-  th:nth-child(4) {
-      text-align: left;
-  }
-  
-  /* THIS IS THE FIX for the 'Main Character' header not centering */
-  th:nth-child(4) span {
-      text-align: center;
-  }
-  .player-cell,
-  .character-cell {
-      justify-content: flex-start;
-  }
-  
-  th:nth-child(5) {
-    width: 150px;
-    max-width: 150px;
-    /* Center the header text and flag icon */
-    text-align: center;
-  }
-  td:nth-child(5) {
-    width: 150px;
-    max-width: 150px;
-    overflow-wrap: break-word;
-    white-space: normal;
-    /* Center the cell content */
-    text-align: center;
-  }
-  
-  .flag-cell {
-    justify-content: center; /* This is the key change to center the content */
-  }
-}
-
-/* Mobile Styles (Card Layout) */
-@media screen and (max-width: 768px) {
-  .content-container, .table-wrapper {
-    width: 100%;
-    max-width: 100%;
-    overflow-x: hidden;
-  }
-  table {
-    border: 0;
-    width: 100%;
-    min-width: unset;
-    border-collapse: separate;
-    border-spacing: 0 1rem;
-  }
-  /* HIDE the main desktop header row on mobile */
-  table thead {
-    display: none;
-  }
-  /* New style for the mobile sort buttons */
-  #mobile-sort-container {
-    display: flex;
-    justify-content: space-between;
-    gap: 5px;
-    padding: 0 10px;
-    margin-bottom: 20px;
-    flex-wrap: wrap;
-  }
-  .mobile-sort-btn {
-    flex: 1 1 auto;
-    padding: 8px 5px;
-    font-size: 0.75rem;
-    text-align: center;
-    background-color: #444;
-    color: #fff;
-    border: 1px solid #555;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.2s;
-  }
-  .mobile-sort-btn:hover {
-    background-color: #555;
-  }
-  .mobile-sort-btn .sort-icon {
-    width: 12px;
-    height: 12px;
-    margin-left: 2px;
-    opacity: 0.6;
-  }
-  .mobile-sort-btn.sorted-asc .sort-icon {
-    transform: rotate(180deg);
-    opacity: 1;
-  }
-  .mobile-sort-btn.sorted-desc .sort-icon {
-    transform: rotate(0deg);
-    opacity: 1;
-  }
-
-  table tr {
-    display: block;
-    border: 1px solid #dee2e6;
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  }
-  table td {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    text-align: right;
-    font-size: 1.2em;
-    border-bottom: 1px solid #dee2e6;
-    padding: 0.75rem 1rem;
-  }
-  table td::before {
-    content: attr(data-label);
-    font-weight: bold;
-    text-align: left;
-  }
-  table td:last-child {
-    border-bottom: 0;
-  }
-
-  .mobile-value {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    text-align: right;
-    gap: 10px;
-  }
-  .player-cell,
-  .character-cell,
-  .flag-cell,
-  .change-cell {
-      justify-content: flex-end;
-  }
-
-  /* FIX for the country name not wrapping properly */
-  .flag-cell span {
-    white-space: normal !important;
-  }
-
-  .table-wrapper {
-    overflow-x: hidden;
-  }
-  .load-more-btn {
-    width: 100%;
-  }
-}
-
-/* NEW: Styling for the Load More button to match the site's theme */
+/* Load More Button */
 .load-more-container {
     text-align: center;
     margin: 20px 0;
@@ -896,278 +243,105 @@ td {
     font-size: 16px;
     cursor: pointer;
     border-radius: 5px;
-    transition: background-color 0.3s, transform 0.2s;
     font-family: 'Permanent Marker', cursive;
     text-transform: uppercase;
     box-shadow: 0 4px #c24600;
-    letter-spacing: 1px;
-}
-.load-more-btn:hover {
-    background-color: #e6520d;
-    transform: translateY(1px);
-    box-shadow: 0 3px #c24600;
-}
-.load-more-btn:active {
-    transform: translateY(3px);
-    box-shadow: 0 1px #c24600;
 }
 
-/* FIX: Consistent spacing below the banner */
-.banner + * {
-  margin-top: 0;
+/* Footer Styles */
+.content-footer { border-top: 1px solid #333; padding-top: 1rem; }
+.footer-columns { display: flex; justify-content: center; flex-wrap: wrap; gap: 2rem; }
+.footer-column { text-align: center; }
+.footer-column h3 { font-family: 'Permanent Marker', cursive; color: #f0f0f0; font-size: 1.5rem; margin-bottom: 1rem; }
+.footer-column ul { list-style: none; padding: 0; margin: 0; }
+.footer-legal { text-align: center; font-size: 0.85rem; color: #aaa; border-top: 1px solid #333; padding: 1rem 0; }
+
+/* --- DESKTOP LAYOUT --- */
+@media (min-width: 769px) {
+    .page-wrapper { flex-direction: row; height: 100vh; }
+    .mobile-header, #mobile-sort-container, .mobile-search, .nav-toggle { display: none; }
+    main.content { flex: 1; padding-top: 20px; overflow-y: auto; }
+    nav.sidebar, aside.right-sidebar {
+        position: relative;
+        height: 100vh;
+        overflow-y: auto;
+        width: 200px;
+        flex-shrink: 0;
+        margin-top: 0;
+        /* FIX: Align headers at the top */
+        padding-top: 5px;
+    }
+    nav.sidebar {
+        transform: translateX(0);
+    }
+    aside.right-sidebar {
+        box-shadow: -2px 0 5px rgba(0,0,0,.7);
+    }
+    .sidebar-search { display: block; }
 }
 
-.content-footer {
-  padding: 0 1rem; /* REMOVED bottom padding */
-  border-top: 1px solid #333;
-}
-
-.footer-columns {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 2rem 2.5rem;
-  padding-bottom: 0;
-  margin-bottom: 0;
-  border-bottom: none;
-}
-
-.footer-column {
-  flex-basis: 200px;
-  flex-grow: 1;
-  text-align: center;
-  padding: 1rem 0;
-}
-
-.footer-column h3 {
-  font-family: 'Permanent Marker', cursive;
-  color: #f0f0f0;
-  font-size: 1.5rem;
-  margin-top: 0;
-  margin-bottom: 1rem;
-  letter-spacing: 1px;
-}
-
-.footer-column ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.footer-column li {
-  margin-bottom: 0rem;
-}
-
-.footer-column a {
-  color: #FFEE58;
-  text-decoration: none;
-}
-
-.footer-column a:hover {
-  text-decoration: underline;
-}
-
-.footer-social a {
-  font-size: 1.8rem;
-  color: #aaa;
-}
-
-.footer-social a:hover {
-  color: #000000;
-}
-
-.footer-legal {
-  text-align: center;
-  font-size: 0.85rem;
-  color: #aaa;
-  line-height: 1.6;
-  padding-top: 0rem;
-  border-top: 1px solid #333;
-}
-
-/* ADDED THIS RULE for paragraph spacing */
-.footer-legal p {
-  margin: 0 0 1rem 0;
-  color: #f0f0f0;
-}
-
-/* ADDED THIS RULE to remove space after the last line */
-.footer-legal p:last-child {
-  margin-bottom: 0;
-}
-
-.footer-legal a {
-  color: #FFEE58;
-}
-
-/* --- FINAL SIDEBAR SEARCH STYLES --- */
-
-/* These are the base styles for the search bar, shared between mobile and desktop */
-/* --- FINAL SIDEBAR SEARCH STYLES --- */
-
-/* These are the base styles for the search bar, shared between mobile and desktop */
-.search-form {
-    position: relative;
-    display: flex;
-}
-
-.sidebar-search .search-input, .mobile-search .search-input {
-    width: 100%;
-    padding: 0.75rem 40px 0.75rem 15px;
-    font-size: 1rem;
-    border-radius: 8px;
-    border: 1px solid #666;
-    background-color: #333;
-    color: #fff;
-    outline: none;
-    transition: background-color 0.3s, border-color 0.3s;
-}
-
-.sidebar-search .search-input::placeholder, .mobile-search .search-input::placeholder {
-    color: #d4d4d4;
-}
-
-.sidebar-search .search-input:focus, .mobile-search .search-input:focus {
-    background-color: #444;
-    border-color: #FF5E13;
-}
-
-.sidebar-search .search-button, .mobile-search .search-button {
-    position: absolute;
-    right: 0;
-    top: 0;
-    height: 100%;
-    width: 40px;
-    background: none;
-    border: none;
-    color: #aaa;
-    cursor: pointer;
-    padding: 0;
-    font-size: 1.1rem;
-    transition: color 0.2s;
-}
-
-.sidebar-search .search-button:hover, .mobile-search .search-button:hover {
-    color: #FF5E13;
-}
-
-/* Base visibility rules: desktop search is hidden on mobile, and vice-versa */
-.sidebar-search {
-    width: 100%;
-    padding: 1rem 15px;
-    box-sizing: border-box;
-    display: none;
-}
-
-.mobile-search {
-    display: none;
-}
-
+/* --- MOBILE LAYOUT --- */
 @media screen and (max-width: 768px) {
-    /* ... existing mobile rules ... */
+    .mobile-search { display: block; }
 
-    .sidebar-search {
-        display: none; /* Hide the desktop search bar */
-    }
-    
-    .mobile-search {
-        display: block; /* Show the mobile search bar */
-    }
-}
+    aside.right-sidebar {
+        width: 95%;
+        margin: 1rem auto;
+        border-radius: 8px;
+    }
 
-/* Base visibility rules: desktop search is hidden on mobile, and vice-versa */
-.sidebar-search {
-    width: 100%;
-    padding: 1rem 15px;
-    box-sizing: border-box;
-    display: none; /* Hidden on mobile by default */
-}
+    /* Mobile Sidebar UX */
+    nav.sidebar ul.nav-menu li { font-family: Arial, Helvetica, sans-serif; padding-left: 15px; }
+    nav.sidebar ul.nav-menu li a { font-size: 1.4rem; font-weight: normal; font-family: Arial, Helvetica, sans-serif; }
 
-.mobile-search {
-    display: none; /* Hidden on desktop by default */
-}
-
-/* --- MEDIA QUERIES --- */
-
-/* Your existing media queries should now only control the 'display' property */
-@media screen and (min-width: 769px) {
-    /* ... existing desktop rules ... */
+    /* Mobile Table Card View */
+    #rankings-table thead, #tournament-results-table thead { display: none; }
+    #rankings-table, #tournament-results-table { border: 0; width: 100%; min-width: unset; border-collapse: separate; border-spacing: 0 1rem; }
+    #rankings-table tr, #tournament-results-table tr { display: block; border: 1px solid #333; border-radius: 5px; box-shadow: 0 2px 4px rgba(0,0,0,0.3); position: relative; cursor: pointer; }
+    #rankings-table td, #tournament-results-table td { display: flex; justify-content: space-between; align-items: center; text-align: right; border-bottom: 1px solid #333; }
+    #rankings-table td::before, #tournament-results-table td::before { content: attr(data-label); font-weight: bold; text-align: left; margin-right: 1rem; }
+    #rankings-table td:last-child, #tournament-results-table td:last-child { border-bottom: 0; }
     
-    .sidebar-search {
-        display: block; /* Show the desktop search bar */
+    @media screen and (max-width: 768px) {
+    /* Logic to hide/show cells */
+    #rankings-table td, #tournament-results-table td { display: none; }
+    #rankings-table td[data-label="Rank"], #rankings-table td[data-label="Player"], #rankings-table td[data-label="Rating"] { display: flex; }
+    #tournament-results-table td[data-label="Event"], #tournament-results-table td[data-label="Player"], #tournament-results-table td[data-label="Finish"] { display: flex; }
+    #rankings-table tr.is-expanded td, #tournament-results-table tr.is-expanded td { display: flex; }
+
+    /* Indicator Positioning */
+    #rankings-table tr,
+    #tournament-results-table tr {
+        position: relative; /* Makes the row a positioning container for the icon */
+        cursor: pointer;
     }
 
-    .mobile-search {
-        display: none; /* Hide the mobile search bar */
+    /* Add padding on the right of the target cells to create a safe space for the icon */
+    #rankings-table td[data-label="Rating"],
+    #tournament-results-table td[data-label="Finish"] {
+        padding-right: 2.5rem; 
+    }
+
+    /* Create and position the '+' icon relative to the entire row */
+    #rankings-table tr::after,
+    #tournament-results-table tr::after {
+        content: '+';
+        position: absolute;
+        right: 1rem;
+        top: 0.5rem; /* Position from the top of the card */
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #aaa;
+    }
+
+    /* When the card is expanded, change the icon to a '-' */
+    #rankings-table tr.is-expanded::after,
+    #tournament-results-table tr.is-expanded::after {
+        content: '−';
     }
 }
 
-@media screen and (max-width: 768px) {
-    /* ... existing mobile rules ... */
-
-    .sidebar-search {
-        display: none; /* Hide the desktop search bar */
-    }
-    
-    .mobile-search {
-        display: block; /* Show the mobile search bar */
-    }
-}
-
-.search-form {
-  position: relative;
-  display: flex;
-}
-
-.sidebar-search .search-input {
-  width: 100%;
-  padding: 0.75rem 40px 0.75rem 15px;
-  font-size: 1rem;
-  border-radius: 8px; /* Matches reference */
-  border: 1px solid #666; /* Matches reference */
-  background-color: #333; /* Matches reference */
-  color: #fff;
-  outline: none;
-  transition: background-color 0.3s, border-color 0.3s;
-}
-
-.sidebar-search .search-input::placeholder {
-  color: #d4d4d4;
-}
-
-.sidebar-search .search-input:focus {
-  background-color: #444;
-  border-color: #FF5E13;
-}
-
-.sidebar-search .search-button {
-  position: absolute;
-  right: 0;
-  top: 0;
-  height: 100%;
-  width: 40px;
-  background: none;
-  border: none;
-  color: #aaa;
-  cursor: pointer;
-  padding: 0;
-  font-size: 1.1rem;
-  transition: color 0.2s;
-}
-
-.sidebar-search .search-button:hover {
-  color: #FF5E13;
-}
-
-/* --- Final Override for Tournament Results Table --- */
-
-/* This fixes the brightness of the arrow */
-#tournament-results-table th.sorted.asc .sort-icon svg,
-#tournament-results-table th.sorted.desc .sort-icon svg {
-  opacity: 1;
-}
-
-/* This re-centers the Player header now that the HTML is fixed */
-#tournament-results-table th[data-column-name="Player"] > span {
-  justify-content: center;
+    /* Mobile sort buttons */
+    #mobile-sort-container { display: flex; justify-content: space-around; gap: 5px; margin-bottom: 20px; }
+    .mobile-sort-btn { flex: 1 1 auto; padding: 8px 5px; font-size: 0.75rem; text-align: center; background-color: #444; color: #fff; border: 1px solid #555; border-radius: 5px; }
 }
