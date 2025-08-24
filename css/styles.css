@@ -1158,3 +1158,16 @@ td {
 .sidebar-search .search-button:hover {
   color: #FF5E13;
 }
+
+/* --- Final Override for Tournament Results Table --- */
+
+/* This fixes the brightness of the arrow */
+#tournament-results-table th.sorted.asc .sort-icon svg,
+#tournament-results-table th.sorted.desc .sort-icon svg {
+  opacity: 1;
+}
+
+/* This re-centers the Player header now that the HTML is fixed */
+#tournament-results-table th[data-column-name="Player"] > span {
+  justify-content: center;
+}
