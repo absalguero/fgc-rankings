@@ -1,11 +1,4 @@
 [
-    {
-    "name": "Esports World Cup 2025",
-    "url": "https://esportsworldcup.com/en/competitions/street-fighter6",
-    "img": "/images/ewc.png",
-    "alt": "Esports World Cup 2025 Tournament",
-    "date": "August 20-23, 2025"
-  },
   {
     "name": "Beast in the East 8",
     "url": "https://www.start.gg/tournament/beast-in-the-east-8/details",
@@ -33,6 +26,12 @@
     "img": "/images/ozhadou-19.png",
     "alt": "OzHadou National 19 Tournament",
     "date": "September 5-7, 2025"
+  },
+  {
+    "name": "Ultimate Fighting Arena 2025",
+    "url": "https://www.start.gg/tournament/ultimate-fighting-arena-2025-3/details",
+    "img": "/images/ufa.png",
+    "alt": "Ultimate Fighting Arena 2025 Tournament",
+    "date": "September 12-14, 2025"
   }
-  
 ]
