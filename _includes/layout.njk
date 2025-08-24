@@ -26,7 +26,6 @@
     {% block head %}{% endblock %}
 </head>
 <body>
-    <a href="#maincontent" class="skip-link">Skip to main content</a>
     <header class="mobile-header">
         <button class="nav-toggle" aria-label="toggle navigation" aria-expanded="false">&#9776;</button>
         <div class="mobile-search">
@@ -40,46 +39,63 @@
     </header>
 
     <div class="page-wrapper">
-  <div class="left-panel">
-    <nav class="sidebar" aria-label="Main menu" role="navigation">
-    <h2 class="sidebar-label">Navigation</h2>
-    <div class="sidebar-search">
-        <form role="search" class="search-form">
-            <input type="search" id="sidebar-search-input" class="search-input" placeholder="Search site..." aria-label="Search site">
-            <button type="submit" class="search-button" aria-label="Search">
-                <i class="fas fa-search"></i>
-            </button>
-        </form>
+        <nav class="sidebar" aria-label="Main menu" role="navigation">
+            <h2 class="sidebar-label">Navigation</h2>
+            <div class="sidebar-search">
+                <form role="search" class="search-form">
+                    <input type="search" id="sidebar-search-input" class="search-input" placeholder="Search site..." aria-label="Search site">
+                    <button type="submit" class="search-button" aria-label="Search">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </form>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="/" class="{% if request.path === '/' %}active{% endif %}"><i class="fas fa-trophy"></i>SF6 Rankings</a></li>
+                <li><a href="/tournament-results/" class="{% if request.path === '/tournament-results/' %}active{% endif %}"><i class="fas fa-sitemap"></i>Tournament Results</a></li>
+                <li><a href="/ranking-system/" class="{% if request.path === '/ranking-system/' %}active{% endif %}"><i class="fas fa-scale-balanced"></i>Ranking System</a></li>
+            </ul>
+        </nav>
+
+        <main class="content">
+            <div class="content-container" role="main" id="maincontent" tabindex="-1">
+                <img class="banner" src="/images/banner.png" alt="FGC Player Rankings official logo" loading="lazy"/>
+                {% block content %}{% endblock %}
+            </div>
+            
+            <footer class="content-footer">
+                <div class="footer-columns">
+    <div class="footer-column">
+        <h3>Navigation</h3>
+        <ul>
+            <li><a href="/" class="{% if request.path === '/' %}active{% endif %}">SF6 Rankings</a></li>
+            <li><a href="/tournament-results/" class="{% if request.path === '/tournament-results/' %}active{% endif %}">Tournament Results</a></li>
+            <li><a href="/ranking-system/" class="{% if request.path === '/ranking-system/' %}active{% endif %}">Ranking System</a></li>
+        </ul>
     </div>
-    <ul class="nav-menu">
-        <li><a href="/" class="{% if request.path === '/' %}active{% endif %}"><i class="fas fa-trophy"></i>SF6 Rankings</a></li>
-        <li><a href="/tournament-results/" class="{% if request.path === '/tournament-results/' %}active{% endif %}"><i class="fas fa-sitemap"></i>Tournament Results</a></li>
-        <li><a href="/ranking-system/" class="{% if request.path === '/ranking-system/' %}active{% endif %}"><i class="fas fa-scale-balanced"></i>Ranking System</a></li>
-    </ul>
-</nav>
-  </div>
-  <main class="content">
-    <div class="content-container" role="main" id="maincontent" tabindex="-1">
-      <img class="banner" src="/images/banner.png" alt="FGC Player Rankings official logo" loading="lazy"/>
-      {% block content %}{% endblock %}
+    <div class="footer-column">
+        <h3>Community</h3>
+        <ul>
+            <li><a href="#">Support FGC Player Rankings</a></li>
+        </ul>
     </div>
-  </main>
-  <aside class="right-sidebar" aria-label="Upcoming Rated Events">
-    <h2 class="sidebar-label">Upcoming Rated Events</h2>
-    {% for event in events %}
-    <div class="event">
-      <a href="{{ event.url }}" target="_blank" rel="noopener noreferrer" class="tournament-name">{{ event.name }}</a>
-      <a href="{{ event.url }}" target="_blank" rel="noopener noreferrer">
-        <img src="{{ event.img }}" alt="{{ event.alt }}" loading="lazy" />
-      </a>
-      <div class="event-date">{{ event.date }}</div>
-      <a class="more-info" href="{{ event.url }}" target="_blank" rel="noopener noreferrer">More Info</a>
+    <div class="footer-column">
+        <h3>Connect</h3>
+        <ul class="footer-social">
+            <li><a href="https://x.com" target="_blank" rel="noopener noreferrer"><i class="fab fa-x-twitter"></i></a></li>
+        </ul>
     </div>
-    {% else %}
-    <p>No upcoming events at this time.</p>
-    {% endfor %}
-  </aside>
 </div>
+<div class="footer-legal">
+    <p>&copy; 2025 FGC Player Rankings. All rights reserved.</p>
+    <p>This is a fan-made project. "Street Fighter," "Street Fighter 6," and all related trademarks and intellectual property are the property of Capcom Co., Ltd. and are used for informational purposes only. This site is not affiliated with or endorsed by Capcom. Player photos are used under fair use for editorial purposes; please contact us via email at <a href="mailto:fgcprankings@gmail.com">fgcprankings@gmail.com</a> for removal requests.</p>
+    <p class="legal-links">
+        <a href="#">Contact</a> |
+        <a href="#">Terms of Use</a> |
+        <a href="#">Privacy Policy</a>
+    </p>
+</div>
+            </footer>
+        </main>
 
         <aside class="right-sidebar" aria-label="Upcoming Rated Events">
             <h2 class="sidebar-label">Upcoming Rated Events</h2>
