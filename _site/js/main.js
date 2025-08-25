@@ -1,28 +1,35 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // --- START: FINAL HAMBURGER MENU SCRIPT ---
-    const navToggle = document.querySelector('.nav-toggle');
-    const sidebar = document.querySelector('nav.sidebar');
-    const mainContent = document.querySelector('main.content');
+   // --- START: FINAL HAMBURGER MENU SCRIPT ---
+const navToggle = document.querySelector('.nav-toggle');
+const sidebar = document.querySelector('nav.sidebar');
+const mainContent = document.querySelector('main.content');
 
-    if (navToggle && sidebar && mainContent) {
-        const closeSidebar = () => {
-            navToggle.classList.remove('is-active');
-            sidebar.classList.remove('active');
-            document.body.classList.remove('no-scroll');
-        };
-        navToggle.addEventListener('click', (event) => {
-            event.stopPropagation();
-            navToggle.classList.toggle('is-active');
-            sidebar.classList.toggle('active');
-            document.body.classList.toggle('no-scroll');
-        });
-        mainContent.addEventListener('click', () => {
-            if (sidebar.classList.contains('active')) {
-                closeSidebar();
-            }
-        });
-    }
-    // --- END: FINAL HAMBURGER MENU SCRIPT ---
+// CHECKPOINT 1: See if the script is finding the elements when the page loads.
+console.log('Nav Toggle Element:', navToggle);
+console.log('Sidebar Element:', sidebar);
+
+if (navToggle && sidebar && mainContent) {
+    const closeSidebar = () => {
+        navToggle.classList.remove('is-active');
+        sidebar.classList.remove('active');
+        document.body.classList.remove('no-scroll');
+    };
+    navToggle.addEventListener('click', (event) => {
+        // CHECKPOINT 2: See if the click is being registered.
+        console.log('Nav toggle button was clicked!');
+
+        event.stopPropagation();
+        navToggle.classList.toggle('is-active');
+        sidebar.classList.toggle('active');
+        document.body.classList.toggle('no-scroll');
+    });
+    mainContent.addEventListener('click', () => {
+        if (sidebar.classList.contains('active')) {
+            closeSidebar();
+        }
+    });
+}
+// --- END: FINAL HAMBURGER MENU SCRIPT ---
 
     // --- START: EXPANDABLE CARDS SCRIPT ---
     const rankingsTable = document.getElementById('rankings-table');

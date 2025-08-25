@@ -26,17 +26,24 @@
     {% block head %}{% endblock %}
 </head>
 <body>
-    <header class="mobile-header">
-        <button class="nav-toggle" aria-label="Toggle Navigation"></button>
-        <div class="mobile-search">
-            <form role="search" class="search-form">
-                <input type="search" id="mobile-search-input" class="search-input" placeholder="Search site..." aria-label="Search site">
-                <button type="submit" class="search-button" aria-label="Search">
-                    <i class="fas fa-search"></i>
-                </button>
-            </form>
-        </div>
-    </header>
+   <header class="mobile-header">
+    <button class="nav-toggle" aria-label="Toggle Navigation">
+        <svg class="hamburger-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24">
+            <path d="M3 12h18M3 6h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        <svg class="close-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24">
+            <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+    </button>
+    <div class="mobile-search">
+        <form role="search" class="search-form">
+            <input type="search" id="mobile-search-input" class="search-input" placeholder="Search site..." aria-label="Search site">
+            <button type="submit" class="search-button" aria-label="Search">
+                <i class="fas fa-search"></i>
+            </button>
+        </form>
+    </div>
+</header>
 
     <div class="page-wrapper">
         <nav class="sidebar" aria-label="Main menu" role="navigation">

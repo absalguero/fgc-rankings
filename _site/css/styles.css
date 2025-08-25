@@ -48,7 +48,8 @@ main.content {
     max-width: none;
 }
 
-/* --- Left Sidebar & Mobile Header --- */
+/* --- MOBILE NAVIGATION & SIDEBAR (Corrected) --- */
+
 .mobile-header {
     display: flex;
     align-items: center;
@@ -59,10 +60,10 @@ main.content {
     height: 60px;
     background: #111;
     padding: 0 15px;
-    z-index: 1100;
+    z-index: 1300;
     box-shadow: 0 2px 5px rgba(0,0,0,.5);
-    padding-left: 50px;
 }
+
 nav.sidebar {
     position: fixed;
     top: 0;
@@ -76,35 +77,80 @@ nav.sidebar {
     transition: transform 0.3s ease-in-out;
     z-index: 1200;
 }
+
 nav.sidebar.active {
     transform: translateX(0);
 }
 
-/* FINAL SVG HAMBURGER/X ICON */
+/* --- SVG Icon Button (Corrected) --- */
+
 .nav-toggle {
-    /* FIX: Ensure button is visible on mobile */
     display: block;
-    position: fixed;
-    top: 10px;
-    left: 15px;
-    z-index: 1201;
-    width: 2rem;
-    height: 2rem;
+    flex-shrink: 0;
+    position: relative;
+    width: 35px;
+    height: 35px;
     background: transparent;
     border: none;
     cursor: pointer;
     padding: 0;
     color: #f0f0f0;
 }
+
 .nav-toggle svg {
     width: 100%;
     height: 100%;
-    stroke: #f0f0f0;
+    position: absolute;
+    top: 0;
+    left: 0;
 }
+
 .nav-toggle .hamburger-icon { display: block; }
 .nav-toggle .close-icon { display: none; }
 .nav-toggle.is-active .hamburger-icon { display: none; }
 .nav-toggle.is-active .close-icon { display: block; }
+
+/* --- Search Bar Styles (Corrected) --- */
+
+.mobile-search {
+    display: none;
+    flex-grow: 1;
+    margin-left: 15px;
+}
+
+.search-form {
+    position: relative;
+    display: flex;
+}
+.sidebar-search .search-input, .mobile-search .search-input {
+    width: 100%;
+    padding: 0.75rem 40px 0.75rem 15px;
+    font-size: 1rem;
+    border-radius: 8px;
+    border: 1px solid #666;
+    background-color: #333;
+    color: #fff;
+    outline: none;
+}
+.sidebar-search .search-input:focus, .mobile-search .search-input:focus {
+    border-color: #FF5E13;
+}
+.sidebar-search .search-button, .mobile-search .search-button {
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 100%;
+    width: 40px;
+    background: none;
+    border: none;
+    color: #aaa;
+    cursor: pointer;
+}
+.sidebar-search { 
+    display: none; 
+    padding: 1rem 15px; 
+    margin-top: 0rem; 
+}
 
 /* Sidebar Content Styles */
 nav.sidebar h2.sidebar-label,
@@ -115,7 +161,6 @@ aside.right-sidebar h2.sidebar-label {
     text-align: center;
     font-size: 1.8rem;
     margin-bottom: 1rem;
-    /* FIX: Align headers at the top */
     margin-top: 0;
 }
 aside.right-sidebar h2.sidebar-label {
@@ -175,37 +220,6 @@ aside.right-sidebar .event-date {
     color: #999;
 }
 
-/* Search Bar Styles */
-.search-form {
-    position: relative;
-    display: flex;
-}
-.sidebar-search .search-input, .mobile-search .search-input {
-    width: 100%;
-    padding: 0.75rem 40px 0.75rem 15px;
-    font-size: 1rem;
-    border-radius: 8px;
-    border: 1px solid #666;
-    background-color: #333;
-    color: #fff;
-    outline: none;
-}
-.sidebar-search .search-input:focus, .mobile-search .search-input:focus {
-    border-color: #FF5E13;
-}
-.sidebar-search .search-button, .mobile-search .search-button {
-    position: absolute;
-    right: 0;
-    top: 0;
-    height: 100%;
-    width: 40px;
-    background: none;
-    border: none;
-    color: #aaa;
-    cursor: pointer;
-}
-.sidebar-search { display: none; padding: 1rem 15px; margin-top: 0rem; }
-.mobile-search { display: none; }
 
 /* General Content Styles */
 .banner { display: block; max-width: 300px; margin: 0 auto 1rem auto; }
@@ -222,7 +236,6 @@ tbody tr:nth-child(even) { background: #1a1a1a; }
 tbody tr:hover { background: #333; }
 #rankings-table tr.rank-1 td { background-color: #ffd70030; color: gold; }
 #rankings-table tr.rank-2 td { background-color: #c0c0c030; color: silver; }
-/* Added rules for ranks 3-5 and 6-40 */
 #rankings-table tr.rank-3 td { background-color: #cd7f3230; color: #cd7f32; text-shadow: 0 0 4px #cd7f32; }
 #rankings-table tr.rank-4 td { background-color: #4b371c30; color: #8c7359; text-shadow: 0 0 4px #8c7359; }
 #rankings-table tr.rank-5 td { background-color: #36454F30; color: #b0c4de; text-shadow: 0 0 4px #b0c4de; }
@@ -232,7 +245,6 @@ tbody tr:hover { background: #333; }
     justify-content: flex-start; 
     gap: 10px; 
 }
-/* This new rule ensures the change-cell has a flexbox layout and centers its content */
 .change-cell {
     justify-content: center;
 }
@@ -282,7 +294,6 @@ th:hover .sort-icon { opacity: 0.6; }
         width: 200px;
         flex-shrink: 0;
         margin-top: 0;
-        /* FIX: Align headers at the top */
         padding-top: 5px;
     }
     nav.sidebar {
@@ -296,12 +307,27 @@ th:hover .sort-icon { opacity: 0.6; }
 
 /* --- MOBILE LAYOUT --- */
 @media screen and (max-width: 768px) {
-    .mobile-search { display: block; }
+    .mobile-search { 
+        display: block;
+    }
 
     aside.right-sidebar {
         width: 95%;
         margin: 1rem auto;
         border-radius: 8px;
+        /* 1. Turns the sidebar into a grid */
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+    }
+
+    aside.right-sidebar h2.sidebar-label {
+        /* 2. Tells the heading to span the full width */
+        grid-column: 1 / -1;
+    }
+
+    aside.right-sidebar h2.sidebar-label {
+        grid-column: 1 / -1; /* This makes the heading span both columns */
     }
 
     /* Mobile Sidebar UX */
@@ -317,43 +343,38 @@ th:hover .sort-icon { opacity: 0.6; }
     #rankings-table td:last-child, #tournament-results-table td:last-child { border-bottom: 0; }
     
     @media screen and (max-width: 768px) {
-    /* Logic to hide/show cells */
-    #rankings-table td, #tournament-results-table td { display: none; }
-    #rankings-table td[data-label="Rank"], #rankings-table td[data-label="Player"], #rankings-table td[data-label="Rating"] { display: flex; }
-    #tournament-results-table td[data-label="Event"], #tournament-results-table td[data-label="Player"], #tournament-results-table td[data-label="Finish"] { display: flex; }
-    #rankings-table tr.is-expanded td, #tournament-results-table tr.is-expanded td { display: flex; }
+        #rankings-table td, #tournament-results-table td { display: none; }
+        #rankings-table td[data-label="Rank"], #rankings-table td[data-label="Player"], #rankings-table td[data-label="Rating"] { display: flex; }
+        #tournament-results-table td[data-label="Event"], #tournament-results-table td[data-label="Player"], #tournament-results-table td[data-label="Finish"] { display: flex; }
+        #rankings-table tr.is-expanded td, #tournament-results-table tr.is-expanded td { display: flex; }
 
-    /* Indicator Positioning */
-    #rankings-table tr,
-    #tournament-results-table tr {
-        position: relative; /* Makes the row a positioning container for the icon */
-        cursor: pointer;
-    }
+        #rankings-table tr,
+        #tournament-results-table tr {
+            position: relative;
+            cursor: pointer;
+        }
 
-    /* Add padding on the right of the target cells to create a safe space for the icon */
-    #rankings-table td[data-label="Rating"],
-    #tournament-results-table td[data-label="Finish"] {
-        padding-right: 2.5rem; 
-    }
+        #rankings-table td[data-label="Rating"],
+        #tournament-results-table td[data-label="Finish"] {
+            padding-right: 2.5rem; 
+        }
 
-    /* Create and position the '+' icon relative to the entire row */
-    #rankings-table tr::after,
-    #tournament-results-table tr::after {
-        content: '+';
-        position: absolute;
-        right: 1rem;
-        top: 0.5rem; /* Position from the top of the card */
-        font-size: 1.5rem;
-        font-weight: bold;
-        color: #aaa;
-    }
+        #rankings-table tr::after,
+        #tournament-results-table tr::after {
+            content: '+';
+            position: absolute;
+            right: 1rem;
+            top: 0.5rem;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #aaa;
+        }
 
-    /* When the card is expanded, change the icon to a '-' */
-    #rankings-table tr.is-expanded::after,
-    #tournament-results-table tr.is-expanded::after {
-        content: '−';
+        #rankings-table tr.is-expanded::after,
+        #tournament-results-table tr.is-expanded::after {
+            content: '−';
+        }
     }
-}
 
     /* Mobile sort buttons */
     #mobile-sort-container { display: flex; justify-content: space-around; gap: 5px; margin-bottom: 20px; }
@@ -361,7 +382,7 @@ th:hover .sort-icon { opacity: 0.6; }
 }
 
 nav.sidebar h2.sidebar-label {
-    margin-bottom: 0rem; /* Adjust this value to your preference */
+    margin-bottom: 0rem;
 }
 
 .footer-social a i.fa-x-twitter {
