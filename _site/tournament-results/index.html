@@ -52,10 +52,10 @@
                 </form>
             </div>
             <ul class="nav-menu">
-                <li><a href="/" class=""><i class="fas fa-trophy"></i>SF6 Rankings</a></li>
-                <li><a href="/tournament-results/" class=""><i class="fas fa-sitemap"></i>Tournament Results</a></li>
-                <li><a href="/ranking-system/" class=""><i class="fas fa-scale-balanced"></i>Ranking System</a></li>
-            </ul>
+  <li><a href="/" class=""><i class="fas fa-trophy"></i>SF6 Rankings</a></li>
+  <li><a href="/tournament-results/" class=""><i class="fas fa-sitemap"></i>Tournament Results</a></li>
+  <li><a href="/ranking-system/" class=""><i class="fas fa-scale-balanced"></i>Ranking System</a></li>
+</ul>
         </nav>
 
         <main class="content">
@@ -97,7 +97,6 @@
     color: #fff;
     outline: none;
     text-align: center;
-    transition: background-color 0.3s, border-color 0.3s;
 }
 
 .content-container #search-input:focus {
@@ -130,7 +129,6 @@
     font-weight: bold;
     cursor: pointer;
     border-bottom: 2px solid #444;
-    transition: background-color 0.2s;
     position: relative;
     white-space: nowrap;
     font-size: 18px; /* Applied font size as requested */
@@ -159,7 +157,6 @@
 
 .content-container #tournament-results-table tbody tr {
     background-color: #111;
-    transition: background-color 0.2s;
 }
 
 .content-container #tournament-results-table tbody tr:nth-child(even) {
@@ -221,27 +218,47 @@
     border-radius: 50%;
     object-fit: cover;
     border: 2px solid transparent;
-    transition: box-shadow 0.3s ease-in-out;
 }
 
-.content-container #tournament-results-table tr:hover .player-photo {
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+/* Styles for the colored table rows and glow */
+#tournament-results-table tbody tr.rank-1 td {
+  background-color: #ffd70030;
+  color: #FFD700 !important;
+  text-shadow: 0 0 2px #FFD700;
+}
+#tournament-results-table tbody tr.rank-2 td {
+  background-color: #c0c0c030;
+  color: #C0C0C0 !important;
+  text-shadow: 0 0 2px #C0C0C0;
+}
+#tournament-results-table tbody tr.rank-3 td {
+  background-color: #cd7f3230;
+  color: #cd7f32 !important;
+  text-shadow: 0 0 2px #cd7f32;
+}
+#tournament-results-table tbody tr.rank-4 td {
+  background-color: #4b371c30;
+  color: #8c7359 !important;
+  text-shadow: 0 0 2px #8c7359;
+}
+#tournament-results-table tbody tr.rank-5 td {
+  background-color: #36454F30;
+  color: #b0c4de !important;
+  text-shadow: 0 0 2px #b0c4de;
+}
+#tournament-results-table tbody tr.ranked-6-40 td {
+  background-color: rgba(0, 61, 41, 0.3);
+  color: #66CC66 !important;
+  text-shadow: 0 0 2px #66CC66;
 }
 
-.rank-1 td { background-color: #ffd70030; color: gold; text-shadow: 0 0 4px gold; }
-.rank-2 td { background-color: #c0c0c030; color: silver; text-shadow: 0 0 4px silver; }
-.rank-3 td { background-color: #cd7f3230; color: #cd7f32; text-shadow: 0 0 4px #cd7f32; }
-.rank-4 td { background-color: #4b371c30; color: #8c7359; text-shadow: 0 0 4px #8c7359; }
-.rank-5 td { background-color: #36454F30; color: #b0c4de; text-shadow: 0 0 4px #b0c4de; }
-.ranked-6-40 td { background-color: rgba(0, 61, 41, 0.6); color: #d5e8d8; text-shadow: 0 0 4px #b8d9bf; }
-
-.rank-1 .player-photo { box-shadow: 0 0 6px 1px gold; }
-.rank-2 .player-photo { box-shadow: 0 0 6px 1px silver; }
-.rank-3 .player-photo { box-shadow: 0 0 6px 1px #cd7f32; }
-.rank-4 .player-photo { box-shadow: 0 0 6px 1px #8c7359; }
-.rank-5 .player-photo { box-shadow: 0 0 6px 1px #b0c4de; }
-.ranked-6-40 .player-photo { box-shadow: 0 0 6px 1px #b8d9bf; }
-.ranked-6-40 tr:hover .player-photo { box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); }
+/* Styles for the colored glow around all images */
+#tournament-results-table .rank-1 .player-photo { box-shadow: 0 0 6px 1px #FFD700; }
+#tournament-results-table .rank-2 .player-photo { box-shadow: 0 0 6px 1px #C0C0C0; }
+#tournament-results-table .rank-3 .player-photo { box-shadow: 0 0 6px 1px #cd7f32; }
+#tournament-results-table .rank-4 .player-photo { box-shadow: 0 0 6px 1px #8c7359; }
+#tournament-results-table .rank-5 .player-photo { box-shadow: 0 0 6px 1px #b0c4de; }
+#tournament-results-table .ranked-6-40 .player-photo { box-shadow: 0 0 6px 1px #b8d9bf; }
 
 .pagination-info-container {
     display: flex;
@@ -571,6 +588,14 @@
 /* This final rule centers the Player header */
 #tournament-results-table th.player-cell {
   justify-content: center !important;
+}
+
+.content-container #tournament-results-table tbody tr:hover {
+    transition: none !important;
+}
+
+#tournament-results-table .player-photo {
+    transition: none !important;
 }
 </style>
 

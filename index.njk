@@ -8,119 +8,153 @@ permalink: "index.html"
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     /* New rule for transparent header and white text */
-    #rankings-table thead th {
-      background-color: transparent;
-      color: #ffffff;
-      font-family: Arial, sans-serif;
-      font-size: 18px; /* Specifies the font size for the header text */
-    }
-    
-    /* Add this rule to center all table headers */
-    #rankings-table th {
-      text-align: center;
-    }
-    
-    /* Sort arrow styling for desktop headers */
-    #rankings-table thead th .sort-icon {
-      margin-left: 5px;
-      transition: transform 0.2s ease-in-out;
-    }
-
-    #rankings-table thead th.sorted-asc .sort-icon {
-      transform: rotate(0deg);
-    }
-
-    #rankings-table thead th.sorted-desc .sort-icon {
-      transform: rotate(180deg);
-    }
-    
-    /* Sort arrow styling for mobile buttons */
-    #mobile-sort-container .mobile-sort-btn .sort-icon {
-      margin-left: 5px;
-      transition: transform 0.2s ease-in-out;
-    }
-    
-    #mobile-sort-container .mobile-sort-btn.sorted-asc .sort-icon {
-      transform: rotate(0deg);
-    }
-
-    #mobile-sort-container .mobile-sort-btn.sorted-desc .sort-icon {
-      transform: rotate(180deg);
-    }
-    
-    /* Ensure h1 wraps with specific line break and reduced spacing */
-    h1 {
-      line-height: 0.9; /* Reduced line height for closer spacing */
-    }
-
-    .content-container.full-width h1 {
-      margin-top: 1.8rem; /* Adjust this value to get the desired space */
-    }
-
-    .content-container.full-width h2 {
-  margin-bottom: 1rem;
+#rankings-table thead th {
+    background-color: transparent;
+    color: #ffffff;
+    font-family: Arial, sans-serif;
+    font-size: 18px;
+}
+    
+/* Add this rule to center all table headers */
+#rankings-table th {
+    text-align: center;
+}
+    
+/* New rule for centering the content of the "Change" column */
+.change-cell {
+    text-align: center;
 }
 
-    /* Media query for responsive design on smaller screens */
-    @media (max-width: 768px) {
-      /* Ensure the main content container respects the viewport width */
-      .content-container {
-        box-sizing: border-box;
-        width: 100%;
-        padding: 0 10px; /* Add some padding to prevent content from touching the edges */
-      }
-      
-      /* Make the mobile sort buttons scrollable if they overflow */
-      #mobile-sort-container {
-        display: flex;
-        flex-wrap: nowrap;
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch; /* For smoother scrolling on iOS */
-      }
-      
-      #mobile-sort-container::-webkit-scrollbar {
-        display: none; /* Hide scrollbar for a cleaner look */
-      }
+/* Sort arrow styling for desktop headers */
+#rankings-table thead th .sort-icon {
+    margin-left: 5px;
+    transition: transform 0.2s ease-in-out;
+}
 
-      /* Hide the desktop header */
-      #rankings-table thead th[data-column-index="3"],
-      /* Hide the mobile sorting button */
-      #mobile-sort-container .mobile-sort-btn[data-column-index="3"],
-      /* Hide the table cells in the column */
-      #rankings-table tbody td:nth-child(4) {
-        display: none;
-      }
-      
-      /* Make the table responsive within its container if it overflows */
-      .table-wrapper {
-        overflow-x: auto;
-      }
-    }
-    
-    /* Desktop-specific rules for optimal column width and layout */
-    @media (min-width: 769px) {
-      .content-container.full-width {
-        max-width: 1000px;
-        margin: 0 auto;
-      }
+#rankings-table thead th.sorted-asc .sort-icon {
+    transform: rotate(0deg);
+}
 
-      #rankings-table {
-        width: 100%;
-        table-layout: auto;
-      }
+#rankings-table thead th.sorted-desc .sort-icon {
+    transform: rotate(180deg);
+}
+    
+/* Sort arrow styling for mobile buttons */
+#mobile-sort-container .mobile-sort-btn .sort-icon {
+    margin-left: 5px;
+    transition: transform 0.2s ease-in-out;
+}
+    
+#mobile-sort-container .mobile-sort-btn.sorted-asc .sort-icon {
+    transform: rotate(0deg);
+}
 
-      /* Add padding to all table cells */
-      #rankings-table th, #rankings-table td {
-        padding: 8px 12px;
-      }
+#mobile-sort-container .mobile-sort-btn.sorted-desc .sort-icon {
+    transform: rotate(180deg);
+}
+    
+/* Ensure h1 wraps with specific line break and reduced spacing */
+h1 {
+    line-height: 0.9;
+}
 
-      /* Set min-widths for headers and cells to prevent content spillage */
-      #rankings-table th[data-column-index="0"], #rankings-table td:nth-child(1) { min-width: 50px; } /* Rank */
-      #rankings-table th[data-column-index="1"], #rankings-table td:nth-child(2) { min-width: 70px; } /* Change */
-      #rankings-table th[data-column-index="3"], #rankings-table td:nth-child(4) { min-width: 100px; } /* Main Character */
-      #rankings-table th[data-column-index="4"], #rankings-table td:nth-child(5) { min-width: 80px; } /* Country */
-      #rankings-table th[data-column-index="5"], #rankings-table td:nth-child(6) { min-width: 70px; } /* Rating */
-    }
+.content-container.full-width h1 {
+    margin-top: 1.8rem;
+}
+
+.content-container.full-width h2 {
+    margin-bottom: 1rem;
+}
+
+/* Media query for responsive design on smaller screens */
+@media (max-width: 768px) {
+    /* Ensure the main content container respects the viewport width */
+    .content-container {
+        box-sizing: border-box;
+        width: 100%;
+        padding: 0 10px;
+    }
+      
+    /* Make the mobile sort buttons scrollable if they overflow */
+    #mobile-sort-container {
+        display: flex;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+      
+    #mobile-sort-container::-webkit-scrollbar {
+        display: none;
+    }
+
+    /* Hide the desktop header */
+    #rankings-table thead th[data-column-index="3"],
+    /* Hide the mobile sorting button */
+    #mobile-sort-container .mobile-sort-btn[data-column-index="3"],
+    /* Hide the table cells in the column */
+    #rankings-table tbody td:nth-child(4) {
+        display: none;
+    }
+      
+    /* Make the table responsive within its container if it overflows */
+    .table-wrapper {
+        overflow-x: auto;
+    }
+}
+    
+/* Desktop-specific rules for optimal column width and layout */
+@media (min-width: 769px) {
+    .content-container.full-width {
+        max-width: 1000px;
+        margin: 0 auto;
+    }
+
+    #rankings-table {
+        width: 100%;
+        table-layout: auto;
+    }
+
+    /* Add padding to all table cells */
+    #rankings-table th, #rankings-table td {
+        padding: 8px 12px;
+    }
+
+    /* Set min-widths for headers and cells to prevent content spillage */
+    #rankings-table th[data-column-index="0"], #rankings-table td:nth-child(1) { min-width: 50px; }
+    #rankings-table th[data-column-index="1"], #rankings-table td:nth-child(2) { min-width: 70px; }
+    #rankings-table th[data-column-index="3"], #rankings-table td:nth-child(4) { min-width: 100px; }
+    #rankings-table th[data-column-index="4"], #rankings-table td:nth-child(5) { min-width: 80px; }
+    #rankings-table th[data-column-index="5"], #rankings-table td:nth-child(6) { min-width: 70px; }
+}
+
+/* --- Final working styles (high specificity) --- */
+
+/* Corrected opacity for colored rows (1-5 only) */
+#rankings-table tbody tr.rank-1 td { background-color: #ffd70030; color: #FFD700; text-shadow: 0 0 4px #FFD700; }
+#rankings-table tbody tr.rank-2 td { background-color: #c0c0c030; color: #C0C0C0; text-shadow: 0 0 4px #C0C0C0; }
+#rankings-table tbody tr.rank-3 td { background-color: #cd7f3230; color: #cd7f32; text-shadow: 0 0 4px #cd7f32; }
+#rankings-table tbody tr.rank-4 td { background-color: #4b371c30; color: #8c7359; text-shadow: 0 0 4px #8c7359; }
+#rankings-table tbody tr.rank-5 td { background-color: #36454F30; color: #b0c4de; text-shadow: 0 0 4px #b0c4de; }
+
+/* Styles for the colored glow around all images */
+#rankings-table .rank-1 .player-icon,
+#rankings-table .rank-1 .character-icon,
+#rankings-table .rank-1 .flag-icon { box-shadow: 0 0 6px 1px #FFD700; }
+#rankings-table .rank-2 .player-icon,
+#rankings-table .rank-2 .character-icon,
+#rankings-table .rank-2 .flag-icon { box-shadow: 0 0 6px 1px #C0C0C0; }
+#rankings-table .rank-3 .player-icon,
+#rankings-table .rank-3 .character-icon,
+#rankings-table .rank-3 .flag-icon { box-shadow: 0 0 6px 1px #cd7f32; }
+#rankings-table .rank-4 .player-icon,
+#rankings-table .rank-4 .character-icon,
+#rankings-table .rank-4 .flag-icon { box-shadow: 0 0 6px 1px #8c7359; }
+#rankings-table .rank-5 .player-icon,
+#rankings-table .rank-5 .character-icon,
+#rankings-table .rank-5 .flag-icon { box-shadow: 0 0 6px 1px #b0c4de; }
+#rankings-table .ranked-6-40 .player-icon,
+#rankings-table .ranked-6-40 .character-icon,
+#rankings-table .ranked-6-40 .flag-icon { box-shadow: 0 0 6px 1px #b8d9bf; }
   </style>
 {% endblock %}
 
@@ -217,7 +251,8 @@ permalink: "index.html"
         </tr>
       </thead>
       <tbody>
-        </tbody>
+        <!-- The table body will be populated dynamically by main.js -->
+      </tbody>
     </table>
   </div>
   <div class="load-more-container">

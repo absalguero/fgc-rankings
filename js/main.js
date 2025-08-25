@@ -93,9 +93,15 @@ document.addEventListener('DOMContentLoaded', () => {
             const rank = parseInt(player['Rank'], 10);
             if (!isNaN(rank)) {
                 const row = document.createElement('tr');
-                if (rank <= 5) {
-                    row.classList.add(`rank-${rank}`);
-                }
+                // Updated logic to add classes for all ranks 1 through 5 and 6-40
+                if (rank === 1) row.classList.add('rank-1');
+                else if (rank === 2) row.classList.add('rank-2');
+                else if (rank === 3) row.classList.add('rank-3');
+                else if (rank === 4) row.classList.add('rank-4');
+                else if (rank === 5) row.classList.add('rank-5');
+                else if (rank >= 6 && rank <= 40) row.classList.add('ranked-6-40');
+                // Removed the code that adds the 'ranked-6-40' class.
+                
                 row.innerHTML = createRowHtml(player);
                 tableBody.appendChild(row);
             }

@@ -1,4 +1,4 @@
-Player,Event,Date,Finish,Entrants,Tier (S+/S/A)
+Player,Event,Date,Finish,Entrants,Tier
 MenaRD,Cream City Convergence 2024,8/24/24,1,303,S
 Dual Kevin,Cream City Convergence 2024,8/24/24,2,303,S
 EndingWalker,Cream City Convergence 2024,8/24/24,3,303,S
@@ -253,7 +253,7 @@ eita,京王 Presents JCG STREET FIGHTER 6 CAPCOM Pro Tour 2024 SUPER PREMIER JAP
 pugera,京王 Presents JCG STREET FIGHTER 6 CAPCOM Pro Tour 2024 SUPER PREMIER JAPAN,11/3/24,25,1248,S+
 Armperor,京王 Presents JCG STREET FIGHTER 6 CAPCOM Pro Tour 2024 SUPER PREMIER JAPAN,11/3/24,25,1248,S+
 ZJZ,京王 Presents JCG STREET FIGHTER 6 CAPCOM Pro Tour 2024 SUPER PREMIER JAPAN,11/3/24,25,1248,S+
-Kobayan,京王 Presents JCG STREET FIGHTER 6 CAPCOM Pro Tour 2024 SUPER PREMIER JAPAN,11/3/24,25,1248,S+
+kobayan,京王 Presents JCG STREET FIGHTER 6 CAPCOM Pro Tour 2024 SUPER PREMIER JAPAN,11/3/24,25,1248,S+
 Nemo,京王 Presents JCG STREET FIGHTER 6 CAPCOM Pro Tour 2024 SUPER PREMIER JAPAN,11/3/24,25,1248,S+
 NoahTheProdigy,Blink Respawn 2024,11/10/24,1,162,S
 Dual Kevin,Blink Respawn 2024,11/10/24,2,162,S
@@ -609,7 +609,7 @@ bouzouki,D.I.Y 2025,5/4/25,13,65,B
 RLBS,D.I.Y 2025,5/4/25,13,65,B
 MenaRD,Evo Japan 2025,5/11/25,1,7195,S+
 Ryukichi,Evo Japan 2025,5/11/25,2,7195,S+
-Kobayan,Evo Japan 2025,5/11/25,3,7195,S+
+kobayan,Evo Japan 2025,5/11/25,3,7195,S+
 Momochi,Evo Japan 2025,5/11/25,4,7195,S+
 Leshar,Evo Japan 2025,5/11/25,5,7195,S+
 Akira,Evo Japan 2025,5/11/25,5,7195,S+
@@ -627,7 +627,7 @@ Big Bird,Evo Japan 2025,5/11/25,17,7195,S+
 cosa,Evo Japan 2025,5/11/25,17,7195,S+
 NARIKUN,Evo Japan 2025,5/11/25,17,7195,S+
 Caba,Evo Japan 2025,5/11/25,17,7195,S+
-Moke,Evo Japan 2025,5/11/25,17,7195,S+
+moke,Evo Japan 2025,5/11/25,17,7195,S+
 Axela,Evo Japan 2025,5/11/25,17,7195,S+
 Hikaru,Evo Japan 2025,5/11/25,17,7195,S+
 タンタンメン,Evo Japan 2025,5/11/25,17,7195,S+
@@ -637,7 +637,7 @@ Kakeru,Evo Japan 2025,5/11/25,25,7195,S+
 Yuto,Evo Japan 2025,5/11/25,25,7195,S+
 Nauman,Evo Japan 2025,5/11/25,25,7195,S+
 Johnny,Evo Japan 2025,5/11/25,25,7195,S+
-Gachikun,Evo Japan 2025,5/11/25,25,7195,S+
+gachikun,Evo Japan 2025,5/11/25,25,7195,S+
 NuckleDu,Evo Japan 2025,5/11/25,25,7195,S+
 Bonchan,Brussels Challenge 2025,5/18/25,1,152,S
 GO1,Brussels Challenge 2025,5/18/25,2,152,S
@@ -657,7 +657,7 @@ Nozar8800,Brussels Challenge 2025,5/18/25,13,152,S
 Zangief Bolado,Brussels Challenge 2025,5/18/25,13,152,S
 Tokido,Asian Champions League,5/18/25,1,772,S
 Higuchi,Asian Champions League,5/18/25,2,772,S
-Moke,Asian Champions League,5/18/25,3,772,S
+moke,Asian Champions League,5/18/25,3,772,S
 Jr.,Asian Champions League,5/18/25,4,772,S
 Rainpro,Asian Champions League,5/18/25,5,772,S
 Hikaru,Asian Champions League,5/18/25,5,772,S
@@ -689,7 +689,7 @@ Higuchi,Combo Breaker 2025,5/25/25,13,1324,S+
 Zhen,Combo Breaker 2025,5/25/25,13,1324,S+
 Momochi,Combo Breaker 2025,5/25/25,17,1324,S+
 NoahTheProdigy,Combo Breaker 2025,5/25/25,17,1324,S+
-Moke,Combo Breaker 2025,5/25/25,17,1324,S+
+moke,Combo Breaker 2025,5/25/25,17,1324,S+
 iDom,Combo Breaker 2025,5/25/25,17,1324,S+
 Problem X,Combo Breaker 2025,5/25/25,17,1324,S+
 vWsym,Combo Breaker 2025,5/25/25,17,1324,S+
@@ -844,7 +844,7 @@ Momochi,Topanga Championship 6,7/13/25,9,29,S+
 gachikun,Topanga Championship 6,7/13/25,11,29,S+
 Hikaru,Topanga Championship 6,7/13/25,11,29,S+
 Ryukichi,Topanga Championship 6,7/13/25,13,29,S+
-Kobayan,Topanga Championship 6,7/13/25,13,29,S+
+kobayan,Topanga Championship 6,7/13/25,13,29,S+
 Kawano,Topanga Championship 6,7/13/25,15,29,S+
 Seiya,Topanga Championship 6,7/13/25,15,29,S+
 Higuchi,Topanga Championship 6,7/13/25,17,29,S+
