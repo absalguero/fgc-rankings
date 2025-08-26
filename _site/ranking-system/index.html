@@ -116,190 +116,258 @@
   </script>
 
   <style>
-    /* Specific styles for this page layout */
-    .content-container {
-      max-width: 1100px !important;
-      margin: 0 auto !important;
-      padding: 0 15px !important;
-      text-align: left;
+/* Specific styles for this page layout */
+.content-container {
+    max-width: 1100px !important;
+    margin: 0 auto !important;
+    padding: 0 15px !important;
+    text-align: left;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+/* Original Desktop Grid Layout */
+.toc-and-image {
+    display: grid;
+    grid-template-columns: minmax(250px, 350px) 1fr;
+    grid-template-areas:
+        "toc image"
+        "toc content";
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.toc-wrapper {
+    grid-area: toc;
+    position: sticky;
+    top: 20px;
+    align-self: start;
+    height: calc(100vh - 120px);
+    overflow-y: auto;
+}
+
+/* Mobile-Friendly Table of Contents */
+.toc-and-image nav {
+    font-size: 1.26rem;
+    line-height: 1.2;
+    overflow-wrap: break-word;
+    padding: 0.5rem;
+}
+
+.toc-and-image nav strong {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 700;
+    color: #ccc;
+}
+
+.toc-and-image nav ul {
+    list-style: disc inside;
+    padding-left: 1rem;
+    margin-top: 0;
+}
+
+.toc-and-image nav ul li {
+    margin-bottom: 0;
+}
+
+.toc-and-image nav ul li a {
+    color: #FF5E13; /* Consistent link color */
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.toc-and-image nav ul li a:hover,
+.toc-and-image nav ul li a:focus {
+    text-decoration: underline;
+    color: #ff7f24;
+    outline: none;
+}
+
+#faq-image {
+    grid-area: image;
+    max-width: 400px;
+    height: auto;
+    border-radius: 50%;
+    box-shadow: 0 0 20px 5px rgba(255, 255, 255, 0.8);
+    object-fit: cover;
+    justify-self: center;
+}
+
+.main-content {
+    grid-area: content;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+}
+
+/* New spacing for headings */
+article h2 {
+    margin-top: 0rem;
+    margin-bottom: 0.5rem;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #999;
+}
+
+#contact-feedback {
+    margin-top: 0rem;
+}
+
+article h3 {
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+    text-align: center;
+}
+
+/* FAQ Accordion Styling */
+.faq-list {
+    list-style: none;
+    padding-left: 0;
+    margin-top: 1rem;
+}
+
+details {
+    margin-bottom: 1rem;
+    border: 1px solid #333;
+    border-radius: 8px;
+    padding: 10px 15px;
+    background-color: #1a1a1a;
+    transition: background-color 0.3s ease;
+}
+
+details:hover {
+    background-color: #222;
+}
+
+details summary {
+    font-weight: bold;
+    color: #f39c12;
+    cursor: pointer;
+    list-style: none;
+}
+
+details summary::before {
+    content: '►';
+    display: inline-block;
+    margin-right: 10px;
+    transition: transform 0.2s ease;
+    color: #ccc;
+}
+
+details summary:hover::before {
+    color: #f39c12;
+}
+
+details:open > summary::before {
+    transform: rotate(90deg);
+}
+
+details p {
+    margin-top: 10px;
+    margin-bottom: 0;
+    padding-left: 20px;
+}
+
+/* --- NEW CSS for the Mobile TOC --- */
+.toc-toggle-btn {
+    display: none; /* Hidden by default on desktop */
+    background: #1f1f1f;
+    border: 1px solid #333;
+    color: #FFFFFF;
+    padding: 10px 10px;
+    width: 100%;
+    text-align: left;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: background-color 0.3s, box-shadow 0.3s; /* Added transition for shadow */
+}
+
+.toc-toggle-btn:hover {
+    background-color: #2a2a2a;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Subtle shadow on hover */
+}
+
+.toc-toggle-btn i {
+    float: right;
+    transition: transform 0.3s;
+}
+
+.toc-toggle-btn.active i {
+    transform: rotate(180deg);
+}
+
+.toc-list {
+    transition: all 0.3s ease-in-out;
+}
+
+/* --- Responsive adjustments for screens up to 768px wide --- */
+@media (max-width: 768px) {
+    /* 1. Show the "Jump to Section" button */
+    .toc-toggle-btn {
+        display: block;
+        margin-bottom: 0.5rem; /* Added a little space below the button on mobile */
     }
 
-    h1 {
-      text-align: center;
-      margin-bottom: 1rem;
+    /* 2. Hide the TOC list by default */
+    .toc-list {
+        max-height: 0;
+        overflow: hidden;
+        opacity: 0;
+        margin-top: 0;
+    }
+
+    /* 3. Style for when the TOC is open */
+    .toc-list.active {
+        max-height: 500px;
+        opacity: 1;
+        margin-top: 0.25rem; /* Reduced space below the button when open */
+    }
+
+    /* ... all other existing mobile styles here ... */
+    #faq-image {
+        display: none;
     }
 
     .toc-and-image {
-      display: grid;
-      grid-template-columns: minmax(250px, 350px) 1fr;
-      grid-template-areas:
-        "toc image"
-        "toc content";
-      gap: 2rem;
-      margin-bottom: 2rem;
-    }
-
-    .toc-wrapper {
-      grid-area: toc;
-      position: sticky;
-      top: 20px;
-      align-self: start;
-      height: calc(100vh - 120px);
-      overflow-y: auto;
-    }
-
-    .toc-and-image nav {
-      font-size: 1.26rem;
-      line-height: 1.2;
-      overflow-wrap: break-word;
-      padding: 0.5rem;
-    }
-
-    .toc-and-image nav strong {
-      display: block;
-      margin-bottom: 0.5rem;
-      font-weight: 700;
-      color: #ccc;
-    }
-
-    .toc-and-image nav ul {
-      list-style: disc inside;
-      padding-left: 1rem;
-      margin-top: 0;
-    }
-
-    .toc-and-image nav ul li {
-      margin-bottom: 0;
-    }
-
-    .toc-and-image nav ul li a {
-      color: #f39c12;
-      text-decoration: none;
-      transition: color 0.3s ease;
-    }
-
-    .toc-and-image nav ul li a:hover,
-    .toc-and-image nav ul li a:focus {
-      text-decoration: underline;
-      color: #ff7f24;
-      outline: none;
-    }
-
-    #faq-image {
-      grid-area: image;
-      max-width: 400px;
-      height: auto;
-      border-radius: 50%;
-      box-shadow: 0 0 20px 5px rgba(255, 255, 255, 0.8);
-      object-fit: cover;
-      justify-self: center; /* Center the image within its grid cell */
-    }
-
-    .main-content {
-      grid-area: content;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 2rem;
-    }
-
-    /* New spacing for headings */
-    article h2 {
-      margin-top: 2rem;
-      margin-bottom: 0.5rem;
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: #999;
-    }
-
-    article h3 {
-      margin-top: 1.5rem;
-      margin-bottom: 0.5rem;
-      text-align: center;
-    }
-
-    /* FAQ Accordion Styling */
-    .faq-list {
-      list-style: none;
-      padding-left: 0;
-      margin-top: 1rem;
-    }
-
-    .faq-list li {
-      margin-bottom: 0.5rem;
-    }
-
-    details {
-      margin-bottom: 1rem;
-      border: 1px solid #333;
-      border-radius: 8px;
-      padding: 10px 15px;
-      background-color: #1a1a1a;
-      transition: background-color 0.3s ease;
-    }
-
-    details[open] {
-      background-color: #222;
-    }
-
-    summary {
-      font-weight: bold;
-      color: #f39c12;
-      cursor: pointer;
-      list-style: none; /* Hide default arrow */
-    }
-
-    summary::before {
-      content: '►'; /* Custom arrow */
-      display: inline-block;
-      margin-right: 10px;
-      transition: transform 0.2s ease;
-      color: #ccc;
-    }
-
-    details[open] > summary::before {
-      transform: rotate(90deg);
-    }
-
-    details p {
-      margin-top: 10px;
-      margin-bottom: 0;
-      padding-left: 20px;
-    }
-
-    /* Responsive adjustments */
-    @media (max-width: 400px) {
-      .toc-and-image {
         display: flex;
         flex-direction: column;
         gap: 1rem;
         align-items: center;
-      }
-      .toc-and-image img,
-      .toc-and-image .toc-wrapper,
-      .toc-and-image .main-content {
-        order: 0; /* Resetting order */
+    }
+
+    .toc-wrapper {
         width: 100%;
-        max-width: 800px;
-      }
-      #faq-image {
-        order: -1; /* Puts image first */
-      }
-      .toc-wrapper {
-        order: 0; /* Puts TOC second */
+        max-width: none;
         position: static;
         height: auto;
         overflow-y: visible;
-      }
-      .main-content {
-        order: 1; /* Puts content third */
-      }
-      /* Ensure the image scales correctly on mobile */
-      #faq-image {
-        max-width: 100%;
-      }
     }
-  </style>
+
+    .main-content {
+        order: 1;
+        width: 100%;
+    }
+
+    .main-content {
+        padding: 0 10px;
+    }
+
+    .toc-and-image nav ul li a {
+        font-size: 1.1rem; /* Reduced TOC link size on mobile */
+    }
+
+    body {
+        font-size: 1.1rem; /* Slightly larger for mobile readability */
+    }
+}
+</style>
 
 </head>
 <body>
@@ -334,9 +402,10 @@
                 </form>
             </div>
             <ul class="nav-menu">
-  <li><a href="/" class=""><i class="fas fa-trophy"></i>SF6 Rankings</a></li>
-  <li><a href="/tournament-results/" class=""><i class="fas fa-sitemap"></i>Tournament Results</a></li>
-  <li><a href="/ranking-system/" class=""><i class="fas fa-scale-balanced"></i>Ranking System</a></li>
+    
+    <li><a href="/" class=""><i class="fas fa-trophy"></i>SF6 Rankings</a></li>
+    <li><a href="/tournament-results/" class=""><i class="fas fa-sitemap"></i>Tournament Results</a></li>
+    <li><a href="/ranking-system/" class="active"><i class="fas fa-scale-balanced"></i>Ranking System</a></li>
 </ul>
         </nav>
 
@@ -344,145 +413,157 @@
             <div class="content-container" role="main" id="maincontent" tabindex="-1">
                 <img class="banner" src="/images/banner.png" alt="FGC Player Rankings official logo" loading="lazy"/>
                 
-  <article>
-    <h1>Fighting Game Community (FGC) Ranking System Explained</h1>
+<article>
+  <h1>Fighting Game Community (FGC) Ranking System Explained</h1>
 
-    <div class="toc-and-image">
-      <div class="toc-wrapper">
-        <nav aria-label="Table of Contents">
-          <strong>Contents</strong>
-          <ul>
-            <li><a href="#overview">Overview</a></li>
-            <li><a href="#how-ranking-works">How the Ranking System Works</a></li>
-            <li><a href="#placement-based-scoring">Placement-Based Scoring</a></li>
-            <li><a href="#best-performances-count">Best Performances Count</a></li>
-            <li><a href="#dynamic-event-valuation">Dynamic Event Valuation</a></li>
-            <li><a href="#recency-bias">Recency Bias for Current Form</a></li>
-            <li><a href="#offline-events">Offline Events Only</a></li>
-            <li><a href="#data-sources">Data Sources & Verification</a></li>
-            <li><a href="#global-recognition">Global Recognition & Tournament Inclusion</a></li>
-            <li><a href="#updates-transparency">Regular Updates & Transparency</a></li>
-            <li><a href="#faq">Frequently Asked Questions (FAQ)</a></li>
-            <li><a href="#contact-feedback">Contact & Feedback</a></li>
-          </ul>
-        </nav>
+  <div class="toc-and-image">
+    <img src="/images/fgc-ranking-system-explained.png" alt="Crowd cheering at a fighting game event" loading="lazy" id="faq-image" />
+    <div class="toc-wrapper">
+      <button class="toc-toggle-btn">
+        Jump to Section <i class="fas fa-chevron-down"></i>
+      </button>
+      <nav aria-label="Table of Contents" class="toc-list">
+        <strong>Contents</strong>
+        <ul>
+          <li><a href="#overview">Overview</a></li>
+          <li><a href="#how-ranking-works">How the Ranking System Works</a></li>
+          <li><a href="#placement-based-scoring">Placement-Based Scoring</a></li>
+          <li><a href="#best-performances-count">Best Performances Count</a></li>
+          <li><a href="#dynamic-event-valuation">Dynamic Event Valuation</a></li>
+          <li><a href="#recency-bias">Recency Bias for Current Form</a></li>
+          <li><a href="#offline-events">Offline Events Only</a></li>
+          <li><a href="#data-sources">Data Sources & Verification</a></li>
+          <li><a href="#global-recognition">Global Recognition & Tournament Inclusion</a></li>
+          <li><a href="#updates-transparency">Regular Updates & Transparency</a></li>
+          <li><a href="#faq">Frequently Asked Questions (FAQ)</a></li>
+          <li><a href="#contact-feedback">Contact & Feedback</a></li>
+        </ul>
+      </nav>
+    </div>
+
+    <div class="main-content">
+      <div style="max-width: 800px; margin-left: auto; margin-right: auto;">
+        <h2 id="overview">Overview: Accurate &amp; Fair Player Rankings for Street Fighter 6</h2>
+        <p>
+          Our FGC ranking system provides an accurate and current reflection of player skill and performance specifically for Street Fighter 6 (SF6). It ranks players based on their top results from sanctioned offline tournaments worldwide, rewarding consistent excellence and recent achievements. You can view the <a href="/rankings">current player rankings here</a>.
+        </p>
+
+        <h2 id="how-ranking-works">How the Ranking System Works</h2>
+        <p>Our system is designed to fairly evaluate player performance by focusing on meaningful tournament results and ongoing competitive form.</p>
+
+        <h3 id="placement-based-scoring">Placement-Based Scoring</h3>
+        <p>Players earn points according to their final placement at offline tournaments. Higher placements receive significantly more points, ensuring that top finishes have the greatest impact on rankings.</p>
+
+        <h3 id="best-performances-count">Best Performances Count</h3>
+        <p>To balance quantity and quality, only each player’s five highest-rated performances are included in their overall ranking. This approach rewards consistent top-level play without favoring players who simply attend a large number of events.</p>
+
+        <h3 id="dynamic-event-valuation">Dynamic Event Valuation</h3>
+        <p>Each tournament's value is dynamically calculated based on multiple factors, including the prestige and history of the tournament, the strength of competition, and the prize money offered.</p>
+        <p>Additional considerations include the diversity of regional participation and a focus on major tournaments that hold significant prominence within the competitive landscape.</p>
+        <p>Larger, more prestigious tournaments with stronger player fields and higher stakes carry greater weight in the ranking system. This ensures that success at the most competitive and meaningful events is appropriately rewarded.</p>
+
+        <h3 id="recency-bias">Recency Bias for Current Form</h3>
+        <p>The system emphasizes recent tournament results to ensure the rankings accurately represent who is performing best right now. Older results gradually have less influence, keeping the leaderboard fresh and relevant.</p>
+
+        <h3 id="offline-events">Offline Events Only</h3>
+        <p>Rankings are based exclusively on sanctioned offline tournaments. Sanctioned tournaments are offline events that meet specific standards for fairness and competitive integrity.</p>
+
+        <h3 id="data-sources">Data Sources &amp; Verification</h3>
+        <p>We prioritize accurate and reliable data collection from trusted tournament organizers and verified results to maintain the integrity of the rankings. Our commitment ensures that player standings reflect genuine competitive performance.</p>
+
+        <h3 id="global-recognition">Global Recognition &amp; Tournament Inclusion</h3>
+        <p>Our ranking system recognizes offline fighting game tournaments from around the world, promoting a diverse and comprehensive competitive landscape.</p>
+        <p>Tournament organizers interested in having their events evaluated for inclusion in the official list of rated tournaments are encouraged to contact us for consideration.</p>
+
+        <h3 id="updates-transparency">Regular Updates, Community Transparency &amp; Engagement</h3>
+        <p>Rankings are updated regularly to incorporate the latest tournament results, ensuring the leaderboard remains accurate and timely.</p>
+        <p>Developed by and for the fighting game community, our ranking algorithms and weighting factors are designed to fairly recognize performance, consistency, and current competitive form.</p>
+
+        <h2 id="faq">Frequently Asked Questions (FAQ)</h2>
+        <ul class="faq-list">
+          <li>
+            <details>
+              <summary>How are player rankings calculated?</summary>
+              <p>Rankings are calculated based on a player’s top five performances at sanctioned offline tournaments, factoring in placement, event value, and recency to reflect current competitive form.</p>
+            </details>
+          </li>
+          <li>
+            <details>
+              <summary>Can a player’s ranking change if they attend fewer events?</summary>
+              <p>Yes. Because the system emphasizes recent and top performances, players who compete less frequently can still maintain or improve their ranking by performing well in high-value tournaments.</p>
+            </details>
+          </li>
+          <li>
+            <details>
+              <summary>What games are covered by this ranking system?</summary>
+              <p>Currently, the ranking system covers Street Fighter 6 (SF6) exclusively.</p>
+            </details>
+          </li>
+          <li>
+            <details>
+              <summary>How can I suggest improvements or report errors in the rankings?</summary>
+              <p>We welcome feedback and encourage you to contact us via <a href="mailto:fgcprankings@gmail.com">fgcprankings@gmail.com</a> with any suggestions or corrections.</p>
+            </details>
+          </li>
+          <li>
+            <details>
+              <summary>Why aren’t online tournaments included?</summary>
+              <p>To maintain competitive integrity and fairness, only offline tournaments are considered, as online results can be affected by connectivity and other factors.</p>
+            </details>
+          </li>
+          <li>
+            <details>
+              <summary>How often are rankings updated?</summary>
+              <p>Rankings are updated regularly following major offline events to ensure they reflect the latest competitive results.</p>
+            </details>
+          </li>
+          <li>
+            <details>
+              <summary>How can I get my tournament included?</summary>
+              <p>Tournament organizers can contact us at <a href="mailto:fgcprankings@gmail.com">fgcprankings@gmail.com</a> to request evaluation and inclusion of their events in the ranking system.</p>
+            </details>
+          </li>
+          <li>
+            <details>
+              <summary>How can players submit their tournament results?</summary>
+              <p>Players should work with tournament organizers who submit official results to us. If you notice a tournament result missing or incorrect, please reach out via email.</p>
+            </details>
+          </li>
+          <li>
+            <details>
+              <summary>How are disputes or errors handled?</summary>
+              <p>We review all reported discrepancies carefully and update rankings accordingly to ensure accuracy. If you find an error, please contact us at <a href="mailto:fgcprankings@gmail.com">fgcprankings@gmail.com</a>.</p>
+            </details>
+          </li>
+          <li>
+            <details>
+              <summary>What regions or countries are most represented?</summary>
+              <p>Our rankings reflect a global player base, with events and competitors from multiple regions around the world.</p>
+            </details>
+          </li>
+        </ul>
       </div>
-      <img
-        src="/images/fgc-ranking-system-explained.png"
-        alt="Crowd cheering at a fighting game event"
-        loading="lazy"
-        id="faq-image"
-      />
-      <div class="main-content">
-        <div style="max-width: 800px; margin-left: auto; margin-right: auto;">
-          <h2 id="overview">Overview: Accurate &amp; Fair Player Rankings for Street Fighter 6</h2>
-          <p>
-            Our FGC ranking system provides an accurate and current reflection of player skill and performance specifically for Street Fighter 6 (SF6). It ranks players based on their top results from sanctioned offline tournaments worldwide, rewarding consistent excellence and recent achievements. You can view the <a href="/rankings">current player rankings here</a>.
-          </p>
-
-          <h2 id="how-ranking-works">How the Ranking System Works</h2>
-          <p>Our system is designed to fairly evaluate player performance by focusing on meaningful tournament results and ongoing competitive form.</p>
-
-          <h3 id="placement-based-scoring">Placement-Based Scoring</h3>
-          <p>Players earn points according to their final placement at offline tournaments. Higher placements receive significantly more points, ensuring that top finishes have the greatest impact on rankings.</p>
-
-          <h3 id="best-performances-count">Best Performances Count</h3>
-          <p>To balance quantity and quality, only each player’s five highest-rated performances are included in their overall ranking. This approach rewards consistent top-level play without favoring players who simply attend a large number of events.</p>
-
-          <h3 id="dynamic-event-valuation">Dynamic Event Valuation</h3>
-          <p>Each tournament's value is dynamically calculated based on multiple factors, including the prestige and history of the tournament, the strength of competition, and the prize money offered.</p>
-          <p>Additional considerations include the diversity of regional participation and a focus on major tournaments that hold significant prominence within the competitive landscape.</p>
-          <p>Larger, more prestigious tournaments with stronger player fields and higher stakes carry greater weight in the ranking system. This ensures that success at the most competitive and meaningful events is appropriately rewarded.</p>
-
-          <h3 id="recency-bias">Recency Bias for Current Form</h3>
-          <p>The system emphasizes recent tournament results to ensure the rankings accurately represent who is performing best right now. Older results gradually have less influence, keeping the leaderboard fresh and relevant.</p>
-
-          <h3 id="offline-events">Offline Events Only</h3>
-          <p>Rankings are based exclusively on sanctioned offline tournaments. Sanctioned tournaments are offline events that meet specific standards for fairness and competitive integrity.</p>
-
-          <h3 id="data-sources">Data Sources &amp; Verification</h3>
-          <p>We prioritize accurate and reliable data collection from trusted tournament organizers and verified results to maintain the integrity of the rankings. Our commitment ensures that player standings reflect genuine competitive performance.</p>
-
-          <h3 id="global-recognition">Global Recognition &amp; Tournament Inclusion</h3>
-          <p>Our ranking system recognizes offline fighting game tournaments from around the world, promoting a diverse and comprehensive competitive landscape.</p>
-          <p>Tournament organizers interested in having their events evaluated for inclusion in the official list of rated tournaments are encouraged to contact us for consideration.</p>
-
-          <h3 id="updates-transparency">Regular Updates, Community Transparency &amp; Engagement</h3>
-          <p>Rankings are updated regularly to incorporate the latest tournament results, ensuring the leaderboard remains accurate and timely.</p>
-          <p>Developed by and for the fighting game community, our ranking algorithms and weighting factors are designed to fairly recognize performance, consistency, and current competitive form.</p>
-
-          <h2 id="faq">Frequently Asked Questions (FAQ)</h2>
-          <ul class="faq-list">
-            <li>
-              <details>
-                <summary><strong>How are player rankings calculated?</strong></summary>
-                <p>Rankings are calculated based on a player’s top five performances at sanctioned offline tournaments, factoring in placement, event value, and recency to reflect current competitive form.</p>
-              </details>
-            </li>
-            <li>
-              <details>
-                <summary><strong>Can a player’s ranking change if they attend fewer events?</strong></summary>
-                <p>Yes. Because the system emphasizes recent and top performances, players who compete less frequently can still maintain or improve their ranking by performing well in high-value tournaments.</p>
-              </details>
-            </li>
-            <li>
-              <details>
-                <summary><strong>What games are covered by this ranking system?</strong></summary>
-                <p>Currently, the ranking system covers Street Fighter 6 (SF6) exclusively.</p>
-              </details>
-            </li>
-            <li>
-              <details>
-                <summary><strong>How can I suggest improvements or report errors in the rankings?</strong></summary>
-                <p>We welcome feedback and encourage you to contact us via <a href="mailto:fgcprankings@gmail.com">fgcprankings@gmail.com</a> with any suggestions or corrections.</p>
-              </details>
-            </li>
-            <li>
-              <details>
-                <summary><strong>Why aren’t online tournaments included?</strong></summary>
-                <p>To maintain competitive integrity and fairness, only offline tournaments are considered, as online results can be affected by connectivity and other factors.</p>
-              </details>
-            </li>
-            <li>
-              <details>
-                <summary><strong>How often are rankings updated?</strong></summary>
-                <p>Rankings are updated regularly following major offline events to ensure they reflect the latest competitive results.</p>
-              </details>
-            </li>
-            <li>
-              <details>
-                <summary><strong>How can I get my tournament included?</strong></summary>
-                <p>Tournament organizers can contact us at <a href="mailto:fgcprankings@gmail.com">fgcprankings@gmail.com</a> to request evaluation and inclusion of their events in the ranking system.</p>
-              </details>
-            </li>
-            <li>
-              <details>
-                <summary><strong>How can players submit their tournament results?</strong></summary>
-                <p>Players should work with tournament organizers who submit official results to us. If you notice a tournament result missing or incorrect, please reach out via email.</p>
-              </details>
-            </li>
-            <li>
-              <details>
-                <summary><strong>How are disputes or errors handled?</strong></summary>
-                <p>We review all reported discrepancies carefully and update rankings accordingly to ensure accuracy. If you find an error, please contact us at <a href="mailto:fgcprankings@gmail.com">fgcprankings@gmail.com</a>.</p>
-              </details>
-            </li>
-            <li>
-              <details>
-                <summary><strong>What regions or countries are most represented?</strong></summary>
-                <p>Our rankings reflect a global player base, with events and competitors from multiple regions around the world.</p>
-              </details>
-            </li>
-          </ul>
-        </div>
-        <div style="max-width: 800px; margin-left: auto; margin-right: auto;">
-          <h2 id="contact-feedback">Contact &amp; Feedback</h2>
-          <p>We welcome questions, feedback, and inquiries from the entire fighting game community — whether you’re a tournament organizer interested in having your event considered, a player seeking more information, or a fan wanting to get involved.</p>
-          <p>Please feel free to reach out to us at <a href="mailto:fgcprankings@gmail.com">fgcprankings@gmail.com</a>. We’re committed to fostering an open and engaged community and look forward to hearing from you.</p>
-        </div>
+      <div style="max-width: 800px; margin-left: auto; margin-right: auto;">
+        <h2 id="contact-feedback">Contact &amp; Feedback</h2>
+        <p>We welcome questions, feedback, and inquiries from the entire fighting game community — whether you’re a tournament organizer interested in having your event considered, a player seeking more information, or a fan wanting to get involved.</p>
+        <p>Please feel free to reach out to us at <a href="mailto:fgcprankings@gmail.com">fgcprankings@gmail.com</a>. We’re committed to fostering an open and engaged community and look forward to hearing from you.</p>
       </div>
     </div>
-  </article>
+  </div>
+</article>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const toggleBtn = document.querySelector('.toc-toggle-btn');
+    const tocList = document.querySelector('.toc-list');
+
+    if (toggleBtn && tocList) {
+      toggleBtn.addEventListener('click', function() {
+        this.classList.toggle('active');
+        tocList.classList.toggle('active');
+      });
+    }
+  });
+</script>
 
             </div>
             

@@ -59,9 +59,10 @@
                 </form>
             </div>
             <ul class="nav-menu">
-  <li><a href="/" class=""><i class="fas fa-trophy"></i>SF6 Rankings</a></li>
-  <li><a href="/tournament-results/" class=""><i class="fas fa-sitemap"></i>Tournament Results</a></li>
-  <li><a href="/ranking-system/" class=""><i class="fas fa-scale-balanced"></i>Ranking System</a></li>
+    
+    <li><a href="/" class=""><i class="fas fa-trophy"></i>SF6 Rankings</a></li>
+    <li><a href="/tournament-results/" class="active"><i class="fas fa-sitemap"></i>Tournament Results</a></li>
+    <li><a href="/ranking-system/" class=""><i class="fas fa-scale-balanced"></i>Ranking System</a></li>
 </ul>
         </nav>
 
@@ -612,18 +613,11 @@
         <input type="text" id="search-input" placeholder="Search by Player or Event..." title="Type to search for a player or event.">
     </div>
 
-    <div class="mobile-only-controls">
-        <button id="mobile-sort-btn" class="mobile-sort-btn">Sort By</button>
-        <div id="sort-modal" class="sort-modal">
-            <div class="modal-content">
-                <span class="close-btn">&times;</span>
-                <h2>Sort Results</h2>
-                <div id="sort-options" class="sort-options">
-                </div>
-            </div>
-        </div>
-    </div>
-
+    <div id="mobile-sort-container" class="mobile-sort-container">
+    <button class="mobile-sort-btn" data-column-index="0" data-type="string">Event</button>
+    <button class="mobile-sort-btn" data-column-index="1" data-type="string">Player</button>
+    <button class="mobile-sort-btn" data-column-index="2" data-type="number">Finish</button>
+</div>
     <div class="table-wrapper">
         <table id="tournament-results-table">
             <thead>
@@ -690,14 +684,16 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', () => {
-    const googleSheetURL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQBIqTU9Vjqm4lAYt4gGj4QMaxG4eXSsgbDzi2GVHVvrZX0Dba6b1_SlyrVI9ARnlG-xc_b0NVq5lmU/pub?gid=332201631&single=true&output=csv";
-    const googleRankingsURL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQBIqTU9Vjqm4lAYt4gGj4QMaxG4eXSsgbDzi2GVHVvrZX0Dba6b1_SlyrVI9ARnlG-xc_b0NVq5lmU/pub?gid=1862929315&single=true&output=csv";
+    // Corrected URLs using the stable /gviz/tq endpoint
+    const googleSheetURL = "https://docs.google.com/spreadsheets/d/1otrfs8HN3Shq6U2-qrc4GDxTI4ragnqwbTjweecE12Q/gviz/tq?tqx=out:csv&gid=332201631";
+    const googleRankingsURL = "https://docs.google.com/spreadsheets/d/1otrfs8HN3Shq6U2-qrc4GDxTI4ragnqwbTjweecE12Q/gviz/tq?tqx=out:csv&gid=1862929315";
 
     const tableBody = document.getElementById('table-body');
     const searchInput = document.getElementById('search-input');
     const prevBtn = document.getElementById('prev-page-btn');
     const nextBtn = document.getElementById('next-page-btn');
     const pageInfo = document.getElementById('page-info');
+    const mobileSortBtn = document.getElementById('mobile-sort-btn');
     const sortModal = document.getElementById('sort-modal');
     const closeModalBtn = document.querySelector('.close-btn');
     const sortOptionsContainer = document.getElementById('sort-options');
@@ -861,29 +857,19 @@ document.addEventListener('DOMContentLoaded', () => {
                     </div>
                 `;
 
-                // Check screen width to determine rendering order
-                if (window.innerWidth <= 768) {
-                    // Mobile-first order
-                    row.innerHTML = `
-                        <td data-label="Event" class="event-cell primary-info-cell">${item.Event || ''}</td>
-                        <td data-label="Player" class="player-cell primary-info-cell">${playerContent}</td>
-                        <td data-label="Finish" class="finish-cell primary-info-cell">${item.Finish || ''}</td>
-                        <td data-label="Date" class="date-cell secondary-info-cell">${formatDate(item.Date)}</td>
-                        <td data-label="Entrants" class="entrants-cell secondary-info-cell">${item.Entrants || ''}</td>
-                    `;
-                    row.addEventListener('click', () => {
-                        row.classList.toggle('expanded');
-                    });
-                } else {
-                    // Desktop order
-                    row.innerHTML = `
-                        <td data-label="Event" class="event-cell">${item.Event || ''}</td>
-                        <td data-label="Date" class="date-cell">${formatDate(item.Date)}</td>
-                        <td data-label="Entrants" class="entrants-cell">${item.Entrants || ''}</td>
-                        <td data-label="Player" class="player-cell">${playerContent}</td>
-                        <td data-label="Finish" class="finish-cell">${item.Finish || ''}</td>
-                    `;
-                }
+                // Fixes the desktop view by correctly mapping the data to columns
+                row.innerHTML = `
+                    <td data-label="Event" class="event-cell">${item.Event || ''}</td>
+                    <td data-label="Date" class="date-cell">${formatDate(item.Date)}</td>
+                    <td data-label="Entrants" class="entrants-cell">${item.Entrants || ''}</td>
+                    <td data-label="Player" class="player-cell">${playerContent}</td>
+                    <td data-label="Finish" class="finish-cell">${item.Finish || ''}</td>
+                `;
+                
+                // Add click listener for mobile expansion
+                row.addEventListener('click', () => {
+                    row.classList.toggle('expanded');
+                });
                 
                 tableBody.appendChild(row);
             });
@@ -997,25 +983,32 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // New Mobile Sort Functionality
-    document.getElementById('mobile-sort-btn').addEventListener('click', () => {
-        generateSortOptions();
-        sortModal.style.display = 'block';
-        setTimeout(() => sortModal.classList.add('show'), 10);
-    });
+    if (document.getElementById('mobile-sort-btn')) {
+        document.getElementById('mobile-sort-btn').addEventListener('click', () => {
+            generateSortOptions();
+            sortModal.style.display = 'block';
+            setTimeout(() => sortModal.classList.add('show'), 10);
+        });
+    }
 
-    closeModalBtn.addEventListener('click', () => {
-        sortModal.classList.remove('show');
-        setTimeout(() => sortModal.style.display = 'none', 400);
-    });
-
-    window.addEventListener('click', (event) => {
-        if (event.target === sortModal) {
+    if (closeModalBtn) {
+        closeModalBtn.addEventListener('click', () => {
             sortModal.classList.remove('show');
             setTimeout(() => sortModal.style.display = 'none', 400);
-        }
-    });
+        });
+    }
+
+    if (sortModal) {
+        window.addEventListener('click', (event) => {
+            if (event.target === sortModal) {
+                sortModal.classList.remove('show');
+                setTimeout(() => sortModal.style.display = 'none', 400);
+            }
+        });
+    }
 
     function generateSortOptions() {
+        if (!sortOptionsContainer) return;
         sortOptionsContainer.innerHTML = '';
         const headers = document.querySelectorAll('#tournament-results-table thead th');
         headers.forEach(header => {

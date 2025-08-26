@@ -48,7 +48,7 @@ main.content {
     max-width: none;
 }
 
-/* --- MOBILE NAVIGATION & SIDEBAR (Corrected) --- */
+/* --- MOBILE NAVIGATION & SIDEBAR --- */
 
 .mobile-header {
     display: flex;
@@ -82,7 +82,7 @@ nav.sidebar.active {
     transform: translateX(0);
 }
 
-/* --- SVG Icon Button (Corrected) --- */
+/* --- SVG Icon Button --- */
 
 .nav-toggle {
     display: block;
@@ -110,7 +110,7 @@ nav.sidebar.active {
 .nav-toggle.is-active .hamburger-icon { display: none; }
 .nav-toggle.is-active .close-icon { display: block; }
 
-/* --- Search Bar Styles (Corrected) --- */
+/* --- Search Bar Styles --- */
 
 .mobile-search {
     display: none;
@@ -148,8 +148,9 @@ nav.sidebar.active {
 }
 .sidebar-search { 
     display: none; 
-    padding: 1rem 15px; 
-    margin-top: 0rem; 
+    padding: 1.25rem 15px; 
+    margin-top: 0rem;
+    padding-top: 0rem; 
 }
 
 /* Sidebar Content Styles */
@@ -172,20 +173,64 @@ nav.sidebar ul.nav-menu {
     padding: 0;
     margin: 0;
 }
+/* Sidebar Content Styles */
+nav.sidebar h2.sidebar-label,
+aside.right-sidebar h2.sidebar-label {
+    font-family: 'Permanent Marker', cursive;
+    color: #FF5E13;
+    text-shadow: 0 1px 2px rgba(0,0,0,.5);
+    text-align: center;
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    margin-top: 0;
+}
+aside.right-sidebar h2.sidebar-label {
+    font-size: 1.3rem;
+}
+
+nav.sidebar ul.nav-menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
 nav.sidebar ul.nav-menu li {
     font-family: 'Permanent Marker', cursive;
     margin-bottom: 0.4rem;
 }
+
+/* 1. Base style for all sidebar links */
 nav.sidebar ul.nav-menu li a {
-    color: #ddd;
+    color: #ddd; /* Default color: light grey */
     display: flex;
     align-items: center;
     font-size: 1.5rem;
     line-height: 1.3;
+    transition: color 0.2s ease-in-out;
+    text-decoration: none;
 }
-nav.sidebar ul.nav-menu li a.active { color: #FF5E13; font-weight: 700; }
+
+/* 2. Style for non-active links on hover */
+nav.sidebar ul.nav-menu li a:hover {
+    color: #fff; /* Hover color: white */
+    text-decoration: none;
+}
+
+/* 3. Style for the ACTIVE link (text and icon) */
+nav.sidebar ul.nav-menu li a.active {
+    color: #FF5E13; /* Active color: orange */
+    font-weight: 700;
+    text-shadow: 0 0 1px #FF5E13;
+}
+
+/* 4. Style for the ACTIVE link WHEN HOVERED (This is the fix) */
+nav.sidebar ul.nav-menu li a.active:hover {
+    color: #FF5E13; /* Keeps the active link orange on hover */
+}
+
+/* Base style for icons (keeps the spacing) */
 nav.sidebar ul.nav-menu li a i {
-    margin-right: 20px;
+    margin-right: 11px;
     width: 25px;
     text-align: center;
 }
@@ -220,7 +265,6 @@ aside.right-sidebar .event-date {
     color: #999;
 }
 
-
 /* General Content Styles */
 .banner { display: block; max-width: 300px; margin: 0 auto 1rem auto; }
 h1 { font-family: 'Permanent Marker', cursive; font-size: 3rem; color: #FF5E13; text-align: center; margin-top: 1rem; margin-bottom: 1rem; line-height: 0.9; }
@@ -234,6 +278,8 @@ th, td { padding: 0.75rem 1rem; border: 1px solid #333; text-align: center; whit
 th { cursor: pointer; }
 tbody tr:nth-child(even) { background: #1a1a1a; }
 tbody tr:hover { background: #333; }
+
+/* Rankings Table Specifics */
 #rankings-table tr.rank-1 td { background-color: #ffd70030; color: gold; }
 #rankings-table tr.rank-2 td { background-color: #c0c0c030; color: silver; }
 #rankings-table tr.rank-3 td { background-color: #cd7f3230; color: #cd7f32; text-shadow: 0 0 4px #cd7f32; }
@@ -250,11 +296,158 @@ tbody tr:hover { background: #333; }
 }
 .player-icon, .character-icon, .flag-icon { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; }
 
+/* --- TOURNAMENT RESULTS PAGE STYLES --- */
+#tournament-results-page .content-container {
+    max-width: 1200px;
+}
+#tournament-results-page .controls-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+}
+#tournament-results-page #search-input {
+    width: 100%;
+    max-width: 400px;
+    padding: 0.75rem;
+    font-size: 1rem;
+    border-radius: 8px;
+    border: 1px solid #666;
+    background-color: #333;
+    color: #fff;
+    outline: none;
+    text-align: center;
+}
+#tournament-results-page #search-input:focus {
+    background-color: #444;
+    border-color: #FF5E13;
+}
+#tournament-results-page #search-input::placeholder {
+    color: #d4d4d4;
+    transition: color 0.3s;
+}
+#tournament-results-page .table-wrapper {
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+#tournament-results-page #tournament-results-table {
+    width: 100%;
+    table-layout: auto;
+}
+#tournament-results-page #tournament-results-table thead th {
+    background-color: transparent;
+    color: #ffffff;
+    font-weight: bold;
+    border-bottom: 2px solid #444;
+    position: relative;
+    font-size: 18px;
+}
+#tournament-results-page #tournament-results-table thead th > span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+#tournament-results-page #tournament-results-table thead th:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+#tournament-results-page #tournament-results-table tbody tr {
+    background-color: #111;
+}
+#tournament-results-page #tournament-results-table tbody tr:nth-child(even) {
+    background-color: #1a1a1a;
+}
+#tournament-results-page #tournament-results-table tbody tr:hover {
+    background-color: #404040;
+}
+#tournament-results-page #tournament-results-table td {
+    padding: 1rem;
+    color: #e0e0e0;
+    border-bottom: 1px solid #444;
+}
+#tournament-results-page #tournament-results-table .player-info {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
+    text-align: left;
+}
+#tournament-results-page #tournament-results-table .player-photo {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid transparent;
+}
+#tournament-results-table tbody tr[class^="rank-"] td { color: inherit !important; }
+#tournament-results-table tbody tr.rank-1 td { background-color: #ffd70030; }
+#tournament-results-table tbody tr.rank-2 td { background-color: #c0c0c030; }
+#tournament-results-table tbody tr.rank-3 td { background-color: #cd7f3230; }
+#tournament-results-table tbody tr.rank-4 td { background-color: #4b371c30; }
+#tournament-results-table tbody tr.rank-5 td { background-color: #36454F30; }
+#tournament-results-table tbody tr.ranked-6-40 td { background-color: rgba(0, 61, 41, 0.3); }
+
+#tournament-results-table .rank-1 .player-photo { box-shadow: 0 0 6px 1px #FFD700; }
+#tournament-results-table .rank-2 .player-photo { box-shadow: 0 0 6px 1px #C0C0C0; }
+#tournament-results-table .rank-3 .player-photo { box-shadow: 0 0 6px 1px #cd7f32; }
+#tournament-results-table .rank-4 .player-photo { box-shadow: 0 0 6px 1px #8c7359; }
+#tournament-results-table .rank-5 .player-photo { box-shadow: 0 0 6px 1px #b0c4de; }
+#tournament-results-table .ranked-6-40 .player-photo { box-shadow: 0 0 6px 1px #b8d9bf; }
+
+.pagination-info-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 1rem;
+    gap: 0.5rem;
+}
+#tournament-results-page .pagination-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+#tournament-results-page .pagination-btn {
+    background-color: #444;
+    color: #fff;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+#tournament-results-page .pagination-btn:hover:not(:disabled) {
+    background-color: #555;
+}
+#tournament-results-page .pagination-btn:disabled {
+    background-color: #333;
+    color: #666;
+    cursor: not-allowed;
+}
+#tournament-results-page #page-info {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: #FF5E13;
+    text-shadow: 0 0 5px rgba(255, 94, 19, 0.75);
+    text-align: center;
+}
+
 /* Universal Sort Arrow Styles */
-.sort-icon { margin-left: 5px; opacity: 0.3; transition: transform 0.2s ease, opacity 0.2s ease; }
-th:hover .sort-icon { opacity: 0.6; }
-[data-column-index].sorted-asc .sort-icon { transform: rotate(180deg); opacity: 1; }
-[data-column-index].sorted-desc .sort-icon { transform: rotate(0deg); opacity: 1; }
+.sort-icon { 
+    margin-left: 5px;
+    opacity: 0.3; 
+    transition: transform 0.2s ease, opacity 0.2s ease;
+}
+th:hover .sort-icon { 
+    opacity: 0.6; 
+}
+th.sorted.asc .sort-icon { 
+    transform: rotate(180deg);
+    opacity: 1; 
+}
+th.sorted.desc .sort-icon { 
+    transform: rotate(0deg);
+    opacity: 1; 
+}
 
 /* Load More Button */
 .load-more-container {
@@ -281,11 +474,13 @@ th:hover .sort-icon { opacity: 0.6; }
 .footer-column h3 { font-family: 'Permanent Marker', cursive; color: #f0f0f0; font-size: 1.5rem; margin-bottom: 1rem; }
 .footer-column ul { list-style: none; padding: 0; margin: 0; }
 .footer-legal { text-align: center; font-size: 0.85rem; color: #aaa; margin-top: 1.5rem; }
+.footer-social .fa-x-twitter { font-size: 2em; }
+
 
 /* --- DESKTOP LAYOUT --- */
 @media (min-width: 769px) {
     .page-wrapper { flex-direction: row; height: 100vh; }
-    .mobile-header, #mobile-sort-container, .mobile-search, .nav-toggle { display: none; }
+    .mobile-header, #mobile-sort-container { display: none; }
     main.content { flex: 1; padding-top: 20px; overflow-y: auto; }
     nav.sidebar, aside.right-sidebar {
         position: relative;
@@ -302,93 +497,128 @@ th:hover .sort-icon { opacity: 0.6; }
     aside.right-sidebar {
         box-shadow: -2px 0 5px rgba(0,0,0,.7);
     }
-    .sidebar-search { display: block; }
+    .sidebar-search { 
+        display: block; 
+    }
+}
+
+    /* --- Footer Social Icon Color Fix --- */
+.footer-social a {
+    color: #f0f0f0; /* Sets the icon to your site's default light text color */
+    transition: color 0.2s ease-in-out; /* Optional: Adds a smooth color change on hover */
+}
+
+.footer-social a:hover {
+    color: #FFEE58; /* Keeps the yellow color for the hover effect */
 }
 
 /* --- MOBILE LAYOUT --- */
 @media screen and (max-width: 768px) {
+
+    /* --- General Mobile Styles --- */
     .mobile-search { 
-        display: block;
+        display: block; 
     }
 
     aside.right-sidebar {
         width: 95%;
         margin: 1rem auto;
         border-radius: 8px;
-        /* 1. Turns the sidebar into a grid */
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 1rem;
     }
 
     aside.right-sidebar h2.sidebar-label {
-        /* 2. Tells the heading to span the full width */
         grid-column: 1 / -1;
     }
 
-    aside.right-sidebar h2.sidebar-label {
-        grid-column: 1 / -1; /* This makes the heading span both columns */
+    /* --- Mobile Sidebar Navigation --- */
+    nav.sidebar ul.nav-menu li { 
+        font-family: Arial, Helvetica, sans-serif; 
+        padding-left: 15px; 
+    }
+    nav.sidebar ul.nav-menu li a { 
+        font-size: 1.4rem; 
+        font-weight: normal; 
+        font-family: Arial, Helvetica, sans-serif; 
     }
 
-    /* Mobile Sidebar UX */
-    nav.sidebar ul.nav-menu li { font-family: Arial, Helvetica, sans-serif; padding-left: 15px; }
-    nav.sidebar ul.nav-menu li a { font-size: 1.4rem; font-weight: normal; font-family: Arial, Helvetica, sans-serif; }
+    /* --- Mobile Table Card View --- */
+    #rankings-table thead, #tournament-results-table thead { 
+        display: none; 
+    }
 
-    /* Mobile Table Card View */
-    #rankings-table thead, #tournament-results-table thead { display: none; }
-    #rankings-table, #tournament-results-table { border: 0; width: 100%; min-width: unset; border-collapse: separate; border-spacing: 0 1rem; }
-    #rankings-table tr, #tournament-results-table tr { display: block; border: 1px solid #333; border-radius: 5px; box-shadow: 0 2px 4px rgba(0,0,0,0.3); position: relative; cursor: pointer; }
-    #rankings-table td, #tournament-results-table td { display: flex; justify-content: space-between; align-items: center; text-align: right; border-bottom: 1px solid #333; }
-    #rankings-table td::before, #tournament-results-table td::before { content: attr(data-label); font-weight: bold; text-align: left; margin-right: 1rem; }
-    #rankings-table td:last-child, #tournament-results-table td:last-child { border-bottom: 0; }
+    #rankings-table, #tournament-results-table { 
+        border: 0; 
+        width: 100%; 
+        min-width: unset; 
+        border-collapse: separate; 
+        border-spacing: 0 1rem; 
+    }
+
+    #rankings-table tr, #tournament-results-table tr { 
+        display: block; 
+        border: 1px solid #333; 
+        border-radius: 5px; 
+        box-shadow: 0 2px 4px rgba(0,0,0,0.3); 
+        position: relative; 
+        cursor: pointer; 
+    }
+
+    #rankings-table td, #tournament-results-table td { 
+        display: flex; 
+        justify-content: space-between; 
+        align-items: center; 
+        text-align: right; 
+        border-bottom: 1px solid #333; 
+    }
+
+    #rankings-table td::before, #tournament-results-table td::before { 
+        content: attr(data-label); 
+        font-weight: bold; 
+        text-align: left; 
+        margin-right: 1rem; 
+    }
+
+    #rankings-table td:last-child, #tournament-results-table td:last-child { 
+        border-bottom: 0; 
+    }
     
-    @media screen and (max-width: 768px) {
-        #rankings-table td, #tournament-results-table td { display: none; }
-        #rankings-table td[data-label="Rank"], #rankings-table td[data-label="Player"], #rankings-table td[data-label="Rating"] { display: flex; }
-        #tournament-results-table td[data-label="Event"], #tournament-results-table td[data-label="Player"], #tournament-results-table td[data-label="Finish"] { display: flex; }
-        #rankings-table tr.is-expanded td, #tournament-results-table tr.is-expanded td { display: flex; }
-
-        #rankings-table tr,
-        #tournament-results-table tr {
-            position: relative;
-            cursor: pointer;
-        }
-
-        #rankings-table td[data-label="Rating"],
-        #tournament-results-table td[data-label="Finish"] {
-            padding-right: 2.5rem; 
-        }
-
-        #rankings-table tr::after,
-        #tournament-results-table tr::after {
-            content: '+';
-            position: absolute;
-            right: 1rem;
-            top: 0.5rem;
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: #aaa;
-        }
-
-        #rankings-table tr.is-expanded::after,
-        #tournament-results-table tr.is-expanded::after {
-            content: '−';
-        }
+    /* Logic to hide/show specific table cells for card view */
+    #rankings-table td, #tournament-results-table td { 
+        display: none; 
     }
 
-    /* Mobile sort buttons */
-    #mobile-sort-container { display: flex; justify-content: space-around; gap: 5px; margin-bottom: 20px; }
-    .mobile-sort-btn { flex: 1 1 auto; padding: 8px 5px; font-size: 0.75rem; text-align: center; background-color: #444; color: #fff; border: 1px solid #555; border-radius: 5px; }
-}
+    #rankings-table td[data-label="Rank"], 
+    #rankings-table td[data-label="Player"], 
+    #rankings-table td[data-label="Rating"] { 
+        display: flex; 
+    }
 
-nav.sidebar h2.sidebar-label {
-    margin-bottom: 0rem;
-}
+    #tournament-results-table td[data-label="Event"], 
+    #tournament-results-table td[data-label="Player"], 
+    #tournament-results-table td[data-label="Finish"] { 
+        display: flex; 
+    }
 
-.footer-social a i.fa-x-twitter {
-    color: #fff;
-}
+    #rankings-table tr.is-expanded td, 
+    #tournament-results-table tr.is-expanded td { 
+        display: flex; 
+    }
 
-nav.sidebar ul.nav-menu li a:hover {
-    text-decoration: none;
-}
+    /* Card view expand/collapse icon */
+    #rankings-table tr::after,
+    #tournament-results-table tr::after {
+        content: '+';
+        position: absolute;
+        right: 1rem;
+        top: 0.5rem;
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #aaa;
+    }
+
+    #rankings-table tr.is-expanded::after,
+    #tournament-results-table tr.is-expanded::after {
+        content: '−';

@@ -57,9 +57,10 @@
                 </form>
             </div>
             <ul class="nav-menu">
-  <li><a href="/" class="{% if request.path | default('') === '/' %}active{% endif %}"><i class="fas fa-trophy"></i>SF6 Rankings</a></li>
-  <li><a href="/tournament-results/" class="{% if '/tournament-results/' in request.path | default('') %}active{% endif %}"><i class="fas fa-sitemap"></i>Tournament Results</a></li>
-  <li><a href="/ranking-system/" class="{% if '/ranking-system/' in request.path | default('') %}active{% endif %}"><i class="fas fa-scale-balanced"></i>Ranking System</a></li>
+    {% set currentPath = page.url | default('/') %}
+    <li><a href="/" class="{% if currentPath === '/' %}active{% endif %}"><i class="fas fa-trophy"></i>SF6 Rankings</a></li>
+    <li><a href="/tournament-results/" class="{% if '/tournament-results/' in currentPath %}active{% endif %}"><i class="fas fa-sitemap"></i>Tournament Results</a></li>
+    <li><a href="/ranking-system/" class="{% if '/ranking-system/' in currentPath %}active{% endif %}"><i class="fas fa-scale-balanced"></i>Ranking System</a></li>
 </ul>
         </nav>
 
