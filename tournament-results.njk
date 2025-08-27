@@ -1,5 +1,5 @@
 ---
-permalink: "tournament-results/index.html"
+permalink: "tournament-results/"
 ---
 {% extends "layout.njk" %}
 
@@ -9,6 +9,28 @@ permalink: "tournament-results/index.html"
 
 {% block content %}
 <style>
+/* 2. Create the '+' expander button and vertically center it */
+#rankings-table tbody tr::after,
+#tournament-results-table tbody tr::after {
+    content: '+';
+    position: absolute;
+    top: 1.65rem; /* Position the top at the halfway mark */
+    right: 1rem;
+    transform: translateY(-50%); /* Shift it up by half its own height */
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #FFFFFF;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
+    transition: transform 0.2s ease-in-out;
+}
+
+/* 3. When expanded, turn '+' into '-' and keep it centered */
+#rankings-table tbody tr.is-expanded::after,
+#tournament-results-table tbody tr.is-expanded::after {
+    content: '−';
+    /* We combine the centering and rotation transforms */
+    transform: translateY(-50%) rotate(180deg);
+}
 /* --- Desktop-First Styles (Default for all screens) --- */
 .content-container {
     max-width: 1200px;
@@ -84,29 +106,8 @@ permalink: "tournament-results/index.html"
     background-color: rgba(255, 255, 255, 0.05);
 }
 
-/* Mobile sort icon changes to match the new style */
-.sort-options .sort-option-btn .sort-icon {
-    transition: transform 0.2s ease-in-out, background-color 0.2s ease-in-out;
-}
-
-.sort-options .sort-option-btn .sort-icon svg {
-    opacity: 0.3;
-}
-
-.sort-options .sort-option-btn.active .sort-icon svg {
-    opacity: 1;
-}
-
-.sort-options .sort-option-btn.active.desc .sort-icon {
-    transform: rotate(180deg);
-}
-
 .content-container #tournament-results-table tbody tr {
-    background-color: #111;
-}
-
-.content-container #tournament-results-table tbody tr:nth-child(even) {
-    background-color: #1a1a1a;
+    background-color: transparent;
 }
 
 .content-container #tournament-results-table tbody tr:hover {
@@ -168,42 +169,42 @@ permalink: "tournament-results/index.html"
 
 /* Styles for the colored table rows and glow */
 #tournament-results-table tbody tr.rank-1 td {
-  background-color: #ffd70030;
-  color: #FFD700 !important;
-  text-shadow: 0 0 2px #FFD700;
+    background-color: #ffd70030;
+    color: #FFD700 !important;
+    text-shadow: 0 0 4px #FFD700;
 }
 #tournament-results-table tbody tr.rank-2 td {
-  background-color: #c0c0c030;
-  color: #C0C0C0 !important;
-  text-shadow: 0 0 2px #C0C0C0;
+    background-color: #c0c0c030;
+    color: #C0C0C0 !important;
+    text-shadow: 0 0 4px #C0C0C0;
 }
 #tournament-results-table tbody tr.rank-3 td {
-  background-color: #cd7f3230;
-  color: #cd7f32 !important;
-  text-shadow: 0 0 2px #cd7f32;
+    background-color: #cd7f3230;
+    color: #cd7f32 !important;
+    text-shadow: 0 0 4px #cd7f32;
 }
 #tournament-results-table tbody tr.rank-4 td {
-  background-color: #4b371c30;
-  color: #8c7359 !important;
-  text-shadow: 0 0 2px #8c7359;
+    background-color: #4b371c30;
+    color: #b0c4de !important;
+    text-shadow: 0 0 4px #b0c4de;
 }
 #tournament-results-table tbody tr.rank-5 td {
-  background-color: #36454F30;
-  color: #b0c4de !important;
-  text-shadow: 0 0 2px #b0c4de;
+    background-color: #36454F30;
+    color: #8c7359 !important;
+    text-shadow: 0 0 4px #8c7359;
 }
 #tournament-results-table tbody tr.ranked-6-40 td {
-  background-color: rgba(0, 61, 41, 0.3);
-  color: #66CC66 !important;
-  text-shadow: 0 0 2px #66CC66;
+    background-color: rgba(0, 61, 41, 0.3);
+    color: #66CC66 !important;
+    text-shadow: 0 0 4px #66CC66;
 }
 
 /* Styles for the colored glow around all images */
 #tournament-results-table .rank-1 .player-photo { box-shadow: 0 0 6px 1px #FFD700; }
 #tournament-results-table .rank-2 .player-photo { box-shadow: 0 0 6px 1px #C0C0C0; }
 #tournament-results-table .rank-3 .player-photo { box-shadow: 0 0 6px 1px #cd7f32; }
-#tournament-results-table .rank-4 .player-photo { box-shadow: 0 0 6px 1px #8c7359; }
-#tournament-results-table .rank-5 .player-photo { box-shadow: 0 0 6px 1px #b0c4de; }
+#tournament-results-table .rank-4 .player-photo { box-shadow: 0 0 6px 1px #b0c4de; }
+#tournament-results-table .rank-5 .player-photo { box-shadow: 0 0 6px 1px #8c7359; }
 #tournament-results-table .ranked-6-40 .player-photo { box-shadow: 0 0 6px 1px #b8d9bf; }
 
 .pagination-info-container {
@@ -260,7 +261,7 @@ permalink: "tournament-results/index.html"
     }
 
     .content-container h1 {
-        font-size: 1.5rem;
+        font-size: 3rem;
     }
 
     .content-container #search-input {
@@ -355,185 +356,118 @@ permalink: "tournament-results/index.html"
         display: block;
     }
 
-    .mobile-sort-btn {
-        display: block;
-        width: calc(100% - 2rem);
-        max-width: 400px;
-        margin: 1.5rem auto;
-        padding: 0.75rem;
-        font-size: 1rem;
-        font-weight: bold;
-        color: #fff;
-        background-color: #FF5E13;
-        border: none;
-        border-radius: 8px;
-        cursor: pointer;
-        transition: background-color 0.3s;
-    }
-
-    .mobile-sort-btn:hover {
-        background-color: #cc4b0f;
-    }
-
-    .sort-modal {
-        display: none; /* Hidden by default */
-        position: fixed;
-        z-index: 1000;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.7);
-        backdrop-filter: blur(5px);
-    }
-
-    .modal-content {
-        background-color: #222;
-        color: #fff;
-        padding: 2rem 1rem;
-        border-top-left-radius: 12px;
-        border-top-right-radius: 12px;
-        position: absolute;
-        bottom: 0;
-        width: 100%;
-        box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.5);
-        transform: translateY(100%);
-        transition: transform 0.4s ease-out;
-    }
-
-    .sort-modal.show .modal-content {
-        transform: translateY(0);
-    }
-
-    .modal-content h2 {
-        text-align: center;
-        margin-top: 0;
-        color: #FF5E13;
-    }
-
-    .close-btn {
-        color: #aaa;
-        float: right;
-        font-size: 28px;
-        font-weight: bold;
-        position: absolute;
-        top: 10px;
-        right: 20px;
-        cursor: pointer;
-    }
-
-    .close-btn:hover,
-    .close-btn:focus {
-        color: #fff;
-    }
-
-    .sort-options .sort-option-btn {
+    #mobile-sort-container {
         display: flex;
-        justify-content: space-between;
-        align-items: center;
-        width: 100%;
-        padding: 1rem;
-        margin-bottom: 0.5rem;
-        background-color: #444;
+        flex-wrap: wrap; /* Allows buttons to wrap to the next line */
+        justify-content: center; /* Centers the button row horizontally */
+        gap: 10px; /* Adds space between buttons */
+        margin-top: 1.5rem; /* Matches the vertical spacing of the old button */
+    }
+
+    .mobile-sort-btn {
+        background-color: #FF5E13;
+        color: #000000;
         border: none;
         border-radius: 8px;
-        color: #fff;
+        padding: 0.75rem 1rem;
         font-size: 1rem;
+        font-weight: bold;
         cursor: pointer;
-        transition: background-color 0.2s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 
-    .sort-options .sort-option-btn.active {
-        background-color: #FF5E13;
+    .mobile-sort-btn .sort-icon {
+        margin-left: 5px;
+        opacity: 0.3;
+        transition: transform 0.2s ease-in-out, opacity 0.2s ease-in-out;
     }
 
-    .sort-options .sort-option-btn:hover {
-        background-color: #555;
+    .mobile-sort-btn:hover .sort-icon {
+        opacity: 0.6;
     }
 
-    .sort-options .sort-option-btn.active:hover {
-        background-color: #cc4b0f;
-    }
-    
-    /* Mobile sort icon changes to match the new style */
-    .sort-options .sort-option-btn.active.asc .sort-icon {
-        transform: rotate(0deg);
+    .mobile-sort-btn.sorted-asc .sort-icon,
+    .mobile-sort-btn.sorted-desc .sort-icon {
+        opacity: 1;
     }
 
-    .sort-options .sort-option-btn.active.desc .sort-icon {
-        transform: rotate(180deg);
+    .mobile-sort-btn.sorted-asc .sort-icon {
+        transform: rotate(0deg); /* Points up */
     }
+
+    .mobile-sort-btn.sorted-desc .sort-icon {
+        transform: rotate(180deg); /* Points down */
+    }
+
+    /* --- Add space for the expand button --- */
+    #rankings-table tbody tr td:first-child,
+    #tournament-results-table tbody tr td:first-child {
+        /* This adds space on the right, pushing the text to the left */
+        padding-right: 2.5rem; /* Adjust this value as needed */
+    }
+
+    /* --- START: MOBILE EXPANDABLE ROW RULES --- */
+    /* Hide the 'Date' (2nd) and 'Entrants' (3rd) columns by default on mobile */
+    #tournament-results-table tbody tr td:nth-child(2),
+    #tournament-results-table tbody tr td:nth-child(3) {
+        display: none;
+    }
+
+    /* When the row has the .is-expanded class, show the hidden columns */
+    #tournament-results-table tbody tr.is-expanded td:nth-child(2),
+    #tournament-results-table tbody tr.is-expanded td:nth-child(3) {
+        display: flex; /* Use flex to match the other visible columns */
+    }
+
+    /* --- END: MOBILE EXPANDABLE ROW RULES --- */
 }
 /* --- FINAL OVERRIDES FOR TOURNAMENT RESULTS TABLE --- */
-
 /* This rule is specific enough to re-center the Player header */
 #tournament-results-table th[data-column-name="Player"] > span {
-  justify-content: center;
+    justify-content: center;
 }
 
-/* --- Complete Sort Arrow Styles --- */
+/* --- Final, Conflict-Free Desktop Sort Arrow Styles --- */
 
-/* This is the DEFAULT state for all arrows */
+/* This sets the default state for all desktop arrows */
 #tournament-results-table thead th .sort-icon {
-  transform: rotate(0deg); /* Default direction is down */
-  transition: transform 0.2s ease-in-out;
-}
-#tournament-results-table thead th .sort-icon svg {
-  stroke: #ffffff; /* Default color is WHITE */
-  opacity: 0.3;    /* Default state is DIM */
-  transition: opacity 0.2s, stroke 0.2s;
+    opacity: 0.3;
+    transform: rotate(180deg); /* Default state is dim and pointing down */
+    transition: transform 0.2s ease-in-out, opacity 0.2s ease-in-out;
 }
 
-/* This is the HOVER state */
-#tournament-results-table thead th:hover .sort-icon svg {
-  opacity: 0.6;
+/* This is the HOVER state for the desktop arrow */
+#tournament-results-table thead th:hover .sort-icon {
+    opacity: 0.6;
 }
 
-/* This is the SORTED state (for both directions) */
-#tournament-results-table thead th.sorted.asc .sort-icon svg,
-#tournament-results-table thead th.sorted.desc .sort-icon svg {
-  opacity: 1;         /* State is BRIGHT */
-  stroke: #ffffff;    /* State is ORANGE */
-}
-
-/* This rule handles the UP direction for ascending sort */
+/* This is the ACTIVE state for ascending sort (points up, bright) */
 #tournament-results-table thead th.sorted.asc .sort-icon {
-  transform: rotate(180deg);
+    opacity: 1;
+    transform: rotate(0deg);
+}
+
+/* This is the ACTIVE state for descending sort (points down, bright) */
+#tournament-results-table thead th.sorted.desc .sort-icon {
+    opacity: 1;
+    transform: rotate(180deg);
 }
 
 /* This rule specifically targets the Player header span to center it, overriding all other styles. */
 #tournament-results-table th[data-column-name="Player"] > span {
-  justify-content: center !important;
-}
-
-#tournament-results-table th.sorted.asc .sort-icon svg,
-#tournament-results-table th.sorted.desc .sort-icon svg {
-  opacity: 1 !important;
-}
-
-/* --- FINAL FIX FOR SORT ARROW BRIGHTNESS --- */
-
-#tournament-results-table th.sorted.asc .sort-icon svg,
-#tournament-results-table th.sorted.desc .sort-icon svg {
-  opacity: 1 !important;
-}
-
-/* --- FINAL OVERRIDES FOR SORT ARROWS AND PLAYER HEADER --- */
-
-/* This rule makes the sort arrow bright when a column is sorted */
-#tournament-results-table th.sorted.asc .sort-icon,
-#tournament-results-table th.sorted.desc .sort-icon {
-  opacity: 1 !important;
+    justify-content: center !important;
 }
 
 /* This rule re-centers the Player header */
 #tournament-results-table th.player-cell > span {
-  justify-content: center !important;
+    justify-content: center !important;
 }
 
 /* This final rule centers the Player header */
 #tournament-results-table th.player-cell {
-  justify-content: center !important;
+    justify-content: center !important;
 }
 
 .content-container #tournament-results-table tbody tr:hover {
@@ -543,6 +477,11 @@ permalink: "tournament-results/index.html"
 #tournament-results-table .player-photo {
     transition: none !important;
 }
+
+#tournament-results-table tbody td {
+    background-color: transparent !important;
+}
+
 </style>
 
 <div class="content-container">
@@ -551,58 +490,59 @@ permalink: "tournament-results/index.html"
         <input type="text" id="search-input" placeholder="Search by Player or Event..." title="Type to search for a player or event.">
     </div>
 
-    <div id="mobile-sort-container" class="mobile-sort-container">
-    <button class="mobile-sort-btn" data-column-index="0" data-type="string">Event</button>
-    <button class="mobile-sort-btn" data-column-index="1" data-type="string">Player</button>
-    <button class="mobile-sort-btn" data-column-index="2" data-type="number">Finish</button>
-</div>
+    <div id="mobile-sort-container">
+        <button class="mobile-sort-btn" data-column-name="Player" data-type="string">
+            Player
+            <svg class="sort-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 5V19"/>
+                <path d="M19 12L12 19L5 12"/>
+            </svg>
+        </button>
+        <button class="mobile-sort-btn sorted-desc" data-column-name="Finish" data-type="finish">
+            Finish
+            <svg class="sort-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 5V19"/>
+                <path d="M19 12L12 19L5 12"/>
+            </svg>
+        </button>
+    </div>
     <div class="table-wrapper">
         <table id="tournament-results-table">
             <thead>
     <tr>
         <th data-column-name="Event" data-type="string">
             <span>Event
-                <span class="sort-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M12 5V19"/><path d="M19 12L12 19L5 12"/>
-                    </svg>
-                </span>
+                <svg class="sort-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 5V19"/><path d="M19 12L12 19L5 12"/>
+                </svg>
             </span>
         </th>
         <th data-column-name="Date" data-type="string">
             <span>Date
-                <span class="sort-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M12 5V19"/><path d="M19 12L12 19L5 12"/>
-                    </svg>
-                </span>
+                <svg class="sort-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 5V19"/><path d="M19 12L12 19L5 12"/>
+                </svg>
             </span>
         </th>
         <th data-column-name="Entrants" data-type="number">
             <span>Entrants
-                <span class="sort-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M12 5V19"/><path d="M19 12L12 19L5 12"/>
-                    </svg>
-                </span>
+                <svg class="sort-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 5V19"/><path d="M19 12L12 19L5 12"/>
+                </svg>
             </span>
         </th>
         <th data-column-name="Player" data-type="string" class="player-cell">
             <span>Player
-                <span class="sort-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M12 5V19"/><path d="M19 12L12 19L5 12"/>
-                    </svg>
-                </span>
+                <svg class="sort-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 5V19"/><path d="M19 12L12 19L5 12"/>
+                </svg>
             </span>
         </th>
         <th data-column-name="Finish" data-type="finish">
             <span>Finish
-                <span class="sort-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M12 5V19"/><path d="M19 12L12 19L5 12"/>
-                    </svg>
-                </span>
+                <svg class="sort-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 5V19"/><path d="M19 12L12 19L5 12"/>
+                </svg>
             </span>
         </th>
     </tr>
@@ -623,7 +563,7 @@ permalink: "tournament-results/index.html"
 <script>
 document.addEventListener('DOMContentLoaded', () => {
     // Corrected URLs using the stable /gviz/tq endpoint
-    const googleSheetURL = "https://docs.google.com/spreadsheets/d/1otrfs8HN3Shq6U2-qrc4GDxTI4ragnqwbTjweecE12Q/gviz/tq?tqx=out:csv&gid=332201631";
+    const googleSheetURL = "https://docs.google.com/spreadsheets/d/1otrfs8HN3Shq6U2-qrc4GDxTI4ragnqwbTjweecE12Q/gviz/tq?tqx=out:csv&gid=1021048964";
     const googleRankingsURL = "https://docs.google.com/spreadsheets/d/1otrfs8HN3Shq6U2-qrc4GDxTI4ragnqwbTjweecE12Q/gviz/tq?tqx=out:csv&gid=1862929315";
 
     const tableBody = document.getElementById('table-body');
@@ -631,10 +571,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const prevBtn = document.getElementById('prev-page-btn');
     const nextBtn = document.getElementById('next-page-btn');
     const pageInfo = document.getElementById('page-info');
-    const mobileSortBtn = document.getElementById('mobile-sort-btn');
-    const sortModal = document.getElementById('sort-modal');
-    const closeModalBtn = document.querySelector('.close-btn');
-    const sortOptionsContainer = document.getElementById('sort-options');
 
     let allData = [];
     let groupedDataByEvent = {};
@@ -824,6 +760,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 header.classList.add('sorted', sortDirection);
             }
         });
+
+        // Mobile buttons
+        const mobileBtns = document.querySelectorAll('#mobile-sort-container .mobile-sort-btn');
+        mobileBtns.forEach(btn => {
+            btn.classList.remove('sorted-asc', 'sorted-desc');
+            if (btn.getAttribute('data-column-name') === sortedColumn) {
+                btn.classList.add(`sorted-${sortDirection}`);
+            }
+        });
     }
 
     function updatePaginationControls(filteredCount) {
@@ -920,77 +865,35 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // New Mobile Sort Functionality
-    if (document.getElementById('mobile-sort-btn')) {
-        document.getElementById('mobile-sort-btn').addEventListener('click', () => {
-            generateSortOptions();
-            sortModal.style.display = 'block';
-            setTimeout(() => sortModal.classList.add('show'), 10);
+// New Mobile Sort Functionality
+const mobileSortBtns = document.querySelectorAll('#mobile-sort-container .mobile-sort-btn');
+mobileSortBtns.forEach(button => {
+    button.addEventListener('click', () => {
+        const columnName = button.getAttribute('data-column-name');
+
+        // Remove the 'sorted-desc' and 'sorted-asc' classes from all buttons
+        mobileSortBtns.forEach(btn => {
+            btn.classList.remove('sorted-asc', 'sorted-desc');
         });
-    }
 
-    if (closeModalBtn) {
-        closeModalBtn.addEventListener('click', () => {
-            sortModal.classList.remove('show');
-            setTimeout(() => sortModal.style.display = 'none', 400);
-        });
-    }
+        if (sortedColumn === columnName) {
+            sortDirection = sortDirection === 'asc' ? 'desc' : 'asc';
+        } else {
+            sortedColumn = columnName;
+            // Set default sort direction based on column
+            if (columnName === 'Finish' || columnName === 'Date' || columnName === 'Entrants') {
+    sortDirection = 'desc'; // We want the lowest number finish first
+} else {
+    sortDirection = 'asc';
+}
+        }
 
-    if (sortModal) {
-        window.addEventListener('click', (event) => {
-            if (event.target === sortModal) {
-                sortModal.classList.remove('show');
-                setTimeout(() => sortModal.style.display = 'none', 400);
-            }
-        });
-    }
-
-    function generateSortOptions() {
-        if (!sortOptionsContainer) return;
-        sortOptionsContainer.innerHTML = '';
-        const headers = document.querySelectorAll('#tournament-results-table thead th');
-        headers.forEach(header => {
-            const columnName = header.getAttribute('data-column-name');
-            const columnLabel = header.textContent.trim();
-            const optionBtn = document.createElement('button');
-            optionBtn.className = 'sort-option-btn';
-            optionBtn.setAttribute('data-column-name', columnName);
-            
-            let sortIconSvg = `
-                <span class="sort-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <polyline points="18 15 12 9 6 15"/>
-                    </svg>
-                </span>
-            `;
-
-            optionBtn.innerHTML = `
-                <span>${columnLabel}</span>
-                ${sortIconSvg}
-            `;
-
-            if (columnName === sortedColumn) {
-                optionBtn.classList.add('active', sortDirection);
-            }
-
-            optionBtn.addEventListener('click', () => {
-                if (sortedColumn === columnName) {
-                    sortDirection = sortDirection === 'asc' ? 'desc' : 'asc';
-                } else {
-                    sortedColumn = columnName;
-                    if (columnName === 'Date' || columnName === 'Entrants') {
-                        sortDirection = 'desc';
-                    } else {
-                        sortDirection = 'asc';
-                    }
-                }
-                sortModal.classList.remove('show');
-                setTimeout(() => sortModal.style.display = 'none', 400);
-                renderAll();
-            });
-            sortOptionsContainer.appendChild(optionBtn);
-        });
-    }
+        // Add the correct class to the clicked button
+        button.classList.add(`sorted-${sortDirection}`);
+        
+        renderAll();
+    });
+});
 
     fetchData();
 });

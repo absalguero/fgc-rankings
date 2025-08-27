@@ -194,47 +194,6 @@ nav.sidebar ul.nav-menu {
     margin: 0;
 }
 
-nav.sidebar ul.nav-menu li {
-    font-family: 'Permanent Marker', cursive;
-    margin-bottom: 0.4rem;
-}
-
-/* 1. Base style for all sidebar links */
-nav.sidebar ul.nav-menu li a {
-    color: #ddd; /* Default color: light grey */
-    display: flex;
-    align-items: center;
-    font-size: 1.5rem;
-    line-height: 1.3;
-    transition: color 0.2s ease-in-out;
-    text-decoration: none;
-}
-
-/* 2. Style for non-active links on hover */
-nav.sidebar ul.nav-menu li a:hover {
-    color: #fff; /* Hover color: white */
-    text-decoration: none;
-}
-
-/* 3. Style for the ACTIVE link (text and icon) */
-nav.sidebar ul.nav-menu li a.active {
-    color: #FF5E13; /* Active color: orange */
-    font-weight: 700;
-    text-shadow: 0 0 1px #FF5E13;
-}
-
-/* 4. Style for the ACTIVE link WHEN HOVERED (This is the fix) */
-nav.sidebar ul.nav-menu li a.active:hover {
-    color: #FF5E13; /* Keeps the active link orange on hover */
-}
-
-/* Base style for icons (keeps the spacing) */
-nav.sidebar ul.nav-menu li a i {
-    margin-right: 11px;
-    width: 25px;
-    text-align: center;
-}
-
 aside.right-sidebar {
     background: #111;
     padding: 20px 15px;
@@ -283,8 +242,8 @@ tbody tr:hover { background: #333; }
 #rankings-table tr.rank-1 td { background-color: #ffd70030; color: gold; }
 #rankings-table tr.rank-2 td { background-color: #c0c0c030; color: silver; }
 #rankings-table tr.rank-3 td { background-color: #cd7f3230; color: #cd7f32; text-shadow: 0 0 4px #cd7f32; }
-#rankings-table tr.rank-4 td { background-color: #4b371c30; color: #8c7359; text-shadow: 0 0 4px #8c7359; }
-#rankings-table tr.rank-5 td { background-color: #36454F30; color: #b0c4de; text-shadow: 0 0 4px #b0c4de; }
+#rankings-table tr.rank-4 td { background-color: #36454F30 !important; color: #b0c4de; text-shadow: 0 0 4px #b0c4de; }
+#rankings-table tr.rank-5 td { background-color: #4b371c30 !important; color: #8c7359; text-shadow: 0 0 4px #8c7359; }
 .player-cell, .character-cell, .flag-cell, .change-cell { 
     display: flex; 
     align-items: center; 
@@ -379,19 +338,19 @@ tbody tr:hover { background: #333; }
     border: 2px solid transparent;
 }
 #tournament-results-table tbody tr[class^="rank-"] td { color: inherit !important; }
-#tournament-results-table tbody tr.rank-1 td { background-color: #ffd70030; }
-#tournament-results-table tbody tr.rank-2 td { background-color: #c0c0c030; }
-#tournament-results-table tbody tr.rank-3 td { background-color: #cd7f3230; }
-#tournament-results-table tbody tr.rank-4 td { background-color: #4b371c30; }
-#tournament-results-table tbody tr.rank-5 td { background-color: #36454F30; }
-#tournament-results-table tbody tr.ranked-6-40 td { background-color: rgba(0, 61, 41, 0.3); }
+#tournament-results-table tbody tr.rank-1 td { background-color: #ffd70030!important; }
+#tournament-results-table tbody tr.rank-2 td { background-color: #c0c0c030!important; }
+#tournament-results-table tbody tr.rank-3 td { background-color: #cd7f3230!important; }
+#tournament-results-table tbody tr.rank-4 td { background-color: #36454F30 !important; }
+#tournament-results-table tbody tr.rank-5 td { background-color: #4b371c30 !important; }
+#tournament-results-table tbody tr.ranked-6-40 td { background-color: rgba(0, 61, 41, 0.3)!important; }
 
-#tournament-results-table .rank-1 .player-photo { box-shadow: 0 0 6px 1px #FFD700; }
-#tournament-results-table .rank-2 .player-photo { box-shadow: 0 0 6px 1px #C0C0C0; }
-#tournament-results-table .rank-3 .player-photo { box-shadow: 0 0 6px 1px #cd7f32; }
-#tournament-results-table .rank-4 .player-photo { box-shadow: 0 0 6px 1px #8c7359; }
-#tournament-results-table .rank-5 .player-photo { box-shadow: 0 0 6px 1px #b0c4de; }
-#tournament-results-table .ranked-6-40 .player-photo { box-shadow: 0 0 6px 1px #b8d9bf; }
+#tournament-results-table .rank-1 .player-photo { box-shadow: 0 0 6px 1px #FFD700!important; }
+#tournament-results-table .rank-2 .player-photo { box-shadow: 0 0 6px 1px #C0C0C0!important; }
+#tournament-results-table .rank-3 .player-photo { box-shadow: 0 0 6px 1px #cd7f32!important; }
+#tournament-results-table .rank-4 .player-photo { box-shadow: 0 0 6px 1px #b0c4de !important; }
+#tournament-results-table .rank-5 .player-photo { box-shadow: 0 0 6px 1px #8c7359 !important; }
+#tournament-results-table .ranked-6-40 .player-photo { box-shadow: 0 0 6px 1px #b8d9bf!important; }
 
 .pagination-info-container {
     display: flex;
@@ -431,22 +390,13 @@ tbody tr:hover { background: #333; }
     text-align: center;
 }
 
-/* Universal Sort Arrow Styles */
-.sort-icon { 
-    margin-left: 5px;
-    opacity: 0.3; 
-    transition: transform 0.2s ease, opacity 0.2s ease;
+th.sorted.asc .sort-icon {
+    transform: rotate(0deg); /* Arrow points up for ascending */
+    opacity: 1;
 }
-th:hover .sort-icon { 
-    opacity: 0.6; 
-}
-th.sorted.asc .sort-icon { 
-    transform: rotate(180deg);
-    opacity: 1; 
-}
-th.sorted.desc .sort-icon { 
-    transform: rotate(0deg);
-    opacity: 1; 
+th.sorted.desc .sort-icon {
+    transform: rotate(180deg); /* Arrow points down for descending */
+    opacity: 1;
 }
 
 /* Load More Button */
@@ -533,16 +483,10 @@ th.sorted.desc .sort-icon {
         grid-column: 1 / -1;
     }
 
-    /* --- Mobile Sidebar Navigation --- */
-    nav.sidebar ul.nav-menu li { 
-        font-family: Arial, Helvetica, sans-serif; 
-        padding-left: 15px; 
-    }
-    nav.sidebar ul.nav-menu li a { 
-        font-size: 1.4rem; 
-        font-weight: normal; 
-        font-family: Arial, Helvetica, sans-serif; 
-    }
+    nav.sidebar ul.nav-menu li a.active {
+  font-weight: bold; /* Or you can use 700 */
+  /* The color and other styles will be inherited correctly */
+}
 
     /* --- Mobile Table Card View --- */
     #rankings-table thead, #tournament-results-table thead { 
@@ -590,6 +534,12 @@ th.sorted.desc .sort-icon {
         display: none; 
     }
 
+    #tournament-results-table thead th .sort-icon {
+    opacity: 0.3;
+    transform: rotate(180deg) !important;
+    transition: transform 0.2s ease-in-out, opacity 0.2s ease-in-out;
+}
+
     #rankings-table td[data-label="Rank"], 
     #rankings-table td[data-label="Player"], 
     #rankings-table td[data-label="Rating"] { 
@@ -625,39 +575,54 @@ th.sorted.desc .sort-icon {
     }
 }
 
-/* --- Use this FINAL version for the sidebar navigation --- */
+/* --- Final, All-in-One Sidebar Navigation Styles --- */
 
-/* This removes the extra vertical space between links */
+/* Removes vertical space between list items */
 .sidebar .nav-menu li {
   margin-bottom: 0;
 }
 
-/* Style for all navigation links in the sidebar */
+/* Base style for ALL sidebar links (DESKTOP) */
 .sidebar .nav-menu li a {
   box-sizing: border-box;
   width: 100%;
   display: flex;
   align-items: center;
-  /* Reduced padding to prevent overflow */
-  padding: 0.1rem 0.35rem;
-  color: #EAEAEA;
+  padding: 0.15rem 0.45rem;
+  color: #ddd;
   text-decoration: none;
+  font-family: 'Permanent Marker', cursive;
+  font-size: 1.5rem;
   font-weight: 500;
   border-left: 4px solid transparent;
   transition: background-color 0.2s, color 0.2s;
-  /* Reduced gap to save space */
-  gap: 0.5rem;
+  gap: 0.75rem;
 }
 
-/* Style for the link when you hover over it */
+/* Style for hovering over any link */
 .sidebar .nav-menu li a:hover {
   background-color: #333;
 }
 
-/* Style for the currently active navigation link */
+/* Style for the currently ACTIVE link (DESKTOP) */
 .sidebar .nav-menu li a.active {
-  color: #FF5E13;
+  color: #ddd;
   font-weight: 700;
   background-color: rgba(255, 94, 19, 0.1);
   border-left: 4px solid #FF5E13;
+}
+
+/* --- Mobile-Specific Overrides --- */
+@media screen and (max-width: 768px) {
+  .sidebar .nav-menu li a {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1.4rem;
+    /* Corrected padding to prevent scrolling */
+    padding: 0.75rem 1rem;
+    font-weight: normal;
+  }
+
+  .sidebar .nav-menu li a.active {
+    font-weight: bold;
+  }
 }
