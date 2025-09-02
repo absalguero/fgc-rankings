@@ -686,52 +686,54 @@ document.addEventListener('DOMContentLoaded', () => {
     uniqueEvents = Object.keys(grouped).sort((a, b) => eventDates[b] - eventDates[a]);
   }
 
-   function injectStructuredData(eventList) {
-    if (!eventList || eventList.length === 0) return;
-
-    const schema = {
-      "@context": "https://schema.org",
-      "@type": "ItemList",
-      "name": "FGC Tournament Results",
-      "itemListElement": eventList.map((eventData, index) => {
-        return {
-          "@type": "ListItem",
-          "position": index + 1,
-          "item": {
-            "@type": "SportsEvent",
-            "name": eventData.Event,
-            "startDate": new Date(eventData.Date).toISOString().split('T')[0], // Formats date as YYYY-MM-DD
-            "location": {
-              "@type": "VirtualLocation",
-              "url": "https://fgc-player-rankings.netlify.app/tournament-results/"
-            }
-          }
-        }
-      })
-    };
-
-    const script = document.createElement('script');
-    script.type = 'application/ld+json';
-    script.text = JSON.stringify(schema);
-    document.head.appendChild(script);
-  }
-
-  async function fetchData() {
+  // A more robust function to inject structured data
+function injectStructuredData(eventList) {
+    // 1. Wrap in a try...catch to prevent it from ever breaking the page load
     try {
-      // ... your existing code ...
-      allData = parseCSV(text);
-      groupDataByEvent(allData);
-      
-      // ADD THIS LINE
-      injectStructuredData(allData);
+        if (!eventList || eventList.length === 0) return;
 
-      populateEventDropdown();
-      renderAll();
-      // ... rest of your code ...
+        // 2. Filter out any rows that are missing essential data before processing
+        const validEvents = eventList.filter(eventData => {
+            return eventData.Event && eventData.Date && !isNaN(new Date(eventData.Date));
+        });
+
+        if (validEvents.length === 0) return;
+
+        const schema = {
+            "@context": "https://schema.org",
+            "@type": "ItemList",
+            "name": "FGC Tournament Results",
+            "itemListElement": validEvents.map((eventData, index) => {
+                return {
+                    "@type": "ListItem",
+                    "position": index + 1,
+                    "item": {
+                        "@type": "SportsEvent",
+                        "name": eventData.Event,
+                        "startDate": new Date(eventData.Date).toISOString().split('T')[0],
+                        "location": {
+                            "@type": "VirtualLocation",
+                            "url": "https://fgc-player-rankings.netlify.app/tournament-results/"
+                        }
+                    }
+                }
+            })
+        };
+
+        // Check if a script for this already exists to avoid duplicates
+        const existingScript = document.querySelector('script[type="application/ld+json"]');
+        if (existingScript) {
+            existingScript.text = JSON.stringify(schema);
+        } else {
+            const script = document.createElement('script');
+            script.type = 'application/ld+json';
+            script.text = JSON.stringify(schema);
+            document.head.appendChild(script);
+        }
     } catch (error) {
-      // ...
+        console.error("Failed to inject structured data:", error);
     }
-  }
+}
 
   const sortableHeaders = document.querySelectorAll('#tournament-results-table th, #results-mobile-sort .btn');
   sortableHeaders.forEach(header => {
