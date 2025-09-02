@@ -6,6 +6,42 @@ pageClass: "page-rankings"
 
 {% block title %}Street Fighter 6 Global Player Rankings{% endblock %}
 
+{% block meta_description %}
+<meta name="description" content="The definitive Street Fighter 6 global player rankings, updated weekly. See who's on top and track the rise and fall of pros like MenaRD, Punk, and more." />
+{% endblock %}
+
+{% block head %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Street Fighter 6 Global Player Rankings",
+  "description": "A continuously updated ranking of the top professional Street Fighter 6 players.",
+  "eventStatus": "https://schema.org/EventScheduled",
+  "location": {
+    "@type": "VirtualLocation",
+    "url": "https://fgc-player-rankings.netlify.app/"
+  },
+  "subjectOf": {
+    "@type": "ItemList",
+    "name": "Top Players Ranked",
+    "itemListElement": [
+      {% for player in rankings.players %}
+      {
+        "@type": "ListItem",
+        "position": {{ loop.index }},
+        "item": {
+          "@type": "Person",
+          "name": "{{ player.Player }}"
+        }
+      }{% if not loop.last %},{% endif %}
+      {% endfor %}
+    ]
+  }
+}
+</script>
+{% endblock %}
+
 {% block content %}
 <div class="content-container content-container--wide">
     {% include "banner.njk" %}

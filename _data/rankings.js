@@ -30,7 +30,7 @@ module.exports = async function() {
         // =================================================================
         
         const csvText = await EleventyFetch(sheetURL, {
-            duration: "1h",
+            duration: "1d",
             type: "text",
             directory: ".cache",
         });

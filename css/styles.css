@@ -405,7 +405,7 @@ mark {
 
 .data-table .player-cell-content span {
   min-width: 0; /* Critical flexbox fix to allow text to shrink and wrap */
-  word-break: break-word; /* Ensures long, unbreakable words will wrap */
+  overflow-wrap: break-word; /* Prevents overflow without breaking words unnaturally */
 }
 .data-table .player-icon,
 .data-table .character-icon,
@@ -792,10 +792,6 @@ th.sorted.desc .sort-icon,
     z-index: 1100;
   }
 
-  body.page-tournament-results .content {
-    padding-top: 0; 
-  }
-
   .sidebar {
     position: sticky;
     top: 0;
@@ -1090,4 +1086,28 @@ th.sorted.desc .sort-icon,
   .toc-toggle-btn {
     display: none;
   }
+}
+
+/*-- FINAL FIX for Player Cell Alignment & Image Shrinking --*/
+
+/*
+  1. Override the global 'text-align: center' for cells
+     containing player info, forcing them to align left.
+     This is the primary fix for the text wrapping issue.
+*/
+.data-table .cell-player,
+.data-table .cell-center {
+  text-align: left;
+}
+
+/*
+  2. Prevent the player image from shrinking when the cell gets narrow.
+*/
+.data-table .player-cell-content .player-icon {
+  flex-shrink: 0;
+}
+
+/* Prevents the rank badge content from wrapping */
+.rank-badge {
+  white-space: nowrap;
 }

@@ -33,7 +33,7 @@ function parseCSV(text) {
 module.exports = async function() {
     try {
         const csvBuffer = await EleventyFetch(tournamentSheetURL, {
-            duration: "1h",
+            duration: "1d",
             type: "text",
             directory: ".cache",
         });

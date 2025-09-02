@@ -11,7 +11,20 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{% block title %}FGC Player Rankings{% endblock %}</title>
-    <meta name="description" content="Current Street Fighter 6 player rankings from the competitive Fighting Game Community." />
+    {% block meta_description %}
+<meta name="description" content="The definitive player rankings for top competitive fighting games. Track pro players across Street Fighter, Tekken, and more." />
+{% endblock %}
+    <meta property="og:type" content="website">
+<meta property="og:url" content="https://fgc-player-rankings.netlify.app{{ page.url }}">
+<meta property="og:title" content="{% block og_title %}{{ title or 'Street Fighter 6 Global Player Rankings' }}{% endblock %}">
+<meta property="og:description" content="{% block og_description %}The definitive ranking of the top professional SF6 players. See who's on top and track the rise and fall of your favorite pros.{% endblock %}">
+<meta property="og:image" content="https://fgc-player-rankings.netlify.app/images/fgc-rankings-social-card.png">
+
+<meta property="twitter:card" content="summary_large_image">
+<meta property="twitter:url" content="https://fgc-player-rankings.netlify.app{{ page.url }}">
+<meta property="twitter:title" content="{% block twitter_title %}{{ title or 'Street Fighter 6 Global Player Rankings' }}{% endblock %}">
+<meta property="twitter:description" content="{% block twitter_description %}The definitive ranking of the top professional SF6 players. See who's on top and track the rise and fall of your favorite pros.{% endblock %}">
+<meta property="twitter:image" content="https://fgc-player-rankings.netlify.app/images/fgc-rankings-social-card.png">
     <link rel="canonical" href="https://fgc-player-rankings.netlify.app/" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />

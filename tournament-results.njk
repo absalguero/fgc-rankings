@@ -7,10 +7,13 @@ pageClass: "page-tournament-results"
 {% block page_header %}
 {% endblock %}
 
-{% block title %}Tournament Results | FGC Player Rankings{% endblock %}
+{% block title %}FGC Tournament Results Archive | SF6 Player Rankings{% endblock %}
+
+{% block meta_description %}
+<meta name="description" content="Explore a comprehensive archive of Street Fighter 6 tournament results. Find player placings, dates, and entrants for major events like EVO, Combo Breaker, and CPT." />
+{% endblock %}
 
 {% block head %}
-<meta name="description" content="Official tournament results for Fighting Game Community (FGC) Street Fighter tournaments. Browse player finishes, view event dates, and filter by player name or event.">
 <style>
 /* Local styles for this page's features */
 mark {
@@ -64,7 +67,6 @@ mark {
     <button id="sticky-next-btn" class="btn btn--primary">Next Event &rightarrow;</button>
   </div>
 
-  <!-- Mobile sticky sort bar moved OUTSIDE controls-container -->
   <div class="mobile-sort-controls" id="results-mobile-sort">
     <button class="btn btn--primary" data-column-name="Event" data-type="string">
       Event
@@ -88,7 +90,7 @@ mark {
 
   <div class="controls-container">
     <div class="search-wrapper">
-      <input type="text" id="search-input" class="search-form__input" placeholder="Search by Player or Event...">
+      <input type="text" id="search-input" class="search-form__input" placeholder="Search by Player, Event, or Date...">
       <button class="search-clear-btn" id="search-clear-btn" aria-label="Clear search">
         <i class="fas fa-times"></i>
       </button>
@@ -148,9 +150,6 @@ mark {
 
 {% block scripts %}
 <script>
-// Entire existing tournament-results JS remains here (no change needed)
-// Ensure updateStickyOffsets() runs on resize/orientation
-// Mobile sticky now works because #results-mobile-sort is outside controls-container
 document.addEventListener('DOMContentLoaded', () => {
   function updateStickyOffsets() {
     const mobileHeader = document.querySelector('.mobile-header');
@@ -180,7 +179,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const loadMoreBtn = document.getElementById('results-load-more-btn');
 
   // --- DATA & STATE VARIABLES ---
-  const googleSheetURL   = "https://docs.google.com/spreadsheets/d/1otrfs8HN3Shq6U2-qrc4GDxTI4ragnqwbTjweecE12Q/gviz/tq?tqx=out:csv&gid=1021048964";
+  const googleSheetURL    = "https://docs.google.com/spreadsheets/d/1otrfs8HN3Shq6U2-qrc4GDxTI4ragnqwbTjweecE12Q/gviz/tq?tqx=out:csv&gid=1021048964";
   const googleRankingsURL= "https://docs.google.com/spreadsheets/d/1otrfs8HN3Shq6U2-qrc4GDxTI4ragnqwbTjweecE12Q/gviz/tq?tqx=out:csv&gid=1862929315";
 
   let allData = [];
@@ -194,8 +193,15 @@ document.addEventListener('DOMContentLoaded', () => {
   let playerIconMap = {};
 
   // --- State for "Load More" functionality ---
-  const playersPerLoad = 16;
+  const playersPerLoad = 16; // For mobile event view
   let visiblePlayers = playersPerLoad;
+  
+  // NEW: Function to determine load count based on screen size
+  const getResultsPerLoad = () => {
+    return window.innerWidth < 769 ? 16 : 64;
+  };
+  
+  let visibleResults = getResultsPerLoad(); // MODIFIED: Use the new function
 
   const initialSortHeader = document.querySelector('#tournament-results-table th.sorted');
   if (initialSortHeader) {
@@ -275,7 +281,7 @@ document.addEventListener('DOMContentLoaded', () => {
       groupDataByEvent(allData);
       populateEventDropdown();
       renderAll();
-      updateStickyOffsets(); // in case heights shift after render
+      updateStickyOffsets();
     } catch (error) {
       console.error("Error fetching data:", error);
       tableBody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:red;">Failed to load data.</td></tr>';
@@ -306,36 +312,52 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function renderAll() {
-    let dataToRender = [];
+    let dataToDisplay = [];
+    let totalResultsCount = 0;
+
     if (searchTerm) {
-      const keywords = searchTerm.toLowerCase().split(' ').filter(k => k);
-      dataToRender = allData.filter(item => {
-        const eventName = (item.Event || '').toLowerCase();
-        const playerName = (item.Player || '').toLowerCase();
-        return keywords.every(keyword => eventName.includes(keyword) || playerName.includes(keyword));
-      });
+        const keywords = searchTerm.toLowerCase().split(' ').filter(k => k);
+        const filteredData = allData.filter(item => {
+            const eventName = (item.Event || '').toLowerCase();
+            const playerName = (item.Player || '').toLowerCase();
+            const itemDate = formatDate(item.Date).toLowerCase();
+            return keywords.every(keyword => 
+                eventName.includes(keyword) || 
+                playerName.includes(keyword) || 
+                itemDate.includes(keyword)
+            );
+        });
+        
+        const headerElement = document.querySelector(`#tournament-results-table [data-column-name="${sortedColumn}"]`);
+        const sortedType = headerElement ? headerElement.getAttribute('data-type') : 'string';
+        
+        const sortedData = sortData(filteredData, sortedColumn, sortedType, sortDirection);
+        totalResultsCount = sortedData.length;
+        dataToDisplay = sortedData.slice(0, visibleResults);
     } else {
-      const currentEventName = uniqueEvents[currentEventIndex];
-      dataToRender = groupedDataByEvent[currentEventName] || [];
+        const currentEventName = uniqueEvents[currentEventIndex];
+        const eventData = groupedDataByEvent[currentEventName] || [];
+        
+        const headerElement = document.querySelector(`#tournament-results-table [data-column-name="${sortedColumn}"]`);
+        const sortedType = headerElement ? headerElement.getAttribute('data-type') : 'string';
+
+        const sortedData = sortData(eventData, sortedColumn, sortedType, sortDirection);
+        totalResultsCount = sortedData.length;
+        
+        const isMobile = window.innerWidth < 769;
+        if (isMobile) {
+            dataToDisplay = sortedData.slice(0, visiblePlayers);
+        } else {
+            dataToDisplay = sortedData;
+        }
     }
-
-    const headerElement = document.querySelector(`#tournament-results-table [data-column-name="${sortedColumn}"]`);
-    const sortedType = headerElement ? headerElement.getAttribute('data-type') : 'string';
-
-    const sortedData = sortData(dataToRender, sortedColumn, sortedType, sortDirection);
-    renderTable(sortedData);
-    updatePaginationControls(sortedData.length);
+    
+    renderTable(dataToDisplay);
+    updatePaginationControls(totalResultsCount);
     updateHeaderIcons();
   }
 
-  function renderTable(fullData) {
-    let dataToDisplay = fullData;
-    const isMobile = window.innerWidth < 769;
-
-    if (isMobile && !searchTerm) {
-      dataToDisplay = fullData.slice(0, visiblePlayers);
-    }
-
+  function renderTable(dataToDisplay) {
     tableBody.innerHTML = '';
     if (!dataToDisplay || dataToDisplay.length === 0) {
       tableBody.innerHTML = '<tr><td colspan="5" style="text-align:center;">No results found.</td></tr>';
@@ -368,12 +390,30 @@ document.addEventListener('DOMContentLoaded', () => {
 
       let eventHtml = item.Event || '';
       let playerHtml = playerText;
+      let dateHtml = formatDate(item.Date);
+
+      // MODIFICATION START
+      let eventCellContent = `<span>${eventHtml}</span>`; // Default event cell content
 
       if (searchTerm) {
         const regex = new RegExp(searchTerm.split(' ').filter(k => k).join('|'), 'gi');
+        const formattedDateForCheck = formatDate(item.Date).toLowerCase();
+        const dateContainsSearchTerm = searchTerm.split(' ').filter(k => k).some(keyword => formattedDateForCheck.includes(keyword));
+
+        // Highlight all relevant fields
         eventHtml = eventHtml.replace(regex, match => `<mark>${match}</mark>`);
         playerHtml = playerHtml.replace(regex, match => `<mark>${match}</mark>`);
+        dateHtml = dateHtml.replace(regex, match => `<mark>${match}</mark>`);
+        
+        // If on mobile and the date specifically matched the search, show it in the event cell
+        const isMobile = window.innerWidth < 769;
+        if (isMobile && dateContainsSearchTerm) {
+            eventCellContent = `<span>${eventHtml}</span><small class="search-date-match"><em>Date: ${dateHtml}</em></small>`;
+        } else {
+            eventCellContent = `<span>${eventHtml}</span>`;
+        }
       }
+      // MODIFICATION END
 
       const playerContent = `
         <div class="player-cell-content">
@@ -384,12 +424,12 @@ document.addEventListener('DOMContentLoaded', () => {
       `;
 
       row.innerHTML = `
-  <td data-label="Event" class="event-cell expandable-cell"><span>${eventHtml}</span></td>
-  <td data-label="Date" class="cell-hidden-mobile">${formatDate(item.Date)}</td>
-  <td data-label="Entrants" class="cell-hidden-mobile">${item.Entrants || ''}</td>
-  <td data-label="Player" class="cell-player">${playerContent}</td>
-  <td data-label="Finish">${item.Finish || ''}</td>
-`;
+      <td data-label="Event" class="event-cell expandable-cell">${eventCellContent}</td>
+      <td data-label="Date" class="cell-hidden-mobile">${dateHtml}</td>
+      <td data-label="Entrants" class="cell-hidden-mobile">${item.Entrants || ''}</td>
+      <td data-label="Player" class="cell-player">${playerContent}</td>
+      <td data-label="Finish">${item.Finish || ''}</td>
+    `;
       tableBody.appendChild(row);
     });
   }
@@ -405,7 +445,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  function updatePaginationControls(totalResultsInEvent) {
+  function updatePaginationControls(totalResultsCount) {
     const isMobile = window.innerWidth < 769;
 
     if (searchTerm) {
@@ -414,10 +454,14 @@ document.addEventListener('DOMContentLoaded', () => {
       eventDropdown.disabled = true;
 
       const searchOption = document.createElement('option');
-      searchOption.textContent = `Found ${totalResultsInEvent} results...`;
+      searchOption.textContent = `Found ${totalResultsCount} results...`;
       eventDropdown.innerHTML = '';
       eventDropdown.appendChild(searchOption);
-      if (loadMoreBtn) loadMoreBtn.style.display = 'none';
+      
+      if (loadMoreBtn) {
+          const canLoadMore = visibleResults < totalResultsCount;
+          loadMoreBtn.style.display = canLoadMore ? 'inline-flex' : 'none';
+      }
 
     } else {
       stickyPrevBtn.disabled = false;
@@ -434,7 +478,7 @@ document.addEventListener('DOMContentLoaded', () => {
       stickyNextBtn.disabled = isLastEvent;
 
       if (loadMoreBtn && isMobile) {
-        const canLoadMore = visiblePlayers < totalResultsInEvent;
+        const canLoadMore = visiblePlayers < totalResultsCount;
         loadMoreBtn.style.display = canLoadMore ? 'inline-flex' : 'none';
       } else if (loadMoreBtn) {
         loadMoreBtn.style.display = 'none';
@@ -506,6 +550,53 @@ document.addEventListener('DOMContentLoaded', () => {
     uniqueEvents = Object.keys(grouped).sort((a, b) => eventDates[b] - eventDates[a]);
   }
 
+   function injectStructuredData(eventList) {
+    if (!eventList || eventList.length === 0) return;
+
+    const schema = {
+      "@context": "https://schema.org",
+      "@type": "ItemList",
+      "name": "FGC Tournament Results",
+      "itemListElement": eventList.map((eventData, index) => {
+        return {
+          "@type": "ListItem",
+          "position": index + 1,
+          "item": {
+            "@type": "SportsEvent",
+            "name": eventData.Event,
+            "startDate": new Date(eventData.Date).toISOString().split('T')[0], // Formats date as YYYY-MM-DD
+            "location": {
+              "@type": "VirtualLocation",
+              "url": "https://fgc-player-rankings.netlify.app/tournament-results/"
+            }
+          }
+        }
+      })
+    };
+
+    const script = document.createElement('script');
+    script.type = 'application/ld+json';
+    script.text = JSON.stringify(schema);
+    document.head.appendChild(script);
+  }
+
+  async function fetchData() {
+    try {
+      // ... your existing code ...
+      allData = parseCSV(text);
+      groupDataByEvent(allData);
+      
+      // ADD THIS LINE
+      injectStructuredData(allData);
+
+      populateEventDropdown();
+      renderAll();
+      // ... rest of your code ...
+    } catch (error) {
+      // ...
+    }
+  }
+
   const sortableHeaders = document.querySelectorAll('#tournament-results-table th, #results-mobile-sort .btn');
   sortableHeaders.forEach(header => {
     header.addEventListener('click', () => {
@@ -535,6 +626,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   searchInput.addEventListener('input', debounce((e) => {
     searchTerm = e.target.value.toLowerCase();
+    visibleResults = getResultsPerLoad(); // MODIFIED: Reset with the dynamic function
     renderAll();
   }, 300));
 
@@ -565,14 +657,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (loadMoreBtn) {
     loadMoreBtn.addEventListener('click', () => {
-      loadMoreBtn.disabled = true;
-      loadMoreBtn.textContent = 'Loading...';
-      visiblePlayers += playersPerLoad;
-      setTimeout(() => {
-        renderAll();
-        loadMoreBtn.disabled = false;
-        loadMoreBtn.textContent = 'Load More';
-      }, 100);
+        loadMoreBtn.disabled = true;
+        loadMoreBtn.textContent = 'Loading...';
+        
+        if (searchTerm) {
+            visibleResults += getResultsPerLoad(); // MODIFIED: Use the dynamic function
+        } else {
+            visiblePlayers += playersPerLoad;
+        }
+        
+        setTimeout(() => {
+            renderAll();
+            loadMoreBtn.disabled = false;
+            loadMoreBtn.textContent = 'Load More';
+        }, 100);
     });
   }
 
