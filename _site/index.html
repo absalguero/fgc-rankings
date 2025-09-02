@@ -10,10 +10,9 @@
     </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>FGC Player Rankings</title>
+    <title>Street Fighter 6 Global Player Rankings</title>
     <meta name="description" content="Current Street Fighter 6 player rankings from the competitive Fighting Game Community." />
     <link rel="canonical" href="https://fgc-player-rankings.netlify.app/" />
-    <meta name="theme-color" content="#000001" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Roboto:wght@400;500&display=swap" rel="stylesheet" />
@@ -24,464 +23,229 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link rel="stylesheet" href="/css/styles.css">
     
-  <title>Street Fighter 6 Global Player Rankings</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-  /* 2. Create the '+' expander button and vertically center it */
-#rankings-table tbody tr::after,
-#tournament-results-table tbody tr::after {
-    content: '+';
-    position: absolute;
-    top: 1.42rem; /* Position the top at the halfway mark */
-    right: 1rem;
-    transform: translateY(-50%); /* Shift it up by half its own height */
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: #FFFFFF;
-    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
-    transition: transform 0.2s ease-in-out;
-}
-
-/* 3. When expanded, turn '+' into '-' and keep it centered */
-#rankings-table tbody tr.is-expanded::after,
-#tournament-results-table tbody tr.is-expanded::after {
-    content: '−';
-    /* We combine the centering and rotation transforms */
-    transform: translateY(-50%) rotate(180deg);
-}
-    /* New rule for transparent header and white text */
-#rankings-table thead th {
-    background-color: transparent;
-    color: #ffffff;
-    font-family: Arial, sans-serif;
-    font-size: 18px;
-}
-    
-/* Add this rule to center all table headers */
-#rankings-table th {
-    text-align: center;
-}
-    
-/* New rule for centering the content of the "Change" column */
-.change-cell {
-    text-align: center;
-}
-
-/* This is the corrected version with swapped transforms */
-#rankings-table thead th.sorted-asc .sort-icon {
-    transform: rotate(180deg); /* Rotates the arrow to point UP */
-}
-
-#rankings-table thead th.sorted-desc .sort-icon {
-    transform: rotate(0deg); /* Rotates the arrow to point DOWN */
-}
-
-<style>
-/* --- Final, Corrected Sort Arrow Styles for index.njk --- */
-
-/* This sets the default state (dim and pointing down) for desktop arrows */
-#rankings-table th:not(.sorted-asc):not(.sorted-desc) .sort-icon {
-    opacity: 0.3;
-    transform: rotate(180deg);
-    transition: transform 0.2s ease-in-out, opacity 0.2s ease-in-out;
-}
-
-/* This is the HOVER state for desktop arrows */
-#rankings-table th:hover .sort-icon {
-    opacity: 0.6;
-}
-
-/* This is the ACTIVE state for ascending sort (points up, bright) on desktop */
-#rankings-table th.sorted-asc .sort-icon {
-    opacity: 1;
-    transform: rotate(0deg);
-}
-
-/* This is the ACTIVE state for descending sort (points down, bright) on desktop */
-#rankings-table th.sorted-desc .sort-icon {
-    opacity: 1;
-    transform: rotate(180deg);
-}
-
-/* This sets the default state for mobile arrows */
-#mobile-sort-container .mobile-sort-btn:not(.sorted-asc):not(.sorted-desc) .sort-icon {
-    opacity: 0.3;
-    transform: rotate(180deg);
-    transition: transform 0.2s ease-in-out, opacity 0.2s ease-in-out;
-}
-
-/* This is the HOVER state for mobile arrows */
-#mobile-sort-container .mobile-sort-btn:hover .sort-icon {
-    opacity: 0.6;
-}
-
-/* This is the ACTIVE state for ascending sort (points up, bright) on mobile */
-#mobile-sort-container .mobile-sort-btn.sorted-asc .sort-icon {
-    opacity: 1;
-    transform: rotate(0deg);
-}
-
-/* This is the ACTIVE state for descending sort (points down, bright) on mobile */
-#mobile-sort-container .mobile-sort-btn.sorted-desc .sort-icon {
-    opacity: 1;
-    transform: rotate(180deg);
-}
-
-/* Media query for responsive design on smaller screens */
-@media (max-width: 768px) {
-    /* Ensure the main content container respects the viewport width */
-    .content-container {
-        box-sizing: border-box;
-        width: 100%;
-        padding: 0 10px;
-    }
-    
-    /* Center the mobile sort buttons */
-    #mobile-sort-container {
-        display: flex;
-        flex-wrap: wrap; /* Allows buttons to wrap to the next line */
-        justify-content: center; /* This centers the buttons horizontally */
-        overflow-x: hidden; /* Prevents horizontal scrolling */
-        gap: 10px; /* Optional: Adds spacing between buttons */
-    }
-    
-    #mobile-sort-container::-webkit-scrollbar {
-        display: none;
-    }
-
-    .mobile-sort-btn {
-    background-color: #FF5E13;
-    color: #000000;
-    border: none;
-    border-radius: 8px;
-    padding: 0.75rem 1rem;
-    font-size: 1rem;
-    font-weight: bold;
-    cursor: pointer;
-    display: flex; 
-    align-items: center; 
-    justify-content: center;
-    gap: 5px; /* Adds a small space between the text and arrow */
-}
-
-    /* --- Add space for the expand button --- */
-    #rankings-table tbody tr td:first-child,
-    #tournament-results-table tbody tr td:first-child {
-        padding-right: 2.5rem;
-    }
-    
-    /* Hide specific columns for mobile */
-    #rankings-table thead th[data-column-index="3"],
-    #mobile-sort-container .mobile-sort-btn[data-column-index="3"],
-    #rankings-table tbody td:nth-child(4) {
-        display: none;
-    }
-    
-    /* Make the table responsive within its container if it overflows */
-    .table-wrapper {
-        overflow-x: auto;
-    }
-}
-    
-/* Desktop-specific rules for optimal column width and layout */
-@media (min-width: 769px) {
-    .content-container.full-width {
-        max-width: 1000px;
-        margin: 0 auto;
-    }
-
-    #rankings-table {
-        width: 100%;
-        table-layout: auto;
-    }
-
-    /* Add padding to all table cells */
-    #rankings-table th, #rankings-table td {
-        padding: 8px 12px;
-    }
-
-    /* Set min-widths for headers and cells to prevent content spillage */
-    #rankings-table th[data-column-index="0"], #rankings-table td:nth-child(1) { min-width: 50px; }
-    #rankings-table th[data-column-index="1"], #rankings-table td:nth-child(2) { min-width: 70px; }
-    #rankings-table th[data-column-index="3"], #rankings-table td:nth-child(4) { min-width: 100px; }
-    #rankings-table th[data-column-index="4"], #rankings-table td:nth-child(5) { min-width: 80px; }
-    #rankings-table th[data-column-index="5"], #rankings-table td:nth-child(6) { min-width: 70px; }
-
-#rankings-table th span,
-#mobile-sort-container .mobile-sort-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center; /* This will center content within the button */
-}
-
-/* This targets the SVG specifically to add spacing */
-.sort-icon {
-    margin-left: 5px; /* Adds space between text and icon */
-}
-}
-
-/* --- Final working styles (high specificity) --- */
-
-/* Corrected opacity for colored rows (1-5 only) */
-#rankings-table tbody tr.rank-1 td { background-color: #ffd70030; color: #FFD700; text-shadow: 0 0 4px #FFD700; }
-#rankings-table tbody tr.rank-2 td { background-color: #c0c0c030; color: #C0C0C0; text-shadow: 0 0 4px #C0C0C0; }
-#rankings-table tbody tr.rank-3 td { background-color: #cd7f3230; color: #cd7f32; text-shadow: 0 0 4px #cd7f32; }
-#rankings-table tbody tr.rank-4 td { background-color: #4b371c30; color: #b0c4de; text-shadow: 0 0 4px #b0c4de; }
-#rankings-table tbody tr.rank-5 td { background-color: #36454F30; color: #8c7359; text-shadow: 0 0 4px #8c7359; }
-
-/* Styles for the colored glow around all images */
-#rankings-table .rank-1 .player-icon,
-#rankings-table .rank-1 .character-icon,
-#rankings-table .rank-1 .flag-icon { box-shadow: 0 0 6px 1px #FFD700; }
-#rankings-table .rank-2 .player-icon,
-#rankings-table .rank-2 .character-icon,
-#rankings-table .rank-2 .flag-icon { box-shadow: 0 0 6px 1px #C0C0C0; }
-#rankings-table .rank-3 .player-icon,
-#rankings-table .rank-3 .character-icon,
-#rankings-table .rank-3 .flag-icon { box-shadow: 0 0 6px 1px #cd7f32; }
-#rankings-table .rank-4 .player-icon,
-#rankings-table .rank-4 .character-icon,
-#rankings-table .rank-4 .flag-icon { box-shadow: 0 0 6px 1px #b0c4de; }
-#rankings-table .rank-5 .player-icon,
-#rankings-table .rank-5 .character-icon,
-#rankings-table .rank-5 .flag-icon { box-shadow: 0 0 6px 1px #8c7359; }
-#rankings-table .ranked-6-40 .player-icon,
-#rankings-table .ranked-6-40 .character-icon,
-#rankings-table .ranked-6-40 .flag-icon { box-shadow: 0 0 6px 1px #b8d9bf; }
-  </style>
-
 </head>
-<body>
-   <header class="mobile-header">
-    <button class="nav-toggle" aria-label="Toggle Navigation">
-        <svg class="hamburger-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24">
-            <path d="M3 12h18M3 6h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-        </svg>
-        <svg class="close-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24">
-            <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-        </svg>
-    </button>
-    <div class="mobile-search">
-        <form role="search" class="search-form">
-            <input type="search" id="mobile-search-input" class="search-input" placeholder="Search site..." aria-label="Search site">
-            <button type="submit" class="search-button" aria-label="Search">
-                <i class="fas fa-search"></i>
-            </button>
-        </form>
-    </div>
-</header>
+<body class="page-rankings">
+
+    <header class="mobile-header">
+        <button class="nav-toggle" aria-label="Toggle Navigation">
+            <svg class="hamburger-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24">
+                <path d="M3 12h18M3 6h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            <svg class="close-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24">
+                <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+        </button>
+        <div class="mobile-search">
+            <form role="search" class="search-form">
+                <input type="search" id="mobile-search-input" class="search-form__input" placeholder="Search site..." aria-label="Search site">
+                <button type="submit" class="search-form__button" aria-label="Search">
+                    <i class="fas fa-search"></i>
+                </button>
+            </form>
+        </div>
+    </header>
+
+
+
 
     <div class="page-wrapper">
-        <nav class="sidebar" aria-label="Main menu" role="navigation">
-            <h2 class="sidebar-label">Navigation</h2>
+        <nav class="sidebar nav-sidebar" aria-label="Main menu" role="navigation">
+            <h2 class="sidebar__label">Navigation</h2>
             <div class="sidebar-search">
                 <form role="search" class="search-form">
-                    <input type="search" id="sidebar-search-input" class="search-input" placeholder="Search site..." aria-label="Search site">
-                    <button type="submit" class="search-button" aria-label="Search">
+                    <input type="search" id="sidebar-search-input" class="search-form__input" placeholder="Search site..." aria-label="Search site">
+                    <button type="submit" class="search-form__button" aria-label="Search">
                         <i class="fas fa-search"></i>
                     </button>
                 </form>
             </div>
             <ul class="nav-menu">
-    
-    <li><a href="/" class="active"><i class="fas fa-trophy"></i>SF6 Rankings</a></li>
-    <li><a href="/tournament-results/" class=""><i class="fas fa-sitemap"></i>Tournament Results</a></li>
-    <li><a href="/ranking-system/" class=""><i class="fas fa-scale-balanced"></i>Ranking System</a></li>
-</ul>
+                
+                <li><a href="/" class="nav-menu__link is-active"><i class="fas fa-trophy"></i>SF6 Rankings</a></li>
+                <li><a href="/tournament-results/" class="nav-menu__link "><i class="fas fa-sitemap"></i>Tournament Results</a></li>
+                <li><a href="/ranking-system/" class="nav-menu__link "><i class="fas fa-scale-balanced"></i>Ranking System</a></li>
+            </ul>
         </nav>
 
         <main class="content">
-            <div class="content-container" role="main" id="maincontent" tabindex="-1">
-                <img class="banner" src="/images/banner.png" alt="FGC Player Rankings official logo" loading="lazy"/>
+            <div role="main" id="maincontent" tabindex="-1">                
                 
-<div class="content-container full-width">
-  <h1>Street Fighter 6 Global Rankings</h1>
-  <h2>Last Updated August 23, 2025</h2>
+<div class="content-container content-container--wide">
+    <img class="banner" src="/images/banner.png" alt="FGC Player Rankings official logo" loading="lazy"/>
+    <h1>Street Fighter 6 Global Rankings</h1>
+    <h2>Last Updated August 31, 2025</h2>
 
-  <div id="mobile-sort-container">
-    <button class="mobile-sort-btn" data-column-index="0" data-type="number">
-      Rank
-      <svg class="sort-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M12 5V19"/>
-        <path d="M19 12L12 19L5 12"/>
-      </svg>
+    <div class="controls-container">
+    <div class="search-wrapper">
+        <input type="text" id="player-search-input" class="search-form__input" placeholder="Filter by Player, Character, or Country...">
+        <button class="search-clear-btn" id="player-search-clear-btn" aria-label="Clear search">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
+</div>
+
+    <div class="mobile-sort-controls" id="rankings-mobile-sort">
+    <button class="btn btn--primary sorted asc" data-column-index="0" data-type="number">
+        Rank
+        <svg class="sort-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 5V19"></path><path d="M19 12L12 19L5 12"></path>
+        </svg>
     </button>
-    <button class="mobile-sort-btn" data-column-index="1" data-type="number">
-      Change
-      <svg class="sort-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M12 5V19"/>
-        <path d="M19 12L12 19L5 12"/>
-      </svg>
+    <button class="btn btn--primary" data-column-index="2" data-type="string">
+        Player
+        <svg class="sort-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 5V19"></path><path d="M19 12L12 19L5 12"></path>
+        </svg>
     </button>
-    <button class="mobile-sort-btn" data-column-index="2" data-type="string">
-      Player
-      <svg class="sort-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M12 5V19"/>
-        <path d="M19 12L12 19L5 12"/>
-      </svg>
+    <button class="btn btn--primary" data-column-index="5" data-type="number">
+        Rating
+        <svg class="sort-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 5V19"></path><path d="M19 12L12 19L5 12"></path>
+        </svg>
     </button>
-    <button class="mobile-sort-btn" data-column-index="3" data-type="string">
-      Char
-      <svg class="sort-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M12 5V19"/>
-        <path d="M19 12L12 19L5 12"/>
-      </svg>
-    </button>
-    <button class="mobile-sort-btn" data-column-index="4" data-type="string">
-      Country
-      <svg class="sort-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M12 5V19"/>
-        <path d="M19 12L12 19L5 12"/>
-      </svg>
-    </button>
-    <button class="mobile-sort-btn" data-column-index="5" data-type="number">
-      Rating
-      <svg class="sort-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M12 5V19"/>
-        <path d="M19 12L12 19L5 12"/>
-      </svg>
-    </button>
-  </div>
-  
-  <div class="table-wrapper">
-    <table id="rankings-table">
-      <thead>
-        <tr>
-          <th data-column-index="0" data-type="number" class="sorted-desc">
-            <span>Rank <svg class="sort-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M12 5V19"/>
-                <path d="M19 12L12 19L5 12"/>
-              </svg></span>
-          </th>
-          <th data-column-index="1" data-type="number">
-            <span>Change <svg class="sort-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M12 5V19"/>
-                <path d="M19 12L12 19L5 12"/>
-              </svg></span>
-          </th>
-          <th data-column-index="2" data-type="string">
-            <span>Player <svg class="sort-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M12 5V19"/>
-                <path d="M19 12L12 19L5 12"/>
-              </svg></span>
-          </th>
-          <th data-column-index="3" data-type="string">
-            <span>Main<br>Character <svg class="sort-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M12 5V19"/>
-                <path d="M19 12L12 19L5 12"/>
-              </svg></span>
-          </th>
-          <th data-column-index="4" data-type="string">
-            <span>Country <svg class="sort-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M12 5V19"/>
-                <path d="M19 12L12 19L5 12"/>
-              </svg></span>
-          </th>
-          <th data-column-index="5" data-type="number">
-            <span>Rating <svg class="sort-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M12 5V19"/>
-                <path d="M19 12L12 19L5 12"/>
-              </svg></span>
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <!-- The table body will be populated dynamically by main.js -->
-      </tbody>
-    </table>
-  </div>
-  <div class="load-more-container">
-    <button id="load-more-btn" class="load-more-btn" style="display:none;">Load More</button>
-  </div>
+</div>
+    
+    <div class="table-wrapper">
+        <table class="data-table" id="rankings-table">
+            <thead>
+                <tr>
+                    <th data-column-index="0" data-type="number" class="sorted desc">
+                        <span>Rank <svg class="sort-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5V19"/><path d="M19 12L12 19L5 12"/></svg></span>
+                    </th>
+                    <th data-column-index="1" data-type="number">
+                        <span>Change <svg class="sort-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5V19"/><path d="M19 12L12 19L5 12"/></svg></span>
+                    </th>
+                    <th data-column-index="2" data-type="string">
+                        <span>Player <svg class="sort-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5V19"/><path d="M19 12L12 19L5 12"/></svg></span>
+                    </th>
+                    <th data-column-index="3" data-type="string" class="col-character">
+                        <span>Main<br>Character <svg class="sort-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5V19"/><path d="M19 12L12 19L5 12"/></svg></span>
+                    </th>
+                    <th data-column-index="4" data-type="string">
+                        <span>Country <svg class="sort-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5V19"/><path d="M19 12L12 19L5 12"/></svg></span>
+                    </th>
+                    <th data-column-index="5" data-type="number">
+                        <span>Rating <svg class="sort-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5V19"/><path d="M19 12L12 19L5 12"/></svg></span>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="load-more-container">
+        <button id="load-more-btn" class="btn btn--primary" style="display:none;">Load More</button>
+    </div>
 </div>
 
             </div>
             
             <footer class="content-footer">
-    <div class="footer-columns">
-        <div class="footer-column">
-            <h3>Navigation</h3>
-            <ul class="footer-links">
-                <li><a href="/">SF6 Rankings</a></li>
-                <li><a href="/tournament-results/">Tournament Results</a></li>
-                <li><a href="/ranking-system/">Ranking System</a></li>
-            </ul>
-        </div>
-        <div class="footer-column">
-            <h3>Community</h3>
-            <ul class="footer-links">
-                <li><a href="#">Become a Contributor</a></li>
-                <li><a href="#">Support the Site</a></li>
-            </ul>
-        </div>
-        <div class="footer-column">
-            <h3>Follow Us</h3>
-            <ul class="footer-social">
-                <li><a href="https://x.com" target="_blank" rel="noopener noreferrer"><i class="fab fa-x-twitter"></i></a></li>
-            </ul>
-        </div>
-    </div>
-    <div class="footer-legal">
-        <p>&copy; 2025 FGC Player Rankings. All rights reserved.<br>
-        An unofficial, community-driven resource. All game and player trademarks and images are the property of their respective owners.</p>
-        <p class="legal-links">
-            <a href="#">Contact</a> |
-            <a href="#">Terms of Use</a> |
-            <a href="#">Privacy Policy</a>
-        </p>
-    </div>
-</footer>
+                <div class="footer-columns">
+                    <div class="footer-column">
+                        <h3>Navigation</h3>
+                        <ul class="footer-links">
+                            <li><a href="/">SF6 Rankings</a></li>
+                            <li><a href="/tournament-results/">Tournament Results</a></li>
+                            <li><a href="/ranking-system/">Ranking System</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h3>Community</h3>
+                        <ul class="footer-links">
+                            <li><a href="/about/">About Us</a></li>
+                            <li><a href="#">Become a Contributor</a></li>
+                            <li><a href="#">Support the Site</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h3>Follow Us</h3>
+                        <ul class="footer-social">
+                            <li><a href="https://x.com" target="_blank" rel="noopener noreferrer"><i class="fab fa-x-twitter"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="footer-legal">
+                    <p>&copy; 2025 FGC Player Rankings. All rights reserved.<br>
+                    An unofficial, community-driven resource. All game and player trademarks and images are the property of their respective owners.</p>
+                    <p class="legal-links">
+                        <a href="#">Contact</a> |
+                        <a href="#">Terms of Use</a> |
+                        <a href="#">Privacy Policy</a>
+                    </p>
+                </div>
+            </footer>
         </main>
 
-        <aside class="right-sidebar" aria-label="Upcoming Rated Events">
-            <h2 class="sidebar-label">Upcoming Rated Events</h2>
+        <aside class="sidebar right-sidebar" aria-label="Upcoming Rated Events">
+            <h2 class="sidebar__label">Upcoming Rated Events</h2>
             
-                <div class="event">
-                    <a href="https://www.start.gg/tournament/cream-city-convergence-2025/details" target="_blank" rel="noopener noreferrer" class="tournament-name">Cream City Convergence</a>
-                    <a href="https://www.start.gg/tournament/cream-city-convergence-2025/details" target="_blank" rel="noopener noreferrer">
-                        <img src="/images/cream-city-convergence.png" alt="Cream City Convergence Tournament" loading="lazy" />
-                    </a>
-                    <div class="event-date">August 30, 2025</div>
-                    <a class="more-info" href="https://www.start.gg/tournament/cream-city-convergence-2025/details" target="_blank" rel="noopener noreferrer">More Info</a>
-                </div>
+                <a href="https://www.start.gg/tournament/ozhadou-nationals-19/details" target="_blank" rel="noopener noreferrer" class="event-card-link">
+                    <div class="event-card">
+                        <span class="event-card__name">OzHadou Nationals 19</span>
+                        <img src="/images/ozhadou-19.png" alt="OzHadou Nationals 19 Tournament" loading="lazy" class="event-card__image" />
+                        <div class="event-card__date">September 5-7, 2025</div>
+                        <span class="btn btn--secondary btn--small">More Info</span>
+                    </div>
+                </a>
             
-                <div class="event">
-                    <a href="https://www.start.gg/tournament/comit-arena-2025/details" target="_blank" rel="noopener noreferrer" class="tournament-name">Comitê Arena 2025</a>
-                    <a href="https://www.start.gg/tournament/comit-arena-2025/details" target="_blank" rel="noopener noreferrer">
-                        <img src="/images/comite.png" alt="Comitê Arena 2025 Tournament" loading="lazy" />
-                    </a>
-                    <div class="event-date">August 30-31, 2025</div>
-                    <a class="more-info" href="https://www.start.gg/tournament/comit-arena-2025/details" target="_blank" rel="noopener noreferrer">More Info</a>
-                </div>
-            
-                <div class="event">
-                    <a href="https://www.start.gg/tournament/ozhadou-nationals-19/details" target="_blank" rel="noopener noreferrer" class="tournament-name">OzHadou National 19</a>
-                    <a href="https://www.start.gg/tournament/ozhadou-nationals-19/details" target="_blank" rel="noopener noreferrer">
-                        <img src="/images/ozhadou-19.png" alt="OzHadou National 19 Tournament" loading="lazy" />
-                    </a>
-                    <div class="event-date">September 5-7, 2025</div>
-                    <a class="more-info" href="https://www.start.gg/tournament/ozhadou-nationals-19/details" target="_blank" rel="noopener noreferrer">More Info</a>
-                </div>
-            
-                <div class="event">
-                    <a href="https://www.start.gg/tournament/ultimate-fighting-arena-2025-3/details" target="_blank" rel="noopener noreferrer" class="tournament-name">Ultimate Fighting Arena 2025</a>
-                    <a href="https://www.start.gg/tournament/ultimate-fighting-arena-2025-3/details" target="_blank" rel="noopener noreferrer">
-                        <img src="/images/ufa.png" alt="Ultimate Fighting Arena 2025 Tournament" loading="lazy" />
-                    </a>
-                    <div class="event-date">September 12-14, 2025</div>
-                    <a class="more-info" href="https://www.start.gg/tournament/ultimate-fighting-arena-2025-3/details" target="_blank" rel="noopener noreferrer">More Info</a>
-                </div>
+                <a href="https://www.start.gg/tournament/ultimate-fighting-arena-2025-3/details" target="_blank" rel="noopener noreferrer" class="event-card-link">
+                    <div class="event-card">
+                        <span class="event-card__name">Ultimate Fighting Arena 2025</span>
+                        <img src="/images/ufa.png" alt="Ultimate Fighting Arena 2025 Tournament" loading="lazy" class="event-card__image" />
+                        <div class="event-card__date">September 12-14, 2025</div>
+                        <span class="btn btn--secondary btn--small">More Info</span>
+                    </div>
+                </a>
             
         </aside>
     </div>
 
     <noscript>
-        <p style="color:#f00;text-align:center;padding:1rem;background:#111;">
-            JavaScript is disabled in your browser. The rankings table may not load correctly.
+        <p style="text-align:center;padding:1rem;background:#111;color:#f00;">
+            JavaScript is disabled. Some interactive features may not work correctly.
         </p>
     </noscript>
     
     <script src="/js/main.js" defer></script>
+    
 
+    <button id="back-to-top-btn" class="back-to-top-btn" title="Go to top" aria-label="Go to top">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+<script>
+  function handleResponsiveLayout() {
+    const isMobile = window.matchMedia('(max-width: 768px)').matches;
+    const contentWrapper = document.querySelector('.page-wrapper');
+    const mobileHeader = document.querySelector('.mobile-header');
+    const tournamentNav = document.querySelector('.tournament-nav');
+    const pageTitle = document.querySelector('.page-tournament-results h1');
+
+    if (!contentWrapper || !mobileHeader) return;
+
+    // --- 1. Handle Content Padding ---
+    if (isMobile) {
+      contentWrapper.style.paddingTop = `${mobileHeader.offsetHeight}px`;
+    } else {
+      contentWrapper.style.paddingTop = '0';
+    }
+
+    // --- 2. Handle Tournament Nav Position ---
+    if (tournamentNav && pageTitle) {
+      if (isMobile) {
+        // On mobile, move nav to be after the main site header
+        mobileHeader.after(tournamentNav);
+      } else {
+        // On desktop, move nav back to be after the H1 title
+        pageTitle.after(tournamentNav);
+      }
+    }
+  }
+
+  // Run on page load and on resize
+  document.addEventListener('DOMContentLoaded', handleResponsiveLayout);
+  window.addEventListener('resize', handleResponsiveLayout);
+</script>
 </body>
 </html>

@@ -10,10 +10,9 @@
     </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{{ title | default("FGC Player Rankings") }}</title>
+    <title>{% block title %}FGC Player Rankings{% endblock %}</title>
     <meta name="description" content="Current Street Fighter 6 player rankings from the competitive Fighting Game Community." />
     <link rel="canonical" href="https://fgc-player-rankings.netlify.app/" />
-    <meta name="theme-color" content="#000001" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Roboto:wght@400;500&display=swap" rel="stylesheet" />
@@ -25,98 +24,102 @@
     <link rel="stylesheet" href="/css/styles.css">
     {% block head %}{% endblock %}
 </head>
-<body>
-   <header class="mobile-header">
-    <button class="nav-toggle" aria-label="Toggle Navigation">
-        <svg class="hamburger-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24">
-            <path d="M3 12h18M3 6h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-        </svg>
-        <svg class="close-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24">
-            <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-        </svg>
-    </button>
-    <div class="mobile-search">
-        <form role="search" class="search-form">
-            <input type="search" id="mobile-search-input" class="search-input" placeholder="Search site..." aria-label="Search site">
-            <button type="submit" class="search-button" aria-label="Search">
-                <i class="fas fa-search"></i>
-            </button>
-        </form>
-    </div>
-</header>
+<body class="{{ pageClass }}">
+
+    <header class="mobile-header">
+        <button class="nav-toggle" aria-label="Toggle Navigation">
+            <svg class="hamburger-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24">
+                <path d="M3 12h18M3 6h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            <svg class="close-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24">
+                <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+        </button>
+        <div class="mobile-search">
+            <form role="search" class="search-form">
+                <input type="search" id="mobile-search-input" class="search-form__input" placeholder="Search site..." aria-label="Search site">
+                <button type="submit" class="search-form__button" aria-label="Search">
+                    <i class="fas fa-search"></i>
+                </button>
+            </form>
+        </div>
+    </header>
+
+{% block page_header %}
+{% endblock %}
 
     <div class="page-wrapper">
-        <nav class="sidebar" aria-label="Main menu" role="navigation">
-            <h2 class="sidebar-label">Navigation</h2>
+        <nav class="sidebar nav-sidebar" aria-label="Main menu" role="navigation">
+            <h2 class="sidebar__label">Navigation</h2>
             <div class="sidebar-search">
                 <form role="search" class="search-form">
-                    <input type="search" id="sidebar-search-input" class="search-input" placeholder="Search site..." aria-label="Search site">
-                    <button type="submit" class="search-button" aria-label="Search">
+                    <input type="search" id="sidebar-search-input" class="search-form__input" placeholder="Search site..." aria-label="Search site">
+                    <button type="submit" class="search-form__button" aria-label="Search">
                         <i class="fas fa-search"></i>
                     </button>
                 </form>
             </div>
             <ul class="nav-menu">
-    {% set currentPath = page.url | default('/') %}
-    <li><a href="/" class="{% if currentPath === '/' %}active{% endif %}"><i class="fas fa-trophy"></i>SF6 Rankings</a></li>
-    <li><a href="/tournament-results/" class="{% if '/tournament-results/' in currentPath %}active{% endif %}"><i class="fas fa-sitemap"></i>Tournament Results</a></li>
-    <li><a href="/ranking-system/" class="{% if '/ranking-system/' in currentPath %}active{% endif %}"><i class="fas fa-scale-balanced"></i>Ranking System</a></li>
-</ul>
+                {% set currentPath = page.url | default('/') %}
+                <li><a href="/" class="nav-menu__link {% if currentPath === '/' %}is-active{% endif %}"><i class="fas fa-trophy"></i>SF6 Rankings</a></li>
+                <li><a href="/tournament-results/" class="nav-menu__link {% if '/tournament-results/' in currentPath %}is-active{% endif %}"><i class="fas fa-sitemap"></i>Tournament Results</a></li>
+                <li><a href="/ranking-system/" class="nav-menu__link {% if '/ranking-system/' in currentPath %}is-active{% endif %}"><i class="fas fa-scale-balanced"></i>Ranking System</a></li>
+            </ul>
         </nav>
 
         <main class="content">
-            <div class="content-container" role="main" id="maincontent" tabindex="-1">
-                <img class="banner" src="/images/banner.png" alt="FGC Player Rankings official logo" loading="lazy"/>
+            <div role="main" id="maincontent" tabindex="-1">                
                 {% block content %}{% endblock %}
             </div>
             
             <footer class="content-footer">
-    <div class="footer-columns">
-        <div class="footer-column">
-            <h3>Navigation</h3>
-            <ul class="footer-links">
-                <li><a href="/">SF6 Rankings</a></li>
-                <li><a href="/tournament-results/">Tournament Results</a></li>
-                <li><a href="/ranking-system/">Ranking System</a></li>
-            </ul>
-        </div>
-        <div class="footer-column">
-            <h3>Community</h3>
-            <ul class="footer-links">
-                <li><a href="#">Become a Contributor</a></li>
-                <li><a href="#">Support the Site</a></li>
-            </ul>
-        </div>
-        <div class="footer-column">
-            <h3>Follow Us</h3>
-            <ul class="footer-social">
-                <li><a href="https://x.com" target="_blank" rel="noopener noreferrer"><i class="fab fa-x-twitter"></i></a></li>
-            </ul>
-        </div>
-    </div>
-    <div class="footer-legal">
-        <p>&copy; 2025 FGC Player Rankings. All rights reserved.<br>
-        An unofficial, community-driven resource. All game and player trademarks and images are the property of their respective owners.</p>
-        <p class="legal-links">
-            <a href="#">Contact</a> |
-            <a href="#">Terms of Use</a> |
-            <a href="#">Privacy Policy</a>
-        </p>
-    </div>
-</footer>
+                <div class="footer-columns">
+                    <div class="footer-column">
+                        <h3>Navigation</h3>
+                        <ul class="footer-links">
+                            <li><a href="/">SF6 Rankings</a></li>
+                            <li><a href="/tournament-results/">Tournament Results</a></li>
+                            <li><a href="/ranking-system/">Ranking System</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h3>Community</h3>
+                        <ul class="footer-links">
+                            <li><a href="/about/">About Us</a></li>
+                            <li><a href="#">Become a Contributor</a></li>
+                            <li><a href="#">Support the Site</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h3>Follow Us</h3>
+                        <ul class="footer-social">
+                            <li><a href="https://x.com" target="_blank" rel="noopener noreferrer"><i class="fab fa-x-twitter"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="footer-legal">
+                    <p>&copy; {% year %} FGC Player Rankings. All rights reserved.<br>
+                    An unofficial, community-driven resource. All game and player trademarks and images are the property of their respective owners.</p>
+                    <p class="legal-links">
+                        <a href="#">Contact</a> |
+                        <a href="#">Terms of Use</a> |
+                        <a href="#">Privacy Policy</a>
+                    </p>
+                </div>
+            </footer>
         </main>
 
-        <aside class="right-sidebar" aria-label="Upcoming Rated Events">
-            <h2 class="sidebar-label">Upcoming Rated Events</h2>
+        <aside class="sidebar right-sidebar" aria-label="Upcoming Rated Events">
+            <h2 class="sidebar__label">Upcoming Rated Events</h2>
             {% for event in events %}
-                <div class="event">
-                    <a href="{{ event.url }}" target="_blank" rel="noopener noreferrer" class="tournament-name">{{ event.name }}</a>
-                    <a href="{{ event.url }}" target="_blank" rel="noopener noreferrer">
-                        <img src="{{ event.img }}" alt="{{ event.alt }}" loading="lazy" />
-                    </a>
-                    <div class="event-date">{{ event.date }}</div>
-                    <a class="more-info" href="{{ event.url }}" target="_blank" rel="noopener noreferrer">More Info</a>
-                </div>
+                <a href="{{ event.url }}" target="_blank" rel="noopener noreferrer" class="event-card-link">
+                    <div class="event-card">
+                        <span class="event-card__name">{{ event.name }}</span>
+                        <img src="{{ event.img }}" alt="{{ event.alt }}" loading="lazy" class="event-card__image" />
+                        <div class="event-card__date">{{ event.date }}</div>
+                        <span class="btn btn--secondary btn--small">More Info</span>
+                    </div>
+                </a>
             {% else %}
                 <p>No upcoming events at this time.</p>
             {% endfor %}
@@ -124,12 +127,49 @@
     </div>
 
     <noscript>
-        <p style="color:#f00;text-align:center;padding:1rem;background:#111;">
-            JavaScript is disabled in your browser. The rankings table may not load correctly.
+        <p style="text-align:center;padding:1rem;background:#111;color:#f00;">
+            JavaScript is disabled. Some interactive features may not work correctly.
         </p>
     </noscript>
-    {% block scripts %}
+    
     <script src="/js/main.js" defer></script>
-{% endblock %}
+    {% block scripts %}{% endblock %}
+
+    <button id="back-to-top-btn" class="back-to-top-btn" title="Go to top" aria-label="Go to top">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+<script>
+  function handleResponsiveLayout() {
+    const isMobile = window.matchMedia('(max-width: 768px)').matches;
+    const contentWrapper = document.querySelector('.page-wrapper');
+    const mobileHeader = document.querySelector('.mobile-header');
+    const tournamentNav = document.querySelector('.tournament-nav');
+    const pageTitle = document.querySelector('.page-tournament-results h1');
+
+    if (!contentWrapper || !mobileHeader) return;
+
+    // --- 1. Handle Content Padding ---
+    if (isMobile) {
+      contentWrapper.style.paddingTop = `${mobileHeader.offsetHeight}px`;
+    } else {
+      contentWrapper.style.paddingTop = '0';
+    }
+
+    // --- 2. Handle Tournament Nav Position ---
+    if (tournamentNav && pageTitle) {
+      if (isMobile) {
+        // On mobile, move nav to be after the main site header
+        mobileHeader.after(tournamentNav);
+      } else {
+        // On desktop, move nav back to be after the H1 title
+        pageTitle.after(tournamentNav);
+      }
+    }
+  }
+
+  // Run on page load and on resize
+  document.addEventListener('DOMContentLoaded', handleResponsiveLayout);
+  window.addEventListener('resize', handleResponsiveLayout);
+</script>
 </body>
 </html>

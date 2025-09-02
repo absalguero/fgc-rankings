@@ -3,78 +3,53 @@ const EleventyFetch = require("@11ty/eleventy-fetch");
 const sheetURL = 'https://docs.google.com/spreadsheets/d/1otrfs8HN3Shq6U2-qrc4GDxTI4ragnqwbTjweecE12Q/gviz/tq?tqx=out:csv&gid=1862929315';
 
 // A robust CSV parsing function to handle commas within quoted fields
-function parseCSV(text) {
-    const lines = text.trim().split('\n').filter(line => line.trim() !== '');
-    if (lines.length <= 1) return [];
-    
-    const headers = lines[0].split(',').map(h => h.trim().replace(/"/g, ''));
-    
-    return lines.slice(1).map(row => {
-        const player = {};
-        const values = [];
-        let inQuote = false;
-        let currentCell = '';
-
-        for (let i = 0; i < row.length; i++) {
-            const char = row[i];
-            if (char === '"') {
-                inQuote = !inQuote;
-            } else if (char === ',' && !inQuote) {
-                values.push(currentCell.trim());
-                currentCell = '';
-            } else {
-                currentCell += char;
-            }
-        }
-        values.push(currentCell.trim());
-        
-        const cleanValues = values.map(v => v.replace(/"/g, ''));
-
-        headers.forEach((header, i) => {
-            player[header] = cleanValues[i];
-        });
-        return player;
-    });
-}
-
-// A dedicated function to parse a single row correctly
-function parseSingleRow(rowString) {
+function parseCsvRow(rowString) {
+    if (!rowString) return [];
     const values = [];
     let inQuote = false;
     let currentCell = '';
-
-    for (let i = 0; i < rowString.length; i++) {
-        const char = rowString[i];
-        if (char === '"') {
-            inQuote = !inQuote;
-        } else if (char === ',' && !inQuote) {
-            values.push(currentCell.trim());
+    for (const char of rowString) {
+        if (char === '"') inQuote = !inQuote;
+        else if (char === ',' && !inQuote) {
+            values.push(currentCell.trim().replace(/"/g, ''));
             currentCell = '';
-        } else {
-            currentCell += char;
-        }
+        } else currentCell += char;
     }
-    values.push(currentCell.trim());
-    return values.map(v => v.replace(/"/g, ''));
+    values.push(currentCell.trim().replace(/"/g, ''));
+    return values;
 }
-
 
 module.exports = async function() {
     try {
+        // =================================================================
+        // CONFIGURATION: These values are now set correctly for your sheet.
+        // =================================================================
+        const DATE_ROW_INDEX = 1;    // The row number containing the date
+        const DATE_COLUMN_INDEX = 7; // The position of the date in that row
+        const HEADER_ROW_INDEX = 0;  // The row number with your player headers
+        // =================================================================
+        
         const csvText = await EleventyFetch(sheetURL, {
             duration: "1h",
             type: "text",
             directory: ".cache",
         });
 
-        // First, parse the main list of players
-        const players = parseCSV(csvText);
-
-        // Then, get the specific value for the date from the H2 cell
         const rows = csvText.trim().split('\n');
-        const secondRowValues = parseSingleRow(rows[1]);
-        const dateValue = secondRowValues[7]; // H2 is the 8th column, which is index 7
-        const lastUpdated = dateValue || 'N/A';
+        
+        const dateRow = parseCsvRow(rows[DATE_ROW_INDEX]);
+        const lastUpdated = dateRow[DATE_COLUMN_INDEX] || 'N/A';
+        
+        const headers = parseCsvRow(rows[HEADER_ROW_INDEX]);
+
+        const players = rows.slice(HEADER_ROW_INDEX + 1).map(rowStr => {
+            const values = parseCsvRow(rowStr);
+            const player = {};
+            headers.forEach((header, i) => {
+                player[header] = values[i];
+            });
+            return player;
+        }).filter(p => p.Player && p.Player.trim() !== '');
 
         return {
             players: players,
@@ -82,10 +57,7 @@ module.exports = async function() {
         };
 
     } catch (error) {
-        console.error("Eleventy encountered an error fetching data:", error);
-        return {
-            players: [],
-            lastUpdated: 'N/A'
-        };
+        console.error("Eleventy encountered an error fetching ranking data:", error);
+        return { players: [], lastUpdated: 'N/A' };
     }
 };

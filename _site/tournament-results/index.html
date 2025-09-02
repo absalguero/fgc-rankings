@@ -10,10 +10,9 @@
     </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>FGC Player Rankings</title>
+    <title>Tournament Results | FGC Player Rankings</title>
     <meta name="description" content="Current Street Fighter 6 player rankings from the competitive Fighting Game Community." />
     <link rel="canonical" href="https://fgc-player-rankings.netlify.app/" />
-    <meta name="theme-color" content="#000001" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Roboto:wght@400;500&display=swap" rel="stylesheet" />
@@ -25,1029 +24,728 @@
     <link rel="stylesheet" href="/css/styles.css">
     
 <meta name="description" content="Official tournament results for Fighting Game Community (FGC) Street Fighter tournaments. Browse player finishes, view event dates, and filter by player name or event.">
+<style>
+/* Local styles for this page's features */
+mark {
+  background-color: #FFEE58;
+  color: #222;
+  padding: 0 2px;
+  border-radius: 3px;
+}
+.skeleton td {
+  background-color: #2a2a2a;
+  border-radius: 4px;
+  position: relative;
+  overflow: hidden;
+}
+.skeleton td::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -150%;
+  width: 150%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
+  animation: shimmer 1.5s infinite;
+}
+@keyframes shimmer { 100% { left: 150%; } }
+
+/* ---- Sticky behaviors ---- */
+.table-wrapper { overflow-x: auto; }
+
+/* Desktop/tablet: thead sticks inside scroll container */
+@media (min-width: 769px) {
+  .data-table th {
+    position: sticky;
+    top: 0;
+    background: #1e1e1e;
+    z-index: 10;
+  }
+}
+</style>
 
 </head>
-<body>
-   <header class="mobile-header">
-    <button class="nav-toggle" aria-label="Toggle Navigation">
-        <svg class="hamburger-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24">
-            <path d="M3 12h18M3 6h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-        </svg>
-        <svg class="close-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24">
-            <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-        </svg>
-    </button>
-    <div class="mobile-search">
-        <form role="search" class="search-form">
-            <input type="search" id="mobile-search-input" class="search-input" placeholder="Search site..." aria-label="Search site">
-            <button type="submit" class="search-button" aria-label="Search">
-                <i class="fas fa-search"></i>
-            </button>
-        </form>
-    </div>
-</header>
+<body class="page-tournament-results">
+
+    <header class="mobile-header">
+        <button class="nav-toggle" aria-label="Toggle Navigation">
+            <svg class="hamburger-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24">
+                <path d="M3 12h18M3 6h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            <svg class="close-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24">
+                <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+        </button>
+        <div class="mobile-search">
+            <form role="search" class="search-form">
+                <input type="search" id="mobile-search-input" class="search-form__input" placeholder="Search site..." aria-label="Search site">
+                <button type="submit" class="search-form__button" aria-label="Search">
+                    <i class="fas fa-search"></i>
+                </button>
+            </form>
+        </div>
+    </header>
+
+
+
 
     <div class="page-wrapper">
-        <nav class="sidebar" aria-label="Main menu" role="navigation">
-            <h2 class="sidebar-label">Navigation</h2>
+        <nav class="sidebar nav-sidebar" aria-label="Main menu" role="navigation">
+            <h2 class="sidebar__label">Navigation</h2>
             <div class="sidebar-search">
                 <form role="search" class="search-form">
-                    <input type="search" id="sidebar-search-input" class="search-input" placeholder="Search site..." aria-label="Search site">
-                    <button type="submit" class="search-button" aria-label="Search">
+                    <input type="search" id="sidebar-search-input" class="search-form__input" placeholder="Search site..." aria-label="Search site">
+                    <button type="submit" class="search-form__button" aria-label="Search">
                         <i class="fas fa-search"></i>
                     </button>
                 </form>
             </div>
             <ul class="nav-menu">
-    
-    <li><a href="/" class=""><i class="fas fa-trophy"></i>SF6 Rankings</a></li>
-    <li><a href="/tournament-results/" class="active"><i class="fas fa-sitemap"></i>Tournament Results</a></li>
-    <li><a href="/ranking-system/" class=""><i class="fas fa-scale-balanced"></i>Ranking System</a></li>
-</ul>
+                
+                <li><a href="/" class="nav-menu__link "><i class="fas fa-trophy"></i>SF6 Rankings</a></li>
+                <li><a href="/tournament-results/" class="nav-menu__link is-active"><i class="fas fa-sitemap"></i>Tournament Results</a></li>
+                <li><a href="/ranking-system/" class="nav-menu__link "><i class="fas fa-scale-balanced"></i>Ranking System</a></li>
+            </ul>
         </nav>
 
         <main class="content">
-            <div class="content-container" role="main" id="maincontent" tabindex="-1">
-                <img class="banner" src="/images/banner.png" alt="FGC Player Rankings official logo" loading="lazy"/>
+            <div role="main" id="maincontent" tabindex="-1">                
                 
-<style>
-/* 2. Create the '+' expander button and vertically center it */
-#rankings-table tbody tr::after,
-#tournament-results-table tbody tr::after {
-    content: '+';
-    position: absolute;
-    top: 1.65rem; /* Position the top at the halfway mark */
-    right: 1rem;
-    transform: translateY(-50%); /* Shift it up by half its own height */
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: #FFFFFF;
-    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
-    transition: transform 0.2s ease-in-out;
-}
-
-/* 3. When expanded, turn '+' into '-' and keep it centered */
-#rankings-table tbody tr.is-expanded::after,
-#tournament-results-table tbody tr.is-expanded::after {
-    content: '−';
-    /* We combine the centering and rotation transforms */
-    transform: translateY(-50%) rotate(180deg);
-}
-/* --- Desktop-First Styles (Default for all screens) --- */
-.content-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0rem 1rem 2rem 1rem;
-    color: #f0f0f0;
-    font-family: 'Inter', sans-serif;
-}
-
-.content-container h1 {
-    margin-top: 0;
-    color: #FF5E13;
-    font-family: 'Permanent Marker', cursive;
-    font-size: 3rem;
-    text-align: center;
-}
-
-.content-container .controls-container {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 1.5rem;
-}
-
-.content-container #search-input {
-    width: 100%;
-    max-width: 400px;
-    padding: 0.75rem;
-    font-size: 1rem;
-    border-radius: 8px;
-    border: 1px solid #666;
-    background-color: #333;
-    color: #fff;
-    outline: none;
-    text-align: center;
-}
-
-.content-container #search-input:focus {
-    background-color: #444;
-    border-color: #FF5E13;
-}
-
-.content-container #search-input::placeholder {
-    color: #d4d4d4;
-    transition: color 0.3s;
-}
-
-.content-container .table-wrapper {
-    overflow-x: auto;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-}
-
-.content-container #tournament-results-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-family: Arial, sans-serif;
-    table-layout: auto;
-}
-
-.content-container #tournament-results-table thead th {
-    background-color: transparent;
-    color: #ffffff;
-    text-align: center;
-    font-weight: bold;
-    cursor: pointer;
-    border-bottom: 2px solid #444;
-    position: relative;
-    white-space: nowrap;
-    font-size: 18px; /* Applied font size as requested */
-}
-
-.content-container #tournament-results-table thead th:hover {
-    background-color: rgba(255, 255, 255, 0.05);
-}
-
-.content-container #tournament-results-table tbody tr {
-    background-color: transparent;
-}
-
-.content-container #tournament-results-table tbody tr:hover {
-    background-color: #404040;
-}
-
-.content-container #tournament-results-table td {
-    padding: 1rem;
-    color: #e0e0e0;
-    border-bottom: 1px solid #444;
-    text-align: center;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-/* Specific styling for the columns */
-.content-container #tournament-results-table th[data-column-name="Event"],
-.content-container #tournament-results-table td.event-cell {
-    min-width: 150px;
-    white-space: normal;
-}
-
-.content-container #tournament-results-table th[data-column-name="Date"],
-.content-container #tournament-results-table td.date-cell {
-    white-space: nowrap;
-}
-
-.content-container #tournament-results-table th[data-column-name="Entrants"],
-.content-container #tournament-results-table td.entrants-cell {
-    white-space: nowrap;
-}
-
-.content-container #tournament-results-table th[data-column-name="Player"],
-.content-container #tournament-results-table td.player-cell {
-    min-width: 200px;
-}
-
-.content-container #tournament-results-table th[data-column-name="Finish"],
-.content-container #tournament-results-table td.finish-cell {
-    white-space: nowrap;
-}
-
-.content-container #tournament-results-table .player-info {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    text-align: left;
-}
-
-.content-container #tournament-results-table .player-photo {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: none
-}
-
-/* Styles for the colored table rows and glow */
-#tournament-results-table tbody tr.rank-1 td {
-    background-color: #ffd70030;
-    color: #FFD700 !important;
-    text-shadow: 0 0 4px #FFD700;
-}
-#tournament-results-table tbody tr.rank-2 td {
-    background-color: #c0c0c030;
-    color: #C0C0C0 !important;
-    text-shadow: 0 0 4px #C0C0C0;
-}
-#tournament-results-table tbody tr.rank-3 td {
-    background-color: #cd7f3230;
-    color: #cd7f32 !important;
-    text-shadow: 0 0 4px #cd7f32;
-}
-#tournament-results-table tbody tr.rank-4 td {
-    background-color: #4b371c30;
-    color: #b0c4de !important;
-    text-shadow: 0 0 4px #b0c4de;
-}
-#tournament-results-table tbody tr.rank-5 td {
-    background-color: #36454F30;
-    color: #8c7359 !important;
-    text-shadow: 0 0 4px #8c7359;
-}
-#tournament-results-table tbody tr.ranked-6-40 td {
-    background-color: rgba(0, 61, 41, 0.3);
-    color: #66CC66 !important;
-    text-shadow: 0 0 4px #66CC66;
-}
-
-/* Styles for the colored glow around all images */
-#tournament-results-table .rank-1 .player-photo { box-shadow: 0 0 6px 1px #FFD700; }
-#tournament-results-table .rank-2 .player-photo { box-shadow: 0 0 6px 1px #C0C0C0; }
-#tournament-results-table .rank-3 .player-photo { box-shadow: 0 0 6px 1px #cd7f32; }
-#tournament-results-table .rank-4 .player-photo { box-shadow: 0 0 6px 1px #b0c4de; }
-#tournament-results-table .rank-5 .player-photo { box-shadow: 0 0 6px 1px #8c7359; }
-#tournament-results-table .ranked-6-40 .player-photo { box-shadow: 0 0 6px 1px #b8d9bf; }
-
-.pagination-info-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 1rem;
-    gap: 0.5rem;
-}
-
-.content-container .pagination-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 1rem;
-}
-
-.content-container .pagination-btn {
-    background-color: #444;
-    color: #fff;
-    border: none;
-    padding: 0.5rem 1rem;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.content-container .pagination-btn:hover:not(:disabled) {
-    background-color: #555;
-}
-
-.content-container .pagination-btn:disabled {
-    background-color: #333;
-    color: #666;
-    cursor: not-allowed;
-}
-
-.content-container #page-info {
-    font-size: 1.25rem;
-    font-weight: bold;
-    color: #FF5E13;
-    text-shadow: 0 0 5px rgba(255, 94, 19, 0.75);
-    text-align: center;
-}
-
-/* --- Mobile-only Styles (768px and below) --- */
-.mobile-only-controls {
-    display: none;
-}
-
-@media (max-width: 768px) {
-    .content-container {
-        padding: 1rem;
-    }
-
-    .content-container h1 {
-        font-size: 3rem;
-    }
-
-    .content-container #search-input {
-        font-size: 0.9rem;
-    }
-
-    .content-container #tournament-results-table {
-        border-collapse: separate;
-        border-spacing: 0 10px;
-    }
-
-    .content-container #tournament-results-table thead {
-        display: none;
-    }
-
-    .content-container #tournament-results-table,
-    .content-container #tournament-results-table tbody,
-    .content-container #tournament-results-table tr {
-        display: block;
-        width: 100%;
-    }
-
-    .content-container #tournament-results-table tr {
-        margin-bottom: 0.75rem;
-        border-radius: 8px;
-        overflow: hidden;
-        border: 1px solid #444;
-        cursor: pointer;
-    }
-
-    .content-container #tournament-results-table td {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        border-bottom: 1px solid #444;
-        padding: 1rem;
-        text-align: right;
-        white-space: normal;
-    }
-
-    .content-container #tournament-results-table td::before {
-        content: attr(data-label);
-        font-weight: bold;
-        color: #aaa;
-        text-align: left;
-        flex-basis: 40%;
-    }
-
-    .content-container #tournament-results-table td.primary-info-cell {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-
-    .content-container #tournament-results-table td.secondary-info-cell {
-        display: none;
-    }
-    
-    .content-container #tournament-results-table tr.expanded td.secondary-info-cell {
-        display: flex;
-    }
-
-    .content-container #tournament-results-table td:first-of-type {
-        border-top-left-radius: 8px;
-        border-top-right-radius: 8px;
-    }
-
-    .content-container #tournament-results-table td:last-of-type {
-        border-bottom-left-radius: 8px;
-        border-bottom-right-radius: 8px;
-    }
-    
-    .content-container #tournament-results-table tr.expanded td:last-of-type {
-        border-bottom: none;
-    }
-    .content-container #tournament-results-table tr:not(.expanded) .secondary-info-cell:first-of-type {
-        border-top-left-radius: 0;
-        border-top-right-radius: 0;
-    }
-
-    .content-container #tournament-results-table tr.expanded .secondary-info-cell:first-of-type {
-        border-top-left-radius: 0;
-        border-top-right-radius: 0;
-    }
-
-    .content-container #tournament-results-table .player-info {
-        flex-grow: 1;
-        justify-content: flex-end;
-    }
-    
-    .mobile-only-controls {
-        display: block;
-    }
-
-    #mobile-sort-container {
-        display: flex;
-        flex-wrap: wrap; /* Allows buttons to wrap to the next line */
-        justify-content: center; /* Centers the button row horizontally */
-        gap: 10px; /* Adds space between buttons */
-        margin-top: 1.5rem; /* Matches the vertical spacing of the old button */
-    }
-
-    .mobile-sort-btn {
-        background-color: #FF5E13;
-        color: #000000;
-        border: none;
-        border-radius: 8px;
-        padding: 0.75rem 1rem;
-        font-size: 1rem;
-        font-weight: bold;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .mobile-sort-btn .sort-icon {
-        margin-left: 5px;
-        opacity: 0.3;
-        transition: transform 0.2s ease-in-out, opacity 0.2s ease-in-out;
-    }
-
-    .mobile-sort-btn:hover .sort-icon {
-        opacity: 0.6;
-    }
-
-    .mobile-sort-btn.sorted-asc .sort-icon,
-    .mobile-sort-btn.sorted-desc .sort-icon {
-        opacity: 1;
-    }
-
-    .mobile-sort-btn.sorted-asc .sort-icon {
-        transform: rotate(0deg); /* Points up */
-    }
-
-    .mobile-sort-btn.sorted-desc .sort-icon {
-        transform: rotate(180deg); /* Points down */
-    }
-
-    /* --- Add space for the expand button --- */
-    #rankings-table tbody tr td:first-child,
-    #tournament-results-table tbody tr td:first-child {
-        /* This adds space on the right, pushing the text to the left */
-        padding-right: 2.5rem; /* Adjust this value as needed */
-    }
-
-    /* --- START: MOBILE EXPANDABLE ROW RULES --- */
-    /* Hide the 'Date' (2nd) and 'Entrants' (3rd) columns by default on mobile */
-    #tournament-results-table tbody tr td:nth-child(2),
-    #tournament-results-table tbody tr td:nth-child(3) {
-        display: none;
-    }
-
-    /* When the row has the .is-expanded class, show the hidden columns */
-    #tournament-results-table tbody tr.is-expanded td:nth-child(2),
-    #tournament-results-table tbody tr.is-expanded td:nth-child(3) {
-        display: flex; /* Use flex to match the other visible columns */
-    }
-
-    /* --- END: MOBILE EXPANDABLE ROW RULES --- */
-}
-/* --- FINAL OVERRIDES FOR TOURNAMENT RESULTS TABLE --- */
-/* This rule is specific enough to re-center the Player header */
-#tournament-results-table th[data-column-name="Player"] > span {
-    justify-content: center;
-}
-
-/* --- Final, Conflict-Free Desktop Sort Arrow Styles --- */
-
-/* This sets the default state for all desktop arrows */
-#tournament-results-table thead th .sort-icon {
-    opacity: 0.3;
-    transform: rotate(180deg); /* Default state is dim and pointing down */
-    transition: transform 0.2s ease-in-out, opacity 0.2s ease-in-out;
-}
-
-/* This is the HOVER state for the desktop arrow */
-#tournament-results-table thead th:hover .sort-icon {
-    opacity: 0.6;
-}
-
-/* This is the ACTIVE state for ascending sort (points up, bright) */
-#tournament-results-table thead th.sorted.asc .sort-icon {
-    opacity: 1;
-    transform: rotate(0deg);
-}
-
-/* This is the ACTIVE state for descending sort (points down, bright) */
-#tournament-results-table thead th.sorted.desc .sort-icon {
-    opacity: 1;
-    transform: rotate(180deg);
-}
-
-/* This rule specifically targets the Player header span to center it, overriding all other styles. */
-#tournament-results-table th[data-column-name="Player"] > span {
-    justify-content: center !important;
-}
-
-/* This rule re-centers the Player header */
-#tournament-results-table th.player-cell > span {
-    justify-content: center !important;
-}
-
-/* This final rule centers the Player header */
-#tournament-results-table th.player-cell {
-    justify-content: center !important;
-}
-
-.content-container #tournament-results-table tbody tr:hover {
-    transition: none !important;
-}
-
-#tournament-results-table .player-photo {
-    transition: none !important;
-}
-
-#tournament-results-table tbody td {
-    background-color: transparent !important;
-}
-
-</style>
-
-<div class="content-container">
-    <h1>Tournament Results</h1>
-    <div class="controls-container">
-        <input type="text" id="search-input" placeholder="Search by Player or Event..." title="Type to search for a player or event.">
+<div class="content-container content-container--wide">
+  <img class="banner" src="/images/banner.png" alt="FGC Player Rankings official logo" loading="lazy"/>
+  <h1>Tournament Results</h1>
+
+  
+<div class="tournament-nav">
+    <button id="sticky-prev-btn" class="btn btn--primary">&leftarrow; Prev Event</button>
+    <select id="event-select-dropdown" class="event-select" aria-label="Select an event"></select>
+    <button id="sticky-next-btn" class="btn btn--primary">Next Event &rightarrow;</button>
+  </div>
+
+  <!-- Mobile sticky sort bar moved OUTSIDE controls-container -->
+  <div class="mobile-sort-controls" id="results-mobile-sort">
+    <button class="btn btn--primary" data-column-name="Event" data-type="string">
+      Event
+      <svg class="sort-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 5V19"/><path d="M19 12L12 19L5 12"/>
+      </svg>
+    </button>
+    <button class="btn btn--primary" data-column-name="Player" data-type="string">
+      Player
+      <svg class="sort-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 5V19"/><path d="M19 12L12 19L5 12"/>
+      </svg>
+    </button>
+    <button class="btn btn--primary sorted asc" data-column-name="Finish" data-type="finish">
+      Finish
+      <svg class="sort-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 5V19"/><path d="M19 12L12 19L5 12"/>
+      </svg>
+    </button>
+  </div>
+
+  <div class="controls-container">
+    <div class="search-wrapper">
+      <input type="text" id="search-input" class="search-form__input" placeholder="Search by Player or Event...">
+      <button class="search-clear-btn" id="search-clear-btn" aria-label="Clear search">
+        <i class="fas fa-times"></i>
+      </button>
     </div>
+  </div>
 
-    <div id="mobile-sort-container">
-        <button class="mobile-sort-btn" data-column-name="Player" data-type="string">
-            Player
-            <svg class="sort-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M12 5V19"/>
-                <path d="M19 12L12 19L5 12"/>
-            </svg>
-        </button>
-        <button class="mobile-sort-btn sorted-desc" data-column-name="Finish" data-type="finish">
-            Finish
-            <svg class="sort-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M12 5V19"/>
-                <path d="M19 12L12 19L5 12"/>
-            </svg>
-        </button>
-    </div>
-    <div class="table-wrapper">
-        <table id="tournament-results-table">
-            <thead>
-    <tr>
-        <th data-column-name="Event" data-type="string">
+  <div class="table-wrapper">
+    <table class="data-table" id="tournament-results-table">
+      <thead>
+        <tr>
+          <th data-column-name="Event" data-type="string">
             <span>Event
-                <svg class="sort-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M12 5V19"/><path d="M19 12L12 19L5 12"/>
-                </svg>
+              <svg class="sort-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 5V19"/><path d="M19 12L12 19L5 12"/>
+              </svg>
             </span>
-        </th>
-        <th data-column-name="Date" data-type="string">
+          </th>
+          <th data-column-name="Date" data-type="string">
             <span>Date
-                <svg class="sort-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M12 5V19"/><path d="M19 12L12 19L5 12"/>
-                </svg>
+              <svg class="sort-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 5V19"/><path d="M19 12L12 19L5 12"/>
+              </svg>
             </span>
-        </th>
-        <th data-column-name="Entrants" data-type="number">
+          </th>
+          <th data-column-name="Entrants" data-type="number">
             <span>Entrants
-                <svg class="sort-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M12 5V19"/><path d="M19 12L12 19L5 12"/>
-                </svg>
+              <svg class="sort-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 5V19"/><path d="M19 12L12 19L5 12"/>
+              </svg>
             </span>
-        </th>
-        <th data-column-name="Player" data-type="string" class="player-cell">
+          </th>
+          <th data-column-name="Player" data-type="string">
             <span>Player
-                <svg class="sort-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M12 5V19"/><path d="M19 12L12 19L5 12"/>
-                </svg>
+              <svg class="sort-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 5V19"/><path d="M19 12L12 19L5 12"/>
+              </svg>
             </span>
-        </th>
-        <th data-column-name="Finish" data-type="finish">
+          </th>
+          <th data-column-name="Finish" data-type="finish" class="sorted asc">
             <span>Finish
-                <svg class="sort-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M12 5V19"/><path d="M19 12L12 19L5 12"/>
-                </svg>
+              <svg class="sort-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 5V19"/><path d="M19 12L12 19L5 12"/>
+              </svg>
             </span>
-        </th>
-    </tr>
-</thead>
-            <tbody id="table-body">
-            </tbody>
-        </table>
-    </div>
-    <div class="pagination-info-container">
-        <span id="page-info"></span>
-        <div class="pagination-container">
-            <button id="prev-page-btn" class="pagination-btn">Previous Event</button>
-            <button id="next-page-btn" class="pagination-btn">Next Event</button>
-        </div>
-    </div>
+          </th>
+        </tr>
+      </thead>
+      <tbody id="table-body"></tbody>
+    </table>
+  </div>
+
+  <div class="load-more-container">
+    <button id="results-load-more-btn" class="btn btn--primary" style="display:none;">Load More</button>
+  </div>
 </div>
-
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-    // Corrected URLs using the stable /gviz/tq endpoint
-    const googleSheetURL = "https://docs.google.com/spreadsheets/d/1otrfs8HN3Shq6U2-qrc4GDxTI4ragnqwbTjweecE12Q/gviz/tq?tqx=out:csv&gid=1021048964";
-    const googleRankingsURL = "https://docs.google.com/spreadsheets/d/1otrfs8HN3Shq6U2-qrc4GDxTI4ragnqwbTjweecE12Q/gviz/tq?tqx=out:csv&gid=1862929315";
-
-    const tableBody = document.getElementById('table-body');
-    const searchInput = document.getElementById('search-input');
-    const prevBtn = document.getElementById('prev-page-btn');
-    const nextBtn = document.getElementById('next-page-btn');
-    const pageInfo = document.getElementById('page-info');
-
-    let allData = [];
-    let groupedDataByEvent = {};
-    let uniqueEvents = [];
-    let currentEventIndex = 0;
-    let searchTerm = '';
-    let sortedColumn = 'Finish'; // Default sort on page load
-    let sortDirection = 'asc';
-    let rankingsMap = {};
-    let playerIconMap = {};
-
-    function sortData(data, column, type, direction) {
-        if (!data || !column) {
-            return data;
-        }
-        const order = direction === 'asc' ? 1 : -1;
-        return data.sort((a, b) => {
-            const valA = a[column];
-            const valB = b[column];
-
-            if (type === 'finish') {
-                const numA = parseFloat(valA.replace('st', '').replace('nd', '').replace('rd', '').replace('th', ''));
-                const numB = parseFloat(valB.replace('st', '').replace('nd', '').replace('rd', '').replace('th', ''));
-                if (!isNaN(numA) && !isNaN(numB)) {
-                    const finishComparison = (numA - numB) * order;
-                    if (finishComparison !== 0) {
-                        return finishComparison;
-                    }
-                    const dateA = new Date(a.Date);
-                    const dateB = new Date(b.Date);
-                    return (dateB - dateA);
-                }
-            } else if (type === 'number') {
-                return (valA - valB) * order;
-            }
-
-            if (valA < valB) return -1 * order;
-            if (valA > valB) return 1 * order;
-            return 0;
-        });
-    }
-
-    async function fetchData() {
-        try {
-            await fetchRankings();
-            const response = await fetch(googleSheetURL);
-            if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
-            const text = await response.text();
-            allData = parseCSV(text);
-            groupDataByEvent(allData);
-            renderAll();
-        } catch (error) {
-            console.error("Error fetching data:", error);
-            tableBody.innerHTML = '<tr><td colspan="5" style="text-align: center; color: red;">Failed to load data. Please try again later.</td></tr>';
-        }
-    }
-
-    async function fetchRankings() {
-        try {
-            const response = await fetch(googleRankingsURL);
-            if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
-            const text = await response.text();
-            const lines = text.trim().split('\n');
-            if (lines.length <= 1) return;
-
-            const headers = lines[0].split(',').map(h => h.trim().replace(/"/g, ''));
-            const playerHeader = headers.find(h => h.toLowerCase().includes('player') || h.toLowerCase().includes('name'));
-            const rankingHeader = headers.find(h => h.toLowerCase().includes('ranking') || h.toLowerCase().includes('rank'));
-            const iconHeader = headers.find(h => h.toLowerCase().includes('icon') || h.toLowerCase().includes('photo'));
-
-            if (!playerHeader || !rankingHeader || !iconHeader) {
-                console.error("Could not find 'Player', 'Ranking', or 'Player Icon' headers in the CSV data.");
-                return;
-            }
-
-            const rankingsData = lines.slice(1).map(line => {
-                const values = line.split(',').map(v => v.trim().replace(/"/g, ''));
-                const row = {};
-                headers.forEach((h, i) => row[h] = values[i]);
-                return row;
-            }).filter(row => row[playerHeader] && row[rankingHeader] !== '');
-
-            rankingsMap = rankingsData.reduce((acc, current) => {
-                const playerName = current[playerHeader];
-                const playerRank = parseInt(current[rankingHeader], 10);
-                if (playerName && !isNaN(playerRank)) {
-                    acc[playerName] = playerRank;
-                }
-                return acc;
-            }, {});
-
-            playerIconMap = rankingsData.reduce((acc, current) => {
-                const playerName = current[playerHeader];
-                const playerIconUrl = current[iconHeader];
-                if (playerName && playerIconUrl) {
-                    acc[playerName] = playerIconUrl;
-                }
-                return acc;
-            }, {});
-        } catch (error) {
-            console.error("Error fetching rankings data:", error);
-        }
-    }
-
-    function renderAll() {
-        let dataToRender = [];
-
-        if (searchTerm) {
-            dataToRender = allData.filter(item => {
-                const eventName = (item.Event || '').toLowerCase();
-                const playerName = (item.Player || '').toLowerCase();
-                return eventName.includes(searchTerm) || playerName.includes(searchTerm);
-            });
-        } else {
-            const currentEventName = uniqueEvents[currentEventIndex];
-            dataToRender = [...(groupedDataByEvent[currentEventName] || [])];
-        }
-
-        const headerElement = document.querySelector(`[data-column-name="${sortedColumn}"]`);
-        const sortedType = headerElement ? headerElement.getAttribute('data-type') : null;
-        dataToRender = sortData(dataToRender, sortedColumn, sortedType, sortDirection);
-
-        renderTable(dataToRender);
-        updatePaginationControls(dataToRender.length);
-        updateHeaderIcons();
-    }
-
-    function renderTable(data) {
-        tableBody.innerHTML = '';
-        if (!data || data.length === 0) {
-            tableBody.innerHTML = '<tr><td colspan="5" style="text-align: center;">No results found.</td></tr>';
-        } else {
-            data.forEach(item => {
-                const row = document.createElement('tr');
-                let playerText = item.Player || '';
-                const playerRank = rankingsMap[playerText];
-
-                const shouldShowRankAndPhoto = playerRank >= 1 && playerRank <= 40;
-                const playerPhotoUrl = playerIconMap[playerText];
-
-                if (shouldShowRankAndPhoto) {
-                    if (playerRank === 1) row.classList.add('rank-1');
-                    else if (playerRank === 2) row.classList.add('rank-2');
-                    else if (playerRank === 3) row.classList.add('rank-3');
-                    else if (playerRank === 4) row.classList.add('rank-4');
-                    else if (playerRank === 5) row.classList.add('rank-5');
-                    else if (playerRank >= 6 && playerRank <= 40) row.classList.add('ranked-6-40');
-                }
-
-                const playerPhotoHtml = (shouldShowRankAndPhoto && playerPhotoUrl) ?
-                    `<img src="${playerPhotoUrl}" alt="${item.Player}" class="player-photo">` :
-                    '';
-
-                const playerContent = `
-                    <div class="player-info">
-                        ${playerPhotoHtml}
-                        <span>${item.Player || ''} ${shouldShowRankAndPhoto ? `(#${playerRank})` : ''}</span>
-                    </div>
-                `;
-
-                // Fixes the desktop view by correctly mapping the data to columns
-                row.innerHTML = `
-                    <td data-label="Event" class="event-cell">${item.Event || ''}</td>
-                    <td data-label="Date" class="date-cell">${formatDate(item.Date)}</td>
-                    <td data-label="Entrants" class="entrants-cell">${item.Entrants || ''}</td>
-                    <td data-label="Player" class="player-cell">${playerContent}</td>
-                    <td data-label="Finish" class="finish-cell">${item.Finish || ''}</td>
-                `;
-                
-                // Add click listener for mobile expansion
-                row.addEventListener('click', () => {
-                    row.classList.toggle('expanded');
-                });
-                
-                tableBody.appendChild(row);
-            });
-        }
-    }
-
-    function updateHeaderIcons() {
-        const headers = document.querySelectorAll('.content-container #tournament-results-table thead th');
-        headers.forEach(header => {
-            const columnName = header.getAttribute('data-column-name');
-            header.classList.remove('sorted', 'asc', 'desc');
-
-            if (columnName === sortedColumn) {
-                header.classList.add('sorted', sortDirection);
-            }
-        });
-
-        // Mobile buttons
-        const mobileBtns = document.querySelectorAll('#mobile-sort-container .mobile-sort-btn');
-        mobileBtns.forEach(btn => {
-            btn.classList.remove('sorted-asc', 'sorted-desc');
-            if (btn.getAttribute('data-column-name') === sortedColumn) {
-                btn.classList.add(`sorted-${sortDirection}`);
-            }
-        });
-    }
-
-    function updatePaginationControls(filteredCount) {
-        if (searchTerm) {
-            pageInfo.textContent = `Showing ${filteredCount} results`;
-            prevBtn.disabled = true;
-            nextBtn.disabled = true;
-        } else {
-            const totalEvents = uniqueEvents.length;
-            if (totalEvents > 0) {
-                pageInfo.textContent = `Event: ${uniqueEvents[currentEventIndex]} (${currentEventIndex + 1} of ${totalEvents})`;
-            } else {
-                pageInfo.textContent = '';
-            }
-            prevBtn.disabled = currentEventIndex === 0;
-            nextBtn.disabled = currentEventIndex === totalEvents - 1 || totalEvents === 0;
-        }
-    }
-
-    function formatDate(dateString) {
-        if (!dateString) return '';
-        const date = new Date(dateString);
-        if (isNaN(date.getTime())) return dateString;
-        const options = { year: 'numeric', month: 'short', day: 'numeric' };
-        return date.toLocaleDateString('en-US', options);
-    }
-
-    function parseCSV(text) {
-        const lines = text.trim().split('\n');
-        if (lines.length <= 1) return [];
-        const headers = lines[0].split(',').map(header => header.trim().replace(/"/g, ''));
-        const data = lines.slice(1).map(line => {
-            const values = line.split(',').map(value => value.trim().replace(/"/g, ''));
-            const row = {};
-            headers.forEach((header, i) => {
-                row[header] = values[i];
-            });
-            return row;
-        }).filter(row => row.Player && row.Player !== '');
-        return data;
-    }
-
-    function groupDataByEvent(data) {
-        const groupedData = {};
-        const eventDates = {};
-        data.forEach(row => {
-            const eventName = row.Event;
-            if (eventName) {
-                if (!groupedData[eventName]) {
-                    groupedData[eventName] = [];
-                    eventDates[eventName] = new Date(row.Date);
-                }
-                groupedData[eventName].push(row);
-            }
-        });
-        groupedDataByEvent = groupedData;
-        uniqueEvents = Object.keys(groupedData).sort((a, b) => eventDates[b] - eventDates[a]);
-    }
-
-    const headers = document.querySelectorAll('.content-container #tournament-results-table thead th');
-    headers.forEach(header => {
-        header.addEventListener('click', () => {
-            const columnName = header.getAttribute('data-column-name');
-            if (sortedColumn === columnName) {
-                sortDirection = sortDirection === 'asc' ? 'desc' : 'asc';
-            } else {
-                sortedColumn = columnName;
-                if (columnName === 'Date' || columnName === 'Entrants') {
-                    sortDirection = 'desc';
-                } else {
-                    sortDirection = 'asc';
-                }
-            }
-            renderAll();
-        });
-    });
-
-    searchInput.addEventListener('input', (e) => {
-        searchTerm = e.target.value.toLowerCase();
-        renderAll();
-    });
-
-    prevBtn.addEventListener('click', () => {
-        if (currentEventIndex > 0) {
-            currentEventIndex--;
-            renderAll();
-        }
-    });
-
-    nextBtn.addEventListener('click', () => {
-        if (currentEventIndex < uniqueEvents.length - 1) {
-            currentEventIndex++;
-            renderAll();
-        }
-    });
-
-// New Mobile Sort Functionality
-const mobileSortBtns = document.querySelectorAll('#mobile-sort-container .mobile-sort-btn');
-mobileSortBtns.forEach(button => {
-    button.addEventListener('click', () => {
-        const columnName = button.getAttribute('data-column-name');
-
-        // Remove the 'sorted-desc' and 'sorted-asc' classes from all buttons
-        mobileSortBtns.forEach(btn => {
-            btn.classList.remove('sorted-asc', 'sorted-desc');
-        });
-
-        if (sortedColumn === columnName) {
-            sortDirection = sortDirection === 'asc' ? 'desc' : 'asc';
-        } else {
-            sortedColumn = columnName;
-            // Set default sort direction based on column
-            if (columnName === 'Finish' || columnName === 'Date' || columnName === 'Entrants') {
-    sortDirection = 'desc'; // We want the lowest number finish first
-} else {
-    sortDirection = 'asc';
-}
-        }
-
-        // Add the correct class to the clicked button
-        button.classList.add(`sorted-${sortDirection}`);
-        
-        renderAll();
-    });
-});
-
-    fetchData();
-});
-</script>
 
             </div>
             
             <footer class="content-footer">
-    <div class="footer-columns">
-        <div class="footer-column">
-            <h3>Navigation</h3>
-            <ul class="footer-links">
-                <li><a href="/">SF6 Rankings</a></li>
-                <li><a href="/tournament-results/">Tournament Results</a></li>
-                <li><a href="/ranking-system/">Ranking System</a></li>
-            </ul>
-        </div>
-        <div class="footer-column">
-            <h3>Community</h3>
-            <ul class="footer-links">
-                <li><a href="#">Become a Contributor</a></li>
-                <li><a href="#">Support the Site</a></li>
-            </ul>
-        </div>
-        <div class="footer-column">
-            <h3>Follow Us</h3>
-            <ul class="footer-social">
-                <li><a href="https://x.com" target="_blank" rel="noopener noreferrer"><i class="fab fa-x-twitter"></i></a></li>
-            </ul>
-        </div>
-    </div>
-    <div class="footer-legal">
-        <p>&copy; 2025 FGC Player Rankings. All rights reserved.<br>
-        An unofficial, community-driven resource. All game and player trademarks and images are the property of their respective owners.</p>
-        <p class="legal-links">
-            <a href="#">Contact</a> |
-            <a href="#">Terms of Use</a> |
-            <a href="#">Privacy Policy</a>
-        </p>
-    </div>
-</footer>
+                <div class="footer-columns">
+                    <div class="footer-column">
+                        <h3>Navigation</h3>
+                        <ul class="footer-links">
+                            <li><a href="/">SF6 Rankings</a></li>
+                            <li><a href="/tournament-results/">Tournament Results</a></li>
+                            <li><a href="/ranking-system/">Ranking System</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h3>Community</h3>
+                        <ul class="footer-links">
+                            <li><a href="/about/">About Us</a></li>
+                            <li><a href="#">Become a Contributor</a></li>
+                            <li><a href="#">Support the Site</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h3>Follow Us</h3>
+                        <ul class="footer-social">
+                            <li><a href="https://x.com" target="_blank" rel="noopener noreferrer"><i class="fab fa-x-twitter"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="footer-legal">
+                    <p>&copy; 2025 FGC Player Rankings. All rights reserved.<br>
+                    An unofficial, community-driven resource. All game and player trademarks and images are the property of their respective owners.</p>
+                    <p class="legal-links">
+                        <a href="#">Contact</a> |
+                        <a href="#">Terms of Use</a> |
+                        <a href="#">Privacy Policy</a>
+                    </p>
+                </div>
+            </footer>
         </main>
 
-        <aside class="right-sidebar" aria-label="Upcoming Rated Events">
-            <h2 class="sidebar-label">Upcoming Rated Events</h2>
+        <aside class="sidebar right-sidebar" aria-label="Upcoming Rated Events">
+            <h2 class="sidebar__label">Upcoming Rated Events</h2>
             
-                <div class="event">
-                    <a href="https://www.start.gg/tournament/cream-city-convergence-2025/details" target="_blank" rel="noopener noreferrer" class="tournament-name">Cream City Convergence</a>
-                    <a href="https://www.start.gg/tournament/cream-city-convergence-2025/details" target="_blank" rel="noopener noreferrer">
-                        <img src="/images/cream-city-convergence.png" alt="Cream City Convergence Tournament" loading="lazy" />
-                    </a>
-                    <div class="event-date">August 30, 2025</div>
-                    <a class="more-info" href="https://www.start.gg/tournament/cream-city-convergence-2025/details" target="_blank" rel="noopener noreferrer">More Info</a>
-                </div>
+                <a href="https://www.start.gg/tournament/ozhadou-nationals-19/details" target="_blank" rel="noopener noreferrer" class="event-card-link">
+                    <div class="event-card">
+                        <span class="event-card__name">OzHadou Nationals 19</span>
+                        <img src="/images/ozhadou-19.png" alt="OzHadou Nationals 19 Tournament" loading="lazy" class="event-card__image" />
+                        <div class="event-card__date">September 5-7, 2025</div>
+                        <span class="btn btn--secondary btn--small">More Info</span>
+                    </div>
+                </a>
             
-                <div class="event">
-                    <a href="https://www.start.gg/tournament/comit-arena-2025/details" target="_blank" rel="noopener noreferrer" class="tournament-name">Comitê Arena 2025</a>
-                    <a href="https://www.start.gg/tournament/comit-arena-2025/details" target="_blank" rel="noopener noreferrer">
-                        <img src="/images/comite.png" alt="Comitê Arena 2025 Tournament" loading="lazy" />
-                    </a>
-                    <div class="event-date">August 30-31, 2025</div>
-                    <a class="more-info" href="https://www.start.gg/tournament/comit-arena-2025/details" target="_blank" rel="noopener noreferrer">More Info</a>
-                </div>
-            
-                <div class="event">
-                    <a href="https://www.start.gg/tournament/ozhadou-nationals-19/details" target="_blank" rel="noopener noreferrer" class="tournament-name">OzHadou National 19</a>
-                    <a href="https://www.start.gg/tournament/ozhadou-nationals-19/details" target="_blank" rel="noopener noreferrer">
-                        <img src="/images/ozhadou-19.png" alt="OzHadou National 19 Tournament" loading="lazy" />
-                    </a>
-                    <div class="event-date">September 5-7, 2025</div>
-                    <a class="more-info" href="https://www.start.gg/tournament/ozhadou-nationals-19/details" target="_blank" rel="noopener noreferrer">More Info</a>
-                </div>
-            
-                <div class="event">
-                    <a href="https://www.start.gg/tournament/ultimate-fighting-arena-2025-3/details" target="_blank" rel="noopener noreferrer" class="tournament-name">Ultimate Fighting Arena 2025</a>
-                    <a href="https://www.start.gg/tournament/ultimate-fighting-arena-2025-3/details" target="_blank" rel="noopener noreferrer">
-                        <img src="/images/ufa.png" alt="Ultimate Fighting Arena 2025 Tournament" loading="lazy" />
-                    </a>
-                    <div class="event-date">September 12-14, 2025</div>
-                    <a class="more-info" href="https://www.start.gg/tournament/ultimate-fighting-arena-2025-3/details" target="_blank" rel="noopener noreferrer">More Info</a>
-                </div>
+                <a href="https://www.start.gg/tournament/ultimate-fighting-arena-2025-3/details" target="_blank" rel="noopener noreferrer" class="event-card-link">
+                    <div class="event-card">
+                        <span class="event-card__name">Ultimate Fighting Arena 2025</span>
+                        <img src="/images/ufa.png" alt="Ultimate Fighting Arena 2025 Tournament" loading="lazy" class="event-card__image" />
+                        <div class="event-card__date">September 12-14, 2025</div>
+                        <span class="btn btn--secondary btn--small">More Info</span>
+                    </div>
+                </a>
             
         </aside>
     </div>
 
     <noscript>
-        <p style="color:#f00;text-align:center;padding:1rem;background:#111;">
-            JavaScript is disabled in your browser. The rankings table may not load correctly.
+        <p style="text-align:center;padding:1rem;background:#111;color:#f00;">
+            JavaScript is disabled. Some interactive features may not work correctly.
         </p>
     </noscript>
     
     <script src="/js/main.js" defer></script>
+    
+<script>
+// Entire existing tournament-results JS remains here (no change needed)
+// Ensure updateStickyOffsets() runs on resize/orientation
+// Mobile sticky now works because #results-mobile-sort is outside controls-container
+document.addEventListener('DOMContentLoaded', () => {
+  function updateStickyOffsets() {
+    const mobileHeader = document.querySelector('.mobile-header');
+    const nav = document.querySelector('.tournament-nav');
+    const isMobile = window.matchMedia('(max-width: 768px)').matches;
+    let offset = 0;
+    if (isMobile) {
+      if (mobileHeader) offset += mobileHeader.offsetHeight || 0;
+      if (nav) offset += nav.offsetHeight || 0;
+    }
+    document.documentElement.style.setProperty('--mobile-sticky-offset', offset + 'px');
+  }
+  updateStickyOffsets();
+  window.addEventListener('resize', updateStickyOffsets);
+  window.addEventListener('orientationchange', updateStickyOffsets);
 
+  /* ---------------- Existing page logic ---------------- */
+  const tournamentTable = document.getElementById('tournament-results-table');
+  if (!tournamentTable) return;
+
+  // --- ELEMENT SELECTORS ---
+  const tableBody = tournamentTable.querySelector('tbody');
+  const searchInput = document.getElementById('search-input');
+  const stickyPrevBtn = document.getElementById('sticky-prev-btn');
+  const stickyNextBtn = document.getElementById('sticky-next-btn');
+  const eventDropdown = document.getElementById('event-select-dropdown');
+  const loadMoreBtn = document.getElementById('results-load-more-btn');
+
+  // --- DATA & STATE VARIABLES ---
+  const googleSheetURL   = "https://docs.google.com/spreadsheets/d/1otrfs8HN3Shq6U2-qrc4GDxTI4ragnqwbTjweecE12Q/gviz/tq?tqx=out:csv&gid=1021048964";
+  const googleRankingsURL= "https://docs.google.com/spreadsheets/d/1otrfs8HN3Shq6U2-qrc4GDxTI4ragnqwbTjweecE12Q/gviz/tq?tqx=out:csv&gid=1862929315";
+
+  let allData = [];
+  let groupedDataByEvent = {};
+  let uniqueEvents = [];
+  let currentEventIndex = 0;
+  let searchTerm = '';
+  let sortedColumn = 'Finish';
+  let sortDirection = 'asc';
+  let rankingsMap = {};
+  let playerIconMap = {};
+
+  // --- State for "Load More" functionality ---
+  const playersPerLoad = 16;
+  let visiblePlayers = playersPerLoad;
+
+  const initialSortHeader = document.querySelector('#tournament-results-table th.sorted');
+  if (initialSortHeader) {
+    sortedColumn = initialSortHeader.getAttribute('data-column-name');
+    sortDirection = initialSortHeader.classList.contains('desc') ? 'desc' : 'asc';
+  }
+
+  function debounce(func, delay) {
+    let timeout;
+    return function(...args) {
+      clearTimeout(timeout);
+      timeout = setTimeout(() => func.apply(this, args), delay);
+    };
+  }
+
+  function showSkeletonLoader() {
+    let skeletonHtml = '';
+    const rowCount = window.innerWidth < 769 ? playersPerLoad : 10;
+    for (let i = 0; i < rowCount; i++) {
+      skeletonHtml += '<tr class="skeleton"><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>';
+    }
+    tableBody.innerHTML = skeletonHtml;
+  }
+
+  function populateEventDropdown() {
+    if (!eventDropdown) return;
+    eventDropdown.innerHTML = '';
+    uniqueEvents.forEach((eventName, index) => {
+      const option = document.createElement('option');
+      option.value = index;
+      option.textContent = eventName;
+      eventDropdown.appendChild(option);
+    });
+  }
+
+  function sortData(data, column, type, direction) {
+    if (!data || !column) return data;
+    const order = direction === 'asc' ? 1 : -1;
+
+    return [...data].sort((a, b) => {
+      const valA = a[column];
+      const valB = b[column];
+
+      if (type === 'finish') {
+        const numA = parseFloat(String(valA).replace(/(st|nd|rd|th)/, ''));
+        const numB = parseFloat(String(valB).replace(/(st|nd|rd|th)/, ''));
+        if (!isNaN(numA) && !isNaN(numB)) {
+          const finishComparison = (numA - numB);
+          if (finishComparison !== 0) return finishComparison * order;
+          const dateA = new Date(a.Date);
+          const dateB = new Date(b.Date);
+          return (dateB - dateA);
+        }
+      } else if (type === 'number') {
+        const numA = parseFloat(valA) || 0;
+        const numB = parseFloat(valB) || 0;
+        return (numA - numB) * order;
+      }
+
+      const strA = String(valA).toLowerCase();
+      const strB = String(valB).toLowerCase();
+      if (strA < strB) return -1 * order;
+      if (strA > strB) return 1 * order;
+      return 0;
+    });
+  }
+
+  async function fetchData() {
+    try {
+      if (eventDropdown) eventDropdown.innerHTML = '<option>Loading Events...</option>';
+      showSkeletonLoader();
+      await fetchRankings();
+      const response = await fetch(`${googleSheetURL}&cachebuster=${Date.now()}`);
+      if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+      const text = await response.text();
+      allData = parseCSV(text);
+      groupDataByEvent(allData);
+      populateEventDropdown();
+      renderAll();
+      updateStickyOffsets(); // in case heights shift after render
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      tableBody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:red;">Failed to load data.</td></tr>';
+    }
+  }
+
+  async function fetchRankings() {
+    try {
+      const response = await fetch(`${googleRankingsURL}&cachebuster=${Date.now()}`);
+      if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+      const text = await response.text();
+      const rankingsData = parseCSV(text);
+      rankingsMap = rankingsData.reduce((acc, current) => {
+        const playerName = current['Player'];
+        const playerRank = parseInt(current['Rank'], 10);
+        if (playerName && !isNaN(playerRank)) acc[playerName] = playerRank;
+        return acc;
+      }, {});
+      playerIconMap = rankingsData.reduce((acc, current) => {
+        const playerName = current['Player'];
+        const playerIconUrl = current['Player Icon'];
+        if (playerName && playerIconUrl) acc[playerName] = playerIconUrl;
+        return acc;
+      }, {});
+    } catch (error) {
+      console.error("Error fetching rankings data:", error);
+    }
+  }
+
+  function renderAll() {
+    let dataToRender = [];
+    if (searchTerm) {
+      const keywords = searchTerm.toLowerCase().split(' ').filter(k => k);
+      dataToRender = allData.filter(item => {
+        const eventName = (item.Event || '').toLowerCase();
+        const playerName = (item.Player || '').toLowerCase();
+        return keywords.every(keyword => eventName.includes(keyword) || playerName.includes(keyword));
+      });
+    } else {
+      const currentEventName = uniqueEvents[currentEventIndex];
+      dataToRender = groupedDataByEvent[currentEventName] || [];
+    }
+
+    const headerElement = document.querySelector(`#tournament-results-table [data-column-name="${sortedColumn}"]`);
+    const sortedType = headerElement ? headerElement.getAttribute('data-type') : 'string';
+
+    const sortedData = sortData(dataToRender, sortedColumn, sortedType, sortDirection);
+    renderTable(sortedData);
+    updatePaginationControls(sortedData.length);
+    updateHeaderIcons();
+  }
+
+  function renderTable(fullData) {
+    let dataToDisplay = fullData;
+    const isMobile = window.innerWidth < 769;
+
+    if (isMobile && !searchTerm) {
+      dataToDisplay = fullData.slice(0, visiblePlayers);
+    }
+
+    tableBody.innerHTML = '';
+    if (!dataToDisplay || dataToDisplay.length === 0) {
+      tableBody.innerHTML = '<tr><td colspan="5" style="text-align:center;">No results found.</td></tr>';
+      return;
+    }
+
+    dataToDisplay.forEach(item => {
+      const row = document.createElement('tr');
+      const playerText = item.Player || '';
+      const playerRank = rankingsMap[playerText];
+      const playerPhotoUrl = playerIconMap[playerText];
+
+      if (playerRank >= 1 && playerRank <= 5) {
+        row.classList.add(`rank-${playerRank}`);
+      } else if (playerRank >= 6 && playerRank <= 40) {
+        row.classList.add('ranked-6-40');
+      }
+
+      let rankIndicatorHtml = '';
+      if (playerRank >= 1 && playerRank <= 5) {
+        rankIndicatorHtml = `<span class="rank-badge rank-badge--top5">#${playerRank}</span>`;
+      } else if (playerRank >= 6 && playerRank <= 40) {
+        rankIndicatorHtml = `<span class="rank-badge">#${playerRank}</span>`;
+      }
+
+      const showRealPhoto = (playerRank >= 1 && playerRank <= 40 && playerPhotoUrl);
+      const playerPhotoHtml = showRealPhoto
+        ? `<img src="${playerPhotoUrl}" alt="${playerText}" class="player-icon" onerror="this.style.display='none'">`
+        : `<div class="player-placeholder-icon"><i class="fas fa-user"></i></div>`;
+
+      let eventHtml = item.Event || '';
+      let playerHtml = playerText;
+
+      if (searchTerm) {
+        const regex = new RegExp(searchTerm.split(' ').filter(k => k).join('|'), 'gi');
+        eventHtml = eventHtml.replace(regex, match => `<mark>${match}</mark>`);
+        playerHtml = playerHtml.replace(regex, match => `<mark>${match}</mark>`);
+      }
+
+      const playerContent = `
+        <div class="player-cell-content">
+          ${playerPhotoHtml}
+          ${rankIndicatorHtml}
+          <span>${playerHtml}</span>
+        </div>
+      `;
+
+      row.innerHTML = `
+  <td data-label="Event" class="event-cell expandable-cell"><span>${eventHtml}</span></td>
+  <td data-label="Date" class="cell-hidden-mobile">${formatDate(item.Date)}</td>
+  <td data-label="Entrants" class="cell-hidden-mobile">${item.Entrants || ''}</td>
+  <td data-label="Player" class="cell-player">${playerContent}</td>
+  <td data-label="Finish">${item.Finish || ''}</td>
+`;
+      tableBody.appendChild(row);
+    });
+  }
+
+  function updateHeaderIcons() {
+    const headers = document.querySelectorAll('#tournament-results-table th, #results-mobile-sort .btn');
+    headers.forEach(header => {
+      const columnName = header.getAttribute('data-column-name');
+      header.classList.remove('sorted', 'asc', 'desc');
+      if (columnName === sortedColumn) {
+        header.classList.add('sorted', sortDirection);
+      }
+    });
+  }
+
+  function updatePaginationControls(totalResultsInEvent) {
+    const isMobile = window.innerWidth < 769;
+
+    if (searchTerm) {
+      stickyPrevBtn.disabled = true;
+      stickyNextBtn.disabled = true;
+      eventDropdown.disabled = true;
+
+      const searchOption = document.createElement('option');
+      searchOption.textContent = `Found ${totalResultsInEvent} results...`;
+      eventDropdown.innerHTML = '';
+      eventDropdown.appendChild(searchOption);
+      if (loadMoreBtn) loadMoreBtn.style.display = 'none';
+
+    } else {
+      stickyPrevBtn.disabled = false;
+      stickyNextBtn.disabled = false;
+      eventDropdown.disabled = false;
+
+      populateEventDropdown();
+      eventDropdown.value = currentEventIndex;
+
+      const isFirstEvent = currentEventIndex === 0;
+      const isLastEvent = currentEventIndex >= uniqueEvents.length - 1;
+
+      stickyPrevBtn.disabled = isFirstEvent;
+      stickyNextBtn.disabled = isLastEvent;
+
+      if (loadMoreBtn && isMobile) {
+        const canLoadMore = visiblePlayers < totalResultsInEvent;
+        loadMoreBtn.style.display = canLoadMore ? 'inline-flex' : 'none';
+      } else if (loadMoreBtn) {
+        loadMoreBtn.style.display = 'none';
+      }
+    }
+  }
+
+  function formatDate(dateString) {
+    if (!dateString) return '';
+    const date = new Date(dateString);
+    if (isNaN(date.getTime())) return dateString;
+    const options = { year: 'numeric', month: 'short', day: 'numeric', timeZone: 'UTC' };
+    return date.toLocaleDateString('en-US', options);
+  }
+
+  function scrollToTableTop() {
+    const tableWrapper = document.querySelector('.table-wrapper');
+    const contentArea = document.querySelector('.content');
+    if (!tableWrapper || !contentArea) return;
+
+    const isContentScrollable = getComputedStyle(contentArea).overflowY === 'auto';
+    const scrollableElement = isContentScrollable ? contentArea : window;
+
+    let targetPosition;
+    if (isContentScrollable) {
+      targetPosition = tableWrapper.offsetTop - 100;
+    } else {
+      const mobileHeader = document.querySelector('.mobile-header');
+      const tournamentNav = document.querySelector('.tournament-nav');
+      let headerOffset = 15;
+      if (mobileHeader) headerOffset += mobileHeader.offsetHeight;
+      if (tournamentNav) headerOffset += tournamentNav.offsetHeight;
+
+      const elementPosition = tableWrapper.getBoundingClientRect().top + window.scrollY;
+      targetPosition = elementPosition - headerOffset;
+    }
+
+    scrollableElement.scrollTo({ top: targetPosition, behavior: 'smooth' });
+  }
+
+  function parseCSV(text) {
+    const rows = text.trim().split('\n');
+    if (rows.length <= 1) return [];
+    const headers = rows[0].split(',').map(h => h.trim().replace(/"/g, ''));
+    return rows.slice(1).map(rowStr => {
+      const values = rowStr.match(/(".*?"|[^",]+)(?=\s*,|\s*$)/g) || [];
+      const rowData = {};
+      headers.forEach((header, i) => {
+        rowData[header] = values[i] ? values[i].replace(/^"|"$/g, '').trim() : '';
+      });
+      return rowData;
+    }).filter(row => row.Player && row.Player.trim() !== '');
+  }
+
+  function groupDataByEvent(data) {
+    const grouped = {};
+    const eventDates = {};
+    data.forEach(row => {
+      const eventName = row.Event;
+      if (eventName) {
+        if (!grouped[eventName]) {
+          grouped[eventName] = [];
+          eventDates[eventName] = new Date(row.Date);
+        }
+        grouped[eventName].push(row);
+      }
+    });
+    groupedDataByEvent = grouped;
+    uniqueEvents = Object.keys(grouped).sort((a, b) => eventDates[b] - eventDates[a]);
+  }
+
+  const sortableHeaders = document.querySelectorAll('#tournament-results-table th, #results-mobile-sort .btn');
+  sortableHeaders.forEach(header => {
+    header.addEventListener('click', () => {
+      const columnName = header.getAttribute('data-column-name');
+      if (sortedColumn === columnName) {
+        sortDirection = sortDirection === 'asc' ? 'desc' : 'asc';
+      } else {
+        sortedColumn = columnName;
+        sortDirection = (columnName === 'Entrants' || columnName === 'Date') ? 'desc' : 'asc';
+      }
+      renderAll();
+    });
+  });
+
+  const setupCardExpansion = (tableElement) => {
+    if (tableElement && tableElement.querySelector('tbody')) {
+      tableElement.querySelector('tbody').addEventListener('click', (event) => {
+        if (event.target.closest('a')) { return; }
+        const clickedRow = event.target.closest('tr');
+        if (clickedRow) {
+          clickedRow.classList.toggle('is-expanded');
+        }
+      });
+    }
+  };
+  setupCardExpansion(tournamentTable);
+
+  searchInput.addEventListener('input', debounce((e) => {
+    searchTerm = e.target.value.toLowerCase();
+    renderAll();
+  }, 300));
+
+  eventDropdown.addEventListener('change', () => {
+    visiblePlayers = playersPerLoad;
+    currentEventIndex = parseInt(eventDropdown.value, 10);
+    renderAll();
+    scrollToTableTop();
+  });
+
+  const handlePrevClick = () => {
+    if (currentEventIndex > 0) {
+      visiblePlayers = playersPerLoad;
+      currentEventIndex--;
+      renderAll();
+      scrollToTableTop();
+    }
+  };
+
+  const handleNextClick = () => {
+    if (currentEventIndex < uniqueEvents.length - 1) {
+      visiblePlayers = playersPerLoad;
+      currentEventIndex++;
+      renderAll();
+      scrollToTableTop();
+    }
+  };
+
+  if (loadMoreBtn) {
+    loadMoreBtn.addEventListener('click', () => {
+      loadMoreBtn.disabled = true;
+      loadMoreBtn.textContent = 'Loading...';
+      visiblePlayers += playersPerLoad;
+      setTimeout(() => {
+        renderAll();
+        loadMoreBtn.disabled = false;
+        loadMoreBtn.textContent = 'Load More';
+      }, 100);
+    });
+  }
+
+  stickyPrevBtn.addEventListener('click', handlePrevClick);
+  stickyNextBtn.addEventListener('click', handleNextClick);
+
+  fetchData();
+});
+</script>
+
+
+    <button id="back-to-top-btn" class="back-to-top-btn" title="Go to top" aria-label="Go to top">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+<script>
+  function handleResponsiveLayout() {
+    const isMobile = window.matchMedia('(max-width: 768px)').matches;
+    const contentWrapper = document.querySelector('.page-wrapper');
+    const mobileHeader = document.querySelector('.mobile-header');
+    const tournamentNav = document.querySelector('.tournament-nav');
+    const pageTitle = document.querySelector('.page-tournament-results h1');
+
+    if (!contentWrapper || !mobileHeader) return;
+
+    // --- 1. Handle Content Padding ---
+    if (isMobile) {
+      contentWrapper.style.paddingTop = `${mobileHeader.offsetHeight}px`;
+    } else {
+      contentWrapper.style.paddingTop = '0';
+    }
+
+    // --- 2. Handle Tournament Nav Position ---
+    if (tournamentNav && pageTitle) {
+      if (isMobile) {
+        // On mobile, move nav to be after the main site header
+        mobileHeader.after(tournamentNav);
+      } else {
+        // On desktop, move nav back to be after the H1 title
+        pageTitle.after(tournamentNav);
+      }
+    }
+  }
+
+  // Run on page load and on resize
+  document.addEventListener('DOMContentLoaded', handleResponsiveLayout);
+  window.addEventListener('resize', handleResponsiveLayout);
+</script>
 </body>
 </html>

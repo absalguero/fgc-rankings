@@ -13,7 +13,6 @@
     <title>FGC Ranking System Explained: Street Fighter 6 Player Rankings</title>
     <meta name="description" content="Current Street Fighter 6 player rankings from the competitive Fighting Game Community." />
     <link rel="canonical" href="https://fgc-player-rankings.netlify.app/" />
-    <meta name="theme-color" content="#000001" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Roboto:wght@400;500&display=swap" rel="stylesheet" />
@@ -24,8 +23,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link rel="stylesheet" href="/css/styles.css">
     
-  
-  <meta name="description" content="Learn how the FGC Ranking System for Street Fighter 6 works. Our official rankings are calculated based on top offline tournament placements, event value, and recency.">
+  <meta name="description" content="Learn how the FGC Ranking System for Street Fighter 6 works. Our official rankings are calculated based on top offline tournament placements, event value, and recency to reflect current competitive form.">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -34,624 +32,350 @@
       {
         "@type": "Question",
         "name": "How are player rankings calculated?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Rankings are calculated based on a player’s top five performances at sanctioned offline tournaments, factoring in placement, event value, and recency to reflect current competitive form."
-        }
+        "acceptedAnswer": { "@type": "Answer", "text": "Rankings are calculated based on a player’s top five performances at sanctioned offline tournaments, factoring in placement, event value, and recency to reflect current competitive form." }
       },
       {
         "@type": "Question",
         "name": "Can a player’s ranking change if they attend fewer events?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Yes. Because the system emphasizes recent and top performances, players who compete less frequently can still maintain or improve their ranking by performing well in high-value tournaments."
-        }
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes. Because the system emphasizes recent and top performances, players who compete less frequently can still maintain or improve their ranking by performing well in high-value tournaments." }
       },
       {
         "@type": "Question",
         "name": "What games are covered by this ranking system?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Currently, the ranking system covers Street Fighter 6 (SF6) exclusively."
-        }
+        "acceptedAnswer": { "@type": "Answer", "text": "Currently, the ranking system covers Street Fighter 6 (SF6) exclusively." }
       },
       {
         "@type": "Question",
         "name": "How can I suggest improvements or report errors in the rankings?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "We welcome feedback and encourage you to contact us via fgcprankings@gmail.com with any suggestions or corrections."
-        }
+        "acceptedAnswer": { "@type": "Answer", "text": "We welcome feedback and encourage you to contact us via fgcprankings@gmail.com with any suggestions or corrections." }
       },
       {
         "@type": "Question",
         "name": "Why aren’t online tournaments included?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "To maintain competitive integrity and fairness, only offline tournaments are considered, as online results can be affected by connectivity and other factors."
-        }
+        "acceptedAnswer": { "@type": "Answer", "text": "To maintain competitive integrity and fairness, only offline tournaments are considered, as online results can be affected by connectivity and other factors." }
       },
       {
         "@type": "Question",
         "name": "How often are rankings updated?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Rankings are updated regularly following major offline events to ensure they reflect the latest competitive results."
-        }
-        },
+        "acceptedAnswer": { "@type": "Answer", "text": "Rankings are updated regularly following major offline events to ensure they reflect the latest competitive results." }
+      },
       {
         "@type": "Question",
         "name": "How can I get my tournament included?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Tournament organizers can contact us at fgcprankings@gmail.com to request evaluation and inclusion of their events in the ranking system."
-        }
+        "acceptedAnswer": { "@type": "Answer", "text": "Tournament organizers can contact us at fgcprankings@gmail.com to request evaluation and inclusion of their events in the ranking system." }
       },
       {
         "@type": "Question",
         "name": "How can players submit their tournament results?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Players should work with tournament organizers who submit official results to us. If you notice a tournament result missing or incorrect, please reach out via email."
-        }
+        "acceptedAnswer": { "@type": "Answer", "text": "Players should work with tournament organizers who submit official results to us. If you notice a tournament result missing or incorrect, please reach out via email." }
       },
       {
         "@type": "Question",
         "name": "How are disputes or errors handled?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "We review all reported discrepancies carefully and update rankings accordingly to ensure accuracy. If you find an error, please contact us at fgcprankings@gmail.com."
-        }
+        "acceptedAnswer": { "@type": "Answer", "text": "We review all reported discrepancies carefully and update rankings accordingly to ensure accuracy. If you find an error, please contact us at fgcprankings@gmail.com." }
       },
       {
         "@type": "Question",
         "name": "What regions or countries are most represented?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Our rankings reflect a global player base, with events and competitors from multiple regions around the world."
-        }
+        "acceptedAnswer": { "@type": "Answer", "text": "Our rankings reflect a global player base, with events and competitors from multiple regions around the world." }
       }
     ]
   }
   </script>
 
-  <style>
-/* Specific styles for this page layout */
-.content-container {
-    max-width: 1100px !important;
-    margin: 0 auto !important;
-    padding: 0 15px !important;
-    text-align: left;
-}
-
-h1 {
-    text-align: center;
-    margin-bottom: 1rem;
-}
-
-/* Original Desktop Grid Layout */
-.toc-and-image {
-    display: grid;
-    grid-template-columns: minmax(250px, 350px) 1fr;
-    grid-template-areas:
-        "toc image"
-        "toc content";
-    gap: 2rem;
-    margin-bottom: 2rem;
-}
-
-.toc-wrapper {
-    grid-area: toc;
-    position: sticky;
-    top: 20px;
-    align-self: start;
-    height: calc(100vh - 120px);
-    overflow-y: auto;
-}
-
-/* Mobile-Friendly Table of Contents */
-.toc-and-image nav {
-    font-size: 1.26rem;
-    line-height: 1.2;
-    overflow-wrap: break-word;
-    padding: 0.5rem;
-}
-
-.toc-and-image nav strong {
-    display: block;
-    margin-bottom: 0.5rem;
-    font-weight: 700;
-    color: #ccc;
-}
-
-.toc-and-image nav ul {
-    list-style: disc inside;
-    padding-left: 1rem;
-    margin-top: 0;
-}
-
-.toc-and-image nav ul li {
-    margin-bottom: 0;
-}
-
-.toc-and-image nav ul li a {
-    color: #FF5E13; /* Consistent link color */
-    text-decoration: none;
-    transition: color 0.3s ease;
-}
-
-.toc-and-image nav ul li a:hover,
-.toc-and-image nav ul li a:focus {
-    text-decoration: underline;
-    color: #ff7f24;
-    outline: none;
-}
-
-#faq-image {
-    grid-area: image;
-    max-width: 400px;
-    height: auto;
-    border-radius: 50%;
-    box-shadow: 0 0 20px 5px rgba(255, 255, 255, 0.8);
-    object-fit: cover;
-    justify-self: center;
-}
-
-.main-content {
-    grid-area: content;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 2rem;
-}
-
-/* New spacing for headings */
-article h2 {
-    margin-top: 0rem;
-    margin-bottom: 0.5rem;
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: #999;
-}
-
-#contact-feedback {
-    margin-top: 0rem;
-}
-
-article h3 {
-    margin-top: 1.5rem;
-    margin-bottom: 0.5rem;
-    text-align: center;
-}
-
-/* FAQ Accordion Styling */
-.faq-list {
-    list-style: none;
-    padding-left: 0;
-    margin-top: 1rem;
-}
-
-details {
-    margin-bottom: 1rem;
-    border: 1px solid #333;
-    border-radius: 8px;
-    padding: 10px 15px;
-    background-color: #1a1a1a;
-    transition: background-color 0.3s ease;
-}
-
-details:hover {
-    background-color: #222;
-}
-
-details summary {
-    font-weight: bold;
-    color: #f39c12;
-    cursor: pointer;
-    list-style: none;
-}
-
-details summary::before {
-    content: '►';
-    display: inline-block;
-    margin-right: 10px;
-    transition: transform 0.2s ease;
-    color: #ccc;
-}
-
-details summary:hover::before {
-    color: #f39c12;
-}
-
-details:open > summary::before {
-    transform: rotate(90deg);
-}
-
-details p {
-    margin-top: 10px;
-    margin-bottom: 0;
-    padding-left: 20px;
-}
-
-/* --- NEW CSS for the Mobile TOC --- */
-.toc-toggle-btn {
-    display: none; /* Hidden by default on desktop */
-    background: #1f1f1f;
-    border: 1px solid #333;
-    color: #FFFFFF;
-    padding: 10px 10px;
-    width: 100%;
-    text-align: left;
-    font-size: 1.1rem;
-    font-weight: bold;
-    cursor: pointer;
-    border-radius: 8px;
-    transition: background-color 0.3s, box-shadow 0.3s; /* Added transition for shadow */
-}
-
-.toc-toggle-btn:hover {
-    background-color: #2a2a2a;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Subtle shadow on hover */
-}
-
-.toc-toggle-btn i {
-    float: right;
-    transition: transform 0.3s;
-}
-
-.toc-toggle-btn.active i {
-    transform: rotate(180deg);
-}
-
-.toc-list {
-    transition: all 0.3s ease-in-out;
-}
-
-/* --- Responsive adjustments for screens up to 768px wide --- */
-@media (max-width: 768px) {
-    /* 1. Show the "Jump to Section" button */
-    .toc-toggle-btn {
-        display: block;
-        margin-bottom: 0.5rem; /* Added a little space below the button on mobile */
-    }
-
-    /* 2. Hide the TOC list by default */
-    .toc-list {
-        max-height: 0;
-        overflow: hidden;
-        opacity: 0;
-        margin-top: 0;
-    }
-
-    /* 3. Style for when the TOC is open */
-    .toc-list.active {
-        max-height: 500px;
-        opacity: 1;
-        margin-top: 0.25rem; /* Reduced space below the button when open */
-    }
-
-    /* ... all other existing mobile styles here ... */
-    #faq-image {
-        display: none;
-    }
-
-    .toc-and-image {
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
-        align-items: center;
-    }
-
-    .toc-wrapper {
-        width: 100%;
-        max-width: none;
-        position: static;
-        height: auto;
-        overflow-y: visible;
-    }
-
-    .main-content {
-        order: 1;
-        width: 100%;
-    }
-
-    .main-content {
-        padding: 0 10px;
-    }
-
-    .toc-and-image nav ul li a {
-        font-size: 1.1rem; /* Reduced TOC link size on mobile */
-    }
-
-    body {
-        font-size: 1.1rem; /* Slightly larger for mobile readability */
-    }
-}
-</style>
-
 </head>
-<body>
-   <header class="mobile-header">
-    <button class="nav-toggle" aria-label="Toggle Navigation">
-        <svg class="hamburger-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24">
-            <path d="M3 12h18M3 6h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-        </svg>
-        <svg class="close-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24">
-            <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-        </svg>
-    </button>
-    <div class="mobile-search">
-        <form role="search" class="search-form">
-            <input type="search" id="mobile-search-input" class="search-input" placeholder="Search site..." aria-label="Search site">
-            <button type="submit" class="search-button" aria-label="Search">
-                <i class="fas fa-search"></i>
-            </button>
-        </form>
-    </div>
-</header>
+<body class="">
+
+    <header class="mobile-header">
+        <button class="nav-toggle" aria-label="Toggle Navigation">
+            <svg class="hamburger-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24">
+                <path d="M3 12h18M3 6h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            <svg class="close-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24">
+                <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+        </button>
+        <div class="mobile-search">
+            <form role="search" class="search-form">
+                <input type="search" id="mobile-search-input" class="search-form__input" placeholder="Search site..." aria-label="Search site">
+                <button type="submit" class="search-form__button" aria-label="Search">
+                    <i class="fas fa-search"></i>
+                </button>
+            </form>
+        </div>
+    </header>
+
+
+
 
     <div class="page-wrapper">
-        <nav class="sidebar" aria-label="Main menu" role="navigation">
-            <h2 class="sidebar-label">Navigation</h2>
+        <nav class="sidebar nav-sidebar" aria-label="Main menu" role="navigation">
+            <h2 class="sidebar__label">Navigation</h2>
             <div class="sidebar-search">
                 <form role="search" class="search-form">
-                    <input type="search" id="sidebar-search-input" class="search-input" placeholder="Search site..." aria-label="Search site">
-                    <button type="submit" class="search-button" aria-label="Search">
+                    <input type="search" id="sidebar-search-input" class="search-form__input" placeholder="Search site..." aria-label="Search site">
+                    <button type="submit" class="search-form__button" aria-label="Search">
                         <i class="fas fa-search"></i>
                     </button>
                 </form>
             </div>
             <ul class="nav-menu">
-    
-    <li><a href="/" class=""><i class="fas fa-trophy"></i>SF6 Rankings</a></li>
-    <li><a href="/tournament-results/" class=""><i class="fas fa-sitemap"></i>Tournament Results</a></li>
-    <li><a href="/ranking-system/" class="active"><i class="fas fa-scale-balanced"></i>Ranking System</a></li>
-</ul>
+                
+                <li><a href="/" class="nav-menu__link "><i class="fas fa-trophy"></i>SF6 Rankings</a></li>
+                <li><a href="/tournament-results/" class="nav-menu__link "><i class="fas fa-sitemap"></i>Tournament Results</a></li>
+                <li><a href="/ranking-system/" class="nav-menu__link is-active"><i class="fas fa-scale-balanced"></i>Ranking System</a></li>
+            </ul>
         </nav>
 
         <main class="content">
-            <div class="content-container" role="main" id="maincontent" tabindex="-1">
-                <img class="banner" src="/images/banner.png" alt="FGC Player Rankings official logo" loading="lazy"/>
+            <div role="main" id="maincontent" tabindex="-1">                
                 
-<article>
-  <h1>Fighting Game Community (FGC) Ranking System Explained</h1>
+<div class="content-container page-ranking-system">
+  <article>
+    <img class="banner" src="/images/banner.png" alt="FGC Player Rankings official logo" loading="lazy"/>
+    <h1>Fighting Game Community (FGC) Ranking System Explained</h1>
 
-  <div class="toc-and-image">
-    <img src="/images/fgc-ranking-system-explained.png" alt="Crowd cheering at a fighting game event" loading="lazy" id="faq-image" />
-    <div class="toc-wrapper">
-      <button class="toc-toggle-btn">
-        Jump to Section <i class="fas fa-chevron-down"></i>
-      </button>
-      <nav aria-label="Table of Contents" class="toc-list">
-        <strong>Contents</strong>
-        <ul>
-          <li><a href="#overview">Overview</a></li>
-          <li><a href="#how-ranking-works">How the Ranking System Works</a></li>
-          <li><a href="#placement-based-scoring">Placement-Based Scoring</a></li>
-          <li><a href="#best-performances-count">Best Performances Count</a></li>
-          <li><a href="#dynamic-event-valuation">Dynamic Event Valuation</a></li>
-          <li><a href="#recency-bias">Recency Bias for Current Form</a></li>
-          <li><a href="#offline-events">Offline Events Only</a></li>
-          <li><a href="#data-sources">Data Sources & Verification</a></li>
-          <li><a href="#global-recognition">Global Recognition & Tournament Inclusion</a></li>
-          <li><a href="#updates-transparency">Regular Updates & Transparency</a></li>
-          <li><a href="#faq">Frequently Asked Questions (FAQ)</a></li>
-          <li><a href="#contact-feedback">Contact & Feedback</a></li>
-        </ul>
-      </nav>
-    </div>
-
-    <div class="main-content">
-      <div style="max-width: 800px; margin-left: auto; margin-right: auto;">
-        <h2 id="overview">Overview: Accurate &amp; Fair Player Rankings for Street Fighter 6</h2>
-        <p>
-          Our FGC ranking system provides an accurate and current reflection of player skill and performance specifically for Street Fighter 6 (SF6). It ranks players based on their top results from sanctioned offline tournaments worldwide, rewarding consistent excellence and recent achievements. You can view the <a href="/rankings">current player rankings here</a>.
-        </p>
-
-        <h2 id="how-ranking-works">How the Ranking System Works</h2>
-        <p>Our system is designed to fairly evaluate player performance by focusing on meaningful tournament results and ongoing competitive form.</p>
-
-        <h3 id="placement-based-scoring">Placement-Based Scoring</h3>
-        <p>Players earn points according to their final placement at offline tournaments. Higher placements receive significantly more points, ensuring that top finishes have the greatest impact on rankings.</p>
-
-        <h3 id="best-performances-count">Best Performances Count</h3>
-        <p>To balance quantity and quality, only each player’s five highest-rated performances are included in their overall ranking. This approach rewards consistent top-level play without favoring players who simply attend a large number of events.</p>
-
-        <h3 id="dynamic-event-valuation">Dynamic Event Valuation</h3>
-        <p>Each tournament's value is dynamically calculated based on multiple factors, including the prestige and history of the tournament, the strength of competition, and the prize money offered.</p>
-        <p>Additional considerations include the diversity of regional participation and a focus on major tournaments that hold significant prominence within the competitive landscape.</p>
-        <p>Larger, more prestigious tournaments with stronger player fields and higher stakes carry greater weight in the ranking system. This ensures that success at the most competitive and meaningful events is appropriately rewarded.</p>
-
-        <h3 id="recency-bias">Recency Bias for Current Form</h3>
-        <p>The system emphasizes recent tournament results to ensure the rankings accurately represent who is performing best right now. Older results gradually have less influence, keeping the leaderboard fresh and relevant.</p>
-
-        <h3 id="offline-events">Offline Events Only</h3>
-        <p>Rankings are based exclusively on sanctioned offline tournaments. Sanctioned tournaments are offline events that meet specific standards for fairness and competitive integrity.</p>
-
-        <h3 id="data-sources">Data Sources &amp; Verification</h3>
-        <p>We prioritize accurate and reliable data collection from trusted tournament organizers and verified results to maintain the integrity of the rankings. Our commitment ensures that player standings reflect genuine competitive performance.</p>
-
-        <h3 id="global-recognition">Global Recognition &amp; Tournament Inclusion</h3>
-        <p>Our ranking system recognizes offline fighting game tournaments from around the world, promoting a diverse and comprehensive competitive landscape.</p>
-        <p>Tournament organizers interested in having their events evaluated for inclusion in the official list of rated tournaments are encouraged to contact us for consideration.</p>
-
-        <h3 id="updates-transparency">Regular Updates, Community Transparency &amp; Engagement</h3>
-        <p>Rankings are updated regularly to incorporate the latest tournament results, ensuring the leaderboard remains accurate and timely.</p>
-        <p>Developed by and for the fighting game community, our ranking algorithms and weighting factors are designed to fairly recognize performance, consistency, and current competitive form.</p>
-
-        <h2 id="faq">Frequently Asked Questions (FAQ)</h2>
-        <ul class="faq-list">
-          <li>
-            <details>
-              <summary>How are player rankings calculated?</summary>
-              <p>Rankings are calculated based on a player’s top five performances at sanctioned offline tournaments, factoring in placement, event value, and recency to reflect current competitive form.</p>
-            </details>
-          </li>
-          <li>
-            <details>
-              <summary>Can a player’s ranking change if they attend fewer events?</summary>
-              <p>Yes. Because the system emphasizes recent and top performances, players who compete less frequently can still maintain or improve their ranking by performing well in high-value tournaments.</p>
-            </details>
-          </li>
-          <li>
-            <details>
-              <summary>What games are covered by this ranking system?</summary>
-              <p>Currently, the ranking system covers Street Fighter 6 (SF6) exclusively.</p>
-            </details>
-          </li>
-          <li>
-            <details>
-              <summary>How can I suggest improvements or report errors in the rankings?</summary>
-              <p>We welcome feedback and encourage you to contact us via <a href="mailto:fgcprankings@gmail.com">fgcprankings@gmail.com</a> with any suggestions or corrections.</p>
-            </details>
-          </li>
-          <li>
-            <details>
-              <summary>Why aren’t online tournaments included?</summary>
-              <p>To maintain competitive integrity and fairness, only offline tournaments are considered, as online results can be affected by connectivity and other factors.</p>
-            </details>
-          </li>
-          <li>
-            <details>
-              <summary>How often are rankings updated?</summary>
-              <p>Rankings are updated regularly following major offline events to ensure they reflect the latest competitive results.</p>
-            </details>
-          </li>
-          <li>
-            <details>
-              <summary>How can I get my tournament included?</summary>
-              <p>Tournament organizers can contact us at <a href="mailto:fgcprankings@gmail.com">fgcprankings@gmail.com</a> to request evaluation and inclusion of their events in the ranking system.</p>
-            </details>
-          </li>
-          <li>
-            <details>
-              <summary>How can players submit their tournament results?</summary>
-              <p>Players should work with tournament organizers who submit official results to us. If you notice a tournament result missing or incorrect, please reach out via email.</p>
-            </details>
-          </li>
-          <li>
-            <details>
-              <summary>How are disputes or errors handled?</summary>
-              <p>We review all reported discrepancies carefully and update rankings accordingly to ensure accuracy. If you find an error, please contact us at <a href="mailto:fgcprankings@gmail.com">fgcprankings@gmail.com</a>.</p>
-            </details>
-          </li>
-          <li>
-            <details>
-              <summary>What regions or countries are most represented?</summary>
-              <p>Our rankings reflect a global player base, with events and competitors from multiple regions around the world.</p>
-            </details>
-          </li>
-        </ul>
+    <div class="page-ranking-system__layout">
+      <div class="page-ranking-system__toc-wrapper">
+        <button class="toc-toggle-btn">
+          Jump to Section <i class="fas fa-chevron-down"></i>
+        </button>
+        <nav aria-label="Table of Contents" class="toc toc-list">
+          <strong>Contents</strong>
+          <ul>
+            <li><a href="#overview">Overview</a></li>
+            <li><a href="#how-ranking-works">How the Ranking System Works</a></li>
+            <li><a href="#placement-based-scoring">Placement-Based Scoring</a></li>
+            <li><a href="#best-performances-count">Best Performances Count</a></li>
+            <li><a href="#dynamic-event-valuation">Dynamic Event Valuation</a></li>
+            <li><a href="#recency-bias">Recency Bias for Current Form</a></li>
+            <li><a href="#offline-events">Offline Events Only</a></li>
+            <li><a href="#data-sources">Data Sources & Verification</a></li>
+            <li><a href="#global-recognition">Global Recognition & Tournament Inclusion</a></li>
+            <li><a href="#updates-transparency">Regular Updates & Transparency</a></li>
+            <li><a href="#faq">Frequently Asked Questions (FAQ)</a></li>
+            <li><a href="#contact-feedback">Contact & Feedback</a></li>
+          </ul>
+        </nav>
       </div>
-      <div style="max-width: 800px; margin-left: auto; margin-right: auto;">
-        <h2 id="contact-feedback">Contact &amp; Feedback</h2>
-        <p>We welcome questions, feedback, and inquiries from the entire fighting game community — whether you’re a tournament organizer interested in having your event considered, a player seeking more information, or a fan wanting to get involved.</p>
-        <p>Please feel free to reach out to us at <a href="mailto:fgcprankings@gmail.com">fgcprankings@gmail.com</a>. We’re committed to fostering an open and engaged community and look forward to hearing from you.</p>
+
+      <div class="page-ranking-system__main-content">
+        <img src="/images/fgc-ranking-system-explained.png" alt="Crowd cheering at a fighting game event" loading="lazy" class="page-ranking-system__image" />
+        <section id="overview">
+          <h2>Overview: Accurate &amp; Fair Player Rankings for Street Fighter 6</h2>
+          <p>
+            Our FGC ranking system provides an accurate and current reflection of player skill and performance specifically for Street Fighter 6 (SF6). It ranks players based on their top results from sanctioned offline tournaments worldwide, rewarding consistent excellence and recent achievements. You can view the <a href="/">current player rankings here</a>.
+          </p>
+        </section>
+
+        <section id="how-ranking-works">
+          <h2>How the Ranking System Works</h2>
+          <p>Our system is designed to fairly evaluate player performance by focusing on meaningful tournament results and ongoing competitive form.</p>
+
+          <h3 id="placement-based-scoring">Placement-Based Scoring</h3>
+          <p>Players earn points according to their final placement at offline tournaments. Higher placements receive significantly more points, ensuring that top finishes have the greatest impact on rankings.</p>
+
+          <h3 id="best-performances-count">Best Performances Count</h3>
+          <p>To balance quantity and quality, only each player’s five highest-rated performances are included in their overall ranking. This approach rewards consistent top-level play without favoring players who simply attend a large number of events.</p>
+
+          <h3 id="dynamic-event-valuation">Dynamic Event Valuation</h3>
+          <p>Each tournament's value is dynamically calculated based on multiple factors, including the prestige and history of the tournament, the strength of competition, and the prize money offered. Larger, more prestigious tournaments with stronger player fields and higher stakes carry greater weight in the ranking system.</p>
+
+          <h3 id="recency-bias">Recency Bias for Current Form</h3>
+          <p>The system emphasizes recent tournament results to ensure the rankings accurately represent who is performing best right now. Older results gradually have less influence, keeping the leaderboard fresh and relevant.</p>
+
+          <h3 id="offline-events">Offline Events Only</h3>
+          <p>Rankings are based exclusively on sanctioned offline tournaments. Sanctioned tournaments are offline events that meet specific standards for fairness and competitive integrity.</p>
+
+          <h3 id="data-sources">Data Sources &amp; Verification</h3>
+          <p>We prioritize accurate and reliable data collection from trusted tournament organizers and verified results to maintain the integrity of the rankings. Our commitment ensures that player standings reflect genuine competitive performance.</p>
+
+          <h3 id="global-recognition">Global Recognition &amp; Tournament Inclusion</h3>
+          <p>Our ranking system recognizes offline fighting game tournaments from around the world, promoting a diverse and comprehensive competitive landscape. Tournament organizers interested in having their events evaluated are encouraged to contact us.</p>
+
+          <h3 id="updates-transparency">Regular Updates, Community Transparency &amp; Engagement</h3>
+          <p>Rankings are updated regularly to incorporate the latest tournament results. Developed by and for the fighting game community, our ranking algorithms and weighting factors are designed to fairly recognize performance, consistency, and current competitive form.</p>
+        </section>
+
+        <section id="faq" class="faq-accordion">
+          <h2>Frequently Asked Questions (FAQ)</h2>
+          <details>
+            <summary>How are player rankings calculated?</summary>
+            <p>Rankings are calculated based on a player’s top five performances at sanctioned offline tournaments, factoring in placement, event value, and recency to reflect current competitive form.</p>
+          </details>
+          <details>
+            <summary>How do these rankings differ from a game's built-in online ladder or ranked mode?</summary>
+            <p>Our rankings and a game's internal online ladder are both valuable, but they measure different aspects of competitive skill. Our system is based exclusively on performance in high-stakes, <strong>offline tournaments</strong>, which test a player's ability under the pressure of a live event. The in-game ranked mode is an excellent measure of a player's <strong>online consistency</strong> over a high volume of matches. We see them as complementary: the in-game ladder shows who excels in the day-to-day online environment, while our system focuses on identifying the world's best tournament performers.</p>
+          </details>
+          <details>
+            <summary>Why aren’t online tournaments included?</summary>
+            <p>To maintain competitive integrity and fairness, only offline tournaments are considered, as online results can be affected by connectivity and other factors.</p>
+          </details>
+          <details>
+            <summary>Can a player’s ranking change if they attend fewer events?</summary>
+            <p>Yes. Because the system emphasizes recent and top performances, players who compete less frequently can still maintain or improve their ranking by performing well in high-value tournaments.</p>
+          </details>
+          <details>
+            <summary>How often are rankings updated?</summary>
+            <p>Rankings are updated regularly following major offline events to ensure they reflect the latest competitive results.</p>
+          </details>
+          <details>
+            <summary>What games are covered by this ranking system?</summary>
+            <p>Currently, the ranking system covers Street Fighter 6 (SF6) exclusively.</p>
+          </details>
+          <details>
+            <summary>How can I get my tournament included?</summary>
+            <p>Tournament organizers can contact us at <a href="mailto:fgcprankings@gmail.com">fgcprankings@gmail.com</a> to request evaluation and inclusion of their events in the ranking system.</p>
+          </details>
+          <details>
+            <summary>How can players submit their tournament results?</summary>
+            <p>Players should work with tournament organizers who submit official results to us. If you notice a tournament result missing or incorrect, please reach out via email.</p>
+          </details>
+          <details>
+            <summary>How are disputes or errors handled?</summary>
+            <p>We review all reported discrepancies carefully and update rankings accordingly to ensure accuracy. If you find an error, please contact us at <a href="mailto:fgcprankings@gmail.com">fgcprankings@gmail.com</a>.</p>
+          </details>
+          <details>
+            <summary>How can I suggest improvements or report errors in the rankings?</summary>
+            <p>We welcome feedback and encourage you to contact us via <a href="mailto:fgcprankings@gmail.com">fgcprankings@gmail.com</a> with any suggestions or corrections.</p>
+          </details>
+          <details>
+            <summary>What regions or countries are most represented?</summary>
+            <p>Our rankings reflect a global player base, with events and competitors from multiple regions around the world.</p>
+          </details>
+        </section>
+
+        <section id="contact-feedback">
+          <h2>Contact &amp; Feedback</h2>
+          <p>We welcome questions, feedback, and inquiries. Please feel free to reach out to us at <a href="mailto:fgcprankings@gmail.com">fgcprankings@gmail.com</a>. We’re committed to fostering an open and engaged community and look forward to hearing from you.</p>
+        </section>
       </div>
     </div>
-  </div>
-</article>
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-    const toggleBtn = document.querySelector('.toc-toggle-btn');
-    const tocList = document.querySelector('.toc-list');
-
-    if (toggleBtn && tocList) {
-      toggleBtn.addEventListener('click', function() {
-        this.classList.toggle('active');
-        tocList.classList.toggle('active');
-      });
-    }
-  });
-</script>
+  </article>
+</div>
 
             </div>
             
             <footer class="content-footer">
-    <div class="footer-columns">
-        <div class="footer-column">
-            <h3>Navigation</h3>
-            <ul class="footer-links">
-                <li><a href="/">SF6 Rankings</a></li>
-                <li><a href="/tournament-results/">Tournament Results</a></li>
-                <li><a href="/ranking-system/">Ranking System</a></li>
-            </ul>
-        </div>
-        <div class="footer-column">
-            <h3>Community</h3>
-            <ul class="footer-links">
-                <li><a href="#">Become a Contributor</a></li>
-                <li><a href="#">Support the Site</a></li>
-            </ul>
-        </div>
-        <div class="footer-column">
-            <h3>Follow Us</h3>
-            <ul class="footer-social">
-                <li><a href="https://x.com" target="_blank" rel="noopener noreferrer"><i class="fab fa-x-twitter"></i></a></li>
-            </ul>
-        </div>
-    </div>
-    <div class="footer-legal">
-        <p>&copy; 2025 FGC Player Rankings. All rights reserved.<br>
-        An unofficial, community-driven resource. All game and player trademarks and images are the property of their respective owners.</p>
-        <p class="legal-links">
-            <a href="#">Contact</a> |
-            <a href="#">Terms of Use</a> |
-            <a href="#">Privacy Policy</a>
-        </p>
-    </div>
-</footer>
+                <div class="footer-columns">
+                    <div class="footer-column">
+                        <h3>Navigation</h3>
+                        <ul class="footer-links">
+                            <li><a href="/">SF6 Rankings</a></li>
+                            <li><a href="/tournament-results/">Tournament Results</a></li>
+                            <li><a href="/ranking-system/">Ranking System</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h3>Community</h3>
+                        <ul class="footer-links">
+                            <li><a href="/about/">About Us</a></li>
+                            <li><a href="#">Become a Contributor</a></li>
+                            <li><a href="#">Support the Site</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h3>Follow Us</h3>
+                        <ul class="footer-social">
+                            <li><a href="https://x.com" target="_blank" rel="noopener noreferrer"><i class="fab fa-x-twitter"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="footer-legal">
+                    <p>&copy; 2025 FGC Player Rankings. All rights reserved.<br>
+                    An unofficial, community-driven resource. All game and player trademarks and images are the property of their respective owners.</p>
+                    <p class="legal-links">
+                        <a href="#">Contact</a> |
+                        <a href="#">Terms of Use</a> |
+                        <a href="#">Privacy Policy</a>
+                    </p>
+                </div>
+            </footer>
         </main>
 
-        <aside class="right-sidebar" aria-label="Upcoming Rated Events">
-            <h2 class="sidebar-label">Upcoming Rated Events</h2>
+        <aside class="sidebar right-sidebar" aria-label="Upcoming Rated Events">
+            <h2 class="sidebar__label">Upcoming Rated Events</h2>
             
-                <div class="event">
-                    <a href="https://www.start.gg/tournament/cream-city-convergence-2025/details" target="_blank" rel="noopener noreferrer" class="tournament-name">Cream City Convergence</a>
-                    <a href="https://www.start.gg/tournament/cream-city-convergence-2025/details" target="_blank" rel="noopener noreferrer">
-                        <img src="/images/cream-city-convergence.png" alt="Cream City Convergence Tournament" loading="lazy" />
-                    </a>
-                    <div class="event-date">August 30, 2025</div>
-                    <a class="more-info" href="https://www.start.gg/tournament/cream-city-convergence-2025/details" target="_blank" rel="noopener noreferrer">More Info</a>
-                </div>
+                <a href="https://www.start.gg/tournament/ozhadou-nationals-19/details" target="_blank" rel="noopener noreferrer" class="event-card-link">
+                    <div class="event-card">
+                        <span class="event-card__name">OzHadou Nationals 19</span>
+                        <img src="/images/ozhadou-19.png" alt="OzHadou Nationals 19 Tournament" loading="lazy" class="event-card__image" />
+                        <div class="event-card__date">September 5-7, 2025</div>
+                        <span class="btn btn--secondary btn--small">More Info</span>
+                    </div>
+                </a>
             
-                <div class="event">
-                    <a href="https://www.start.gg/tournament/comit-arena-2025/details" target="_blank" rel="noopener noreferrer" class="tournament-name">Comitê Arena 2025</a>
-                    <a href="https://www.start.gg/tournament/comit-arena-2025/details" target="_blank" rel="noopener noreferrer">
-                        <img src="/images/comite.png" alt="Comitê Arena 2025 Tournament" loading="lazy" />
-                    </a>
-                    <div class="event-date">August 30-31, 2025</div>
-                    <a class="more-info" href="https://www.start.gg/tournament/comit-arena-2025/details" target="_blank" rel="noopener noreferrer">More Info</a>
-                </div>
-            
-                <div class="event">
-                    <a href="https://www.start.gg/tournament/ozhadou-nationals-19/details" target="_blank" rel="noopener noreferrer" class="tournament-name">OzHadou National 19</a>
-                    <a href="https://www.start.gg/tournament/ozhadou-nationals-19/details" target="_blank" rel="noopener noreferrer">
-                        <img src="/images/ozhadou-19.png" alt="OzHadou National 19 Tournament" loading="lazy" />
-                    </a>
-                    <div class="event-date">September 5-7, 2025</div>
-                    <a class="more-info" href="https://www.start.gg/tournament/ozhadou-nationals-19/details" target="_blank" rel="noopener noreferrer">More Info</a>
-                </div>
-            
-                <div class="event">
-                    <a href="https://www.start.gg/tournament/ultimate-fighting-arena-2025-3/details" target="_blank" rel="noopener noreferrer" class="tournament-name">Ultimate Fighting Arena 2025</a>
-                    <a href="https://www.start.gg/tournament/ultimate-fighting-arena-2025-3/details" target="_blank" rel="noopener noreferrer">
-                        <img src="/images/ufa.png" alt="Ultimate Fighting Arena 2025 Tournament" loading="lazy" />
-                    </a>
-                    <div class="event-date">September 12-14, 2025</div>
-                    <a class="more-info" href="https://www.start.gg/tournament/ultimate-fighting-arena-2025-3/details" target="_blank" rel="noopener noreferrer">More Info</a>
-                </div>
+                <a href="https://www.start.gg/tournament/ultimate-fighting-arena-2025-3/details" target="_blank" rel="noopener noreferrer" class="event-card-link">
+                    <div class="event-card">
+                        <span class="event-card__name">Ultimate Fighting Arena 2025</span>
+                        <img src="/images/ufa.png" alt="Ultimate Fighting Arena 2025 Tournament" loading="lazy" class="event-card__image" />
+                        <div class="event-card__date">September 12-14, 2025</div>
+                        <span class="btn btn--secondary btn--small">More Info</span>
+                    </div>
+                </a>
             
         </aside>
     </div>
 
     <noscript>
-        <p style="color:#f00;text-align:center;padding:1rem;background:#111;">
-            JavaScript is disabled in your browser. The rankings table may not load correctly.
+        <p style="text-align:center;padding:1rem;background:#111;color:#f00;">
+            JavaScript is disabled. Some interactive features may not work correctly.
         </p>
     </noscript>
     
     <script src="/js/main.js" defer></script>
+    
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const toggleBtn = document.querySelector('.toc-toggle-btn');
+  const tocList = document.querySelector('.toc-list');
 
+  if (toggleBtn && tocList) {
+    toggleBtn.addEventListener('click', function() {
+      const isActive = this.classList.toggle('is-active');
+      tocList.classList.toggle('is-active');
+      this.setAttribute('aria-expanded', isActive);
+    });
+  }
+});
+</script>
+
+
+    <button id="back-to-top-btn" class="back-to-top-btn" title="Go to top" aria-label="Go to top">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+<script>
+  function handleResponsiveLayout() {
+    const isMobile = window.matchMedia('(max-width: 768px)').matches;
+    const contentWrapper = document.querySelector('.page-wrapper');
+    const mobileHeader = document.querySelector('.mobile-header');
+    const tournamentNav = document.querySelector('.tournament-nav');
+    const pageTitle = document.querySelector('.page-tournament-results h1');
+
+    if (!contentWrapper || !mobileHeader) return;
+
+    // --- 1. Handle Content Padding ---
+    if (isMobile) {
+      contentWrapper.style.paddingTop = `${mobileHeader.offsetHeight}px`;
+    } else {
+      contentWrapper.style.paddingTop = '0';
+    }
+
+    // --- 2. Handle Tournament Nav Position ---
+    if (tournamentNav && pageTitle) {
+      if (isMobile) {
+        // On mobile, move nav to be after the main site header
+        mobileHeader.after(tournamentNav);
+      } else {
+        // On desktop, move nav back to be after the H1 title
+        pageTitle.after(tournamentNav);
+      }
+    }
+  }
+
+  // Run on page load and on resize
+  document.addEventListener('DOMContentLoaded', handleResponsiveLayout);
+  window.addEventListener('resize', handleResponsiveLayout);
+</script>
 </body>
 </html>
