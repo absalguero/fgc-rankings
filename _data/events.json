@@ -1,16 +1,14 @@
 [
   {
     "name": "OzHadou Nationals 19",
+    "slug": "ozhadou-nationals-19",
     "url": "https://www.start.gg/tournament/ozhadou-nationals-19/details",
-    "img": "/images/ozhadou-19.png",
-    "alt": "OzHadou Nationals 19 Tournament",
     "date": "September 5-7, 2025"
   },
   {
     "name": "Ultimate Fighting Arena 2025",
+    "slug": "ultimate-fighting-arena-2025",
     "url": "https://www.start.gg/tournament/ultimate-fighting-arena-2025-3/details",
-    "img": "/images/ufa.png",
-    "alt": "Ultimate Fighting Arena 2025 Tournament",
     "date": "September 12-14, 2025"
   }
 ]

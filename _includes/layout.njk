@@ -10,13 +10,13 @@
     </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{% block title %}FGC Player Rankings{% endblock %}</title>
+    <title>{% block title %}FGC Top Players{% endblock %}</title>
     {% block meta_description %}
 <meta name="description" content="The definitive player rankings for top competitive fighting games. Track pro players across Street Fighter, Tekken, and more." />
 {% endblock %}
     <meta property="og:type" content="website">
 <meta property="og:url" content="https://fgc-player-rankings.netlify.app{{ page.url }}">
-<meta property="og:title" content="{% block og_title %}{{ title or 'Street Fighter 6 Global Player Rankings' }}{% endblock %}">
+<meta property="og:title" content="{% block og_title %}{{ title or 'FGC Top Players' }}{% endblock %}">
 <meta property="og:description" content="{% block og_description %}The definitive ranking of the top professional SF6 players. See who's on top and track the rise and fall of your favorite pros.{% endblock %}">
 <meta property="og:image" content="https://fgc-player-rankings.netlify.app/images/fgc-rankings-social-card.png">
 
@@ -35,7 +35,7 @@
     <meta name="theme-color" content="#FF5E13" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link rel="stylesheet" href="/css/styles.css">
-    {% block head %}{% endblock %}
+    {% css %}{% block head %}{% endblock %}
 </head>
 <body class="{{ pageClass }}">
 
@@ -111,7 +111,7 @@
                     </div>
                 </div>
                 <div class="footer-legal">
-                    <p>&copy; {% year %} FGC Player Rankings. All rights reserved.<br>
+                    <p>&copy; {% year %} FGC Top Players. All rights reserved.<br>
                     An unofficial, community-driven resource. All game and player trademarks and images are the property of their respective owners.</p>
                     <p class="legal-links">
                         <a href="#">Contact</a> |
@@ -123,20 +123,30 @@
         </main>
 
         <aside class="sidebar right-sidebar" aria-label="Upcoming Rated Events">
-            <h2 class="sidebar__label">Upcoming Rated Events</h2>
-            {% for event in events %}
-                <a href="{{ event.url }}" target="_blank" rel="noopener noreferrer" class="event-card-link">
-                    <div class="event-card">
-                        <span class="event-card__name">{{ event.name }}</span>
-                        <img src="{{ event.img }}" alt="{{ event.alt }}" loading="lazy" class="event-card__image" />
-                        <div class="event-card__date">{{ event.date }}</div>
-                        <span class="btn btn--secondary btn--small">More Info</span>
-                    </div>
-                </a>
-            {% else %}
-                <p>No upcoming events at this time.</p>
-            {% endfor %}
-        </aside>
+    <h2 class="sidebar__label">Upcoming Rated Events</h2>
+    
+    {% for event in events %}
+        <a href="{{ event.url }}" target="_blank" rel="noopener noreferrer" class="event-card-link">
+            <div class="event-card">
+                <span class="event-card__name">{{ event.name }}</span>
+
+                {# This now uses the slug to find the correct image #}
+                <img 
+                    src="/images/events/{{ event.slug }}.png" 
+                    alt="{{ event.name }}" 
+                    loading="lazy" 
+                    class="event-card__image"
+                    onerror="this.style.display='none';"
+                />
+                
+                <div class="event-card__date">{{ event.date }}</div>
+                <span class="btn btn--secondary btn--small">More Info</span>
+            </div>
+        </a>
+    {% else %}
+        <p>No upcoming events at this time.</p>
+    {% endfor %}
+</aside>
     </div>
 
     <noscript>

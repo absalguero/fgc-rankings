@@ -10,13 +10,13 @@
     </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>FGC Tournament Results Archive | SF6 Player Rankings</title>
+    <title>Tournament Results Archive | FGC Top Players</title>
     
-<meta name="description" content="Explore a comprehensive archive of Street Fighter 6 tournament results. Find player placings, dates, and entrants for major events like EVO, Combo Breaker, and CPT." />
+<meta name="description" content="The definitive player rankings for top competitive fighting games. Track pro players across Street Fighter, Tekken, and more." />
 
     <meta property="og:type" content="website">
 <meta property="og:url" content="https://fgc-player-rankings.netlify.app/tournament-results/">
-<meta property="og:title" content="Street Fighter 6 Global Player Rankings">
+<meta property="og:title" content="FGC Top Players">
 <meta property="og:description" content="The definitive ranking of the top professional SF6 players. See who's on top and track the rise and fall of your favorite pros.">
 <meta property="og:image" content="https://fgc-player-rankings.netlify.app/images/fgc-rankings-social-card.png">
 
@@ -35,49 +35,9 @@
     <meta name="theme-color" content="#FF5E13" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link rel="stylesheet" href="/css/styles.css">
-    
-<style>
-/* Local styles for this page's features */
-mark {
-  background-color: #FFEE58;
-  color: #222;
-  padding: 0 2px;
-  border-radius: 3px;
-}
-.skeleton td {
-  background-color: #2a2a2a;
-  border-radius: 4px;
-  position: relative;
-  overflow: hidden;
-}
-.skeleton td::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -150%;
-  width: 150%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
-  animation: shimmer 1.5s infinite;
-}
-@keyframes shimmer { 100% { left: 150%; } }
-
-/* ---- Sticky behaviors ---- */
-.table-wrapper { overflow-x: auto; }
-
-/* Desktop/tablet: thead sticks inside scroll container */
-@media (min-width: 769px) {
-  .data-table th {
-    position: sticky;
-    top: 0;
-    background: #1e1e1e;
-    z-index: 10;
-  }
-}
-</style>
-
+    <style>.intro-text{text-align:center;font-size:1.1rem;color:#ccc;}.archive-list{margin-top:2rem;display:grid;gap:0.5rem;}.archive-item{display:flex;justify-content:space-between;align-items:center;padding:1rem;background-color:#1a1a1a;border-radius:6px;text-decoration:none;transition:background-color 0.2s;}.archive-item:hover{background-color:#2a2a2a;text-decoration:none;}.archive-item__name{font-weight:bold;color:#f0f0f0;}.archive-item__date{color:#999;font-size:0.9rem;}.h2-subtle{font-size:1.5rem;color:#999;text-align:center;margin-top:-0.5rem;margin-bottom:1.5rem;}</style>
 </head>
-<body class="page-tournament-results">
+<body class="page-tournament-results-archive">
 
     <header class="mobile-header">
         <button class="nav-toggle" aria-label="Toggle Navigation">
@@ -123,95 +83,915 @@ mark {
         <main class="content">
             <div role="main" id="maincontent" tabindex="-1">                
                 
-<div class="content-container content-container--wide">
-  <img class="banner" src="/images/banner.png" alt="FGC Player Rankings official logo" loading="lazy"/>
-  <h1>Tournament Results</h1>
+<div class="content-container">
+    <img class="banner" src="/images/banner.png" alt="FGC Player Rankings official logo" loading="lazy"/>
+    <h1>Tournament Results Archive</h1>
+    <p class="intro-text">Dive into the definitive archive of competitive Street Fighter 6 tournament results. Explore official standings, player placings, and final brackets from major events around the world, including Evo, Combo Breaker, and the Capcom Pro Tour.</p>
 
-  
-<div class="tournament-nav">
-    <button id="sticky-prev-btn" class="btn btn--primary">&leftarrow; Prev Event</button>
-    <select id="event-select-dropdown" class="event-select" aria-label="Select an event"></select>
-    <button id="sticky-next-btn" class="btn btn--primary">Next Event &rightarrow;</button>
-  </div>
-
-  <div class="mobile-sort-controls" id="results-mobile-sort">
-    <button class="btn btn--primary" data-column-name="Event" data-type="string">
-      Event
-      <svg class="sort-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M12 5V19"/><path d="M19 12L12 19L5 12"/>
-      </svg>
-    </button>
-    <button class="btn btn--primary" data-column-name="Player" data-type="string">
-      Player
-      <svg class="sort-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M12 5V19"/><path d="M19 12L12 19L5 12"/>
-      </svg>
-    </button>
-    <button class="btn btn--primary sorted asc" data-column-name="Finish" data-type="finish">
-      Finish
-      <svg class="sort-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M12 5V19"/><path d="M19 12L12 19L5 12"/>
-      </svg>
-    </button>
-  </div>
-
-  <div class="controls-container">
-    <div class="search-wrapper">
-      <input type="text" id="search-input" class="search-form__input" placeholder="Search by Player, Event, or Date...">
-      <button class="search-clear-btn" id="search-clear-btn" aria-label="Clear search">
-        <i class="fas fa-times"></i>
-      </button>
+    <div class="archive-list">
+        
+            
+            <a href="/tournaments/comite-arena-2025/" class="archive-item-card js-load-more-item">
+                <img 
+                    src="/images/events/comite-arena-2025.png" 
+                    alt="COMITÊ ARENA 2025" 
+                    class="archive-item-card__image"
+                    loading="lazy"
+                    onerror="this.style.display='none'; this.parentElement.classList.add('no-image');"
+                >
+                <div class="archive-item-card__content">
+                    <span class="archive-item-card__name">COMITÊ ARENA 2025</span>
+                    <span class="archive-item-card__date">August 31, 2025</span>
+                </div>
+                <i class="fas fa-chevron-right archive-item-card__chevron"></i>
+            </a>
+        
+            
+            <a href="/tournaments/cream-city-convergence-2025/" class="archive-item-card js-load-more-item">
+                <img 
+                    src="/images/events/cream-city-convergence-2025.png" 
+                    alt="Cream City Convergence 2025" 
+                    class="archive-item-card__image"
+                    loading="lazy"
+                    onerror="this.style.display='none'; this.parentElement.classList.add('no-image');"
+                >
+                <div class="archive-item-card__content">
+                    <span class="archive-item-card__name">Cream City Convergence 2025</span>
+                    <span class="archive-item-card__date">August 30, 2025</span>
+                </div>
+                <i class="fas fa-chevron-right archive-item-card__chevron"></i>
+            </a>
+        
+            
+            <a href="/tournaments/beast-in-the-east-8/" class="archive-item-card js-load-more-item">
+                <img 
+                    src="/images/events/beast-in-the-east-8.png" 
+                    alt="Beast in the East 8" 
+                    class="archive-item-card__image"
+                    loading="lazy"
+                    onerror="this.style.display='none'; this.parentElement.classList.add('no-image');"
+                >
+                <div class="archive-item-card__content">
+                    <span class="archive-item-card__name">Beast in the East 8</span>
+                    <span class="archive-item-card__date">August 23, 2025</span>
+                </div>
+                <i class="fas fa-chevron-right archive-item-card__chevron"></i>
+            </a>
+        
+            
+            <a href="/tournaments/esports-world-cup-2025/" class="archive-item-card js-load-more-item">
+                <img 
+                    src="/images/events/esports-world-cup-2025.png" 
+                    alt="Esports World Cup 2025" 
+                    class="archive-item-card__image"
+                    loading="lazy"
+                    onerror="this.style.display='none'; this.parentElement.classList.add('no-image');"
+                >
+                <div class="archive-item-card__content">
+                    <span class="archive-item-card__name">Esports World Cup 2025</span>
+                    <span class="archive-item-card__date">August 23, 2025</span>
+                </div>
+                <i class="fas fa-chevron-right archive-item-card__chevron"></i>
+            </a>
+        
+            
+            <a href="/tournaments/vsfighting-xiii/" class="archive-item-card js-load-more-item">
+                <img 
+                    src="/images/events/vsfighting-xiii.png" 
+                    alt="VSFighting XIII" 
+                    class="archive-item-card__image"
+                    loading="lazy"
+                    onerror="this.style.display='none'; this.parentElement.classList.add('no-image');"
+                >
+                <div class="archive-item-card__content">
+                    <span class="archive-item-card__name">VSFighting XIII</span>
+                    <span class="archive-item-card__date">August 15, 2025</span>
+                </div>
+                <i class="fas fa-chevron-right archive-item-card__chevron"></i>
+            </a>
+        
+            
+            <a href="/tournaments/esports-world-cup-2025-last-change-qualifier-lcq/" class="archive-item-card js-load-more-item">
+                <img 
+                    src="/images/events/esports-world-cup-2025-last-change-qualifier-lcq.png" 
+                    alt="Esports World Cup 2025 Last Change Qualifier (LCQ)" 
+                    class="archive-item-card__image"
+                    loading="lazy"
+                    onerror="this.style.display='none'; this.parentElement.classList.add('no-image');"
+                >
+                <div class="archive-item-card__content">
+                    <span class="archive-item-card__name">Esports World Cup 2025 Last Change Qualifier (LCQ)</span>
+                    <span class="archive-item-card__date">August 14, 2025</span>
+                </div>
+                <i class="fas fa-chevron-right archive-item-card__chevron"></i>
+            </a>
+        
+            
+            <a href="/tournaments/saudi-eleague-fighting-street-fighter-6-tier-a-season-3/" class="archive-item-card js-load-more-item">
+                <img 
+                    src="/images/events/saudi-eleague-fighting-street-fighter-6-tier-a-season-3.png" 
+                    alt="Saudi eLeague - Fighting – Street Fighter 6  - Tier A [Season 3]" 
+                    class="archive-item-card__image"
+                    loading="lazy"
+                    onerror="this.style.display='none'; this.parentElement.classList.add('no-image');"
+                >
+                <div class="archive-item-card__content">
+                    <span class="archive-item-card__name">Saudi eLeague - Fighting – Street Fighter 6  - Tier A [Season 3]</span>
+                    <span class="archive-item-card__date">August 11, 2025</span>
+                </div>
+                <i class="fas fa-chevron-right archive-item-card__chevron"></i>
+            </a>
+        
+            
+            <a href="/tournaments/crossover-2025/" class="archive-item-card js-load-more-item">
+                <img 
+                    src="/images/events/crossover-2025.png" 
+                    alt="CROSSOVER 2025" 
+                    class="archive-item-card__image"
+                    loading="lazy"
+                    onerror="this.style.display='none'; this.parentElement.classList.add('no-image');"
+                >
+                <div class="archive-item-card__content">
+                    <span class="archive-item-card__name">CROSSOVER 2025</span>
+                    <span class="archive-item-card__date">August 8, 2025</span>
+                </div>
+                <i class="fas fa-chevron-right archive-item-card__chevron"></i>
+            </a>
+        
+            
+            <a href="/tournaments/evo-vegas-2025/" class="archive-item-card js-load-more-item">
+                <img 
+                    src="/images/events/evo-vegas-2025.png" 
+                    alt="Evo Vegas 2025" 
+                    class="archive-item-card__image"
+                    loading="lazy"
+                    onerror="this.style.display='none'; this.parentElement.classList.add('no-image');"
+                >
+                <div class="archive-item-card__content">
+                    <span class="archive-item-card__name">Evo Vegas 2025</span>
+                    <span class="archive-item-card__date">August 1, 2025</span>
+                </div>
+                <i class="fas fa-chevron-right archive-item-card__chevron"></i>
+            </a>
+        
+            
+            <a href="/tournaments/s-factor-12/" class="archive-item-card js-load-more-item">
+                <img 
+                    src="/images/events/s-factor-12.png" 
+                    alt="S Factor 12" 
+                    class="archive-item-card__image"
+                    loading="lazy"
+                    onerror="this.style.display='none'; this.parentElement.classList.add('no-image');"
+                >
+                <div class="archive-item-card__content">
+                    <span class="archive-item-card__name">S Factor 12</span>
+                    <span class="archive-item-card__date">July 26, 2025</span>
+                </div>
+                <i class="fas fa-chevron-right archive-item-card__chevron"></i>
+            </a>
+        
+            
+            <a href="/tournaments/blink-respawn-2025/" class="archive-item-card js-load-more-item">
+                <img 
+                    src="/images/events/blink-respawn-2025.png" 
+                    alt="BLINK RESPAWN 2025" 
+                    class="archive-item-card__image"
+                    loading="lazy"
+                    onerror="this.style.display='none'; this.parentElement.classList.add('no-image');"
+                >
+                <div class="archive-item-card__content">
+                    <span class="archive-item-card__name">BLINK RESPAWN 2025</span>
+                    <span class="archive-item-card__date">July 18, 2025</span>
+                </div>
+                <i class="fas fa-chevron-right archive-item-card__chevron"></i>
+            </a>
+        
+            
+            <a href="/tournaments/topanga-championship-6/" class="archive-item-card js-load-more-item">
+                <img 
+                    src="/images/events/topanga-championship-6.png" 
+                    alt="Topanga Championship 6" 
+                    class="archive-item-card__image"
+                    loading="lazy"
+                    onerror="this.style.display='none'; this.parentElement.classList.add('no-image');"
+                >
+                <div class="archive-item-card__content">
+                    <span class="archive-item-card__name">Topanga Championship 6</span>
+                    <span class="archive-item-card__date">July 13, 2025</span>
+                </div>
+                <i class="fas fa-chevron-right archive-item-card__chevron"></i>
+            </a>
+        
+            
+            <a href="/tournaments/only-the-best-2025/" class="archive-item-card js-load-more-item">
+                <img 
+                    src="/images/events/only-the-best-2025.png" 
+                    alt="Only The Best 2025" 
+                    class="archive-item-card__image"
+                    loading="lazy"
+                    onerror="this.style.display='none'; this.parentElement.classList.add('no-image');"
+                >
+                <div class="archive-item-card__content">
+                    <span class="archive-item-card__name">Only The Best 2025</span>
+                    <span class="archive-item-card__date">July 12, 2025</span>
+                </div>
+                <i class="fas fa-chevron-right archive-item-card__chevron"></i>
+            </a>
+        
+            
+            <a href="/tournaments/get-on-my-level-forever-canadian-fighting-game-championships/" class="archive-item-card js-load-more-item">
+                <img 
+                    src="/images/events/get-on-my-level-forever-canadian-fighting-game-championships.png" 
+                    alt="Get On My Level: Forever - Canadian Fighting Game Championships" 
+                    class="archive-item-card__image"
+                    loading="lazy"
+                    onerror="this.style.display='none'; this.parentElement.classList.add('no-image');"
+                >
+                <div class="archive-item-card__content">
+                    <span class="archive-item-card__name">Get On My Level: Forever - Canadian Fighting Game Championships</span>
+                    <span class="archive-item-card__date">July 5, 2025</span>
+                </div>
+                <i class="fas fa-chevron-right archive-item-card__chevron"></i>
+            </a>
+        
+            
+            <a href="/tournaments/the-mixup-2025-round-7/" class="archive-item-card js-load-more-item">
+                <img 
+                    src="/images/events/the-mixup-2025-round-7.png" 
+                    alt="The MIXUP 2025 - Round 7" 
+                    class="archive-item-card__image"
+                    loading="lazy"
+                    onerror="this.style.display='none'; this.parentElement.classList.add('no-image');"
+                >
+                <div class="archive-item-card__content">
+                    <span class="archive-item-card__name">The MIXUP 2025 - Round 7</span>
+                    <span class="archive-item-card__date">July 5, 2025</span>
+                </div>
+                <i class="fas fa-chevron-right archive-item-card__chevron"></i>
+            </a>
+        
+            
+            <a href="/tournaments/ceo-2025/" class="archive-item-card js-load-more-item">
+                <img 
+                    src="/images/events/ceo-2025.png" 
+                    alt="CEO 2025" 
+                    class="archive-item-card__image"
+                    loading="lazy"
+                    onerror="this.style.display='none'; this.parentElement.classList.add('no-image');"
+                >
+                <div class="archive-item-card__content">
+                    <span class="archive-item-card__name">CEO 2025</span>
+                    <span class="archive-item-card__date">June 13, 2025</span>
+                </div>
+                <i class="fas fa-chevron-right archive-item-card__chevron"></i>
+            </a>
+        
+            
+            <a href="/tournaments/headstomper-2025/" class="archive-item-card js-load-more-item">
+                <img 
+                    src="/images/events/headstomper-2025.png" 
+                    alt="Headstomper 2025" 
+                    class="archive-item-card__image"
+                    loading="lazy"
+                    onerror="this.style.display='none'; this.parentElement.classList.add('no-image');"
+                >
+                <div class="archive-item-card__content">
+                    <span class="archive-item-card__name">Headstomper 2025</span>
+                    <span class="archive-item-card__date">May 31, 2025</span>
+                </div>
+                <i class="fas fa-chevron-right archive-item-card__chevron"></i>
+            </a>
+        
+            
+            <a href="/tournaments/norcal-knockout-2025/" class="archive-item-card js-load-more-item">
+                <img 
+                    src="/images/events/norcal-knockout-2025.png" 
+                    alt="NorCal Knockout 2025" 
+                    class="archive-item-card__image"
+                    loading="lazy"
+                    onerror="this.style.display='none'; this.parentElement.classList.add('no-image');"
+                >
+                <div class="archive-item-card__content">
+                    <span class="archive-item-card__name">NorCal Knockout 2025</span>
+                    <span class="archive-item-card__date">May 31, 2025</span>
+                </div>
+                <i class="fas fa-chevron-right archive-item-card__chevron"></i>
+            </a>
+        
+            
+            <a href="/tournaments/bam-15-battle-arena-melbourne-15/" class="archive-item-card js-load-more-item">
+                <img 
+                    src="/images/events/bam-15-battle-arena-melbourne-15.png" 
+                    alt="BAM 15: Battle Arena Melbourne 15" 
+                    class="archive-item-card__image"
+                    loading="lazy"
+                    onerror="this.style.display='none'; this.parentElement.classList.add('no-image');"
+                >
+                <div class="archive-item-card__content">
+                    <span class="archive-item-card__name">BAM 15: Battle Arena Melbourne 15</span>
+                    <span class="archive-item-card__date">May 29, 2025</span>
+                </div>
+                <i class="fas fa-chevron-right archive-item-card__chevron"></i>
+            </a>
+        
+            
+            <a href="/tournaments/combo-breaker-2025/" class="archive-item-card js-load-more-item">
+                <img 
+                    src="/images/events/combo-breaker-2025.png" 
+                    alt="COMBO BREAKER 2025" 
+                    class="archive-item-card__image"
+                    loading="lazy"
+                    onerror="this.style.display='none'; this.parentElement.classList.add('no-image');"
+                >
+                <div class="archive-item-card__content">
+                    <span class="archive-item-card__name">COMBO BREAKER 2025</span>
+                    <span class="archive-item-card__date">May 23, 2025</span>
+                </div>
+                <i class="fas fa-chevron-right archive-item-card__chevron"></i>
+            </a>
+        
+            
+            <a href="/tournaments/brussels-challenge-major-edition-2025/" class="archive-item-card js-load-more-item">
+                <img 
+                    src="/images/events/brussels-challenge-major-edition-2025.png" 
+                    alt="Brussels Challenge Major Edition 2025" 
+                    class="archive-item-card__image"
+                    loading="lazy"
+                    onerror="this.style.display='none'; this.parentElement.classList.add('no-image');"
+                >
+                <div class="archive-item-card__content">
+                    <span class="archive-item-card__name">Brussels Challenge Major Edition 2025</span>
+                    <span class="archive-item-card__date">May 17, 2025</span>
+                </div>
+                <i class="fas fa-chevron-right archive-item-card__chevron"></i>
+            </a>
+        
+            
+            <a href="/tournaments/hero-esports-asian-champions-league/" class="archive-item-card js-load-more-item">
+                <img 
+                    src="/images/events/hero-esports-asian-champions-league.png" 
+                    alt="HERO ESPORTS Asian Champions League" 
+                    class="archive-item-card__image"
+                    loading="lazy"
+                    onerror="this.style.display='none'; this.parentElement.classList.add('no-image');"
+                >
+                <div class="archive-item-card__content">
+                    <span class="archive-item-card__name">HERO ESPORTS Asian Champions League</span>
+                    <span class="archive-item-card__date">May 16, 2025</span>
+                </div>
+                <i class="fas fa-chevron-right archive-item-card__chevron"></i>
+            </a>
+        
+            
+            <a href="/tournaments/evo-japan-2025-presented-by-levtech/" class="archive-item-card js-load-more-item">
+                <img 
+                    src="/images/events/evo-japan-2025-presented-by-levtech.png" 
+                    alt="EVO Japan 2025 presented by Levtech" 
+                    class="archive-item-card__image"
+                    loading="lazy"
+                    onerror="this.style.display='none'; this.parentElement.classList.add('no-image');"
+                >
+                <div class="archive-item-card__content">
+                    <span class="archive-item-card__name">EVO Japan 2025 presented by Levtech</span>
+                    <span class="archive-item-card__date">May 8, 2025</span>
+                </div>
+                <i class="fas fa-chevron-right archive-item-card__chevron"></i>
+            </a>
+        
+            
+            <a href="/tournaments/diy-2025/" class="archive-item-card js-load-more-item">
+                <img 
+                    src="/images/events/diy-2025.png" 
+                    alt="D.I.Y 2025" 
+                    class="archive-item-card__image"
+                    loading="lazy"
+                    onerror="this.style.display='none'; this.parentElement.classList.add('no-image');"
+                >
+                <div class="archive-item-card__content">
+                    <span class="archive-item-card__name">D.I.Y 2025</span>
+                    <span class="archive-item-card__date">May 4, 2025</span>
+                </div>
+                <i class="fas fa-chevron-right archive-item-card__chevron"></i>
+            </a>
+        
+            
+            <a href="/tournaments/fight-kingdom-2025/" class="archive-item-card js-load-more-item">
+                <img 
+                    src="/images/events/fight-kingdom-2025.png" 
+                    alt="Fight Kingdom 2025" 
+                    class="archive-item-card__image"
+                    loading="lazy"
+                    onerror="this.style.display='none'; this.parentElement.classList.add('no-image');"
+                >
+                <div class="archive-item-card__content">
+                    <span class="archive-item-card__name">Fight Kingdom 2025</span>
+                    <span class="archive-item-card__date">May 2, 2025</span>
+                </div>
+                <i class="fas fa-chevron-right archive-item-card__chevron"></i>
+            </a>
+        
+            
+            <a href="/tournaments/lvl-up-expo-2025/" class="archive-item-card js-load-more-item">
+                <img 
+                    src="/images/events/lvl-up-expo-2025.png" 
+                    alt="LVL UP EXPO 2025" 
+                    class="archive-item-card__image"
+                    loading="lazy"
+                    onerror="this.style.display='none'; this.parentElement.classList.add('no-image');"
+                >
+                <div class="archive-item-card__content">
+                    <span class="archive-item-card__name">LVL UP EXPO 2025</span>
+                    <span class="archive-item-card__date">April 25, 2025</span>
+                </div>
+                <i class="fas fa-chevron-right archive-item-card__chevron"></i>
+            </a>
+        
+            
+            <a href="/tournaments/red-bull-kumite-2025-last-chance-qualifier-lcq/" class="archive-item-card js-load-more-item">
+                <img 
+                    src="/images/events/red-bull-kumite-2025-last-chance-qualifier-lcq.png" 
+                    alt="RED BULL KUMITE 2025 - Last Chance Qualifier (LCQ)" 
+                    class="archive-item-card__image"
+                    loading="lazy"
+                    onerror="this.style.display='none'; this.parentElement.classList.add('no-image');"
+                >
+                <div class="archive-item-card__content">
+                    <span class="archive-item-card__name">RED BULL KUMITE 2025 - Last Chance Qualifier (LCQ)</span>
+                    <span class="archive-item-card__date">April 5, 2025</span>
+                </div>
+                <i class="fas fa-chevron-right archive-item-card__chevron"></i>
+            </a>
+        
+            
+            <a href="/tournaments/red-bull-kumite-2025-paris/" class="archive-item-card js-load-more-item">
+                <img 
+                    src="/images/events/red-bull-kumite-2025-paris.png" 
+                    alt="RED BULL KUMITE 2025 - PARIS" 
+                    class="archive-item-card__image"
+                    loading="lazy"
+                    onerror="this.style.display='none'; this.parentElement.classList.add('no-image');"
+                >
+                <div class="archive-item-card__content">
+                    <span class="archive-item-card__name">RED BULL KUMITE 2025 - PARIS</span>
+                    <span class="archive-item-card__date">April 5, 2025</span>
+                </div>
+                <i class="fas fa-chevron-right archive-item-card__chevron"></i>
+            </a>
+        
+            
+            <a href="/tournaments/battle-of-bc-7/" class="archive-item-card js-load-more-item">
+                <img 
+                    src="/images/events/battle-of-bc-7.png" 
+                    alt="Battle of BC 7" 
+                    class="archive-item-card__image"
+                    loading="lazy"
+                    onerror="this.style.display='none'; this.parentElement.classList.add('no-image');"
+                >
+                <div class="archive-item-card__content">
+                    <span class="archive-item-card__name">Battle of BC 7</span>
+                    <span class="archive-item-card__date">March 29, 2025</span>
+                </div>
+                <i class="fas fa-chevron-right archive-item-card__chevron"></i>
+            </a>
+        
+            
+            <a href="/tournaments/texas-showdown-2025/" class="archive-item-card js-load-more-item">
+                <img 
+                    src="/images/events/texas-showdown-2025.png" 
+                    alt="Texas Showdown 2025" 
+                    class="archive-item-card__image"
+                    loading="lazy"
+                    onerror="this.style.display='none'; this.parentElement.classList.add('no-image');"
+                >
+                <div class="archive-item-card__content">
+                    <span class="archive-item-card__name">Texas Showdown 2025</span>
+                    <span class="archive-item-card__date">March 28, 2025</span>
+                </div>
+                <i class="fas fa-chevron-right archive-item-card__chevron"></i>
+            </a>
+        
+            
+            <a href="/tournaments/the-wild-west-2025/" class="archive-item-card js-load-more-item">
+                <img 
+                    src="/images/events/the-wild-west-2025.png" 
+                    alt="THE WILD WEST 2025" 
+                    class="archive-item-card__image"
+                    loading="lazy"
+                    onerror="this.style.display='none'; this.parentElement.classList.add('no-image');"
+                >
+                <div class="archive-item-card__content">
+                    <span class="archive-item-card__name">THE WILD WEST 2025</span>
+                    <span class="archive-item-card__date">March 15, 2025</span>
+                </div>
+                <i class="fas fa-chevron-right archive-item-card__chevron"></i>
+            </a>
+        
+            
+            <a href="/tournaments/winter-clash-2025-10thanniversary/" class="archive-item-card js-load-more-item">
+                <img 
+                    src="/images/events/winter-clash-2025-10thanniversary.png" 
+                    alt="Winter Clash 2025 (10thAnniversary)" 
+                    class="archive-item-card__image"
+                    loading="lazy"
+                    onerror="this.style.display='none'; this.parentElement.classList.add('no-image');"
+                >
+                <div class="archive-item-card__content">
+                    <span class="archive-item-card__name">Winter Clash 2025 (10thAnniversary)</span>
+                    <span class="archive-item-card__date">March 15, 2025</span>
+                </div>
+                <i class="fas fa-chevron-right archive-item-card__chevron"></i>
+            </a>
+        
+            
+            <a href="/tournaments/capcom-cup-xi/" class="archive-item-card js-load-more-item">
+                <img 
+                    src="/images/events/capcom-cup-xi.png" 
+                    alt="Capcom Cup XI" 
+                    class="archive-item-card__image"
+                    loading="lazy"
+                    onerror="this.style.display='none'; this.parentElement.classList.add('no-image');"
+                >
+                <div class="archive-item-card__content">
+                    <span class="archive-item-card__name">Capcom Cup XI</span>
+                    <span class="archive-item-card__date">March 8, 2025</span>
+                </div>
+                <i class="fas fa-chevron-right archive-item-card__chevron"></i>
+            </a>
+        
+            
+            <a href="/tournaments/genesis-x2/" class="archive-item-card js-load-more-item">
+                <img 
+                    src="/images/events/genesis-x2.png" 
+                    alt="Genesis X2" 
+                    class="archive-item-card__image"
+                    loading="lazy"
+                    onerror="this.style.display='none'; this.parentElement.classList.add('no-image');"
+                >
+                <div class="archive-item-card__content">
+                    <span class="archive-item-card__name">Genesis X2</span>
+                    <span class="archive-item-card__date">February 14, 2025</span>
+                </div>
+                <i class="fas fa-chevron-right archive-item-card__chevron"></i>
+            </a>
+        
+            
+            <a href="/tournaments/big-bang-6/" class="archive-item-card js-load-more-item">
+                <img 
+                    src="/images/events/big-bang-6.png" 
+                    alt="BIG BANG 6" 
+                    class="archive-item-card__image"
+                    loading="lazy"
+                    onerror="this.style.display='none'; this.parentElement.classList.add('no-image');"
+                >
+                <div class="archive-item-card__content">
+                    <span class="archive-item-card__name">BIG BANG 6</span>
+                    <span class="archive-item-card__date">February 1, 2025</span>
+                </div>
+                <i class="fas fa-chevron-right archive-item-card__chevron"></i>
+            </a>
+        
+            
+            <a href="/tournaments/frosty-faustings-xvii-2025/" class="archive-item-card js-load-more-item">
+                <img 
+                    src="/images/events/frosty-faustings-xvii-2025.png" 
+                    alt="Frosty Faustings XVII 2025" 
+                    class="archive-item-card__image"
+                    loading="lazy"
+                    onerror="this.style.display='none'; this.parentElement.classList.add('no-image');"
+                >
+                <div class="archive-item-card__content">
+                    <span class="archive-item-card__name">Frosty Faustings XVII 2025</span>
+                    <span class="archive-item-card__date">January 24, 2025</span>
+                </div>
+                <i class="fas fa-chevron-right archive-item-card__chevron"></i>
+            </a>
+        
+            
+            <a href="/tournaments/gtw-2024-finals/" class="archive-item-card js-load-more-item">
+                <img 
+                    src="/images/events/gtw-2024-finals.png" 
+                    alt="GTW 2024 Finals" 
+                    class="archive-item-card__image"
+                    loading="lazy"
+                    onerror="this.style.display='none'; this.parentElement.classList.add('no-image');"
+                >
+                <div class="archive-item-card__content">
+                    <span class="archive-item-card__name">GTW 2024 Finals</span>
+                    <span class="archive-item-card__date">January 12, 2025</span>
+                </div>
+                <i class="fas fa-chevron-right archive-item-card__chevron"></i>
+            </a>
+        
+            
+            <a href="/tournaments/the-versus-festival-habba-edition-2024/" class="archive-item-card js-load-more-item">
+                <img 
+                    src="/images/events/the-versus-festival-habba-edition-2024.png" 
+                    alt="The Versus Festival: Habba Edition 2024" 
+                    class="archive-item-card__image"
+                    loading="lazy"
+                    onerror="this.style.display='none'; this.parentElement.classList.add('no-image');"
+                >
+                <div class="archive-item-card__content">
+                    <span class="archive-item-card__name">The Versus Festival: Habba Edition 2024</span>
+                    <span class="archive-item-card__date">January 11, 2025</span>
+                </div>
+                <i class="fas fa-chevron-right archive-item-card__chevron"></i>
+            </a>
+        
+            
+            <a href="/tournaments/beepro-cup2024/" class="archive-item-card js-load-more-item">
+                <img 
+                    src="/images/events/beepro-cup2024.png" 
+                    alt="BeePro Cup2024" 
+                    class="archive-item-card__image"
+                    loading="lazy"
+                    onerror="this.style.display='none'; this.parentElement.classList.add('no-image');"
+                >
+                <div class="archive-item-card__content">
+                    <span class="archive-item-card__name">BeePro Cup2024</span>
+                    <span class="archive-item-card__date">December 27, 2024</span>
+                </div>
+                <i class="fas fa-chevron-right archive-item-card__chevron"></i>
+            </a>
+        
+            
+            <a href="/tournaments/ceotaku-2024/" class="archive-item-card js-load-more-item">
+                <img 
+                    src="/images/events/ceotaku-2024.png" 
+                    alt="CEOtaku 2024" 
+                    class="archive-item-card__image"
+                    loading="lazy"
+                    onerror="this.style.display='none'; this.parentElement.classList.add('no-image');"
+                >
+                <div class="archive-item-card__content">
+                    <span class="archive-item-card__name">CEOtaku 2024</span>
+                    <span class="archive-item-card__date">December 20, 2024</span>
+                </div>
+                <i class="fas fa-chevron-right archive-item-card__chevron"></i>
+            </a>
+        
+            
+            <a href="/tournaments/kings-of-the-world-2024/" class="archive-item-card js-load-more-item">
+                <img 
+                    src="/images/events/kings-of-the-world-2024.png" 
+                    alt="Kings of the World 2024" 
+                    class="archive-item-card__image"
+                    loading="lazy"
+                    onerror="this.style.display='none'; this.parentElement.classList.add('no-image');"
+                >
+                <div class="archive-item-card__content">
+                    <span class="archive-item-card__name">Kings of the World 2024</span>
+                    <span class="archive-item-card__date">December 14, 2024</span>
+                </div>
+                <i class="fas fa-chevron-right archive-item-card__chevron"></i>
+            </a>
+        
+            
+            <a href="/tournaments/bum-presents-cold-front-2024/" class="archive-item-card js-load-more-item">
+                <img 
+                    src="/images/events/bum-presents-cold-front-2024.png" 
+                    alt="Bum Presents Cold Front 2024" 
+                    class="archive-item-card__image"
+                    loading="lazy"
+                    onerror="this.style.display='none'; this.parentElement.classList.add('no-image');"
+                >
+                <div class="archive-item-card__content">
+                    <span class="archive-item-card__name">Bum Presents Cold Front 2024</span>
+                    <span class="archive-item-card__date">November 23, 2024</span>
+                </div>
+                <i class="fas fa-chevron-right archive-item-card__chevron"></i>
+            </a>
+        
+            
+            <a href="/tournaments/astral-finish-2024/" class="archive-item-card js-load-more-item">
+                <img 
+                    src="/images/events/astral-finish-2024.png" 
+                    alt="Astral Finish 2024" 
+                    class="archive-item-card__image"
+                    loading="lazy"
+                    onerror="this.style.display='none'; this.parentElement.classList.add('no-image');"
+                >
+                <div class="archive-item-card__content">
+                    <span class="archive-item-card__name">Astral Finish 2024</span>
+                    <span class="archive-item-card__date">November 16, 2024</span>
+                </div>
+                <i class="fas fa-chevron-right archive-item-card__chevron"></i>
+            </a>
+        
+            
+            <a href="/tournaments/battle-coliseum-2024/" class="archive-item-card js-load-more-item">
+                <img 
+                    src="/images/events/battle-coliseum-2024.png" 
+                    alt="BATTLE COLISEUM 2024" 
+                    class="archive-item-card__image"
+                    loading="lazy"
+                    onerror="this.style.display='none'; this.parentElement.classList.add('no-image');"
+                >
+                <div class="archive-item-card__content">
+                    <span class="archive-item-card__name">BATTLE COLISEUM 2024</span>
+                    <span class="archive-item-card__date">November 16, 2024</span>
+                </div>
+                <i class="fas fa-chevron-right archive-item-card__chevron"></i>
+            </a>
+        
+            
+            <a href="/tournaments/blink-respawn-2024/" class="archive-item-card js-load-more-item">
+                <img 
+                    src="/images/events/blink-respawn-2024.png" 
+                    alt="BLINK RESPAWN 2024" 
+                    class="archive-item-card__image"
+                    loading="lazy"
+                    onerror="this.style.display='none'; this.parentElement.classList.add('no-image');"
+                >
+                <div class="archive-item-card__content">
+                    <span class="archive-item-card__name">BLINK RESPAWN 2024</span>
+                    <span class="archive-item-card__date">November 8, 2024</span>
+                </div>
+                <i class="fas fa-chevron-right archive-item-card__chevron"></i>
+            </a>
+        
+            
+            <a href="/tournaments/presents-jcg-street-fighter-6-capcom-pro-tour-2024-super-premier-japan/" class="archive-item-card js-load-more-item">
+                <img 
+                    src="/images/events/presents-jcg-street-fighter-6-capcom-pro-tour-2024-super-premier-japan.png" 
+                    alt="京王 Presents JCG STREET FIGHTER 6 CAPCOM Pro Tour 2024 SUPER PREMIER JAPAN" 
+                    class="archive-item-card__image"
+                    loading="lazy"
+                    onerror="this.style.display='none'; this.parentElement.classList.add('no-image');"
+                >
+                <div class="archive-item-card__content">
+                    <span class="archive-item-card__name">京王 Presents JCG STREET FIGHTER 6 CAPCOM Pro Tour 2024 SUPER PREMIER JAPAN</span>
+                    <span class="archive-item-card__date">November 1, 2024</span>
+                </div>
+                <i class="fas fa-chevron-right archive-item-card__chevron"></i>
+            </a>
+        
+            
+            <a href="/tournaments/capcom-pro-tour-2024-super-premier-singapore/" class="archive-item-card js-load-more-item">
+                <img 
+                    src="/images/events/capcom-pro-tour-2024-super-premier-singapore.png" 
+                    alt="CAPCOM Pro Tour 2024 SUPER PREMIER SINGAPORE" 
+                    class="archive-item-card__image"
+                    loading="lazy"
+                    onerror="this.style.display='none'; this.parentElement.classList.add('no-image');"
+                >
+                <div class="archive-item-card__content">
+                    <span class="archive-item-card__name">CAPCOM Pro Tour 2024 SUPER PREMIER SINGAPORE</span>
+                    <span class="archive-item-card__date">October 17, 2024</span>
+                </div>
+                <i class="fas fa-chevron-right archive-item-card__chevron"></i>
+            </a>
+        
+            
+            <a href="/tournaments/first-attack-2024/" class="archive-item-card js-load-more-item">
+                <img 
+                    src="/images/events/first-attack-2024.png" 
+                    alt="First Attack 2024" 
+                    class="archive-item-card__image"
+                    loading="lazy"
+                    onerror="this.style.display='none'; this.parentElement.classList.add('no-image');"
+                >
+                <div class="archive-item-card__content">
+                    <span class="archive-item-card__name">First Attack 2024</span>
+                    <span class="archive-item-card__date">October 12, 2024</span>
+                </div>
+                <i class="fas fa-chevron-right archive-item-card__chevron"></i>
+            </a>
+        
+            
+            <a href="/tournaments/east-coast-throwdown-2024/" class="archive-item-card js-load-more-item">
+                <img 
+                    src="/images/events/east-coast-throwdown-2024.png" 
+                    alt="East Coast Throwdown 2024" 
+                    class="archive-item-card__image"
+                    loading="lazy"
+                    onerror="this.style.display='none'; this.parentElement.classList.add('no-image');"
+                >
+                <div class="archive-item-card__content">
+                    <span class="archive-item-card__name">East Coast Throwdown 2024</span>
+                    <span class="archive-item-card__date">October 11, 2024</span>
+                </div>
+                <i class="fas fa-chevron-right archive-item-card__chevron"></i>
+            </a>
+        
+            
+            <a href="/tournaments/dreamhack-atlanta-2024/" class="archive-item-card js-load-more-item">
+                <img 
+                    src="/images/events/dreamhack-atlanta-2024.png" 
+                    alt="DreamHack Atlanta 2024" 
+                    class="archive-item-card__image"
+                    loading="lazy"
+                    onerror="this.style.display='none'; this.parentElement.classList.add('no-image');"
+                >
+                <div class="archive-item-card__content">
+                    <span class="archive-item-card__name">DreamHack Atlanta 2024</span>
+                    <span class="archive-item-card__date">October 4, 2024</span>
+                </div>
+                <i class="fas fa-chevron-right archive-item-card__chevron"></i>
+            </a>
+        
+            
+            <a href="/tournaments/thaiger-uppercut-tgu-2024/" class="archive-item-card js-load-more-item">
+                <img 
+                    src="/images/events/thaiger-uppercut-tgu-2024.png" 
+                    alt="Thaiger Uppercut (TGU) 2024" 
+                    class="archive-item-card__image"
+                    loading="lazy"
+                    onerror="this.style.display='none'; this.parentElement.classList.add('no-image');"
+                >
+                <div class="archive-item-card__content">
+                    <span class="archive-item-card__name">Thaiger Uppercut (TGU) 2024</span>
+                    <span class="archive-item-card__date">October 4, 2024</span>
+                </div>
+                <i class="fas fa-chevron-right archive-item-card__chevron"></i>
+            </a>
+        
+            
+            <a href="/tournaments/island-paradise/" class="archive-item-card js-load-more-item">
+                <img 
+                    src="/images/events/island-paradise.png" 
+                    alt="Island Paradise" 
+                    class="archive-item-card__image"
+                    loading="lazy"
+                    onerror="this.style.display='none'; this.parentElement.classList.add('no-image');"
+                >
+                <div class="archive-item-card__content">
+                    <span class="archive-item-card__name">Island Paradise</span>
+                    <span class="archive-item-card__date">September 28, 2024</span>
+                </div>
+                <i class="fas fa-chevron-right archive-item-card__chevron"></i>
+            </a>
+        
+            
+            <a href="/tournaments/ozhadou-nationals-18/" class="archive-item-card js-load-more-item">
+                <img 
+                    src="/images/events/ozhadou-nationals-18.png" 
+                    alt="OzHadou Nationals 18" 
+                    class="archive-item-card__image"
+                    loading="lazy"
+                    onerror="this.style.display='none'; this.parentElement.classList.add('no-image');"
+                >
+                <div class="archive-item-card__content">
+                    <span class="archive-item-card__name">OzHadou Nationals 18</span>
+                    <span class="archive-item-card__date">September 27, 2024</span>
+                </div>
+                <i class="fas fa-chevron-right archive-item-card__chevron"></i>
+            </a>
+        
+            
+            <a href="/tournaments/ultimate-fighting-arena-2024/" class="archive-item-card js-load-more-item">
+                <img 
+                    src="/images/events/ultimate-fighting-arena-2024.png" 
+                    alt="Ultimate Fighting Arena 2024" 
+                    class="archive-item-card__image"
+                    loading="lazy"
+                    onerror="this.style.display='none'; this.parentElement.classList.add('no-image');"
+                >
+                <div class="archive-item-card__content">
+                    <span class="archive-item-card__name">Ultimate Fighting Arena 2024</span>
+                    <span class="archive-item-card__date">September 13, 2024</span>
+                </div>
+                <i class="fas fa-chevron-right archive-item-card__chevron"></i>
+            </a>
+        
+            
+            <a href="/tournaments/f2con-2024/" class="archive-item-card js-load-more-item">
+                <img 
+                    src="/images/events/f2con-2024.png" 
+                    alt="F2CON 2024" 
+                    class="archive-item-card__image"
+                    loading="lazy"
+                    onerror="this.style.display='none'; this.parentElement.classList.add('no-image');"
+                >
+                <div class="archive-item-card__content">
+                    <span class="archive-item-card__name">F2CON 2024</span>
+                    <span class="archive-item-card__date">September 8, 2024</span>
+                </div>
+                <i class="fas fa-chevron-right archive-item-card__chevron"></i>
+            </a>
+        
+            
+            <a href="/tournaments/treta-championship-2024/" class="archive-item-card js-load-more-item">
+                <img 
+                    src="/images/events/treta-championship-2024.png" 
+                    alt="Treta Championship 2024" 
+                    class="archive-item-card__image"
+                    loading="lazy"
+                    onerror="this.style.display='none'; this.parentElement.classList.add('no-image');"
+                >
+                <div class="archive-item-card__content">
+                    <span class="archive-item-card__name">Treta Championship 2024</span>
+                    <span class="archive-item-card__date">September 7, 2024</span>
+                </div>
+                <i class="fas fa-chevron-right archive-item-card__chevron"></i>
+            </a>
+        
     </div>
-  </div>
 
-  <div class="table-wrapper">
-    <table class="data-table" id="tournament-results-table">
-      <thead>
-        <tr>
-          <th data-column-name="Event" data-type="string">
-            <span>Event
-              <svg class="sort-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M12 5V19"/><path d="M19 12L12 19L5 12"/>
-              </svg>
-            </span>
-          </th>
-          <th data-column-name="Date" data-type="string">
-            <span>Date
-              <svg class="sort-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M12 5V19"/><path d="M19 12L12 19L5 12"/>
-              </svg>
-            </span>
-          </th>
-          <th data-column-name="Entrants" data-type="number">
-            <span>Entrants
-              <svg class="sort-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M12 5V19"/><path d="M19 12L12 19L5 12"/>
-              </svg>
-            </span>
-          </th>
-          <th data-column-name="Player" data-type="string">
-            <span>Player
-              <svg class="sort-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M12 5V19"/><path d="M19 12L12 19L5 12"/>
-              </svg>
-            </span>
-          </th>
-          <th data-column-name="Finish" data-type="finish" class="sorted asc">
-            <span>Finish
-              <svg class="sort-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M12 5V19"/><path d="M19 12L12 19L5 12"/>
-              </svg>
-            </span>
-          </th>
-        </tr>
-      </thead>
-      <tbody id="table-body"></tbody>
-    </table>
-  </div>
-
-  <div class="load-more-container">
-    <button id="results-load-more-btn" class="btn btn--primary" style="display:none;">Load More</button>
-  </div>
+    
+    <div class="load-more-container">
+        <button id="load-more-btn" class="btn btn--primary" style="display:none;">Load More</button>
+    </div>
 </div>
 
             </div>
@@ -242,7 +1022,7 @@ mark {
                     </div>
                 </div>
                 <div class="footer-legal">
-                    <p>&copy; 2025 FGC Player Rankings. All rights reserved.<br>
+                    <p>&copy; 2025 FGC Top Players. All rights reserved.<br>
                     An unofficial, community-driven resource. All game and player trademarks and images are the property of their respective owners.</p>
                     <p class="legal-links">
                         <a href="#">Contact</a> |
@@ -254,27 +1034,46 @@ mark {
         </main>
 
         <aside class="sidebar right-sidebar" aria-label="Upcoming Rated Events">
-            <h2 class="sidebar__label">Upcoming Rated Events</h2>
-            
-                <a href="https://www.start.gg/tournament/ozhadou-nationals-19/details" target="_blank" rel="noopener noreferrer" class="event-card-link">
-                    <div class="event-card">
-                        <span class="event-card__name">OzHadou Nationals 19</span>
-                        <img src="/images/ozhadou-19.png" alt="OzHadou Nationals 19 Tournament" loading="lazy" class="event-card__image" />
-                        <div class="event-card__date">September 5-7, 2025</div>
-                        <span class="btn btn--secondary btn--small">More Info</span>
-                    </div>
-                </a>
-            
-                <a href="https://www.start.gg/tournament/ultimate-fighting-arena-2025-3/details" target="_blank" rel="noopener noreferrer" class="event-card-link">
-                    <div class="event-card">
-                        <span class="event-card__name">Ultimate Fighting Arena 2025</span>
-                        <img src="/images/ufa.png" alt="Ultimate Fighting Arena 2025 Tournament" loading="lazy" class="event-card__image" />
-                        <div class="event-card__date">September 12-14, 2025</div>
-                        <span class="btn btn--secondary btn--small">More Info</span>
-                    </div>
-                </a>
-            
-        </aside>
+    <h2 class="sidebar__label">Upcoming Rated Events</h2>
+    
+    
+        <a href="https://www.start.gg/tournament/ozhadou-nationals-19/details" target="_blank" rel="noopener noreferrer" class="event-card-link">
+            <div class="event-card">
+                <span class="event-card__name">OzHadou Nationals 19</span>
+
+                
+                <img 
+                    src="/images/events/ozhadou-nationals-19.png" 
+                    alt="OzHadou Nationals 19" 
+                    loading="lazy" 
+                    class="event-card__image"
+                    onerror="this.style.display='none';"
+                />
+                
+                <div class="event-card__date">September 5-7, 2025</div>
+                <span class="btn btn--secondary btn--small">More Info</span>
+            </div>
+        </a>
+    
+        <a href="https://www.start.gg/tournament/ultimate-fighting-arena-2025-3/details" target="_blank" rel="noopener noreferrer" class="event-card-link">
+            <div class="event-card">
+                <span class="event-card__name">Ultimate Fighting Arena 2025</span>
+
+                
+                <img 
+                    src="/images/events/ultimate-fighting-arena-2025.png" 
+                    alt="Ultimate Fighting Arena 2025" 
+                    loading="lazy" 
+                    class="event-card__image"
+                    onerror="this.style.display='none';"
+                />
+                
+                <div class="event-card__date">September 12-14, 2025</div>
+                <span class="btn btn--secondary btn--small">More Info</span>
+            </div>
+        </a>
+    
+</aside>
     </div>
 
     <noscript>
@@ -287,535 +1086,45 @@ mark {
     
 <script>
 document.addEventListener('DOMContentLoaded', () => {
-  function updateStickyOffsets() {
-    const mobileHeader = document.querySelector('.mobile-header');
-    const nav = document.querySelector('.tournament-nav');
-    const isMobile = window.matchMedia('(max-width: 768px)').matches;
-    let offset = 0;
-    if (isMobile) {
-      if (mobileHeader) offset += mobileHeader.offsetHeight || 0;
-      if (nav) offset += nav.offsetHeight || 0;
-    }
-    document.documentElement.style.setProperty('--mobile-sticky-offset', offset + 'px');
-  }
-  updateStickyOffsets();
-  window.addEventListener('resize', updateStickyOffsets);
-  window.addEventListener('orientationchange', updateStickyOffsets);
-
-  /* ---------------- Existing page logic ---------------- */
-  const tournamentTable = document.getElementById('tournament-results-table');
-  if (!tournamentTable) return;
-
-  // --- ELEMENT SELECTORS ---
-  const tableBody = tournamentTable.querySelector('tbody');
-  const searchInput = document.getElementById('search-input');
-  const stickyPrevBtn = document.getElementById('sticky-prev-btn');
-  const stickyNextBtn = document.getElementById('sticky-next-btn');
-  const eventDropdown = document.getElementById('event-select-dropdown');
-  const loadMoreBtn = document.getElementById('results-load-more-btn');
-
-  // --- DATA & STATE VARIABLES ---
-  const googleSheetURL    = "https://docs.google.com/spreadsheets/d/1otrfs8HN3Shq6U2-qrc4GDxTI4ragnqwbTjweecE12Q/gviz/tq?tqx=out:csv&gid=1021048964";
-  const googleRankingsURL= "https://docs.google.com/spreadsheets/d/1otrfs8HN3Shq6U2-qrc4GDxTI4ragnqwbTjweecE12Q/gviz/tq?tqx=out:csv&gid=1862929315";
-
-  let allData = [];
-  let groupedDataByEvent = {};
-  let uniqueEvents = [];
-  let currentEventIndex = 0;
-  let searchTerm = '';
-  let sortedColumn = 'Finish';
-  let sortDirection = 'asc';
-  let rankingsMap = {};
-  let playerIconMap = {};
-
-  // --- State for "Load More" functionality ---
-  const playersPerLoad = 16; // For mobile event view
-  let visiblePlayers = playersPerLoad;
-  
-  // NEW: Function to determine load count based on screen size
-  const getResultsPerLoad = () => {
-    return window.innerWidth < 769 ? 16 : 64;
-  };
-  
-  let visibleResults = getResultsPerLoad(); // MODIFIED: Use the new function
-
-  const initialSortHeader = document.querySelector('#tournament-results-table th.sorted');
-  if (initialSortHeader) {
-    sortedColumn = initialSortHeader.getAttribute('data-column-name');
-    sortDirection = initialSortHeader.classList.contains('desc') ? 'desc' : 'asc';
-  }
-
-  function debounce(func, delay) {
-    let timeout;
-    return function(...args) {
-      clearTimeout(timeout);
-      timeout = setTimeout(() => func.apply(this, args), delay);
-    };
-  }
-
-  function showSkeletonLoader() {
-    let skeletonHtml = '';
-    const rowCount = window.innerWidth < 769 ? playersPerLoad : 10;
-    for (let i = 0; i < rowCount; i++) {
-      skeletonHtml += '<tr class="skeleton"><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>';
-    }
-    tableBody.innerHTML = skeletonHtml;
-  }
-
-  function populateEventDropdown() {
-    if (!eventDropdown) return;
-    eventDropdown.innerHTML = '';
-    uniqueEvents.forEach((eventName, index) => {
-      const option = document.createElement('option');
-      option.value = index;
-      option.textContent = eventName;
-      eventDropdown.appendChild(option);
-    });
-  }
-
-  function sortData(data, column, type, direction) {
-    if (!data || !column) return data;
-    const order = direction === 'asc' ? 1 : -1;
-
-    return [...data].sort((a, b) => {
-      const valA = a[column];
-      const valB = b[column];
-
-      if (type === 'finish') {
-        const numA = parseFloat(String(valA).replace(/(st|nd|rd|th)/, ''));
-        const numB = parseFloat(String(valB).replace(/(st|nd|rd|th)/, ''));
-        if (!isNaN(numA) && !isNaN(numB)) {
-          const finishComparison = (numA - numB);
-          if (finishComparison !== 0) return finishComparison * order;
-          const dateA = new Date(a.Date);
-          const dateB = new Date(b.Date);
-          return (dateB - dateA);
-        }
-      } else if (type === 'number') {
-        const numA = parseFloat(valA) || 0;
-        const numB = parseFloat(valB) || 0;
-        return (numA - numB) * order;
-      }
-
-      const strA = String(valA).toLowerCase();
-      const strB = String(valB).toLowerCase();
-      if (strA < strB) return -1 * order;
-      if (strA > strB) return 1 * order;
-      return 0;
-    });
-  }
-
-  async function fetchData() {
-    try {
-      if (eventDropdown) eventDropdown.innerHTML = '<option>Loading Events...</option>';
-      showSkeletonLoader();
-      await fetchRankings();
-      const response = await fetch(`${googleSheetURL}&cachebuster=${Date.now()}`);
-      if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
-      const text = await response.text();
-      allData = parseCSV(text);
-      groupDataByEvent(allData);
-      populateEventDropdown();
-      renderAll();
-      updateStickyOffsets();
-    } catch (error) {
-      console.error("Error fetching data:", error);
-      tableBody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:red;">Failed to load data.</td></tr>';
-    }
-  }
-
-  async function fetchRankings() {
-    try {
-      const response = await fetch(`${googleRankingsURL}&cachebuster=${Date.now()}`);
-      if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
-      const text = await response.text();
-      const rankingsData = parseCSV(text);
-      rankingsMap = rankingsData.reduce((acc, current) => {
-        const playerName = current['Player'];
-        const playerRank = parseInt(current['Rank'], 10);
-        if (playerName && !isNaN(playerRank)) acc[playerName] = playerRank;
-        return acc;
-      }, {});
-      playerIconMap = rankingsData.reduce((acc, current) => {
-        const playerName = current['Player'];
-        const playerIconUrl = current['Player Icon'];
-        if (playerName && playerIconUrl) acc[playerName] = playerIconUrl;
-        return acc;
-      }, {});
-    } catch (error) {
-      console.error("Error fetching rankings data:", error);
-    }
-  }
-
-  function renderAll() {
-    let dataToDisplay = [];
-    let totalResultsCount = 0;
-
-    if (searchTerm) {
-        const keywords = searchTerm.toLowerCase().split(' ').filter(k => k);
-        const filteredData = allData.filter(item => {
-            const eventName = (item.Event || '').toLowerCase();
-            const playerName = (item.Player || '').toLowerCase();
-            const itemDate = formatDate(item.Date).toLowerCase();
-            return keywords.every(keyword => 
-                eventName.includes(keyword) || 
-                playerName.includes(keyword) || 
-                itemDate.includes(keyword)
-            );
-        });
-        
-        const headerElement = document.querySelector(`#tournament-results-table [data-column-name="${sortedColumn}"]`);
-        const sortedType = headerElement ? headerElement.getAttribute('data-type') : 'string';
-        
-        const sortedData = sortData(filteredData, sortedColumn, sortedType, sortDirection);
-        totalResultsCount = sortedData.length;
-        dataToDisplay = sortedData.slice(0, visibleResults);
-    } else {
-        const currentEventName = uniqueEvents[currentEventIndex];
-        const eventData = groupedDataByEvent[currentEventName] || [];
-        
-        const headerElement = document.querySelector(`#tournament-results-table [data-column-name="${sortedColumn}"]`);
-        const sortedType = headerElement ? headerElement.getAttribute('data-type') : 'string';
-
-        const sortedData = sortData(eventData, sortedColumn, sortedType, sortDirection);
-        totalResultsCount = sortedData.length;
-        
-        const isMobile = window.innerWidth < 769;
-        if (isMobile) {
-            dataToDisplay = sortedData.slice(0, visiblePlayers);
-        } else {
-            dataToDisplay = sortedData;
-        }
-    }
+    const loadMoreBtn = document.getElementById('load-more-btn');
+    const items = document.querySelectorAll('.js-load-more-item');
     
-    renderTable(dataToDisplay);
-    updatePaginationControls(totalResultsCount);
-    updateHeaderIcons();
-  }
+    // This debugging line will tell us how many items the script finds
+    console.log('Number of event items found by script:', items.length);
 
-  function renderTable(dataToDisplay) {
-    tableBody.innerHTML = '';
-    if (!dataToDisplay || dataToDisplay.length === 0) {
-      tableBody.innerHTML = '<tr><td colspan="5" style="text-align:center;">No results found.</td></tr>';
-      return;
+    if (!loadMoreBtn || items.length === 0) {
+        return;
     }
 
-    dataToDisplay.forEach(item => {
-      const row = document.createElement('tr');
-      const playerText = item.Player || '';
-      const playerRank = rankingsMap[playerText];
-      const playerPhotoUrl = playerIconMap[playerText];
+    const itemsPerLoad = 18; // How many events to show per click
+    let visibleItems = itemsPerLoad;
 
-      if (playerRank >= 1 && playerRank <= 5) {
-        row.classList.add(`rank-${playerRank}`);
-      } else if (playerRank >= 6 && playerRank <= 40) {
-        row.classList.add('ranked-6-40');
-      }
-
-      let rankIndicatorHtml = '';
-      if (playerRank >= 1 && playerRank <= 5) {
-        rankIndicatorHtml = `<span class="rank-badge rank-badge--top5">#${playerRank}</span>`;
-      } else if (playerRank >= 6 && playerRank <= 40) {
-        rankIndicatorHtml = `<span class="rank-badge">#${playerRank}</span>`;
-      }
-
-      const showRealPhoto = (playerRank >= 1 && playerRank <= 40 && playerPhotoUrl);
-      const playerPhotoHtml = showRealPhoto
-        ? `<img src="${playerPhotoUrl}" alt="${playerText}" class="player-icon" onerror="this.style.display='none'">`
-        : `<div class="player-placeholder-icon"><i class="fas fa-user"></i></div>`;
-
-      let eventHtml = item.Event || '';
-      let playerHtml = playerText;
-      let dateHtml = formatDate(item.Date);
-
-      // MODIFICATION START
-      let eventCellContent = `<span>${eventHtml}</span>`; // Default event cell content
-
-      if (searchTerm) {
-        const regex = new RegExp(searchTerm.split(' ').filter(k => k).join('|'), 'gi');
-        const formattedDateForCheck = formatDate(item.Date).toLowerCase();
-        const dateContainsSearchTerm = searchTerm.split(' ').filter(k => k).some(keyword => formattedDateForCheck.includes(keyword));
-
-        // Highlight all relevant fields
-        eventHtml = eventHtml.replace(regex, match => `<mark>${match}</mark>`);
-        playerHtml = playerHtml.replace(regex, match => `<mark>${match}</mark>`);
-        dateHtml = dateHtml.replace(regex, match => `<mark>${match}</mark>`);
-        
-        // If on mobile and the date specifically matched the search, show it in the event cell
-        const isMobile = window.innerWidth < 769;
-        if (isMobile && dateContainsSearchTerm) {
-            eventCellContent = `<span>${eventHtml}</span><small class="search-date-match"><em>Date: ${dateHtml}</em></small>`;
-        } else {
-            eventCellContent = `<span>${eventHtml}</span>`;
-        }
-      }
-      // MODIFICATION END
-
-      const playerContent = `
-        <div class="player-cell-content">
-          ${playerPhotoHtml}
-          ${rankIndicatorHtml}
-          <span>${playerHtml}</span>
-        </div>
-      `;
-
-      row.innerHTML = `
-      <td data-label="Event" class="event-cell expandable-cell">${eventCellContent}</td>
-      <td data-label="Date" class="cell-hidden-mobile">${dateHtml}</td>
-      <td data-label="Entrants" class="cell-hidden-mobile">${item.Entrants || ''}</td>
-      <td data-label="Player" class="cell-player">${playerContent}</td>
-      <td data-label="Finish">${item.Finish || ''}</td>
-    `;
-      tableBody.appendChild(row);
-    });
-  }
-
-  function updateHeaderIcons() {
-    const headers = document.querySelectorAll('#tournament-results-table th, #results-mobile-sort .btn');
-    headers.forEach(header => {
-      const columnName = header.getAttribute('data-column-name');
-      header.classList.remove('sorted', 'asc', 'desc');
-      if (columnName === sortedColumn) {
-        header.classList.add('sorted', sortDirection);
-      }
-    });
-  }
-
-  function updatePaginationControls(totalResultsCount) {
-    const isMobile = window.innerWidth < 769;
-
-    if (searchTerm) {
-      stickyPrevBtn.disabled = true;
-      stickyNextBtn.disabled = true;
-      eventDropdown.disabled = true;
-
-      const searchOption = document.createElement('option');
-      searchOption.textContent = `Found ${totalResultsCount} results...`;
-      eventDropdown.innerHTML = '';
-      eventDropdown.appendChild(searchOption);
-      
-      if (loadMoreBtn) {
-          const canLoadMore = visibleResults < totalResultsCount;
-          loadMoreBtn.style.display = canLoadMore ? 'inline-flex' : 'none';
-      }
-
-    } else {
-      stickyPrevBtn.disabled = false;
-      stickyNextBtn.disabled = false;
-      eventDropdown.disabled = false;
-
-      populateEventDropdown();
-      eventDropdown.value = currentEventIndex;
-
-      const isFirstEvent = currentEventIndex === 0;
-      const isLastEvent = currentEventIndex >= uniqueEvents.length - 1;
-
-      stickyPrevBtn.disabled = isFirstEvent;
-      stickyNextBtn.disabled = isLastEvent;
-
-      if (loadMoreBtn && isMobile) {
-        const canLoadMore = visiblePlayers < totalResultsCount;
-        loadMoreBtn.style.display = canLoadMore ? 'inline-flex' : 'none';
-      } else if (loadMoreBtn) {
-        loadMoreBtn.style.display = 'none';
-      }
-    }
-  }
-
-  function formatDate(dateString) {
-    if (!dateString) return '';
-    const date = new Date(dateString);
-    if (isNaN(date.getTime())) return dateString;
-    const options = { year: 'numeric', month: 'short', day: 'numeric', timeZone: 'UTC' };
-    return date.toLocaleDateString('en-US', options);
-  }
-
-  function scrollToTableTop() {
-    const tableWrapper = document.querySelector('.table-wrapper');
-    const contentArea = document.querySelector('.content');
-    if (!tableWrapper || !contentArea) return;
-
-    const isContentScrollable = getComputedStyle(contentArea).overflowY === 'auto';
-    const scrollableElement = isContentScrollable ? contentArea : window;
-
-    let targetPosition;
-    if (isContentScrollable) {
-      targetPosition = tableWrapper.offsetTop - 100;
-    } else {
-      const mobileHeader = document.querySelector('.mobile-header');
-      const tournamentNav = document.querySelector('.tournament-nav');
-      let headerOffset = 15;
-      if (mobileHeader) headerOffset += mobileHeader.offsetHeight;
-      if (tournamentNav) headerOffset += tournamentNav.offsetHeight;
-
-      const elementPosition = tableWrapper.getBoundingClientRect().top + window.scrollY;
-      targetPosition = elementPosition - headerOffset;
-    }
-
-    scrollableElement.scrollTo({ top: targetPosition, behavior: 'smooth' });
-  }
-
-  function parseCSV(text) {
-    const rows = text.trim().split('\n');
-    if (rows.length <= 1) return [];
-    const headers = rows[0].split(',').map(h => h.trim().replace(/"/g, ''));
-    return rows.slice(1).map(rowStr => {
-      const values = rowStr.match(/(".*?"|[^",]+)(?=\s*,|\s*$)/g) || [];
-      const rowData = {};
-      headers.forEach((header, i) => {
-        rowData[header] = values[i] ? values[i].replace(/^"|"$/g, '').trim() : '';
-      });
-      return rowData;
-    }).filter(row => row.Player && row.Player.trim() !== '');
-  }
-
-  function groupDataByEvent(data) {
-    const grouped = {};
-    const eventDates = {};
-    data.forEach(row => {
-      const eventName = row.Event;
-      if (eventName) {
-        if (!grouped[eventName]) {
-          grouped[eventName] = [];
-          eventDates[eventName] = new Date(row.Date);
-        }
-        grouped[eventName].push(row);
-      }
-    });
-    groupedDataByEvent = grouped;
-    uniqueEvents = Object.keys(grouped).sort((a, b) => eventDates[b] - eventDates[a]);
-  }
-
-  // A more robust function to inject structured data
-function injectStructuredData(eventList) {
-    // 1. Wrap in a try...catch to prevent it from ever breaking the page load
-    try {
-        if (!eventList || eventList.length === 0) return;
-
-        // 2. Filter out any rows that are missing essential data before processing
-        const validEvents = eventList.filter(eventData => {
-            return eventData.Event && eventData.Date && !isNaN(new Date(eventData.Date));
+    const updateVisibility = () => {
+        // Loop through all items and hide or show them
+        items.forEach((item, index) => {
+            if (index < visibleItems) {
+                // Use 'flex' to match the CSS for archive-item-card
+                item.style.display = 'flex';
+            } else {
+                item.style.display = 'none';
+            }
         });
 
-        if (validEvents.length === 0) return;
-
-        const schema = {
-            "@context": "https://schema.org",
-            "@type": "ItemList",
-            "name": "FGC Tournament Results",
-            "itemListElement": validEvents.map((eventData, index) => {
-                return {
-                    "@type": "ListItem",
-                    "position": index + 1,
-                    "item": {
-                        "@type": "SportsEvent",
-                        "name": eventData.Event,
-                        "startDate": new Date(eventData.Date).toISOString().split('T')[0],
-                        "location": {
-                            "@type": "VirtualLocation",
-                            "url": "https://fgc-player-rankings.netlify.app/tournament-results/"
-                        }
-                    }
-                }
-            })
-        };
-
-        // Check if a script for this already exists to avoid duplicates
-        const existingScript = document.querySelector('script[type="application/ld+json"]');
-        if (existingScript) {
-            existingScript.text = JSON.stringify(schema);
+        // Show or hide the "Load More" button
+        if (visibleItems >= items.length) {
+            loadMoreBtn.style.display = 'none';
         } else {
-            const script = document.createElement('script');
-            script.type = 'application/ld+json';
-            script.text = JSON.stringify(schema);
-            document.head.appendChild(script);
+            loadMoreBtn.style.display = 'inline-flex';
         }
-    } catch (error) {
-        console.error("Failed to inject structured data:", error);
-    }
-}
+    };
 
-  const sortableHeaders = document.querySelectorAll('#tournament-results-table th, #results-mobile-sort .btn');
-  sortableHeaders.forEach(header => {
-    header.addEventListener('click', () => {
-      const columnName = header.getAttribute('data-column-name');
-      if (sortedColumn === columnName) {
-        sortDirection = sortDirection === 'asc' ? 'desc' : 'asc';
-      } else {
-        sortedColumn = columnName;
-        sortDirection = (columnName === 'Entrants' || columnName === 'Date') ? 'desc' : 'asc';
-      }
-      renderAll();
-    });
-  });
-
-  const setupCardExpansion = (tableElement) => {
-    if (tableElement && tableElement.querySelector('tbody')) {
-      tableElement.querySelector('tbody').addEventListener('click', (event) => {
-        if (event.target.closest('a')) { return; }
-        const clickedRow = event.target.closest('tr');
-        if (clickedRow) {
-          clickedRow.classList.toggle('is-expanded');
-        }
-      });
-    }
-  };
-  setupCardExpansion(tournamentTable);
-
-  searchInput.addEventListener('input', debounce((e) => {
-    searchTerm = e.target.value.toLowerCase();
-    visibleResults = getResultsPerLoad(); // MODIFIED: Reset with the dynamic function
-    renderAll();
-  }, 300));
-
-  eventDropdown.addEventListener('change', () => {
-    visiblePlayers = playersPerLoad;
-    currentEventIndex = parseInt(eventDropdown.value, 10);
-    renderAll();
-    scrollToTableTop();
-  });
-
-  const handlePrevClick = () => {
-    if (currentEventIndex > 0) {
-      visiblePlayers = playersPerLoad;
-      currentEventIndex--;
-      renderAll();
-      scrollToTableTop();
-    }
-  };
-
-  const handleNextClick = () => {
-    if (currentEventIndex < uniqueEvents.length - 1) {
-      visiblePlayers = playersPerLoad;
-      currentEventIndex++;
-      renderAll();
-      scrollToTableTop();
-    }
-  };
-
-  if (loadMoreBtn) {
     loadMoreBtn.addEventListener('click', () => {
-        loadMoreBtn.disabled = true;
-        loadMoreBtn.textContent = 'Loading...';
-        
-        if (searchTerm) {
-            visibleResults += getResultsPerLoad(); // MODIFIED: Use the dynamic function
-        } else {
-            visiblePlayers += playersPerLoad;
-        }
-        
-        setTimeout(() => {
-            renderAll();
-            loadMoreBtn.disabled = false;
-            loadMoreBtn.textContent = 'Load More';
-        }, 100);
+        visibleItems += itemsPerLoad;
+        updateVisibility();
     });
-  }
 
-  stickyPrevBtn.addEventListener('click', handlePrevClick);
-  stickyNextBtn.addEventListener('click', handleNextClick);
-
-  fetchData();
+    // Initial run to set the correct initial state
+    updateVisibility();
 });
 </script>
 
