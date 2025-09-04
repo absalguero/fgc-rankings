@@ -124,6 +124,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const change = player['Rank Change'] || '';
             const playerName = player['Player'] || 'Unknown Player';
             const playerIcon = player['Player Icon'] || '';
+            const playerPhotoUrl = playerIcon ? `/images/players/${playerIcon}` : '';
             const characterName = player['Main Character'] || 'N/A';
             const countryName = player['Country'] || 'N/A';
             const rating = player['Rating'] || '0';
