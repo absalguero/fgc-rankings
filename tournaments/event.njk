@@ -2,15 +2,16 @@
 pagination:
   data: tournaments.events
   size: 1
-  alias: event
-permalink: "/tournaments/{{ event.slug }}/"
+  alias: tournamentData
+permalink: "/tournaments/{{ tournamentData.slug }}/"
 ---
 {% extends "layout.njk" %}
+{% set bodyClass = "page-event" %}
 
-{% block title %}{{ event.name }} Results | FGC Top Players{% endblock %}
+{% block title %}{{ tournamentData.name }} Results | FGC Top Players{% endblock %}
 
 {% block meta_description %}
-<meta name="description" content="View the full tournament results for {{ event.name }}, held on {{ event.date | readableDate }}. See all player placings and entrants." />
+<meta name="description" content="View the full tournament results for {{ tournamentData.name }}, held on {{ tournamentData.date | readableDate }}. See all player placings and entrants." />
 {% endblock %}
 
 {% block content %}
@@ -22,79 +23,84 @@ permalink: "/tournaments/{{ event.slug }}/"
     </div>
     <div class="event-header">
         <img
-            src="/images/events/{{ event.slug }}.png"
-            alt="{{ event.name }}"
+            src="/images/events/{{ tournamentData.slug }}.png"
+            alt="{{ tournamentData.name }}"
             class="event-header__image"
             onerror="this.style.display='none';"
         >
         <div class="event-header__details">
-            <h1>{{ event.name }}</h1>
+            <h1>{{ tournamentData.name }}</h1>
             <div class="event-header__meta">
-                <span><i class="fas fa-calendar-alt"></i> {{ event.date | readableDate }}</span>
-                <span><i class="fas fa-users"></i> {{ event.results[0].Entrants }} Entrants</span>
+                <span><i class="fas fa-calendar-alt"></i> {{ tournamentData.date | readableDate }}</span>
+                <span><i class="fas fa-users"></i> {{ tournamentData.results[0].Entrants }} Entrants</span>
             </div>
         </div>
     </div>
 </div>
 
-    <div class="results-container">
-        {% if event.results and event.results.length > 0 %}
+<div class="results-container">
+    {% if tournamentData.results and tournamentData.results.length > 0 %}
+        <div class="results-grid">
+            {% for result in tournamentData.results | sortByFinish %}
+                {# Get player's global rank and tournament finish #}
+                {% set player_data = rankings.players | find("Player", result.Player) %}
+                {% set rank = player_data.Rank | int if player_data else 0 %}
+                {% set finish = result.Finish | int %}
 
-            <div class="results-grid">
-                {% for result in event.results | sortByFinish %}
-                    {% set player_data = rankings.players | find("Player", result.Player) %}
-                    {% set rank = player_data.Rank | int %}
+                {# RULE 1: Determine color styling based on GLOBAL RANK #}
+                {% set card_class = "" %}
+                {% if rank >= 1 and rank <= 4 %}
+                    {% set card_class = "rank-" + rank %}
+                {% elseif rank >= 5 and rank <= 40 %}
+                    {% set card_class = "ranked-6-40" %}
+                {% endif %}
 
-                    {% set card_class = "" %}
-                    {% if rank >= 1 and rank <= 5 %}
-                        {% set card_class = "rank-" + rank %}
-                    {% elseif rank >= 6 and rank <= 40 %}
-                        {% set card_class = "ranked-6-40" %}
-                    {% endif %}
+                {% set show_photo = player_data and rank > 0 and rank <= 40 and player_data['Player Icon'] %}
 
-                    {% set show_photo = player_data and rank > 0 and rank <= 40 and player_data['Player Icon'] %}
+                <div class="result-card {{ card_class }}">
+                    <div class="result-card__finish">{{ result.Finish }}</div>
+                    <div class="result-card__player">
+                        {% if show_photo %}
+                            <img src="{{ player_data['Player Icon'] }}" alt="{{ result.Player }}" class="player-icon" onerror="this.style.display='none'">
+                        {% else %}
+                            <div class="player-placeholder-icon"><i class="fas fa-user"></i></div>
+                        {% endif %}
 
-                    <div class="result-card {{ card_class }}">
-                        <div class="result-card__finish">{{ result.Finish }}</div>
-                        <div class="result-card__player">
-                            {% if show_photo %}
-                                <img src="{{ player_data['Player Icon'] }}" alt="{{ result.Player }}" class="player-icon" onerror="this.style.display='none'">
-                            {% else %}
-                                <div class="player-placeholder-icon"><i class="fas fa-user"></i></div>
-                            {% endif %}
-
-                            <div class="result-card__player-info">
-                                <div class="player-info__text-container">
-                                  <span>{{ result.Player }}</span>
-                                  {% if rank > 0 and rank <= 40 %}
-                                      <span class="rank-badge {% if rank <= 5 %}rank-badge--top5{% endif %}">
-                                          #{{ rank }}
-                                      </span>
-                                  {% endif %}
-                                </div>
-                                {% if result.Finish | int == 1 %}
-                                    <span class="trophy-badge-icon">
-                                        <i class="fas fa-trophy trophy-1"></i>
-                                    </span>
-                                {% elseif result.Finish | int == 2 %}
-                                    <span class="trophy-badge-icon">
-                                        <i class="fas fa-trophy trophy-2"></i>
-                                    </span>
-                                {% elseif result.Finish | int == 3 %}
-                                    <span class="trophy-badge-icon">
-                                        <i class="fas fa-trophy trophy-3"></i>
+                        <div class="result-card__player-info">
+                            <div class="player-info__text-container">
+                                <span>{{ result.Player }}</span>
+                                {% if rank > 0 and rank <= 40 %}
+                                    <span class="rank-badge {% if rank <= 4 %}rank-badge--top5{% endif %}">
+                                        #{{ rank }}
                                     </span>
                                 {% endif %}
                             </div>
+
+                            {# RULE 2: Determine trophy/medal icon based on TOURNAMENT FINISH #}
+                            {% if finish == 1 %}
+                                <span class="trophy-badge-icon">
+                                    <i class="fas fa-trophy trophy-1"></i>
+                                </span>
+                            {% elseif finish == 2 %}
+                                <span class="trophy-badge-icon">
+                                    <i class="fas fa-trophy trophy-2"></i>
+                                </span>
+                            {% elseif finish == 3 %}
+                                <span class="trophy-badge-icon">
+                                    <i class="fas fa-trophy trophy-3"></i>
+                                </span>
+                            {% elseif finish == 4 %}
+                                <span class="medal-badge-icon">
+                                    <i class="fas fa-medal medal-4"></i>
+                                </span>
+                            {% endif %}
                         </div>
                     </div>
-                {% endfor %}
-            </div>
-
-        {% else %}
-            <p style="text-align: center; margin-top: 2rem;">No results are currently available for this event.</p>
-        {% endif %}
-    </div>
-
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p style="text-align: center; margin-top: 2rem;">No results are currently available for this event.</p>
+    {% endif %}
 </div>
 {% endblock %}

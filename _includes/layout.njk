@@ -19,7 +19,6 @@
 <meta property="og:title" content="{% block og_title %}{{ title or 'FGC Top Players' }}{% endblock %}">
 <meta property="og:description" content="{% block og_description %}The definitive ranking of the top professional SF6 players. See who's on top and track the rise and fall of your favorite pros.{% endblock %}">
 <meta property="og:image" content="https://fgc-player-rankings.netlify.app/images/fgc-rankings-social-card.png">
-
 <meta property="twitter:card" content="summary_large_image">
 <meta property="twitter:url" content="https://fgc-player-rankings.netlify.app{{ page.url }}">
 <meta property="twitter:title" content="{% block twitter_title %}{{ title or 'Street Fighter 6 Global Player Rankings' }}{% endblock %}">
@@ -81,73 +80,71 @@
         </nav>
 
         <main class="content">
-            <div role="main" id="maincontent" tabindex="-1">                
+            <div role="main" id="maincontent" tabindex="-1">         
                 {% block content %}{% endblock %}
             </div>
-            
-            <footer class="content-footer">
-                <div class="footer-columns">
-                    <div class="footer-column">
-                        <h3>Navigation</h3>
-                        <ul class="footer-links">
-                            <li><a href="/">SF6 Rankings</a></li>
-                            <li><a href="/tournament-results/">Tournament Results</a></li>
-                            <li><a href="/ranking-system/">Ranking System</a></li>
-                        </ul>
-                    </div>
-                    <div class="footer-column">
-                        <h3>Community</h3>
-                        <ul class="footer-links">
-                            <li><a href="/about/">About Us</a></li>
-                            <li><a href="#">Become a Contributor</a></li>
-                            <li><a href="#">Support the Site</a></li>
-                        </ul>
-                    </div>
-                    <div class="footer-column">
-                        <h3>Follow Us</h3>
-                        <ul class="footer-social">
-                            <li><a href="https://x.com" target="_blank" rel="noopener noreferrer"><i class="fab fa-x-twitter"></i></a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="footer-legal">
-                    <p>&copy; {% year %} FGC Top Players. All rights reserved.<br>
-                    An unofficial, community-driven resource. All game and player trademarks and images are the property of their respective owners.</p>
-                    <p class="legal-links">
-                        <a href="#">Contact</a> |
-                        <a href="#">Terms of Use</a> |
-                        <a href="#">Privacy Policy</a>
-                    </p>
-                </div>
-            </footer>
         </main>
 
         <aside class="sidebar right-sidebar" aria-label="Upcoming Rated Events">
-    <h2 class="sidebar__label">Upcoming Rated Events</h2>
-    
-    {% for event in events %}
-        <a href="{{ event.url }}" target="_blank" rel="noopener noreferrer" class="event-card-link">
-            <div class="event-card">
-                <span class="event-card__name">{{ event.name }}</span>
-
-                {# This now uses the slug to find the correct image #}
-                <img 
-                    src="/images/events/{{ event.slug }}.png" 
-                    alt="{{ event.name }}" 
-                    loading="lazy" 
-                    class="event-card__image"
-                    onerror="this.style.display='none';"
-                />
-                
-                <div class="event-card__date">{{ event.date }}</div>
-                <span class="btn btn--secondary btn--small">More Info</span>
-            </div>
-        </a>
-    {% else %}
-        <p>No upcoming events at this time.</p>
-    {% endfor %}
-</aside>
+            <h2 class="sidebar__label">Upcoming Rated Events</h2>
+            
+            {% for sidebarEvent in events %}
+                <a href="{{ sidebarEvent.url }}" target="_blank" rel="noopener noreferrer" class="event-card-link">
+                    <div class="event-card">
+                        <span class="event-card__name">{{ sidebarEvent.name }}</span>
+                        <img 
+                            src="/images/events/{{ sidebarEvent.slug }}.png" 
+                            alt="{{ sidebarEvent.name }}" 
+                            loading="lazy" 
+                            class="event-card__image"
+                            onerror="this.style.display='none';"
+                        />
+                        
+                        <div class="event-card__date">{{ sidebarEvent.date }}</div>
+                        <span class="btn btn--secondary btn--small">More Info</span>
+                    </div>
+                </a>
+            {% else %}
+                <p>No upcoming events at this time.</p>
+            {% endfor %}
+        </aside>
     </div>
+
+    <footer class="content-footer">
+        <div class="footer-columns">
+            <div class="footer-column">
+                <h3>Navigation</h3>
+                <ul class="footer-links">
+                    <li><a href="/">SF6 Rankings</a></li>
+                    <li><a href="/tournament-results/">Tournament Results</a></li>
+                    <li><a href="/ranking-system/">Ranking System</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Community</h3>
+                <ul class="footer-links">
+                    <li><a href="/about/">About Us</a></li>
+                    <li><a href="#">Become a Contributor</a></li>
+                    <li><a href="#">Support the Site</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Follow Us</h3>
+                <ul class="footer-social">
+                    <li><a href="https://x.com" target="_blank" rel="noopener noreferrer"><i class="fab fa-x-twitter"></i></a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-legal">
+            <p>&copy; {% year %} FGC Top Players. All rights reserved.<br>
+            An unofficial, community-driven resource. All game and player trademarks and images are the property of their respective owners.</p>
+            <p class="legal-links">
+                <a href="#">Contact</a> |
+                <a href="#">Terms of Use</a> |
+                <a href="#">Privacy Policy</a>
+            </p>
+        </div>
+    </footer>
 
     <noscript>
         <p style="text-align:center;padding:1rem;background:#111;color:#f00;">

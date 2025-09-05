@@ -4,8 +4,10 @@ const slugify = require("slugify");
 const fs = require("fs");
 const path = require("path");
 
-// A robust CSV parsing function
 function parseCSV(text) {
+    // This check prevents the "text.trim is not a function" error
+    if (typeof text !== 'string' || !text) return [];
+
     const rows = text.trim().split('\n');
     if (rows.length <= 1) return [];
     const headers = rows[0].split(',').map(h => h.trim().replace(/"/g, ''));
@@ -22,54 +24,49 @@ function parseCSV(text) {
 const ARCHIVE_PATH = path.join(__dirname, "tournaments_archive.json");
 
 module.exports = async function() {
-    console.log("Fetching and archiving tournament data...");
-    
-    let archive = {};
-    if (fs.existsSync(ARCHIVE_PATH)) {
-        try {
-            const fileContents = fs.readFileSync(ARCHIVE_PATH, 'utf8');
-            if (fileContents) archive = JSON.parse(fileContents);
-        } catch (error) {
-            console.error("Error reading or parsing tournaments_archive.json:", error);
-        }
-    }
-
-    const googleSheetURL = "https://docs.google.com/spreadsheets/d/1otrfs8HN3Shq6U2-qrc4GDxTI4ragnqwbTjweecE12Q/gviz/tq?tqx=out:csv&gid=1021048964";
-    
     try {
-        const csvData = await EleventyFetch(googleSheetURL, { duration: "1d", type: "text" });
-        const liveResults = parseCSV(csvData);
-
-        const newEventsGrouped = {};
-        liveResults.forEach(row => {
-            const eventName = row.Event;
-            if (!eventName) return;
-            
-            if (!newEventsGrouped[eventName]) {
-                newEventsGrouped[eventName] = {
-                    name: eventName,
-                    date: new Date(row.Date),
-                    slug: slugify(eventName, { lower: true, strict: true }),
-                    results: [] // Initialize as an ARRAY
-                };
+        console.log("Fetching and archiving tournament data...");
+        let archive = {};
+        if (fs.existsSync(ARCHIVE_PATH)) {
+            const fileContents = fs.readFileSync(ARCHIVE_PATH, 'utf8');
+            if (fileContents) {
+                archive = JSON.parse(fileContents);
             }
-            newEventsGrouped[eventName].results.push(row); // PUSH to the array
-        });
-
-        // Merge the newly fetched data into the main archive
-        Object.values(newEventsGrouped).forEach(event => {
-            archive[event.slug] = event;
-        });
-
-        fs.writeFileSync(ARCHIVE_PATH, JSON.stringify(archive, null, 2));
-
+        }
+        const googleSheetURL = "https://docs.google.com/spreadsheets/d/1otrfs8HN3Shq6U2-qrc4GDxTI4ragnqwbTjweecE12Q/gviz/tq?tqx=out:csv&gid=1021048964";
+        try {
+            const csvData = await EleventyFetch(googleSheetURL, { duration: "1d", type: "text" });
+            const liveResults = parseCSV(csvData);
+            const newEventsGrouped = {};
+            liveResults.forEach(row => {
+                const eventName = row.Event;
+                if (!eventName) return;
+                if (!newEventsGrouped[eventName]) {
+                    newEventsGrouped[eventName] = {
+                        name: eventName,
+                        date: new Date(row.Date),
+                        slug: slugify(eventName, { lower: true, strict: true }),
+                        results: []
+                    };
+                }
+                newEventsGrouped[eventName].results.push(row);
+            });
+            Object.values(newEventsGrouped).forEach(event => {
+                archive[event.slug] = event;
+            });
+            fs.writeFileSync(ARCHIVE_PATH, JSON.stringify(archive, null, 2));
+            console.log("Successfully fetched and archived live data.");
+        } catch (fetchError) {
+            console.warn("⚠️ Could not fetch live tournament data, using local archive.", fetchError.message);
+        }
+        const eventsArray = Object.values(archive).sort((a, b) => new Date(b.date) - new Date(a.date));
+        return {
+            events: eventsArray
+        };
     } catch (error) {
-        console.warn("⚠️ Could not fetch live tournament data, using local archive.", error.message);
+        console.error("❌ A critical error occurred in tournaments.js:", error);
+        return {
+            events: []
+        };
     }
-
-    const eventsArray = Object.values(archive).sort((a, b) => new Date(b.date) - new Date(a.date));
-
-    return {
-        events: eventsArray
-    };
 };

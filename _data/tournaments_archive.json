@@ -3,8 +3,6 @@
     "name": "Treta Championship 2024",
     "date": "2024-09-07T00:00:00.000Z",
     "slug": "treta-championship-2024",
-    "image": "/images/tournaments/treta-championship-2024.png",
-    "entrants": "121",
     "results": [
       {
         "Player": "NamikazeExTM",
@@ -588,8 +586,6 @@
     "name": "F2CON 2024",
     "date": "2024-09-08T00:00:00.000Z",
     "slug": "f2con-2024",
-    "image": "/images/tournaments/f2con-2024.png",
-    "entrants": "50",
     "results": [
       {
         "Player": "Dual Kevin",
@@ -1047,8 +1043,6 @@
     "name": "Ultimate Fighting Arena 2024",
     "date": "2024-09-13T00:00:00.000Z",
     "slug": "ultimate-fighting-arena-2024",
-    "image": "/images/tournaments/ultimate-fighting-arena-2024.png",
-    "entrants": "450",
     "results": [
       {
         "Player": "Kusanagi (FR)",
@@ -1632,8 +1626,6 @@
     "name": "OzHadou Nationals 18",
     "date": "2024-09-27T00:00:00.000Z",
     "slug": "ozhadou-nationals-18",
-    "image": "/images/tournaments/ozhadou-nationals-18.png",
-    "entrants": "114",
     "results": [
       {
         "Player": "FREESER",
@@ -2217,8 +2209,6 @@
     "name": "Island Paradise",
     "date": "2024-09-28T00:00:00.000Z",
     "slug": "island-paradise",
-    "image": "/images/tournaments/island-paradise.png",
-    "entrants": "81",
     "results": [
       {
         "Player": "NuckleDu",
@@ -2802,8 +2792,6 @@
     "name": "DreamHack Atlanta 2024",
     "date": "2024-10-04T00:00:00.000Z",
     "slug": "dreamhack-atlanta-2024",
-    "image": "/images/tournaments/dreamhack-atlanta-2024.png",
-    "entrants": "218",
     "results": [
       {
         "Player": "Punk",
@@ -3387,8 +3375,6 @@
     "name": "Thaiger Uppercut (TGU) 2024",
     "date": "2024-10-04T00:00:00.000Z",
     "slug": "thaiger-uppercut-tgu-2024",
-    "image": "/images/tournaments/thaiger-uppercut-tgu-2024.png",
-    "entrants": "123",
     "results": [
       {
         "Player": "jojotaro",
@@ -3972,8 +3958,6 @@
     "name": "East Coast Throwdown 2024",
     "date": "2024-10-11T00:00:00.000Z",
     "slug": "east-coast-throwdown-2024",
-    "image": "/images/tournaments/east-coast-throwdown-2024.png",
-    "entrants": "621",
     "results": [
       {
         "Player": "Itabashi Zangief",
@@ -4557,8 +4541,6 @@
     "name": "First Attack 2024",
     "date": "2024-10-12T00:00:00.000Z",
     "slug": "first-attack-2024",
-    "image": "/images/tournaments/first-attack-2024.png",
-    "entrants": "89",
     "results": [
       {
         "Player": "MenaRD",
@@ -5142,8 +5124,6 @@
     "name": "CAPCOM Pro Tour 2024 SUPER PREMIER SINGAPORE",
     "date": "2024-10-17T00:00:00.000Z",
     "slug": "capcom-pro-tour-2024-super-premier-singapore",
-    "image": "/images/tournaments/capcom-pro-tour-2024-super-premier-singapore.png",
-    "entrants": "385",
     "results": [
       {
         "Player": "Shuto",
@@ -5727,8 +5707,6 @@
     "name": "京王 Presents JCG STREET FIGHTER 6 CAPCOM Pro Tour 2024 SUPER PREMIER JAPAN",
     "date": "2024-11-01T00:00:00.000Z",
     "slug": "presents-jcg-street-fighter-6-capcom-pro-tour-2024-super-premier-japan",
-    "image": "/images/tournaments/presents-jcg-street-fighter-6-capcom-pro-tour-2024-super-premier-japan.png",
-    "entrants": "1248",
     "results": [
       {
         "Player": "Tokido",
@@ -6312,8 +6290,6 @@
     "name": "BLINK RESPAWN 2024",
     "date": "2024-11-08T00:00:00.000Z",
     "slug": "blink-respawn-2024",
-    "image": "/images/tournaments/blink-respawn-2024.png",
-    "entrants": "162",
     "results": [
       {
         "Player": "NoahTheProdigy",
@@ -6897,8 +6873,6 @@
     "name": "Astral Finish 2024",
     "date": "2024-11-16T00:00:00.000Z",
     "slug": "astral-finish-2024",
-    "image": "/images/tournaments/astral-finish-2024.png",
-    "entrants": "91",
     "results": [
       {
         "Player": "LUGABO",
@@ -7482,8 +7456,6 @@
     "name": "BATTLE COLISEUM 2024",
     "date": "2024-11-16T00:00:00.000Z",
     "slug": "battle-coliseum-2024",
-    "image": "/images/tournaments/battle-coliseum-2024.png",
-    "entrants": "129",
     "results": [
       {
         "Player": "Broly",
@@ -8067,8 +8039,6 @@
     "name": "Bum Presents Cold Front 2024",
     "date": "2024-11-23T00:00:00.000Z",
     "slug": "bum-presents-cold-front-2024",
-    "image": "/images/tournaments/bum-presents-cold-front-2024.png",
-    "entrants": "35",
     "results": [
       {
         "Player": "NoahTheProdigy",
@@ -8391,8 +8361,6 @@
     "name": "Kings of the World 2024",
     "date": "2024-12-14T00:00:00.000Z",
     "slug": "kings-of-the-world-2024",
-    "image": "/images/tournaments/kings-of-the-world-2024.png",
-    "entrants": "200",
     "results": [
       {
         "Player": "Armperor",
@@ -8976,8 +8944,6 @@
     "name": "CEOtaku 2024",
     "date": "2024-12-20T00:00:00.000Z",
     "slug": "ceotaku-2024",
-    "image": "/images/tournaments/ceotaku-2024.png",
-    "entrants": "222",
     "results": [
       {
         "Player": "NuckleDu",
@@ -9561,8 +9527,6 @@
     "name": "BeePro Cup2024",
     "date": "2024-12-27T00:00:00.000Z",
     "slug": "beepro-cup2024",
-    "image": "/images/tournaments/beepro-cup2024.png",
-    "entrants": "446",
     "results": [
       {
         "Player": "Oil King",
@@ -10146,8 +10110,6 @@
     "name": "The Versus Festival: Habba Edition 2024",
     "date": "2025-01-11T00:00:00.000Z",
     "slug": "the-versus-festival-habba-edition-2024",
-    "image": "/images/tournaments/the-versus-festival-habba-edition-2024.png",
-    "entrants": "142",
     "results": [
       {
         "Player": "Tokido",
@@ -10731,8 +10693,6 @@
     "name": "GTW 2024 Finals",
     "date": "2025-01-12T00:00:00.000Z",
     "slug": "gtw-2024-finals",
-    "image": "/images/tournaments/gtw-2024-finals.png",
-    "entrants": "16",
     "results": [
       {
         "Player": "xiaohai",
@@ -10884,8 +10844,6 @@
     "name": "Frosty Faustings XVII 2025",
     "date": "2025-01-24T00:00:00.000Z",
     "slug": "frosty-faustings-xvii-2025",
-    "image": "/images/tournaments/frosty-faustings-xvii-2025.png",
-    "entrants": "701",
     "results": [
       {
         "Player": "NoahTheProdigy",
@@ -11469,8 +11427,6 @@
     "name": "BIG BANG 6",
     "date": "2025-02-01T00:00:00.000Z",
     "slug": "big-bang-6",
-    "image": "/images/tournaments/big-bang-6.png",
-    "entrants": "65",
     "results": [
       {
         "Player": "LUGABO",
@@ -12054,8 +12010,6 @@
     "name": "Genesis X2",
     "date": "2025-02-14T00:00:00.000Z",
     "slug": "genesis-x2",
-    "image": "/images/tournaments/genesis-x2.png",
-    "entrants": "196",
     "results": [
       {
         "Player": "iDom",
@@ -12639,8 +12593,6 @@
     "name": "Capcom Cup XI",
     "date": "2025-03-08T00:00:00.000Z",
     "slug": "capcom-cup-xi",
-    "image": "/images/tournaments/capcom-cup-xi.png",
-    "entrants": "48",
     "results": [
       {
         "Player": "Kakeru",
@@ -13080,8 +13032,6 @@
     "name": "THE WILD WEST 2025",
     "date": "2025-03-15T00:00:00.000Z",
     "slug": "the-wild-west-2025",
-    "image": "/images/tournaments/the-wild-west-2025.png",
-    "entrants": "34",
     "results": [
       {
         "Player": "FREESER",
@@ -13395,8 +13345,6 @@
     "name": "Winter Clash 2025 (10thAnniversary)",
     "date": "2025-03-15T00:00:00.000Z",
     "slug": "winter-clash-2025-10thanniversary",
-    "image": "/images/tournaments/winter-clash-2025-10thanniversary.png",
-    "entrants": "53",
     "results": [
       {
         "Player": "LuiMan20",
@@ -13881,8 +13829,6 @@
     "name": "Texas Showdown 2025",
     "date": "2025-03-28T00:00:00.000Z",
     "slug": "texas-showdown-2025",
-    "image": "/images/tournaments/texas-showdown-2025.png",
-    "entrants": "285",
     "results": [
       {
         "Player": "NoahTheProdigy",
@@ -14466,8 +14412,6 @@
     "name": "Battle of BC 7",
     "date": "2025-03-29T00:00:00.000Z",
     "slug": "battle-of-bc-7",
-    "image": "/images/tournaments/battle-of-bc-7.png",
-    "entrants": "104",
     "results": [
       {
         "Player": "Sayff",
@@ -15051,8 +14995,6 @@
     "name": "RED BULL KUMITE 2025 - Last Chance Qualifier (LCQ)",
     "date": "2025-04-05T00:00:00.000Z",
     "slug": "red-bull-kumite-2025-last-chance-qualifier-lcq",
-    "image": "/images/tournaments/red-bull-kumite-2025-last-chance-qualifier-lcq.png",
-    "entrants": "256",
     "results": [
       {
         "Player": "AKAINU",
@@ -15636,8 +15578,6 @@
     "name": "RED BULL KUMITE 2025 - PARIS",
     "date": "2025-04-05T00:00:00.000Z",
     "slug": "red-bull-kumite-2025-paris",
-    "image": "/images/tournaments/red-bull-kumite-2025-paris.png",
-    "entrants": "16",
     "results": [
       {
         "Player": "Big Bird",
@@ -15789,8 +15729,6 @@
     "name": "LVL UP EXPO 2025",
     "date": "2025-04-25T00:00:00.000Z",
     "slug": "lvl-up-expo-2025",
-    "image": "/images/tournaments/lvl-up-expo-2025.png",
-    "entrants": "150",
     "results": [
       {
         "Player": "Punk",
@@ -16374,8 +16312,6 @@
     "name": "Fight Kingdom 2025",
     "date": "2025-05-02T00:00:00.000Z",
     "slug": "fight-kingdom-2025",
-    "image": "/images/tournaments/fight-kingdom-2025.png",
-    "entrants": "88",
     "results": [
       {
         "Player": "ChrisCCH",
@@ -16959,8 +16895,6 @@
     "name": "D.I.Y 2025",
     "date": "2025-05-04T00:00:00.000Z",
     "slug": "diy-2025",
-    "image": "/images/tournaments/diy-2025.png",
-    "entrants": "65",
     "results": [
       {
         "Player": "Space Boy",
@@ -17544,8 +17478,6 @@
     "name": "EVO Japan 2025 presented by Levtech",
     "date": "2025-05-08T00:00:00.000Z",
     "slug": "evo-japan-2025-presented-by-levtech",
-    "image": "/images/tournaments/evo-japan-2025-presented-by-levtech.png",
-    "entrants": "7195",
     "results": [
       {
         "Player": "MenaRD",
@@ -18129,8 +18061,6 @@
     "name": "HERO ESPORTS Asian Champions League",
     "date": "2025-05-16T00:00:00.000Z",
     "slug": "hero-esports-asian-champions-league",
-    "image": "/images/tournaments/hero-esports-asian-champions-league.png",
-    "entrants": "772",
     "results": [
       {
         "Player": "Tokido",
@@ -18714,8 +18644,6 @@
     "name": "Brussels Challenge Major Edition 2025",
     "date": "2025-05-17T00:00:00.000Z",
     "slug": "brussels-challenge-major-edition-2025",
-    "image": "/images/tournaments/brussels-challenge-major-edition-2025.png",
-    "entrants": "152",
     "results": [
       {
         "Player": "Bonchan",
@@ -19299,8 +19227,6 @@
     "name": "COMBO BREAKER 2025",
     "date": "2025-05-23T00:00:00.000Z",
     "slug": "combo-breaker-2025",
-    "image": "/images/tournaments/combo-breaker-2025.png",
-    "entrants": "1324",
     "results": [
       {
         "Player": "Leshar",
@@ -19884,8 +19810,6 @@
     "name": "BAM 15: Battle Arena Melbourne 15",
     "date": "2025-05-29T00:00:00.000Z",
     "slug": "bam-15-battle-arena-melbourne-15",
-    "image": "/images/tournaments/bam-15-battle-arena-melbourne-15.png",
-    "entrants": "164",
     "results": [
       {
         "Player": "NARIKUN",
@@ -20469,8 +20393,6 @@
     "name": "Headstomper 2025",
     "date": "2025-05-31T00:00:00.000Z",
     "slug": "headstomper-2025",
-    "image": "/images/tournaments/headstomper-2025.png",
-    "entrants": "116",
     "results": [
       {
         "Player": "Didimokof",
@@ -21054,8 +20976,6 @@
     "name": "NorCal Knockout 2025",
     "date": "2025-05-31T00:00:00.000Z",
     "slug": "norcal-knockout-2025",
-    "image": "/images/tournaments/norcal-knockout-2025.png",
-    "entrants": "65",
     "results": [
       {
         "Player": "TreeWiz",
@@ -21639,8 +21559,6 @@
     "name": "CEO 2025",
     "date": "2025-06-13T00:00:00.000Z",
     "slug": "ceo-2025",
-    "image": "/images/tournaments/ceo-2025.png",
-    "entrants": "837",
     "results": [
       {
         "Player": "Leshar",
@@ -22224,8 +22142,6 @@
     "name": "Get On My Level: Forever - Canadian Fighting Game Championships",
     "date": "2025-07-05T00:00:00.000Z",
     "slug": "get-on-my-level-forever-canadian-fighting-game-championships",
-    "image": "/images/tournaments/get-on-my-level-forever-canadian-fighting-game-championships.png",
-    "entrants": "221",
     "results": [
       {
         "Player": "Riddles",
@@ -22809,8 +22725,6 @@
     "name": "The MIXUP 2025 - Round 7",
     "date": "2025-07-05T00:00:00.000Z",
     "slug": "the-mixup-2025-round-7",
-    "image": "/images/tournaments/the-mixup-2025-round-7.png",
-    "entrants": "144",
     "results": [
       {
         "Player": "Nephew",
@@ -23394,8 +23308,6 @@
     "name": "Only The Best 2025",
     "date": "2025-07-12T00:00:00.000Z",
     "slug": "only-the-best-2025",
-    "image": "/images/tournaments/only-the-best-2025.png",
-    "entrants": "62",
     "results": [
       {
         "Player": "Garnet",
@@ -23961,8 +23873,6 @@
     "name": "Topanga Championship 6",
     "date": "2025-07-13T00:00:00.000Z",
     "slug": "topanga-championship-6",
-    "image": "/images/tournaments/topanga-championship-6.png",
-    "entrants": "29",
     "results": [
       {
         "Player": "Fuudo",
@@ -24231,8 +24141,6 @@
     "name": "BLINK RESPAWN 2025",
     "date": "2025-07-18T00:00:00.000Z",
     "slug": "blink-respawn-2025",
-    "image": "/images/tournaments/blink-respawn-2025.png",
-    "entrants": "271",
     "results": [
       {
         "Player": "Fuudo",
@@ -24816,8 +24724,6 @@
     "name": "S Factor 12",
     "date": "2025-07-26T00:00:00.000Z",
     "slug": "s-factor-12",
-    "image": "/images/tournaments/s-factor-12.png",
-    "entrants": "215",
     "results": [
       {
         "Player": "Dual Kevin",
@@ -25401,8 +25307,6 @@
     "name": "Evo Vegas 2025",
     "date": "2025-08-01T00:00:00.000Z",
     "slug": "evo-vegas-2025",
-    "image": "/images/tournaments/evo-vegas-2025.png",
-    "entrants": "4242",
     "results": [
       {
         "Player": "MenaRD",
@@ -25986,8 +25890,6 @@
     "name": "CROSSOVER 2025",
     "date": "2025-08-08T00:00:00.000Z",
     "slug": "crossover-2025",
-    "image": "/images/tournaments/crossover-2025.png",
-    "entrants": "61",
     "results": [
       {
         "Player": "semy28",
@@ -26544,8 +26446,6 @@
     "name": "Saudi eLeague - Fighting – Street Fighter 6  - Tier A [Season 3]",
     "date": "2025-08-11T00:00:00.000Z",
     "slug": "saudi-eleague-fighting-street-fighter-6-tier-a-season-3",
-    "image": "/images/tournaments/saudi-eleague-fighting-street-fighter-6-tier-a-season-3.png",
-    "entrants": "36",
     "results": [
       {
         "Player": "Latif",
@@ -26868,8 +26768,6 @@
     "name": "Esports World Cup 2025 Last Change Qualifier (LCQ)",
     "date": "2025-08-14T00:00:00.000Z",
     "slug": "esports-world-cup-2025-last-change-qualifier-lcq",
-    "image": "/images/tournaments/esports-world-cup-2025-last-change-qualifier-lcq.png",
-    "entrants": "250",
     "results": [
       {
         "Player": "GO1",
@@ -27453,8 +27351,6 @@
     "name": "VSFighting XIII",
     "date": "2025-08-15T00:00:00.000Z",
     "slug": "vsfighting-xiii",
-    "image": "/images/tournaments/vsfighting-xiii.png",
-    "entrants": "250",
     "results": [
       {
         "Player": "Shakz",
@@ -28038,8 +27934,6 @@
     "name": "Beast in the East 8",
     "date": "2025-08-23T00:00:00.000Z",
     "slug": "beast-in-the-east-8",
-    "image": "/images/tournaments/beast-in-the-east-8.png",
-    "entrants": "84",
     "results": [
       {
         "Player": "youngkenplayer69",
@@ -28623,8 +28517,6 @@
     "name": "Esports World Cup 2025",
     "date": "2025-08-23T00:00:00.000Z",
     "slug": "esports-world-cup-2025",
-    "image": "/images/tournaments/esports-world-cup-2025.png",
-    "entrants": "48",
     "results": [
       {
         "Player": "xiaohai",
@@ -29064,8 +28956,6 @@
     "name": "Cream City Convergence 2025",
     "date": "2025-08-30T00:00:00.000Z",
     "slug": "cream-city-convergence-2025",
-    "image": "/images/tournaments/cream-city-convergence-2025.png",
-    "entrants": "146",
     "results": [
       {
         "Player": "JAK",
@@ -29649,8 +29539,6 @@
     "name": "COMITÊ ARENA 2025",
     "date": "2025-08-31T00:00:00.000Z",
     "slug": "comite-arena-2025",
-    "image": "/images/tournaments/comite-arena-2025.png",
-    "entrants": "189",
     "results": [
       {
         "Player": "Brayan_Job",

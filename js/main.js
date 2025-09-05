@@ -200,11 +200,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (!isNaN(rank)) {
                     const row = document.createElement('tr');
                     if (rank === 1) row.classList.add('rank-1');
-                    else if (rank === 2) row.classList.add('rank-2');
-                    else if (rank === 3) row.classList.add('rank-3');
-                    else if (rank === 4) row.classList.add('rank-4');
-                    else if (rank === 5) row.classList.add('rank-5');
-                    else if (rank >= 6 && rank <= 40) row.classList.add('ranked-6-40');
+else if (rank === 2) row.classList.add('rank-2');
+else if (rank === 3) row.classList.add('rank-3');
+else if (rank === 4) row.classList.add('rank-4');
+else if (rank >= 5 && rank <= 40) row.classList.add('ranked-6-40'); 
                     row.innerHTML = createRowHtml(player);
                     rankingsTableBody.appendChild(row);
                 }

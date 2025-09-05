@@ -86,7 +86,6 @@ mark {
     max-width: 1200px;
     padding-top: 0;
 }
-/* --- Header & Sidebars --- */
 .mobile-header {
     display: flex;
     align-items: center;
@@ -128,16 +127,15 @@ mark {
     transition: transform 0.3s ease-in-out;
     z-index: 1400;
 }
-    .nav-sidebar.active {
-        transform: translateX(0);
-    }
+.nav-sidebar.active {
+    transform: translateX(0);
+}
 .right-sidebar {
     margin-top: 1rem;
 }
 .right-sidebar .sidebar__label {
-    margin-bottom: 0.75rem; /* Adjust this value as needed to add more space */
+    margin-bottom: 0.75rem;
 }
-/* --- Footer --- */
 .content-footer {
     border-top: 1px solid #333;
     padding: 1rem 0 0 0;
@@ -186,7 +184,6 @@ mark {
 /* ==========================================================================
    3. Components
    ========================================================================== */
-/* --- Navigation --- */
 .nav-toggle {
     display: block;
     flex-shrink: 0;
@@ -251,7 +248,6 @@ mark {
     background-color: rgba(255, 94, 19, 0.1);
     font-weight: 700;
 }
-/* --- Search Form --- */
 .mobile-search {
     flex-grow: 1;
     margin-left: 15px;
@@ -288,8 +284,6 @@ mark {
     color: #aaa;
     cursor: pointer;
 }
-
-/* --- Buttons --- */
 .btn {
     border: none;
     border-radius: 6px;
@@ -336,8 +330,6 @@ mark {
     margin: 1.15rem 0 1.25rem;
     padding-top: 0.15rem;
 }
-
-/* --- Data Table --- */
 .table-wrapper {
     overflow-x: auto;
     margin: 1rem auto 0rem auto;
@@ -394,17 +386,14 @@ mark {
     white-space: normal;
     vertical-align: middle;
 }
-/* FINAL FIX: Allow content in specific columns to wrap */
 .data-table .cell-character,
 .data-table .cell-player,
 .data-table .cell-center {
     white-space: normal;
 }
-
 .data-table .player-cell-content {
     justify-content: flex-start;
 }
-
 .data-table .player-cell-content span {
     min-width: 0;
     overflow-wrap: break-word;
@@ -460,12 +449,10 @@ mark {
 .rank-2 .rank-badge--top5 { color: silver; }
 .rank-3 .rank-badge--top5 { color: #cd7f32; }
 .rank-4 .rank-badge--top5 { color: #b0c4de; }
-.rank-5 .rank-badge--top5 { color: #8c7359; }
 .data-table tr.rank-1 td { background-color: #ffd70030 !important; color: #FFD700 !important; text-shadow: 0 0 4px #FFD700; }
 .data-table tr.rank-2 td { background-color: #c0c0c030 !important; color: #C0C0C0 !important; text-shadow: 0 0 4px #C0C0C0; }
 .data-table tr.rank-3 td { background-color: #cd7f3230 !important; color: #cd7f32 !important; text-shadow: 0 0 4px #cd7f32; }
 .data-table tr.rank-4 td { background-color: #36454F30 !important; color: #b0c4de !important; text-shadow: 0 0 4px #b0c4de; }
-.data-table tr.rank-5 td { background-color: #4b371c30 !important; color: #8c7359 !important; text-shadow: 0 0 4px #8c7359; }
 .data-table tr.rank-1 .player-icon,
 .data-table tr.rank-1 .character-icon,
 .data-table tr.rank-1 .flag-icon { box-shadow: 0 0 6px 1px #FFD700; }
@@ -478,9 +465,6 @@ mark {
 .data-table tr.rank-4 .player-icon,
 .data-table tr.rank-4 .character-icon,
 .data-table tr.rank-4 .flag-icon { box-shadow: 0 0 6px 1px #b0c4de; }
-.data-table tr.rank-5 .player-icon,
-.data-table tr.rank-5 .character-icon,
-.data-table tr.rank-5 .flag-icon { box-shadow: 0 0 6px 1px #8c7359; }
 .data-table .ranked-6-40 .player-icon,
 .data-table .ranked-6-40 .character-icon,
 .data-table .ranked-6-40 .flag-icon { box-shadow: 0 0 6px 1px #b8d9bf; }
@@ -706,8 +690,6 @@ th.sorted.desc .sort-icon,
 }
 .faq-accordion details[open] > summary::before { transform: rotate(90deg); }
 .faq-accordion p { margin: 10px 0 0 20px; }
-
-/* --- Sticky Tournament Navigation --- */
 .tournament-nav {
     display: flex;
     flex-wrap: wrap;
@@ -772,88 +754,46 @@ th.sorted.desc .sort-icon,
    ========================================================================== */
 @media (min-width: 769px) {
     .page-wrapper {
-        flex-direction: row;
-        height: 100vh;
-    }
-
-    .mobile-header, .mobile-sort-controls {
-        display: none;
-    }
-
-    .content {
-        flex: 1;
-        min-width: 0;
-        padding: 20px 15px 1rem 15px;
-        height: 100%;
-        overflow-y: auto;
-    }
-
-    .tournament-nav {
-        position: sticky;
-        top: 0;
-        z-index: 1100;
-    }
-
-    .sidebar {
-        position: sticky;
-        top: 0;
-        height: 100vh;
-        overflow-y: auto;
-        width: 200px;
-        flex-shrink: 0;
+        display: grid !important;
+        grid-template-columns: 240px 1fr 240px;
+        max-width: 1600px;
+        margin: 0 auto;
+        gap: 24px;
+        padding: 1rem;
     }
 
     .nav-sidebar {
-        transform: translateX(0);
-        padding-top: 0rem;
+        position: static;
+        transform: none;
+        width: auto;
+        height: auto;
+        padding-top: 0;
     }
 
     .right-sidebar {
-        box-shadow: -2px 0 5px rgba(0,0,0,.7);
-        display: block;
         margin: 0;
-        border-radius: 0;
+    }
+    
+    .sidebar,
+    .content {
+        overflow: visible;
     }
 
-    .sidebar .search-form {
-        display: flex;
-    }
-
-    .toc-and-image {
-        height: calc(100vh - 120px);
-        overflow-y: auto;
-    }
-
-    #faq-image {
-        position: sticky;
-        top: 20px;
-        align-self: start;
-    }
-
-    .page-ranking-system main.content {
-        height: 100vh;
-        overflow-y: auto;
+    .mobile-header {
+        display: none;
     }
 }
-
-    .toc-and-image {
-        height: calc(100vh - 120px); /* Adjust height to fill the viewport */
-        overflow-y: auto; /* Make the whole layout scrollable */
-    }
-/* FINAL FIX: Replace the entire existing mobile media query block with this one */
 @media (max-width: 768px) {
-    /* This prevents side-scrolling on mobile without breaking sticky elements */
     .page-wrapper {
         overflow-x: hidden;
     }
 
     .tournament-nav {
         position: sticky;
-        top: 60px; /* Sticks below the 60px fixed mobile header */
+        top: 60px;
         z-index: 1250;
     }
 
-    /* All other mobile styles */
     .sidebar .search-form { display: none; }
     .mobile-search { display: block; }
     .mobile-sort-controls {
@@ -864,7 +804,6 @@ th.sorted.desc .sort-icon,
         margin-bottom: 1rem;
     }
 
-    /* --- Mobile Table Card View --- */
     .data-table thead { display: none; }
     .data-table, .data-table tbody, .data-table tr, .data-table td {
         display: block;
@@ -948,10 +887,10 @@ th.sorted.desc .sort-icon,
         justify-content: center;
     }
     .toc-toggle-btn {
-    display: block; /* Ensures the button is a block-level element */
-    max-width: auto; /* Keeps the button from being too wide on smaller screens */
-    margin: 0 auto; /* Centers the button horizontally */
-    text-align: center; /* Centers the text inside the button */
+    display: block; 
+    max-width: auto; 
+    margin: 0 auto; 
+    text-align: center; 
 }
     .toc-list {
         max-height: 0;
@@ -965,7 +904,6 @@ th.sorted.desc .sort-icon,
         opacity: 1;
         margin-top: 0.5rem;
     }
-    /* FINAL FIX: This is the unified rule for the +/- icons */
     .data-table .expandable-cell {
         position: relative;
         padding-right: 3rem;
@@ -1019,7 +957,7 @@ th.sorted.desc .sort-icon,
         right: 220px;
     }
     .nav-sidebar .sidebar__label {
-        margin-bottom: 0.75rem; /* Adjust this value as needed to add more space */
+        margin-bottom: 0.75rem; 
     }
 }
 .back-to-top-btn:hover {
@@ -1047,7 +985,6 @@ th.sorted.desc .sort-icon,
    6. FINAL FIX FOR RANKING SYSTEM PAGE (DESKTOP)
    ========================================================================== */
 @media (min-width: 769px) {
-    /* This rule sets up the main two-column layout */
     .page-ranking-system__layout {
         display: grid;
         grid-template-columns: minmax(250px, 350px) 1fr;
@@ -1055,7 +992,6 @@ th.sorted.desc .sort-icon,
         gap: 2rem;
     }
 
-    /* This rule positions the TOC as a sticky element and ensures it stays in place */
     .page-ranking-system__toc-wrapper {
         grid-area: toc;
         position: sticky;
@@ -1065,62 +1001,49 @@ th.sorted.desc .sort-icon,
         overflow-y: auto;
     }
 
-    /* This rule positions the main article content */
     .page-ranking-system__main-content {
         grid-area: content;
         display: flex;
         flex-direction: column;
     }
 
-    /* This ensures the image is displayed correctly within the main content block */
     .page-ranking-system__image {
         max-width: 300px;
         height: auto;
         border-radius: 0;
         box-shadow: 0 0 20px 5px rgba(255, 255, 255, 0.8);
         object-fit: cover;
-        margin: 1rem auto 2rem; /* Centers the image and adds a bottom margin */
+        margin: 1rem auto 2rem; 
     }
 
-    /* Hide the mobile toggle button on desktop */
     .toc-toggle-btn {
         display: none;
     }
 }
 
 /*-- FINAL FIX for Player Cell Alignment & Image Shrinking --*/
-
-/*
-    1. Override the global 'text-align: center' for cells
-        containing player info, forcing them to align left.
-        This is the primary fix for the text wrapping issue.
-*/
 .data-table .cell-player,
 .data-table .cell-center {
     text-align: left;
 }
 
-/*
-    2. Prevent the player image from shrinking when the cell gets narrow.
-*/
 .data-table .player-cell-content .player-icon {
     flex-shrink: 0;
 }
 
-/* Prevents the rank badge content from wrapping */
 .rank-badge {
     white-space: nowrap;
 }
 
 /*-- Styling for players ranked 6-40 --*/
-.data-table tr.ranked-6-40 td {
+.page-event .data-table tr.ranked-6-40 td,
+.page-event .results-grid .result-card.ranked-6-40 {
     background-color: rgba(144, 238, 144, 0.1) !important;
     color: #90ee90 !important;
     text-shadow: 0 0 4px #90ee90;
 }
-
-/* Adds the glow effect to the player icon for consistency */
-.data-table tr.ranked-6-40 .player-icon {
+.page-event .data-table tr.ranked-6-40 .player-icon,
+.page-event .results-grid .result-card.ranked-6-40 .player-icon {
     box-shadow: 0 0 6px 1px #90ee90;
 }
 
@@ -1146,14 +1069,13 @@ th.sorted.desc .sort-icon,
 
 .archive-item-card__image {
     width: 100px;
-    height: 56px; /* 16:9 aspect ratio */
+    height: 56px; 
     object-fit: cover;
     border-radius: 4px;
     background-color: #111;
     flex-shrink: 0;
 }
 
-/* Adjust layout when an image is missing */
 .archive-item-card.no-image .archive-item-card__content {
     padding-left: 1rem;
 }
@@ -1213,8 +1135,6 @@ th.sorted.desc .sort-icon,
 /*-- =================================================== --*/
 /*-- FINAL Event Page Design (Podium + Grid Style)     --*/
 /*-- =================================================== --*/
-
-/* 1. Main Event Header */
 .event-header {
     display: flex;
     flex-direction: column;
@@ -1222,32 +1142,14 @@ th.sorted.desc .sort-icon,
     justify-content: center;
     gap: 1.5rem;
     padding: 2rem 1.5rem;
-    margin: 0 auto; /* Margin for auto centering */
+    margin: 0 auto; 
     max-width: 1100px;
     border-radius: 12px;
     background: linear-gradient(145deg, #222, #1a1a1a);
     border: 1px solid #333;
     text-align: center;
-    margin-bottom: 1rem; /* Added margin for space underneath */
+    margin-bottom: 1rem; 
 }
-
-/* This is a duplicate and can be removed */
-/*
-.event-header {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 1.5rem;
-    padding: 2rem 1.5rem;
-    margin: 0 auto 2rem auto;
-    max-width: 1100px;
-    border-radius: 12px;
-    background: linear-gradient(145deg, #222, #1a1a1a);
-    border: 1px solid #333;
-    text-align: center;
-}
-*/
 
 .event-header__image {
     max-width: 250px;
@@ -1284,7 +1186,6 @@ th.sorted.desc .sort-icon,
     }
 }
 
-/* 2. Podium Section for Top 3 */
 .results-podium {
     display: grid;
     grid-template-columns: 1fr;
@@ -1328,8 +1229,6 @@ th.sorted.desc .sort-icon,
 .podium-card.rank-2 { border-color: #C0C0C0; }
 .podium-card.rank-3 { border-color: #cd7f32; }
 
-
-/* 3. Main Results Grid (for 4th place and below) */
 .results-container {
     max-width: 1000px;
     margin: 0 auto;
@@ -1351,7 +1250,6 @@ th.sorted.desc .sort-icon,
     border: 1px solid #333;
     border-radius: 8px;
     padding: 0.5rem 1rem;
-    /* Add this line for a smooth transition */
     transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
 }
 .result-card__finish {
@@ -1383,7 +1281,6 @@ th.sorted.desc .sort-icon,
     gap: 0.5rem;
     min-width: 0;
 }
-/* New rule to ensure player name and rank badge are in the same line */
 .player-info__text {
     display: flex;
     align-items: center;
@@ -1393,13 +1290,10 @@ th.sorted.desc .sort-icon,
     font-weight: bold;
 }
 
-/* 4. Rank Styling (with Icon Glows) */
-.podium-card, .results-grid .result-card.rank-4, .results-grid .result-card.rank-5 { color: #f0f0f0; text-shadow: none; }
 .podium-card.rank-1, .results-grid .result-card.rank-1 { background-color: #ffd70030 !important; color: #FFD700 !important; text-shadow: 0 0 4px #FFD700; }
 .podium-card.rank-2, .results-grid .result-card.rank-2 { background-color: #c0c0c030 !important; color: #C0C0C0 !important; text-shadow: 0 0 4px #C0C0C0; }
 .podium-card.rank-3, .results-grid .result-card.rank-3 { background-color: #cd7f3230 !important; color: #cd7f32 !important; text-shadow: 0 0 4px #cd7f32; }
 .results-grid .result-card.rank-4 { background-color: #36454F30 !important; color: #b0c4de !important; text-shadow: 0 0 4px #b0c4de; }
-.results-grid .result-card.rank-5 { background-color: #4b371c30 !important; color: #8c7359 !important; text-shadow: 0 0 4px #8c7359; }
 
 .results-grid .result-card.ranked-6-40 {
     background-color: rgba(144, 238, 144, 0.1) !important;
@@ -1418,40 +1312,17 @@ th.sorted.desc .sort-icon,
 .podium-card.rank-2 .player-icon, .results-grid .result-card.rank-2 .player-icon { box-shadow: 0 0 6px 1px #C0C0C0; }
 .podium-card.rank-3 .player-icon, .results-grid .result-card.rank-3 .player-icon { box-shadow: 0 0 6px 1px #cd7f32; }
 .results-grid .result-card.rank-4 .player-icon { box-shadow: 0 0 6px 1px #b0c4de; }
-.results-grid .result-card.rank-5 .player-icon { box-shadow: 0 0 6px 1px #8c7359; }
 .results-grid .result-card.ranked-6-40 .player-icon { box-shadow: 0 0 6px 1px #90ee90; }
-
-/* Duplicated rule, can be removed */
-/*
-.results-grid .result-card .result-card__player-info i.fas.fa-trophy {
-    font-size: 1.25rem;
-    margin-left: 0.5rem;
-    position: relative;
-    top: -2px;
-}
-*/
 
 .trophy-1 { color: #FFD700; --trophy-color: #FFD700; }
 .trophy-2 { color: #C0C0C0; --trophy-color: #C0C0C0; }
 .trophy-3 { color: #cd7f32; --trophy-color: #cd7f32; }
 
-/*
-* FINAL FIX FOR TROPHY ICONS
-* This highly specific selector ensures the trophy icons are displayed correctly.
-*/
 .results-grid .result-card .result-card__player-info .fas.fa-trophy {
     display: inline-block;
     font-size: 1.25rem;
     margin-right: 0.5rem;
 }
-
-/* Duplicated rules, can be removed */
-/*
-.trophy-1 { color: #FFD700; }
-.trophy-2 { color: #C0C0C0; }
-.trophy-3 { color: #cd7f32; }
-*/
-
 .results-grid .trophy-1 { text-shadow: 0 0 30px #FFD700; }
 .results-grid .trophy-2 { text-shadow: 0 0 30px #C0C0C0; }
 .results-grid .trophy-3 { text-shadow: 0 0 30px #cd7f32; }
@@ -1463,42 +1334,6 @@ th.sorted.desc .sort-icon,
     flex-grow: 1;
 }
 
-/* This is a duplicate and can be removed */
-/*
-.player-info__text-container {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    min-width: 0;
-}
-*/
-
-/* This is a duplicate and can be removed */
-/*
-.trophy-badge-icon {
-    display: flex;
-    align-items: center;
-    margin-left: 0.5rem;
-}
-*/
-
-/* This is a duplicate and can be removed */
-/*
-.results-grid .result-card .result-card__player-info i.fas.fa-trophy {
-    margin-left: 0;
-    margin-right: 0;
-    top: 0;
-}
-*/
-
-/* This is a duplicate and can be removed */
-/*
-.player-icon, .player-placeholder-icon {
-    width: 40px;
-    height: 40px;
-}
-*/
-
 .result-card__player {
     display: flex;
     align-items: center;
@@ -1507,29 +1342,6 @@ th.sorted.desc .sort-icon,
     padding-left: 1rem;
     flex-grow: 1;
     min-width: 0;
-}
-
-/* This is a duplicate and can be removed */
-/*
-.trophy-badge-icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-left: 0.5rem;
-    flex-shrink: 0;
-    width: 40px;
-    height: 40px;
-}
-*/
-
-.trophy-badge-icon i.fas.fa-trophy {
-    font-size: 40px;
-    margin: 0;
-    position: static;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: transform 0.2s ease-in-out, filter 0.2s ease-in-out;
 }
 
 .trophy-badge-icon i.fas.fa-trophy:hover {
@@ -1545,9 +1357,7 @@ th.sorted.desc .sort-icon,
     display: flex;
     flex-direction: column;
     gap: 1rem;
-    background-image: url("data:image/svg+xml,%3Csvg width='6' height='6' viewBox='0 0 6 6' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%236e6e6e' fill-opacity='0.15' fill-rule='evenodd'%3E%3Cpath d='M5 0h1L0 6V5zm1 6v-1L1 0h1L6 5z'/%3E%3C/g%3E%3C/svg%3E");
-    box-shadow: 0 4px 8px -2px rgba(0, 0, 0, 0.5);
-    padding-top: 0.5rem;
+    padding-top: 0rem;
 }
 
 .back-button-container {
@@ -1582,5 +1392,50 @@ th.sorted.desc .sort-icon,
     .event-header {
         flex-direction: row;
         justify-content: center;
+    }
+}
+
+.trophy-badge-icon,
+.medal-badge-icon {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end; /* Pushes both icons to the right */
+    width: 24px;
+    height: 24px;
+    font-size: 1.2rem;
+    line-height: 1;
+    position: relative;
+}
+
+/* Specific color for 4th place medal */
+.medal-4 {
+    color: #b0c4de; /* Platinum color */
+    --trophy-color: #b0c4de;
+}
+
+/* Hover effect for all trophy/medal icons */
+.result-card__player-info:hover .trophy-badge-icon i,
+.result-card__player-info:hover .medal-badge-icon i { /* ADD .medal-badge-icon i HERE */
+    filter: drop-shadow(0 0 8px var(--trophy-color, currentColor));
+    transform: scale(1.1);
+    transition: all 0.2s ease-in-out;
+}
+
+.results-grid .medal-4 i.fa-medal {
+    text-shadow: 0 0 30px var(--trophy-color);
+}
+
+.results-grid .medal-badge-icon i.fa-medal {
+    filter: drop-shadow(0 0 30px #b0c4de);
+}
+
+.medal-badge-icon i.fa-medal {
+    position: relative;
+    right: 9px; /* Nudges the medal 2 pixels to the left */
+}
+
+@media (min-width: 769px) {
+    .mobile-sort-controls {
+        display: none;
     }
 }
