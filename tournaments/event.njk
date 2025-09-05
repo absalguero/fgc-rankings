@@ -40,7 +40,7 @@ permalink: "/tournaments/{{ tournamentData.slug }}/"
 
 <div class="results-container">
     {% if tournamentData.results and tournamentData.results.length > 0 %}
-        <div class="results-grid">
+        <div class="results-grid" id="results-grid">
             {% for result in tournamentData.results | sortByFinish %}
                 {# Get player's global rank and tournament finish #}
                 {% set player_data = rankings.players | find("Player", result.Player) %}
@@ -55,17 +55,34 @@ permalink: "/tournaments/{{ tournamentData.slug }}/"
                     {% set card_class = "ranked-6-40" %}
                 {% endif %}
 
+                {# Add a class to hide results after the first 16 #}
+                {% set load_more_class = "is-hidden" if loop.index > 16 else "" %}
                 {% set show_photo = player_data and rank > 0 and rank <= 40 and player_data['Player Icon'] %}
 
-                <div class="result-card {{ card_class }}">
-                    <div class="result-card__finish">{{ result.Finish }}</div>
+                <div class="result-card {{ card_class }} {{ load_more_class }}">
+                    <div class="result-card__finish">
+                        {% set finish_num = result.Finish | int %}
+                        {% if finish_num >= 11 and finish_num <= 13 %}
+                            {{ finish_num }}th
+                        {% else %}
+                            {% set last_digit = finish_num % 10 %}
+                            {% if last_digit == 1 %}
+                                {{ finish_num }}st
+                            {% elif last_digit == 2 %}
+                                {{ finish_num }}nd
+                            {% elif last_digit == 3 %}
+                                {{ finish_num }}rd
+                            {% else %}
+                                {{ finish_num }}th
+                            {% endif %}
+                        {% endif %}
+                    </div>
                     <div class="result-card__player">
                         {% if show_photo %}
                             <img src="{{ player_data['Player Icon'] }}" alt="{{ result.Player }}" class="player-icon" onerror="this.style.display='none'">
                         {% else %}
                             <div class="player-placeholder-icon"><i class="fas fa-user"></i></div>
                         {% endif %}
-
                         <div class="result-card__player-info">
                             <div class="player-info__text-container">
                                 <span>{{ result.Player }}</span>
@@ -75,7 +92,6 @@ permalink: "/tournaments/{{ tournamentData.slug }}/"
                                     </span>
                                 {% endif %}
                             </div>
-
                             {# RULE 2: Determine trophy/medal icon based on TOURNAMENT FINISH #}
                             {% if finish == 1 %}
                                 <span class="trophy-badge-icon">
@@ -99,6 +115,13 @@ permalink: "/tournaments/{{ tournamentData.slug }}/"
                 </div>
             {% endfor %}
         </div>
+        
+        {% if tournamentData.results.length > 16 %}
+            <div class="load-more-container">
+                <button id="load-more-btn" class="btn btn--primary">Load More Results</button>
+            </div>
+        {% endif %}
+
     {% else %}
         <p style="text-align: center; margin-top: 2rem;">No results are currently available for this event.</p>
     {% endif %}

@@ -80,9 +80,45 @@
         </nav>
 
         <main class="content">
-            <div role="main" id="maincontent" tabindex="-1">         
+            <div role="main" id="maincontent" tabindex="-1">   
                 {% block content %}{% endblock %}
             </div>
+
+            <footer class="content-footer">
+                <div class="footer-columns">
+                    <div class="footer-column">
+                        <h3>Navigation</h3>
+                        <ul class="footer-links">
+                            <li><a href="/">SF6 Rankings</a></li>
+                            <li><a href="/tournament-results/">Tournament Results</a></li>
+                            <li><a href="/ranking-system/">Ranking System</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h3>Community</h3>
+                        <ul class="footer-links">
+                            <li><a href="/about/">About Us</a></li>
+                            <li><a href="#">Become a Contributor</a></li>
+                            <li><a href="#">Support the Site</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h3>Follow Us</h3>
+                        <ul class="footer-social">
+                            <li><a href="https://x.com" target="_blank" rel="noopener noreferrer"><i class="fab fa-x-twitter"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="footer-legal">
+                    <p>&copy; {% year %} FGC Top Players. All rights reserved.<br>
+                    An unofficial, community-driven resource. All game and player trademarks and images are the property of their respective owners.</p>
+                    <p class="legal-links">
+                        <a href="#">Contact</a> |
+                        <a href="#">Terms of Use</a> |
+                        <a href="#">Privacy Policy</a>
+                    </p>
+                </div>
+            </footer>
         </main>
 
         <aside class="sidebar right-sidebar" aria-label="Upcoming Rated Events">
@@ -110,42 +146,6 @@
         </aside>
     </div>
 
-    <footer class="content-footer">
-        <div class="footer-columns">
-            <div class="footer-column">
-                <h3>Navigation</h3>
-                <ul class="footer-links">
-                    <li><a href="/">SF6 Rankings</a></li>
-                    <li><a href="/tournament-results/">Tournament Results</a></li>
-                    <li><a href="/ranking-system/">Ranking System</a></li>
-                </ul>
-            </div>
-            <div class="footer-column">
-                <h3>Community</h3>
-                <ul class="footer-links">
-                    <li><a href="/about/">About Us</a></li>
-                    <li><a href="#">Become a Contributor</a></li>
-                    <li><a href="#">Support the Site</a></li>
-                </ul>
-            </div>
-            <div class="footer-column">
-                <h3>Follow Us</h3>
-                <ul class="footer-social">
-                    <li><a href="https://x.com" target="_blank" rel="noopener noreferrer"><i class="fab fa-x-twitter"></i></a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="footer-legal">
-            <p>&copy; {% year %} FGC Top Players. All rights reserved.<br>
-            An unofficial, community-driven resource. All game and player trademarks and images are the property of their respective owners.</p>
-            <p class="legal-links">
-                <a href="#">Contact</a> |
-                <a href="#">Terms of Use</a> |
-                <a href="#">Privacy Policy</a>
-            </p>
-        </div>
-    </footer>
-
     <noscript>
         <p style="text-align:center;padding:1rem;background:#111;color:#f00;">
             JavaScript is disabled. Some interactive features may not work correctly.
@@ -161,18 +161,18 @@
 <script>
   function handleResponsiveLayout() {
     const isMobile = window.matchMedia('(max-width: 768px)').matches;
-    const contentWrapper = document.querySelector('.page-wrapper');
+    const pageWrapper = document.querySelector('.page-wrapper');
     const mobileHeader = document.querySelector('.mobile-header');
     const tournamentNav = document.querySelector('.tournament-nav');
     const pageTitle = document.querySelector('.page-tournament-results h1');
 
-    if (!contentWrapper || !mobileHeader) return;
+    if (!pageWrapper || !mobileHeader) return;
 
     // --- 1. Handle Content Padding ---
     if (isMobile) {
-      contentWrapper.style.paddingTop = `${mobileHeader.offsetHeight}px`;
+      pageWrapper.style.paddingTop = `${mobileHeader.offsetHeight}px`;
     } else {
-      contentWrapper.style.paddingTop = '0';
+      pageWrapper.style.paddingTop = '0';
     }
 
     // --- 2. Handle Tournament Nav Position ---

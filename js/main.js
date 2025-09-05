@@ -381,3 +381,35 @@ else if (rank >= 5 && rank <= 40) row.classList.add('ranked-6-40');
     }
     // --- END: BACK TO TOP BUTTON SCRIPT ---
 });
+
+// --- Load More Button for Event Page ---
+document.addEventListener('DOMContentLoaded', () => {
+    const loadMoreBtn = document.getElementById('load-more-btn');
+    const resultsGrid = document.getElementById('results-grid');
+
+    // If the button doesn't exist on this page, do nothing.
+    if (!loadMoreBtn || !resultsGrid) {
+        return;
+    }
+
+    const resultsPerPage = 16;
+
+    loadMoreBtn.addEventListener('click', () => {
+        // Find all result cards that are currently hidden
+        const hiddenCards = resultsGrid.querySelectorAll('.result-card.is-hidden');
+        
+        // Show the next 16 hidden cards
+        for (let i = 0; i < resultsPerPage; i++) {
+            if (hiddenCards[i]) {
+                hiddenCards[i].classList.remove('is-hidden');
+            }
+        }
+
+        // Check if there are any cards left to show
+        const stillHiddenCards = resultsGrid.querySelectorAll('.result-card.is-hidden');
+        if (stillHiddenCards.length === 0) {
+            // If no more cards are hidden, hide the button itself
+            loadMoreBtn.style.display = 'none';
+        }
+    });
+});
